@@ -1,0 +1,3 @@
+- essential_terminology.md: Essential Terminology
+- basic_data_types.md: Basic Data Types
+- conditionals.md: Conditionals
