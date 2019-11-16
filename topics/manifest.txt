@@ -1,3 +1,13 @@
 - essential_terminology.md: Essential Terminology
 - basic_data_types.md: Basic Data Types
+- modules.md: Modules & Packages
 - conditionals.md: Conditionals
+- lists.md: Lists
+- dicts.md: Dicts
+- loops.md: Loops
+- list_comprehensions.md: List Comprehensions
+- functions.md: Functions
+- classes.md: Classes
+
+
+
