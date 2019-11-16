@@ -1,7 +1,3 @@
-<!---
-{"next": "","title": "About"}
--->
-
 # About
 
 Built by your boy **[Taq Karim](https://taqkarim.dev)** and **Julianna Garreffa** 😍 with **[this](https://github.com/rust-lang-nursery/mdBook)**, **[this](https://travis-ci.org/)**, ☕☕☕ and ❤️. 
