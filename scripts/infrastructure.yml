@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  gather_facts: False
+  gather_facts: True
   tasks:
     - name: provides variables needed at build time
       template:

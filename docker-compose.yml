@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/pycontent/Dockerfile
+    environment:
+      - PYTHONPATH=src
     env_file: envvars
     volumes:
       - ${ANSIBLE_VAULT_PASSWORD_FILE:-~/.vault_pass}:/.vault_pass:ro
