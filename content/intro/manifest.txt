@@ -1,3 +1,4 @@
-- admin_info.md: Admin
+- admin_info.md: Admin Info
 - tools.md: Tools
-- fad.md: FAQ
+- faq.md: FAQ
+- about.md: About
