@@ -1,4 +1,4 @@
-# Data Science
+# Data Science Foundations
 
 ## The What, Why, & Who of Data Science
 
@@ -139,8 +139,6 @@ Data vizualization is key to this endeavor because it's the easiest way to simpl
 **HOWEVER, there's always one exception!** Generally, "less is more" surpasses everything else in importance *except for "consider your audience".* You always want to minimize the amount of text on your visualization, but "the minimum" differs based on how much context your audience has. Ultimately, you need to make sure every viewer has enough context to be grounded in the appropriate frame of reference.
 
 If you want, you can see browse through a lot more tips on [Data to Viz's "Caveats" page](https://www.data-to-viz.com/caveats.html).
-
-
 
 ## Python Tools for Data Science
 
