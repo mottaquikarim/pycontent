@@ -107,11 +107,7 @@ This is where the magic happens. We won't get into the details of machine learni
 
 Remember that your results might not be sufficient after only one iteration. They might point you in the right direction, but they won't necessarily answer all your questions sufficiently. You'll probably have to repeat parts of the cycle several times before you can confidently draw conclusions and make recommendations.
 
-### 7) DATA VISUALIZATION
-
-This final step is so important, we're going to give it its own section...
-
-## Visualizations & Data Storytelling
+### 7) DATA VISUALIZATION (& Data Storytelling)
 
 The single most important takeaway from this walk-through is this - *the value of your results depends directly on how well key stakeholders understand them!* Data science is valuable because of the insights we can discover using it. You can have all the mathematical evidence in the world for those insights, but your stakeholders have to understand their contextual significance and believe they can turn them into strategic, impactful business actions. Otherwise, what value do those insights have?
 
@@ -122,13 +118,17 @@ This where the ubiquitous buzz phrase **data storytelling** comes into play. The
 1. Honing a cohesive narrative that establishes a thesis
 2. Highlighting meaningful key metrics as evidence to support that thesis
 
-Data vizualization is key to this endeavor because it's the easiest way to simplify heaps and mounds of numerical data into a clear message. As the saying goes, a picture can say a thousand words!
+Data vizualization is key to this endeavor because it's the easiest way to boil down heaps and mounds of numerical data into a clear message. That As the saying goes, a picture can say a thousand words!
 
 #### Tips for Quality Data Viz
 
-* Focus the message on a central theme. Ensure your visualizations aid the progression of that message appropriately.
+* Focus the message on a central theme. Ensure Your visualizations should aid the progression of your message appropriately.
 	* Display the visualization at the appropriate point in your story.
 	* If you have more than one visualization in view at a time, position each one contextually, according to natural reading eye movement.
+* Some attributes affect our brain more strongly. In order of focus:
+	* Position
+	* Color
+	* Size
 * Do not use color for decorative or non-informational purposes. It should be used to highlight key metrics or data points that help support your message.
 * Most importantly, *avoid visual clutter like the plague!*
 	* Eliminate the legend if it will not detract from understanding.
