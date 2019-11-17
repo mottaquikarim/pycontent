@@ -23,7 +23,7 @@ else
 	docker-compose run pycontent ansible-playbook scripts/infrastructure.yml
 endif
 
-run-app: build-app build-config
+run-app: require-env build-app build-config
 	docker-compose run pycontent /bin/bash
 
 encrypt:
