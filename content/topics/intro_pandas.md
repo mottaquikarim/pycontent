@@ -38,7 +38,6 @@ import seaborn as sns
 
 *As a bonus, I've added the notation for importing the other two libraries to be used in this class - matplotlib and seaborn. More to come on these later!*
 
-
 ## NumPy ndarray Objects
 
 Pandas is built on top of NumPy, so before  new users should first understand one NumPy data object that often appears within Pandas objects - the **ndarray, or N-dimensional array**.
@@ -63,7 +62,7 @@ print(arrayB) # ['a' 'b' 'c']
 
 Wrong. You don't need to get caught up on the syntactical details of ndarrays for this course. However, you should understand the three key differences between ndarrays and lists: 
 
-**1) All ndarrays must be homogenous.**
+### 1) All ndarrays must be homogenous.
 
 All elements in an ndarray must be the same data type (e.g. integers, floats, strings, booleans, etc.). If you try to enter data that is not homogenous, the `.array()` function will force unity of data type.
 
@@ -77,7 +76,7 @@ bad_array2 = np.array([1, False])
 print(bad_array2) # [1 0]
 ```
 
-**2) An ndarray can have multiple dimensions.**
+### 2) An ndarray can have multiple dimensions.
 
 <img src="https://raw.githubusercontent.com/mottaquikarim/PythonProgramming/master/assets/numpy_ndarrays.png" style="margin: 0 auto; display: block;"/>
 
@@ -100,7 +99,6 @@ print(arrayC)
 ```
 
 **3-D array: 2x3x3**
-
 ```python
 arrayD = np.array((([1, 2, 3], [4, 5, 6], [7, 8, 9]), ([1, 2, 3], [4, 5, 6], [7, 8, 9])), ndmin = 3)
 print(arrayD)
@@ -115,7 +113,7 @@ print(arrayD)
 """
 ```
 
-**3) ndarrays are designed to handle `vectorized` operations** 
+### 3) ndarrays are designed to handle `vectorized` operations
 
 In other words, if you apply a function to an ndarray object, the program will perform said function on *each* item in the array individually. Depending on the operand, if you apply a function to a list, either the function will be performed on the list object *as a whole* or you will get a TypeError. As a bonus, these vectorization capabilities also allow ndarrays take up less memory space and run faster.
 
@@ -130,107 +128,69 @@ print(array1 * 10) # [30 50 70]
 print(array1 + 1) # [4 6 8]
 ```
 
-
-
-## Index Objects
+## Pandas Index Objects
 
 We know about the concept of an `index` from basic Python `lists`. Well, Pandas considers `Index` to be its own class of objects because you can customize an index in Pandas. As formally defined in the Pandas docs, an `index` object is an "immutable ndarray implementing an ordered, sliceable set" which is the default object for "storing axis labels for all pandas objects".
 
-==|       | List | ndarray | Series |
-|-------|-------|---|---|
-| Can reference by index position | Y | Y |   |
-| Handles vectorized operations   | N | Y | Y |
-| Can have n-dimensions           | N | Y | N |
-| All values must be homogenous   | N | Y |  |
-|   |  |  |  |==
+## Pandas Series Objects
 
-## Series Objects
+A **Series** object from the Pandas library is like a simpler version of an ndarray.
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/PythonProgramming/master/assets/pd_series.png" style="margin: 0 auto; display: block;"/>
+* All the values in a Series must homogenous.
+* A Series is always 1-D.
+* Series support vectorized operations
+* By default, the `index` parameter assigns an zero-based index. Alternatively, you can assign custom index labels to a Series. On this front, a Series is also similar to a regular Python `dict`. 
 
-A **Series** is a 1-D array of data just like the Python `list` datatype we've been working with, but it's a bit more flexible. Some notable characteristics include:
+>>Pandas Index Objects
+>>We know about the concept of an `index` from basic Python `lists`. Well, Pandas considers `Index` to be its own class of objects because you can customize an index in Pandas. As formally defined in the Pandas docs, an `index` object is an "immutable ndarray implementing an ordered, sliceable set" which is the default object for "storing axis labels for all pandas objects".
 
-* A Series is like a dict in that you can get and set values by index label.
-* A Pandas `Series` acts very similarly to a NumPy `ndarray`:
-	* Just like ndarrays, looping through a Series value-by-value is usually not necessary because of its capability to handle vectorized operations.
-* The Pandas Series does have some distinct differences from an ndarray:
-	* A Series can only have one dimension.
-	* Operations between Series automatically align the data based on index label.
+The general syntax for creating a Series is `s = pd.Series(data, index = index, dtype)`. Using this syntax, you can instantiate a Series from a single scalar or boolean value, a list, an ndarray, or a dict.
 
-Here's the general syntax for creating a Series:
+**Series from a single scalar/boolean value, using a custom index**
 
 ```python
-import numpy as np
-import pandas as pd
 
-s = pd.Series(data, index = index, dtype)
+s_scalar = pd.Series(1, index=['a', 'b', 'c', 'd', 'e'])
+ubstitute 
+s_boolean = pd.Series(False, index=['a', 'b', 'c', 'd', 'e'])
+
+print(s_scalar)
+print(s_boolean)
 ```
 
-* The `data` parameter can intake a Python dict, an ndarray, or a scalar value (like 5, 7.5, True, or 'a').
-* By default, the `index` parameter assigns an zero-based index to each element in data much like a regular Python `list`. Again though, you can pass custom index values to a `Series` to serve as axis labels for your data. Note that Pandas DOES support *non-unique* index values. 
-* `dtype` specifies the type of data you're passing into your Series. If you leave this blank, the program will infer the `dtype` from the contents of the `data` parameter.
-
-Using this syntax, you can instantiate a Series from a single scalar value, a list, an ndarray, or a dict. *Note:* If `data` is an `ndarray`, `index` must be the same length as `data`.
+**Series from a list, using default indexing**
 
 ```python
-import numpy as np
-import pandas as pd
-import random
-
-# From a single scalar value
-s_scalar = pd.Series(5., index=['a', 'b', 'c', 'd', 'e'])
-"""
-a    5.0
-b    5.0
-c    5.0
-d    5.0
-e    5.0
-"""
-
-# From a list
 s_list = pd.Series(['red','orange','yellow','green','blue','purple'])
-"""
-0       red
-1    orange
-2    yellow
-3     green
-4      blue
-5    purple
-"""
-
-# From an ndarray
-s_ndarray = pd.Series(np.random.randn(5), index=['a', 'b', 'c', 'd', 'e'])
-print(s_ndarray)
-"""
-a   -0.901847
-b   10.503150
-c    2.060891
-d   -0.367695
-e    1.040442
-"""
-
-# From a dict
-d = {'b': 1, 'a': 0, 'c': 2} ### use wines from data set
-s_dict = pd.Series(d)
-"""
-b    1
-a    0
-c    2
-"""
+print(s_list)
 ```
 
-## DataFrame Objects
+**Series from an ndarray, using default indexing**
+
+```python
+s_ndarray = pd.Series(np.ndarray(['red', 'orange' 'yellow','green','blue','purple']))
+print(s_ndarray)
+```
+
+**Series from a dict, using implicit custom index**
+
+```python
+my_dict = {'c': 15, 'B': 20, 'a': 10}
+s_dict = pd.Series(my_dict)
+print(s_dict)
+```
+
+## Pandas DataFrame Objects
 
 <img src="https://raw.githubusercontent.com/mottaquikarim/PythonProgramming/master/assets/pd_dataframe.png" style="margin: 0 auto; display: block;"/>
 
-
-A **DataFrame** is a two-dimensional data matrix that stores data much like a spreadsheet does. It has labeled columns and rows with values for each column. Basically, it's virtual spreatsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other DataFrames. The general syntax for creating a DataFrame is identical to that of a Series except it includes a second index parameter called `columns` parameter for adding the index values to the second dimension:
+A **DataFrame** is a 2-D data matrix that stores data much like a spreadsheet does. It has labeled columns and rows with values for each column. Basically, it's virtual spreatsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other DataFrames. The general syntax for creating a DataFrame is identical to that of a Series except it includes a second index parameter called `columns` parameter for adding the index values to the second dimension:
 
 ```python
 import numpy as np
 import pandas as pd
 
-df = pd.DataFrame (data, index, columns)
+df = pd.DataFrame(data, index, columns)
 ```
 
 Creating a DataFrame is a little more complex than creating a Series because you have to consider both `rows` and `columns`. Aside from creating a dataframe indirectly by importing an existing data structure, you can create a DataFrame by:
