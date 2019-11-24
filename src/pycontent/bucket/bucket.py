@@ -26,6 +26,11 @@ class Bucket:
         if os.path.isfile(path):
             return ItemTypes.FILE
 
+    @staticmethod
+    def get_base_path(path):
+        path_bits = path.split('.')
+        return ".".join(path_bits[0:-1])
+
     def __init__(self, base, out, name):
         self.path = Bucket.get_path(base, name)
         self.out_path = Bucket.get_path(out, name)

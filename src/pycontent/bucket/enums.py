@@ -7,3 +7,8 @@ class ItemTypes(Enum):
     BASE = 3
     FILE = 4
     DIRECTORY = 5
+
+
+class SupportedExtensions(Enum):
+    HTML = 1
+    IPYNB = 2
