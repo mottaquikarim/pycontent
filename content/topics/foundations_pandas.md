@@ -2,7 +2,7 @@
 {"next": "Topics/preprocessing.md","title": "Intro to Pandas Objects"}
 -->
 
-# Intro to Pandas Objects
+# Foundations of Pandas
 
 <img src="https://media.giphy.com/media/EatwJZRUIv41G/giphy.gif" style="margin: 0 auto; float: right;"/>
 

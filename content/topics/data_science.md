@@ -1,4 +1,4 @@
-# Data Science Foundations
+# Principles of Data Science
 
 ## The What, Why, & Who of Data Science
 

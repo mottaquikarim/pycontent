@@ -8,6 +8,9 @@
 - list_comprehensions.md: List Comprehensions
 - functions.md: Functions
 - classes.md: Classes
+- data_science.md: Principles of Data Science
+- foundations_pandas.md: Foundations of Pandas
+- accessing_data.md: Accessing Data
 
 
 
