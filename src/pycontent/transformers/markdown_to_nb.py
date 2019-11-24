@@ -23,7 +23,7 @@ def chainable(func):
 
 
 class NotebookBuilder:
-    EP_TIMEOUT = 10
+    EP_TIMEOUT = 3
     EP_KERNAL_NAME = 'python'
     EP_ALLOW_ERRORS = True
 

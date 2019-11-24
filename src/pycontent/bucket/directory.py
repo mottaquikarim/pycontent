@@ -69,10 +69,11 @@ class Directory(Bucket):
                 output[item_bits[0]] = []
             else:
                 item_base = item.split('.')[:-1]
-                output[item_bits[0]].append(item_base)
+                output[item_bits[0]].append(".".join(item_base))
 
         with open(f"{self.out}/manifest.json", "w") as f:
-            f.write(json.dumps({"files": output}))
+            dict_ = [{i: output[i]} for i in output]
+            f.write(json.dumps({"files": dict_}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

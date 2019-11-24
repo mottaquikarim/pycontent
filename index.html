@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.css">
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-twilight.min.css"> -->
+		<style>
+			html, body {
+				height: 100%;
+				min-height: 100%;
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-wrap: wrap;
+				height: 100%;
+				min-height: 100%;
+				font-size: 23px;
+				font-family: Helvetica;
+			}
+
+			pre {
+				font-family: Monaco, monospace;
+			}
+
+			.col {
+				height: 100%;
+				overflow: scroll;
+				box-sizing: border-box;
+				border: 1px solid black;
+				padding: 30px;
+			}
+
+			.col-part {
+				width: 30%;
+			}
+
+			.col-full {
+				width: 70%;
+				padding: 30px;
+			}
+
+			.link {
+				display: block;
+				color: black;
+				text-decoration: none;
+				text-indent: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="col col-part js-links">
+
+		</div>
+		<div class="col col-full js-content">
+
+		</div>
+
+		<script src="https://jsvine.github.io/nbpreview/js/vendor/ansi_up.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-python.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"></script>
+		<script src="notebook.js"></script>
+		<script>
+			const OUTPUT_FILE = ".out"
+			const MANIFEST = `${OUTPUT_FILE}/manifest.json`
+
+			const get_file = src => new Promise((resolve, reject) => {
+				const xhr = new XMLHttpRequest()
+				xhr.open('GET', src)
+				xhr.onload = e => resolve(e)
+				xhr.send()
+			})
+
+			const links = document.querySelector('.js-links')
+			const contentDom = document.querySelector('.js-content')
+
+			links.addEventListener('click', e => {
+				e.preventDefault();
+				if (!e.target.matches('.js-link')) {
+					return
+				}
+
+				console.log(e.target)
+				const href = e.target.getAttribute('href')
+				get_file(`${href}.ipynb`)
+					.then(content => {
+						const data = JSON.parse(content.target.response)
+						console.log(data)
+						var notebook = nb.parse(data);
+						var rendered = notebook.render();
+						console.log(rendered)
+						while (contentDom.hasChildNodes()) {
+            				contentDom.removeChild(contentDom.lastChild);
+        				}
+						contentDom.appendChild(rendered);
+						Prism.highlightAll();
+					})
+			})
+
+			get_file(MANIFEST)
+				.then(e => {
+					const {files} = JSON.parse(e.target.response)
+					files.forEach(file => {
+						console.log(file)
+						const keys = Object.keys(file)
+						const title = keys[0]
+						console.log(title, file[title])
+						const links_txt = file[title].map(link => {
+							return `<a class="link js-link" href="${OUTPUT_FILE}${link}"">${link}</a>`
+						})
+						links.innerHTML += `<h2>${title}</h2>${links_txt.join('\n')}`
+					})
+					
+				})
+		</script>
+	</body>
+</html>
