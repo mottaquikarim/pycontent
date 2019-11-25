@@ -7,47 +7,42 @@ This might get a little confusing, so brace yourself! To help keep things as con
 ## Data Dictionary
 
 ==FILL LATER==
-OMDb API to pull movie metadata
+[OMDb API](http://www.omdbapi.com/) to pull movie metadata
 
 Always include a data dictionary alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as sharing information about how certain variables are formatted.
 
-Below is the data dictionary for the *unaltered OMDb data*. The formats here are the original ones obtained from the OMDB API as it exists before *
-The OMDb dataset has pretty self-explanatory variables, so we've left some definitions blank.
+Below is the data dictionary for the *unaltered OMDb data*. If it seems disorganized and convoluted... that's because it is! The fields and formats here are the original ones obtained straight from the OMDB API. In order to wrangle this data for our purposes, we have to first clean it ourselves. (That said, the OMDb dataset does have a few pretty self-explanatory variables, so we've left some definitions blank.)
 
-* Title
-* Year: Year the movie was made
-* Rated: MPAA content rating (e.g. PG, NC17, R, etc.)
-* Released: Date the movie was released to the public
-* Runtime: How long in number of minutes 
-* Genre: One or more genres that describe the movie* 
-* Director*
-* Writer*
-* Actors*
-* Plot
-* Language
-* Country
-* Awards*
-* Poster: Amazon-hosted image url for the poster of the movie
-* Ratings: Series containing ratings from multiple sources (e.g. Rotten Tomatoes)
-* Metascore: Metacritic rating from critics
-* Rotten Tomatoes: Rotten Tomatoes rating from critics 
-* imdbRating: Crowd-sourced audience rating from IMDb
-* imdbVotes: Number of user ratings from IMDb
-* imdbID: Unique movie ID from IMDb
-* Type: Content category ==(e.g. movie, tv, etc.)==
-* DVD
-* BoxOffice
-* Production
-* Website: url
-* Response: 
-
-Runtime', 'Genre', 'Director',
-       'Writer', 'Actors', 'Plot', 'Language', 'Country', 'Awards', 'Poster',
-       'Ratings', 'Metascore', 'imdbRating', 'imdbVotes', 'imdbID', 'Type',
-       'DVD', 'BoxOffice', 'Production', 'Website', 'Response',
-       'Internet Movie Database', 'Rotten Tomatoes', 'Metacritic',
-       'totalSeasons'
-
+* **Title**
+* **Year**: Year the movie was made
+* **Rated**: MPAA content rating (e.g. PG, NC17, R, etc.)
+* **Released**: Date the movie was released to theaters
+* **Runtime**: How long in number of minutes 
+* **Genre**: One or more genres that describe the movie* 
+* **Director**
+* **Writer**
+* **Actors**
+* **Plot**
+* **Language**
+* **Country**
+* **Awards**: # of nominations and # of wins for one or more types of awards
+* **Poster**: Amazon-hosted image url for the poster of the movie
+* **Ratings**: Series containing ratings from multiple sources (e.g. Rotten Tomatoes)
+* **Metascore**: Metacritic rating from critics
+* **Rotten Tomatoes**: Rotten Tomatoes rating from critics 
+* **imdbRating**: Crowd-sourced audience rating from IMDb
+* **imdbVotes**: Number of user ratings from IMDb
+* **imdbID**: Unique movie ID from IMDb
+* **Type**: Content category ==(e.g. movie, tv, etc.)==
+* **DVD**: Date the movie was released to DVD
+* **BoxOffice**: Box office earnings in US dollars
+* **Production**: Production company
+* **Website**: url
+* **Response**: 
+* **Internet Movie Database**: 
+* **Rotten Tomatoes**: 
+* **Metacritic**: 
+* **totalSeasons**: Number of seasons, if applicable
 
 ## Reading & Writing Data
 
@@ -84,7 +79,66 @@ movies = omdb_orig.copy()
 
 ## Summarize Data 
 
+Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the amount and type of data in your dataframe. (Note: This method doesn't work for Series objects).
 
+* `	Metascore       4713 non-null float64` means that only 4713 rows have a metascore available.
+* `RangeIndex: 5788 entries` means that the dataframe has 5788 rows. 
+
+```python
+movies.info()
+```
+
+Alternatively, you could use `len(df)` to find the number of rows in a dataframe. For a series, `len(series)` gives the number of items in the array.
+
+```python
+len(movies)
+```
+
+Number of rows in a DataFrame / number of items in a Series
+
+```python
+len(movies) 
+```
+
+
+Size # of elements vs. tuple showing dimensions shape
+
+```python
+print(movies.shape)
+movies.size
+```
+
+First rows
+
+```python
+movies.head() 
+```
+
+Last rows
+
+```python
+movies.tail() 
+```
+
+Series containing the column names
+
+```python
+movies.columns
+```
+
+Core descriptive stats about each *numerical* column
+
+```python
+movies.describe()
+```
+
+Let's say that I want to see what the "object" in the `Genre` column looks like.
+
+
+```python
+movies.describe()
+movies['Genre'].describe()
+```
 
 ## Selecting Data
 
