@@ -1,7 +1,3 @@
-<!---
-{"next": "Topics/preprocessing.md","title": "Intro to Pandas Objects"}
--->
-
 # Foundations of Pandas
 
 <img src="https://media.giphy.com/media/EatwJZRUIv41G/giphy.gif" style="margin: 0 auto; float: right;"/>
@@ -29,6 +25,7 @@ To gain some baseline familiarity with Pandas features and pre-requisites, in th
 ## Importing Data Science Libraries
 
 The first thing you have to do start a new analysis is import whichever data science libraries you plan to use. Pandas is built on top of NumPy, so you have to import that separately every time you plan to use pandas. Notice the standard abbreviations used for later references of the libraries.
+
 ```python
 import numpy as np 
 import pandas as pd
@@ -78,7 +75,7 @@ print(bad_array2) # [1 0]
 
 ### 2) An ndarray can have multiple dimensions.
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/PythonProgramming/master/assets/numpy_ndarrays.png" style="margin: 0 auto; display: block;"/>
+<img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
 
 ndarrays have a parameter called `ndmin`, which allows you to specify the number of dimensions you want for your array when you create it. Each dimension prints on its own line, so the ndarray looks more like a *grid* than a single list. Having n-dimensions also means that when you reference ndarray values by index, you need to use multiple index positions.
 
@@ -99,6 +96,7 @@ print(arrayC)
 ```
 
 **3-D array: 2x3x3**
+
 ```python
 arrayD = np.array((([1, 2, 3], [4, 5, 6], [7, 8, 9]), ([1, 2, 3], [4, 5, 6], [7, 8, 9])), ndmin = 3)
 print(arrayD)
@@ -127,11 +125,6 @@ print(array1 * 10) # [30 50 70]
 # print(list1 + 1) # TypeError
 print(array1 + 1) # [4 6 8]
 ```
-
-## Pandas Index Objects
-
-We know about the concept of an `index` from basic Python `lists`. Well, Pandas considers `Index` to be its own class of objects because you can customize an index in Pandas. As formally defined in the Pandas docs, an `index` object is an "immutable ndarray implementing an ordered, sliceable set" which is the default object for "storing axis labels for all pandas objects".
-
 ## Pandas Series Objects
 
 A **Series** object from the Pandas library is like a simpler version of an ndarray.
@@ -139,12 +132,9 @@ A **Series** object from the Pandas library is like a simpler version of an ndar
 * All the values in a Series must homogenous.
 * A Series is always 1-D.
 * Series support vectorized operations
-* By default, the `index` parameter assigns an zero-based index. Alternatively, you can assign custom index labels to a Series. On this front, a Series is also similar to a regular Python `dict`. 
+* By default, the `index` parameter assigns an zero-based index. Alternatively, you can assign custom index labels to a Series. On this front, you can think of a Series kind of like a dict.
 
->>Pandas Index Objects
->>We know about the concept of an `index` from basic Python `lists`. Well, Pandas considers `Index` to be its own class of objects because you can customize an index in Pandas. As formally defined in the Pandas docs, an `index` object is an "immutable ndarray implementing an ordered, sliceable set" which is the default object for "storing axis labels for all pandas objects".
-
-The general syntax for creating a Series is `s = pd.Series(data, index = index, dtype)`. Using this syntax, you can instantiate a Series from a single scalar or boolean value, a list, an ndarray, or a dict.
+The general syntax for creating a Series is `s = pd.Series(data, index, dtype)`. Using this syntax, you can instantiate a Series from a single scalar or boolean value, a list, an ndarray, or a dict.
 
 **Series from a single scalar/boolean value, using a custom index**
 
@@ -182,9 +172,14 @@ print(s_dict)
 
 ## Pandas DataFrame Objects
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/PythonProgramming/master/assets/pd_dataframe.png" style="margin: 0 auto; display: block;"/>
+<img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
 
-A **DataFrame** is a 2-D data matrix that stores data much like a spreadsheet does. It has labeled columns and rows with values for each column. Basically, it's virtual spreatsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other DataFrames. The general syntax for creating a DataFrame is identical to that of a Series except it includes a second index parameter called `columns` parameter for adding the index values to the second dimension:
+A **DataFrame** is a 2-D data matrix that stores data much like a spreadsheet does. 
+
+
+It has labeled columns and rows with values for each column. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other DataFrames. The general syntax for creating a DataFrame is identical to that of a Series except it includes a second index parameter called `columns` parameter for adding the index values to the second dimension:
+
+
 
 ```python
 import numpy as np
@@ -263,6 +258,55 @@ first   1   2   NaN
 second  5  10  20.0
 """
 ```
+
+
+
+
+## Pandas Index Objects
+
+As opposed to the index of a regular Python `list`, Pandas considers `Index` to be its own object class.
+
+We just briefly looked at how to set custom index labels for `Series` objects and `DataFrame` objects. Let's break it down further. 
+
+<img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
+
+We just saw how a Series index 
+know about the concept of an `index` from basic Python `lists`. In a list object, the index allows you to select a list item by referencing its *numerical position* (like counting).
+
+
+
+
+
+
+**BEFORE**
+
+*List object*
+
+|  my_list | Brandi | Zoe | Steve | Aleksander | Dasha |
+|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
+| Index |     0    |   1   |    2    |    3   |    4   |
+
+
+|  my_series | Brandi | Zoe | Steve | Aleksander | Dasha |
+|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
+| Index |     0    |   1   |    2    |    3   |    4   |
+
+Because a list's index refers to the item's *position*, if you add, remove, or reorder items, the index is unaffected. In other words, let's say I alphabetize these names. `my_list[1]`, for example, no longer refers to "Zoe". Instead, it refers to "Brandi".
+
+|  my_list | Aleksander | Brandi | Steve | Aleksander | Zoe |
+|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
+| Index |     0    |   1   |    2    |    3   |    4   |
+
+Well, Pandas considers `Index` to be its own object class, and it works a little differently. 
+
+As formally defined in the Pandas docs, an `Index` object is an "immutable ndarray implementing an ordered, sliceable set". Whereas a regular list's index is , The main purpose of an `Index` object is to store the labels for each axis in an array. 
+
+
+
+
+
+It *does NOT have to be unique*, though you should always use unique values when creating a custom index. try to always  Itwhich is the default object for "storing axis labels for all pandas objects".
+
 
 
 ## Reading/Writing Files
