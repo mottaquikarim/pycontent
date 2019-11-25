@@ -163,11 +163,7 @@ print(s_dict)
 
 ## Pandas DataFrame Objects
 
-<img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
-
 <img src="../images/df_components.png" style="margin: 0 auto; display: block;"/>
-
-==create own diagram, also showing axes==
 
 A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
 
@@ -221,16 +217,14 @@ We learned about the concept of **index positioning** back in the unit on regula
 
 Here's a Series containing names of people:
 
-| BEFORE           |       |     |       |            |       |
-|:----------------:|:-----:|:---:|:-----:|:----------:|:-----:|
 |                  | Brandi| Zoe | Sasha | Aleksander | Olaf  |
+|:----------------:|:-----:|:---:|:-----:|:----------:|:-----:|
 |   Index label    |  0    |   1 |   2   |      3     |   4   |
 | *index position* |  0    |   1 |   2   |      3     |   4   |
 
 Now, let's say you alphabetize the Series by sorting the values. The index position doesn't change, but the `Index` labels follow their corresponding values.
 
-| AFTER            |            |        |      |        |       |
-|:----------------:|:----------:|:------:|:----:|:------:|:-----:|
 |                  | Aleksander | Brandi | Olaf | Sasha  |  Zoe  |
+|:----------------:|:----------:|:------:|:----:|:------:|:-----:|
 |   Index Label    |  3         |   0    |   4  |    2   |   1   |
 | *index position* |  0         |   1    |   2  |    3   |   4   |

@@ -74,7 +74,7 @@ movies = omdb_orig.copy()
 ==params for if there are headers or an idx?????==
 It is also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can your data to the original dataset. You can make a shallow copy (see below), but it's always better to the `.copy()` method.
 
-==SHOW THAT ANNOYING ERROR ABOUT MAKING CHANGES TO ORIGINAL DATAFRAME== 
+[SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/) ==<-- **important article to read!!**==
 
 ## Summarize Data 
 
