@@ -14,14 +14,6 @@
 * Basics statistics
 * Time-series functionality, e.g. date shifting, frequency conversions, & moving window statistics
 
-To gain some baseline familiarity with Pandas features and pre-requisites, in this lesson, you'll learn about:
-
-* [NumPy ndarray Objects](intro_pandas.md#numpy-ndarrays-objects)
-* [Basic Pandas Objects](intro_pandas.md#basic-pandas-objects)
-	* [Index](intro_pandas.md#basic-pandas-objects-index)
-	* [Series](intro_pandas.md#basic-pandas-objects-series)
-	* [DataFrames](intro_pandas.md#basic-pandas-objects-dataframes)
-
 ## Importing Data Science Libraries
 
 The first thing you have to do start a new analysis is import whichever data science libraries you plan to use. Pandas is built on top of NumPy, so you have to import that separately every time you plan to use pandas. Notice the standard abbreviations used for later references of the libraries.
@@ -32,7 +24,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-
 *As a bonus, I've added the notation for importing the other two libraries to be used in this class - matplotlib and seaborn. More to come on these later!*
 
 ## NumPy ndarray Objects
@@ -127,7 +118,7 @@ print(array1 + 1) # [4 6 8]
 ```
 ## Pandas Series Objects
 
-A **Series** object from the Pandas library is like a simpler version of an ndarray.
+A **Series** object from the Pandas library is a 1-D ndarray that has been streamlined for data processing.
 
 * All the values in a Series must homogenous.
 * A Series is always 1-D.
@@ -174,147 +165,72 @@ print(s_dict)
 
 <img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
 
-A **DataFrame** is a 2-D data matrix that stores data much like a spreadsheet does. 
+<img src="../images/df_components.png" style="margin: 0 auto; display: block;"/>
 
+==create own diagram, also showing axes==
 
-It has labeled columns and rows with values for each column. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other DataFrames. The general syntax for creating a DataFrame is identical to that of a Series except it includes a second index parameter called `columns` parameter for adding the index values to the second dimension:
+A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
 
+The syntx for creating a dataframe manually is `df = pd.DataFrame(data, index, columns)`. This is syntactically similar to creating a series, with two notable differences. First, there is no `dtype` parameter for a dataframe, since each column could contain data of a different type. Second, a series is 1-D, so it only needs an index for axis 0. Since a dataframe is 2-D, it includes another parameter called `columns` for labeling axis 1.
+
+Constructing a DataFrame manually is a little more complex because you have to ensure the values for the rows and columns align correctly. The examples below illustrate multiple different ways to create the same dataframe. 
+
+1) Specify column labels directly within the `data` parameter by passing in a **dict of lists and/or ndarrays**. 
 
 
 ```python
-import numpy as np
-import pandas as pd
+d1 = {
+'a': [4, 5, 6], 
+'b': np.array([7, 8, 9]), 
+'c': [10, 11, 12]}
 
-df = pd.DataFrame(data, index, columns)
+df1 = pd.DataFrame(data = d1, index = ['foo', 'bar', 'baz'])
+df1
 ```
 
-Creating a DataFrame is a little more complex than creating a Series because you have to consider both `rows` and `columns`. Aside from creating a dataframe indirectly by importing an existing data structure, you can create a DataFrame by:
-
-* Specifying column names (i.e. column index values) directly within the `data` parameter
-* Specifying column names separately in the `columns` parameter
+2) Specify both the index AND column labels directly within the `data` parameter by passing in a **dict of Series**. 
 
 ```python
-import numpy as np
-import pandas as pd
+d2 = {
+'a': pd.Series([4, 5, 6,], index = ['foo', 'bar', 'baz']), 
+'b': pd.Series([7, 8, 9], index = ['foo', 'bar', 'baz']), 
+'c': pd.Series([10, 11, 12], index = ['foo', 'bar', 'baz'])}
 
-# Specify values for each column.
-df = pd.DataFrame(
-{"a" : [4 ,5, 6],
-"b" : [7, 8, 9],
-"c" : [10, 11, 12]},
-index = [1, 2, 3])
+df2 = pd.DataFrame(data = d2)
+df2
+```
 
-# Specify values for each row.
-df = pd.DataFrame(
+3) Specify the values in the `data` parameter in the form of a 2-D ndarray. Then separately specify the index and column labels in their corresponding parameters.
+
+```python
+df3 = pd.DataFrame(
 [[4, 7, 10],
 [5, 8, 11],
 [6, 9, 12]],
-index=[1, 2, 3],
+index=['foo', 'bar', 'baz'],
 columns=['a', 'b', 'c'])
 
-
-# Both of these methods create a DataFrame with these values:
-"""
-   a   b   c
-1  4   7   10
-2  5   8   11
-3  6   9   12
-"""
+df3
 ```
-
-Here are a few other examples:
-
-```python
-import numpy as np
-import pandas as pd
-
-# From dict of Series or dicts
-data1 = {'one': pd.Series([1., 2., 3.], index=['a', 'b', 'c']), 'two': pd.Series([1., 2., 3., 4.], index=['a', 'b', 'c', 'd'])}
-df1 = pd.DataFrame(data1, index=['d', 'b', 'a'], columns=['two', 'three'])
-"""
-   two three
-d  4.0   NaN
-b  2.0   NaN
-a  1.0   NaN
-"""
-
-# From dict of ndarrays / lists
-data2 = {'one': [1., 2., 3., 4.],'two': [4., 3., 2., 1.]}
-df2 = pd.DataFrame(data2, index=['a', 'b', 'c', 'd'])
-"""
-   one  two
-a  1.0  4.0
-b  2.0  3.0
-c  3.0  2.0
-d  4.0  1.0
-"""
-
-# From a list of dicts
-data3 = [{'a': 1, 'b': 2}, {'a': 5, 'b': 10, 'c': 20}]
-df3 = pd.DataFrame(data3, index=['first', 'second'], columns=['a', 'b', 'c'])
-"""
-        a   b     c
-first   1   2   NaN
-second  5  10  20.0
-"""
-```
-
-
-
 
 ## Pandas Index Objects
 
-As opposed to the index of a regular Python `list`, Pandas considers `Index` to be its own object class.
+Pandas considers an `Index` to be its own object class. In the Pandas docs, an `Index` object is formally defined as an "immutable ndarray implementing an ordered, sliceable set". As we just saw, the main purpose of a Pandas `Index` object is to store the labels for each axis in a `Series` or `Dataframe`. The values *do NOT have to be unique*. However, to avoid ambuity in your data structure, you should always use unique values when creating a custom index.
 
-We just briefly looked at how to set custom index labels for `Series` objects and `DataFrame` objects. Let's break it down further. 
+We learned about the concept of **index positioning** back in the unit on regular Python `lists`. To access a specific item in a regular Python `list`, you reference its numerical position in the list. In a Pandas Series, you can access each item by referencing its `Index` label OR its numerical index position. The same goes for accessing the rows of a dataframe. The scenario below explains the functional difference index positioning and `Index` labels.
 
-<img src="../images/ndarray_axes.png" style="margin: 0 auto; display: block;"/>
+Here's a Series containing names of people:
 
-We just saw how a Series index 
-know about the concept of an `index` from basic Python `lists`. In a list object, the index allows you to select a list item by referencing its *numerical position* (like counting).
+| BEFORE           |       |     |       |            |       |
+|:----------------:|:-----:|:---:|:-----:|:----------:|:-----:|
+|                  | Brandi| Zoe | Sasha | Aleksander | Olaf  |
+|   Index label    |  0    |   1 |   2   |      3     |   4   |
+| *index position* |  0    |   1 |   2   |      3     |   4   |
 
+Now, let's say you alphabetize the Series by sorting the values. The index position doesn't change, but the `Index` labels follow their corresponding values.
 
-
-
-
-
-**BEFORE**
-
-*List object*
-
-|  my_list | Brandi | Zoe | Steve | Aleksander | Dasha |
-|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
-| Index |     0    |   1   |    2    |    3   |    4   |
-
-
-|  my_series | Brandi | Zoe | Steve | Aleksander | Dasha |
-|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
-| Index |     0    |   1   |    2    |    3   |    4   |
-
-Because a list's index refers to the item's *position*, if you add, remove, or reorder items, the index is unaffected. In other words, let's say I alphabetize these names. `my_list[1]`, for example, no longer refers to "Zoe". Instead, it refers to "Brandi".
-
-|  my_list | Aleksander | Brandi | Steve | Aleksander | Zoe |
-|:-----:|:--------:|:-----:|:-------:|:------:|:------:|
-| Index |     0    |   1   |    2    |    3   |    4   |
-
-Well, Pandas considers `Index` to be its own object class, and it works a little differently. 
-
-As formally defined in the Pandas docs, an `Index` object is an "immutable ndarray implementing an ordered, sliceable set". Whereas a regular list's index is , The main purpose of an `Index` object is to store the labels for each axis in an array. 
-
-
-
-
-
-It *does NOT have to be unique*, though you should always use unique values when creating a custom index. try to always  Itwhich is the default object for "storing axis labels for all pandas objects".
-
-
-
-## Reading/Writing Files
-
-For our lesson on Pandas we'll be using this dataset:
-
-[?????? | Kaggle](https://www.kaggle.com/zynicide/wine-reviews/) -- 
-*130k wine reviews with variety, location, winery, price, & description*
-
-
-We've just finished preparing our first dataset for analysis. This one was in .CSV format, but we also learned above that Pandas can handle many different file types. To open each of these in pandas we use a slightly customized version of the general method `pd.read_<filetype>(<file_name>)`. Look [here](../Resources/pandas_glossary.html#reading--writing-data) for a quick summary of commands for handling different file types in Pandas.
+| AFTER            |            |        |      |        |       |
+|:----------------:|:----------:|:------:|:----:|:------:|:-----:|
+|                  | Aleksander | Brandi | Olaf | Sasha  |  Zoe  |
+|   Index Label    |  3         |   0    |   4  |    2   |   1   |
+| *index position* |  0         |   1    |   2  |    3   |   4   |
