@@ -11,6 +11,7 @@
 - data_science.md: Principles of Data Science
 - foundations_pandas.md: Foundations of Pandas
 - summarizing_data.md: Summarizing Data
+- wrangling1.md: Data Wrangling I
 
 
 
