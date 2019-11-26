@@ -50,46 +50,51 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
+Reading and writing data to and from your notebook primarily relies on the format and location of your data. The general syntax is:
 
-Reading and writing data to and from your notebook primarily relies on the format and location of your data. The general syntax is like this:
+* **Read:** `pd.read_<format>(<path>)`
+* **Write:** `pd.to_<format>(<path>)`
 
-**Read:** `pd.read_<format>(<path>)`
-**Write:** `pd.to_<format>(<path>)`
+*Notice how saving your data uses pd.to_<format> and NOT pd.write_.* For the syntax of how to load the most common data types, you can reference ==**this (URL TBD) section**== of our Pandas Cheat Sheet. 
 
-*Notice how saving your data uses pd.to_<format> and NOT pd.write_.* For the syntax of how to load the most common data types, visit ==this URL TBD == section of our Pandas Cheat Sheet. As for our OMDb dataset, here is the code we will use to load it. We've included a comment underneath just to show an example of how we might save the data later.
+There are a number of optional parameters you might want or need to use. A quick exaplanation of the most useful ones are:
 
-==nrows : int, optional
-Number of rows of file to read. Useful for reading pieces of large files.
-na_values : scalar, str, list-like, or dict, optional
-Additional strings to recognize as NA/NaN.==
+* `sep`: By default, ','
+You can specify the character that delimits the values so that Pandas can recognize it.
+* `header`: By default, Pandas infers the headers.
+If you know there is no header row, you should pass `False` and pass a list of column names to the `names` parameter.
+* `names`: (see "header	" above)
+* `index_col`: By default, `None` and Pandas will use a 0-based numerical index for the `Index` labels. If you want to use one (or more) of the columns as the index for axis 0 (the rows), specify them here.
+* `usecols`: If you want only a subset of columns loaded, indicate which ones here.
+* `nrows`: By default, Pandas loads the full file. If you want only a subset of the data, you can specify a number of rows to load.
+
+#### Loading the OMDb Dataset
+
+Since this is our first time looking at it, let's load the OMDb dataset as is. 
 
 ```python
 omdb_orig = pd.read_csv('omdb_5000.csv')
-omdb_orig = pd.read_csv('omdb_set5.csv', index_col='imdbID')
-# pd.to_csv(headers=True)
-
 movies = omdb_orig.copy()
 ```
+It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can your data to the original dataset. You can make a shallow copy (see below), but it's always better to the `.copy()` method.
 
-==params for if there are headers or an idx?????==
-It is also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can your data to the original dataset. You can make a shallow copy (see below), but it's always better to the `.copy()` method.
+>> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/) ==<-- **important article to read!!**==
 
-[SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/) ==<-- **important article to read!!**==
+## Summarizing Data
 
-## Summarize Data 
+#### Metadata
 
-#### Data Volume
-
-Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the amount and type of data in your dataframe. (Note: This method doesn't work for Series objects).
-
-* `	Metascore   4713 non-null float64` means that only 4713 rows have a metascore available.
-* `RangeIndex: 5788 entries` means that the dataframe has 5788 rows. 
+Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the data in your dataframe. This will tell you things like how many rows there are, what datatype each column Series contains, and how many non-null values are in each column.
 
 ```python
 movies.info()
 ```
+Sometimes you'll want to grab some of this information individually though. To return all the column names, you can use `.columns`... 
 
-Alternatively, you could use `len(df)` to find the number of rows in a dataframe. For a Series, `len(series)` gives the number of items in the array. Similarly, `.size` and `.shape` give the number of elements in the object and the dimensions of the object.
+```python
+movies.columns
+```
+...and `len(df)` returns the number of rows in a dataframe. For a Series, `len(series)` gives the number of items in the array. Similarly, `.size` and `.shape` give the number of elements in the object and the dimensions of the object. Check these out:
 
 ```python
 print(
@@ -98,42 +103,53 @@ print(
 '\nShape:', movies.shape
 )
 ```
-==First rows==
+By now, you'll probably want to preview the data itself
+
+#### Data Preview
+
+`.head(n)` and `.tail(n)` will return the first and last *n* rows of data respectively. If you don't pass in a number, they will both return 5 rows by default.
 
 ```python
 movies.head() 
 ```
 
-==Last rows==
-
 ```python
-movies.tail() 
+movies.tail(3) 
 ```
 
-If you ever need to grab a list of the column names, you can use `.columns`. 
+In this column, we can see that we have an existing unique ID for each movie - the IMDb ID. Especially because IMDb is the most well-known movie database, we should make `imdbID` the index.
 
 ```python
-movies.columns
+movies.set_index(['imdbID'], inplace=True)
+movies.head(3)
 ```
-#### Axes & Indeces
+By default, the `drop` parameter in the `.set_index()` function is `True`. As you can see above, `imdbID` no longer exists as a column in the dataframe. It has been converted into an `Index` object.
 
-Notice above how `.columns` returns an `Index` object and not a `Series` object. That brings us to the topic of `indexing` your dataframe. You should think of your dataframe in terms of axes. 
+If you ever want to go back to the default numerical `Index` labels, you can use `.reset_index()`. It will simply add the custom `Index` object back to the dataframe as a column Series.
 
-* rows: axis 0
-* columns: axis 1
+```python
+movies.reset_index(inplace=True)
+movies.tail()
+```
+>>Warning!
 
-==It comes in handy later when you want to apply some manipulation to only certain columns or certain rows.==
-Each axis has its own index. By default, the rows have a 0-based
-
-
-
-rows in a Dataframe belong to axis 0, and the columns belong to axis 1. It follows that you could think of This is because columns are 
-
-
-
+>>Be careful with `.reset_index()`. If you accidentally rerun this cell, it will add the generic 0-based index to the dataframe as a *column*.
 
 ## Selecting Data
 
+First, let's set the index back to `imdbID`.
+
+```python
+movies.set_index(['imdbID'], inplace=True)
+```
+### Columns
+
+
+### Rows
+.loc vs. iloc
+
+
+### Cells
 
 .loc vs. iloc
 
