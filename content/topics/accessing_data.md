@@ -1,10 +1,10 @@
 # Accessing Data
 
-Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyze, and visualize data. ==We know that the data science lifecycle is NOT made of discrete, linear steps. As such, we will learn Pandas by integrating it into a contextual data analysis. Instead of reviewing groups of similar functions, we will apply various functions based on how and when we need them. This might get a little confusing, so brace yourself! To help keep things as consistent as possible, we'll use the same dataset across units. We also created a **[categorized cheat sheet of common Pandas functions](../resources/pandas_cheat_sheet.md)**. Ultimately, this contextual approach will help you apply the material on your own much more easily.==
+Before we get into any sort of data analysis, we need to understand the most basic code for loading, summarizing, and selecting data. This is a lot of memorizing "one-and-done" examples. But! Once we get past that, we will have the flexibility to learn via a contextual analysis of a single dataset. Let's take a look at that dataset now.
 
 ## Data Dictionary
 
-Always include a `data dictionary`, or a list of variable definitions, alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as share information about how certain variables are formatted. If you're looking to study a dataset yourself, the data dictionary can also give you high-level ideas for what you might want to analyze and how.
+When you analyze a set of data, always include a `data dictionary`, or a list of variable definitions, alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as share information about how certain variables are formatted. If you're looking to study a dataset yourself, the data dictionary can also give you high-level ideas for what you might want to analyze and how.
 
 Our dataset contains movie metadata that we pulled from the [OMDb API](http://www.omdbapi.com/). Below is the data dictionary for the *unaltered OMDb data*. If it seems disorganized and convoluted... that's because it is! The fields and formats here are the original ones obtained straight from the OMDB API. In order to wrangle this data for our purposes, we have to first clean it ourselves. (That said, the OMDb dataset does have a few pretty self-explanatory variables, so we've left some definitions blank.)
 
@@ -133,25 +133,43 @@ movies.tail()
 
 >>Be careful with `.reset_index()`. If you accidentally rerun this cell, it will add the generic 0-based index to the dataframe as a *column*.
 
-## Selecting Data
-
-First, let's set the index back to `imdbID`.
+Now, let's set the index back to `imdbID`.
 
 ```python
 movies.set_index(['imdbID'], inplace=True)
 ```
 
+## Selecting Data
+
+
+
+For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. Before we go into specific examples, it's important to understand the difference between these two functions: 
+
+* **`.loc[]`** selects and returns data by passing index **LABELS** as arguments
+* **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments
+
+### Series
+
+Select a single value by its
+* **`obj.s[idx_label]`** -- index label
+* **`obj.s[idx]`** -- index position
+
+
 ### Columns
 
-Select a single column
+Dataframe columns are the easiest and most flexible pieces of data to select and maneuver...
+
+Select a single column as a Series
 
 ```python
 print(type(movies['Title']), '\n')
 movies['Title']
 ```
 
+Returns multiple columns (in any order) as a new DataFrame
+
 ```python
-movies.set_index(['imdbID'], inplace=True)
+movies[['Title',  'Genre', 'Director', 'Actors']]
 ```
 
 ### Rows
@@ -163,13 +181,37 @@ movies.set_index(['imdbID'], inplace=True)
 .loc vs. iloc
 
 
-Select a:
+==Select a:
 * Row
 * Column
 * Single item from a specific row, column
 * Slice of Rows
 * Subset of columns (return as a new df)
-* Slice of series values (by index and by label)
+* Slice of series values (by index and by label)==
+
+* **`df[col]`** -- returns one column as a Series
+
+
+* **`df[[col_label, col2]]`** -- Returns multiple columns (in any order) as a new DataFrame
+
+
+* Select a single item (i.e. a value from a Series or a row from a Dataframe)...
+    * **`obj.loc[idx_label]`** -- by its index label
+    * **`obj.iloc[idx]`** -- by its index position
+
+* Select a single value in a DataFrame...
+    * **`df.loc[row_label, col_label]`** -- by row & column index label
+    * **`df.iloc[row_idx, col_idx]`** -- by row & column index label position
+
+
+* Returns a slice of rows as a new DataFrame by entering a range of...
+    * **`df.loc[row_start : row_end]`** -- index labels
+    * **`df.loc[row_start : row_end]`** -- index labels
+
+* Select a slice of a DataFrame by entering a range of row and column...
+    * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
+    * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
+
 
 
 ## Iterating Through Data

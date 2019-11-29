@@ -18,6 +18,22 @@
 
 ## Selecting Data
 
+* **`df[col]`** -- returns one column as a Series
+* **`df[[col_label, col2]]`** -- returns multiple columns (in any order) as a new DataFrame
+* Select a single item (i.e. a value from a Series or a row from a Dataframe)...
+    * **`obj.loc[idx_label]`** -- by its index label
+    * **`obj.iloc[idx]`** -- by its index position
+* Select a single value in a DataFrame...
+    * **`df.loc[row_label, col_label]`** -- by row & column index label
+    * **`df.iloc[row_idx, col_idx]`** -- by row & column index label position
+* Returns a slice of rows as a new DataFrame by entering a range of...
+    * **`df.loc[row_start : row_end]`** -- index labels
+    * **`df.loc[row_start : row_end]`** -- index labels
+* Select a slice of a DataFrame by entering a range of row and column...
+    * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
+    * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
+
+
 ## Data Wrangling
 
 ## Basic Stats
