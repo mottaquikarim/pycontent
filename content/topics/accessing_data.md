@@ -1,8 +1,6 @@
-# Summarizing Data
+# Accessing Data
 
-Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyze, and visualize data. We know that the data science lifecycle is NOT made of discrete, linear steps. As such, we will learn Pandas by integrating it into a contextual data analysis. Instead of reviewing groups of similar functions, we will apply various functions based on how and when we need them. 
-
-This might get a little confusing, so brace yourself! To help keep things as consistent as possible, we'll use the same dataset across units. We also created a ==categorized glossary of common Pandas functions==. Ultimately, this contextual approach will help you apply the material on your own much more easily.
+Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyze, and visualize data. ==We know that the data science lifecycle is NOT made of discrete, linear steps. As such, we will learn Pandas by integrating it into a contextual data analysis. Instead of reviewing groups of similar functions, we will apply various functions based on how and when we need them. This might get a little confusing, so brace yourself! To help keep things as consistent as possible, we'll use the same dataset across units. We also created a **[categorized cheat sheet of common Pandas functions](../resources/pandas_cheat_sheet.md)**. Ultimately, this contextual approach will help you apply the material on your own much more easily.==
 
 ## Data Dictionary
 
@@ -134,3 +132,44 @@ movies.tail()
 >>Warning!
 
 >>Be careful with `.reset_index()`. If you accidentally rerun this cell, it will add the generic 0-based index to the dataframe as a *column*.
+
+## Selecting Data
+
+First, let's set the index back to `imdbID`.
+
+```python
+movies.set_index(['imdbID'], inplace=True)
+```
+
+### Columns
+
+Select a single column
+
+```python
+print(type(movies['Title']), '\n')
+movies['Title']
+```
+
+```python
+movies.set_index(['imdbID'], inplace=True)
+```
+
+### Rows
+.loc vs. iloc
+
+
+### Cells
+
+.loc vs. iloc
+
+
+Select a:
+* Row
+* Column
+* Single item from a specific row, column
+* Slice of Rows
+* Subset of columns (return as a new df)
+* Slice of series values (by index and by label)
+
+
+## Iterating Through Data
