@@ -161,6 +161,9 @@ pets = ['dog', 'cat', 'guinea pig', 'ferret', 'bird', 'lizard']
 
 ```
 
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Complete the "?????" PSET in the [Conditionals Practice notebook]().
 
 
 ## Built-In Operations for Manipulating Lists
