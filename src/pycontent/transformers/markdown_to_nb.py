@@ -99,7 +99,7 @@ class NotebookBuilder:
 
     @chainable
     def execute_nb(self):
-        if not EP_EXECUTE_NB:
+        if not self.EP_EXECUTE_NB:
             return
 
         try:
