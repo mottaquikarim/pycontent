@@ -61,9 +61,13 @@ links.addEventListener('click', e => {
 		return
 	}
 
-	console.log(e.target)
 	const href = e.target.getAttribute('href')
 	window.location.hash = href
+
+	const active = document.querySelector('.active');
+	console.log(active)
+	if (active) active.classList.remove('active')
+	e.target.classList.add('active')
 
 	
 })
@@ -80,12 +84,14 @@ get_file(MANIFEST)
 			const links_txt = file[title].map(link => {
                 const key = Object.keys(link)
                 const val = link[key]
+                let isactive = ''
                 if (i == 0) {
                 	++i
                 	window.location.hash = ""
                 	window.location.hash = `${OUTPUT_FILE}${key}`
+                	isactive = ' active'
                 }
-				return `<li><a class="link js-link" href="${OUTPUT_FILE}${key}"">${val}</a></li>`
+				return `<li><a class="link js-link ${isactive}" href="${OUTPUT_FILE}${key}"">${val}</a></li>`
 			})
 			links.innerHTML += `<li class="book-section-flat">
 				<a>${title.toUpperCase()}</a>
