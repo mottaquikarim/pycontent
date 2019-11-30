@@ -229,6 +229,10 @@ result = 'k' not in line # True
 result = 'a' not in line # False
 ```
 
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Try out the "Weather" PSET in the [Conditionals Practice notebook](https://colab.research.google.com/drive/18Hj2RdAlx-ewtIjR8KHW3PpVh89fvicB).
+
 ## Conditional Statements
 
 A conditional statement will attempt to evaluate an expression down to a boolean value - either `True` or `False`. Based on the boolean evaluation, the program will then execute or skip a block of code.
@@ -296,6 +300,11 @@ else:
 
 In the example above, we print one of 4 possibilities - the elif allows us to go from 2 potential conditions to N potential conditions.
 
+
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Complete the "Logic" PSET in the [Conditionals Practice notebook](https://colab.research.google.com/drive/18Hj2RdAlx-ewtIjR8KHW3PpVh89fvicB).
+
 ### BONUS TOPIC: Random Numbers
 
 If you want to generate random numbers in your programs, you can import Python's `random` package ***at the top of your code***.
@@ -335,8 +344,3 @@ elif flip == 1:
 else:
 	print('I can\'t believe it landed on its edge!')
 ```
-
-### Class Practice PSETs
-
-[Conditionals & Control Flow](https://colab.research.google.com/github/mottaquikarim/PYTH2/blob/master/src/PSETS/nb/conditionals_inclass_psets.ipynb)
-

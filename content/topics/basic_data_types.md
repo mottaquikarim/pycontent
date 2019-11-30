@@ -133,6 +133,10 @@ c = '    hi mom!    '
 print(f'LEADING & TRAILING SPACES: \n{c} \n{c.strip()}')
 ```
 
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Complete the "Easy" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+
 ## Typecasting
 
 ### `type()`
@@ -195,6 +199,10 @@ float_to_boolean = bool(0.0) # False, <class 'bool'>
 string_to_boolean = bool('') # False, <class 'bool'>
 ```
 
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Take a stab at the "Typecasting" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+
 ## Simple Integer, Float, & String Operators
 
 **Operators** are shortcuts for manipulating values stored in variables.
@@ -250,9 +258,10 @@ print('this will not work' + 4) doesn't work
 because you can't add a number to a string"""
 ```
 
-### Class Practice PSETs
+🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-[Basic Data Types](https://colab.research.google.com/github/mottaquikarim/PYTH2/blob/master/src/PSETS/nb/basic_data_inclass_psets.ipynb)
+Complete the "Operators" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+
 
 ## Additional Resources
 
