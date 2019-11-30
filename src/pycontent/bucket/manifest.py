@@ -65,7 +65,7 @@ class Manifest(File):
 
             file_name, title = Manifest.parse_line(item)
             parsed_manifest.append((file_name, title))
-            file_names.append(f"{local_base}/{file_name}")
+            file_names.append((f"{local_base}/{file_name}", title))
 
         self._filenames = file_names
         self._parsed_manifest = parsed_manifest

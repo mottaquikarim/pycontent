@@ -64,15 +64,18 @@ class Directory(Bucket):
 
         output = OrderedDict()
         for item in self.full_manifest:
-            item_bits = item.split('/')[1:]
+            item_bits = item[0].split('/')[1:]
             if len(item_bits) == 1:
                 output[item_bits[0]] = []
             else:
-                item_base = item.split('.')[:-1]
-                output[item_bits[0]].append(".".join(item_base))
+                item_base = item[0].split('.')[:-1]
+                output[item_bits[0]].append({
+                    ".".join(item_base): item[1].strip(),
+                })
 
         with open(f"{self.out}/manifest.json", "w") as f:
             dict_ = [{i: output[i]} for i in output]
+            print(dict_)
             f.write(json.dumps({"files": dict_}))
 
     def __init__(self, *args, **kwargs):

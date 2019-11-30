@@ -11,7 +11,7 @@ from pycontent.bucket.enums import SupportedExtensions
 html = """${BODY}"""
 CODE_BLOCK = "```"
 COLAB_BASE = "https://colab.research.google.com"
-GITHUB_REPO_NAME = "github/mottaquikarim/PYTH2"
+GITHUB_REPO_NAME = "github/mottaquikarim/pycontent"
 
 
 def chainable(func):
@@ -23,9 +23,10 @@ def chainable(func):
 
 
 class NotebookBuilder:
-    EP_TIMEOUT = 3
+    EP_TIMEOUT = 1
     EP_KERNAL_NAME = 'python'
     EP_ALLOW_ERRORS = True
+    EP_EXECUTE_NB = False
 
     @staticmethod
     def get_cell(line, block):
@@ -76,6 +77,11 @@ class NotebookBuilder:
 
             self.current_cell.append(line)
 
+        if self.current_cell:
+            block = "\n".join(self.current_cell)
+            self.nb.cells.append(self.get_cell('python', block))
+        # self.nb.cells.append(self.get_cell(line, block))
+
     @chainable
     def write_content(self):
         """
@@ -93,6 +99,9 @@ class NotebookBuilder:
 
     @chainable
     def execute_nb(self):
+        if not EP_EXECUTE_NB:
+            return
+
         try:
             ep = ExecutePreprocessor(
                 timeout=self.EP_TIMEOUT,
