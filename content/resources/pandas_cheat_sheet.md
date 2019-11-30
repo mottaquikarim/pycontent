@@ -28,7 +28,7 @@
     * **`df.iloc[row_idx, col_idx]`** -- by row & column index label position
 * Returns a slice of rows as a new DataFrame by entering a range of...
     * **`df.loc[row_start : row_end]`** -- index labels
-    * **`df.loc[row_start : row_end]`** -- index labels
+    * **`df.iloc[row_start : row_end]`** -- index positions
 * Select a slice of a DataFrame by entering a range of row and column...
     * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
     * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions

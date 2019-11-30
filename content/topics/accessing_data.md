@@ -1,8 +1,8 @@
 # Accessing Data
 
-Before we get into any sort of data analysis, we need to understand the most basic code for loading, summarizing, and selecting data. This is a lot of memorizing "one-and-done" examples. But! Once we get past that, we will have the flexibility to learn via a contextual analysis of a single dataset. Let's take a look at that dataset now.
+Before we get into any sort of data analysis, we need to understand the most basic code for loading, summarizing, and selecting data. This is a lot of individual examples. But! Once we get past that, we will have the flexibility to learn via a contextual analysis. First, let's get familiar with the data we've chosen.
 
-## Data Dictionary
+## Data Dictionaries
 
 When you analyze a set of data, always include a `data dictionary`, or a list of variable definitions, alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as share information about how certain variables are formatted. If you're looking to study a dataset yourself, the data dictionary can also give you high-level ideas for what you might want to analyze and how.
 
@@ -141,77 +141,119 @@ movies.set_index(['imdbID'], inplace=True)
 
 ## Selecting Data
 
-
-
-For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. Before we go into specific examples, it's important to understand the difference between these two functions: 
-
-* **`.loc[]`** selects and returns data by passing index **LABELS** as arguments
-* **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments
-
-### Series
-
-Select a single value by its
-* **`obj.s[idx_label]`** -- index label
-* **`obj.s[idx]`** -- index position
-
-
-### Columns
-
 Dataframe columns are the easiest and most flexible pieces of data to select and maneuver...
 
-Select a single column as a Series
+Returns a single column as a Series
 
 ```python
 print(type(movies['Title']), '\n')
-movies['Title']
+titles = movies['Title']
+titles
 ```
 
 Returns multiple columns (in any order) as a new DataFrame
 
 ```python
-movies[['Title',  'Genre', 'Director', 'Actors']]
+movies[['Title', 'Genre', 'Director', 'Actors']]
 ```
 
-### Rows
-.loc vs. iloc
+...For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. Before we go into specific examples, it's important to understand the difference between these two functions: 
+
+* **`.loc[]`** selects and returns data by passing index **LABELS** as arguments
+* **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments
+
+### Single Values
+
+Select a single value in a Series by its index label
+
+```python
+titles.loc['tt0088763']
+```
+
+Select a single value in a Series by its index position
+
+```python
+titles.iloc[478]
+```
 
 
-### Cells
-
-.loc vs. iloc
 
 
-==Select a:
-* Row
-* Column
-* Single item from a specific row, column
-* Slice of Rows
-* Subset of columns (return as a new df)
-* Slice of series values (by index and by label)==
-
-* **`df[col]`** -- returns one column as a Series
-
-
-* **`df[[col_label, col2]]`** -- Returns multiple columns (in any order) as a new DataFrame
-
-
-* Select a single item (i.e. a value from a Series or a row from a Dataframe)...
-    * **`obj.loc[idx_label]`** -- by its index label
-    * **`obj.iloc[idx]`** -- by its index position
 
 * Select a single value in a DataFrame...
     * **`df.loc[row_label, col_label]`** -- by row & column index label
     * **`df.iloc[row_idx, col_idx]`** -- by row & column index label position
 
 
-* Returns a slice of rows as a new DataFrame by entering a range of...
-    * **`df.loc[row_start : row_end]`** -- index labels
-    * **`df.loc[row_start : row_end]`** -- index labels
+#### Single Row
 
-* Select a slice of a DataFrame by entering a range of row and column...
-    * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
-    * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
+Select a single row by its label
 
+```python
+movies.loc['tt0088763']
+```
 
+Select a single row by its index position
 
-## Iterating Through Data
+```python
+movies.iloc[478]
+```
+
+#### Single DataFrame Cell
+
+Select a single cell in a DataFrame by row & column labels
+
+```python
+movies.loc['tt0088763', 'Year']
+```
+
+Select a single cell in a DataFrame by row & column index positions
+
+```python
+movies.iloc[478, 1]
+```
+
+#### Subset of a Series
+
+Returns a subset of a Series by entering a range of labels
+
+```python
+titles.loc['tt0088763':'tt0079641']
+```
+
+Returns a subset of a Series by entering a range of index positions
+
+```python
+titles.iloc[478:500]
+```
+
+#### Slice of Rows
+
+Returns a *slice* of rows as a new DataFrame by entering a range of labels
+
+```python
+movies.loc['tt0088763':'tt0079641']
+```
+
+Returns a *slice* of rows as a new DataFrame by entering a range of index positions
+
+```python
+movies.iloc[478:500]
+```
+
+#### Chunk of a Dataframe
+
+* Slice of Rows
+* Slice of Series values
+
+Select a slice of a DataFrame by entering a range of row and column labels
+
+```python
+movies.loc['tt0203009':'tt2674426','Title':'Runtime']
+```
+
+Select a slice of a DataFrame by entering a range of row and column index positions
+
+```python
+movies.iloc[625:631,0:5]
+```
