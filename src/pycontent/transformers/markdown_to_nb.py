@@ -46,9 +46,17 @@ class NotebookBuilder:
     def get_path(base_path, extension_type):
         return f"{base_path}.{NotebookBuilder.get_supported_extension(extension_type)}"
 
+    # TODO: this is a rough hack, fix
+    @property
+    def resolved_path(self):
+        if ".." in self.base_path:
+            return self.base_path.split('..').pop()[1:]
+
+        return self.base_path[1:]
+
     def get_colab_cell(self):
         ext = self.get_supported_extension(SupportedExtensions.IPYNB)
-        colab_url = f"{COLAB_BASE}/{GITHUB_REPO_NAME}/blob/master/{self.base_path}.{ext}"
+        colab_url = f"{COLAB_BASE}/{GITHUB_REPO_NAME}/blob/master/{self.resolved_path}.{ext}"
         colab_img_url = f"{COLAB_BASE}/assets/colab-badge.svg"
         mrkdown = f"[![Open In Colab]({colab_img_url})]({colab_url})"
         return new_markdown_cell(mrkdown)
