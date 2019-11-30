@@ -1,4 +1,4 @@
-const OUTPUT_FILE = ".out"
+const OUTPUT_FILE = "out"
 const MANIFEST = `${OUTPUT_FILE}/manifest.json`
 
 const get_file = src => new Promise((resolve, reject) => {
