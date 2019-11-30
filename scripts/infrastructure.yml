@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: True
+  tasks:
+    - name: provides variables needed at build time
+      template:
+        src: files/dotenv.j2
+        dest: '{{ playbook_dir }}/../.env'
+    - name: provides variables needed at run time
+      template:
+        src: files/vars.env.j2
+        dest: '{{ playbook_dir }}/../envvars'

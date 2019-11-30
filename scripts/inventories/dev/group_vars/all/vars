@@ -1,0 +1,3 @@
+---
+test_env_item: 'test'
+test_env_secret_item: '{{ secret_item }}'
