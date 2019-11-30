@@ -98,7 +98,7 @@ This will collect all the installed pip modules in the virtual env and store int
 pip install -r requirements.txt
 ```
 
-and this would effectively "copy" our installed modules into the new virtualenv.
+^^^ this would effectively "copy" our installed modules into the new virtualenv.
 
 ## Common & Featured Modules & Packages
 
