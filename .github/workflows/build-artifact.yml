@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Check out repo and generate vault_pass file
+      - name: Check out repo
         uses: actions/checkout@v1 
+      - name: Generate Vault Pass for Ansible 
         run: echo '${{ secrets.VaultPass }}' >> ~/.vault_pass
-      # This step prints an output (time) from the previous step's action.
-      - name: run docker 
+      - name: Run docker + build script
         run: make run-app env=dev 
       - name: GitHub Pages Deploy
         if: success()
