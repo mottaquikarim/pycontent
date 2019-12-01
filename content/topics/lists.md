@@ -435,6 +435,10 @@ P_tails = tails / num_tosses
 print(f'P(Heads) = {P_heads} vs. P(Tails) = {P_tails}')
 ```
 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Test your new knowledge with the "List Ops" PSET in your copy of `lists_psets.ipynb` in Google Drive.
+
 ## Sorting Lists
 
 If you want to organize your lists better, you can sort them with the `.sort()` or `sorted()` functions. You can sort:
@@ -499,6 +503,10 @@ letters = ['b', 'e', 'c', 'a', 'd']
 descending = sorted(letters, reverse=True)
 print(descending) # ['e', 'd', 'c', 'b', 'a']
 ```
+
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
 
 ## Tuples
 
@@ -657,10 +665,10 @@ Here's a **[helpful list](https://snakify.org/en/lessons/sets/#section_4)** of o
 
 <img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Lists_Summary.png?raw=true" width="100%" align="left"/>
 
-### Class Practice PSETs
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-[Lists](https://github.com/mottaquikarim/PYTH2/blob/master/src/PSETS/nb/lists_inclass_psets.ipynb)
-[Lists - CHALLENGES](https://github.com/mottaquikarim/PYTH2/blob/master/src/PSETS/nb/list_challenges.ipynb)
+Complete the "List Manipulation" PSET in your copy of `lists_psets.ipynb` in Google Drive. Then, try to solve the "List Challenges" PSET.
+
 
 ## Additional Resources
 
