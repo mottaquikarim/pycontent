@@ -22,7 +22,7 @@ jobs:
         run: make run-app env=prod
 
       - name: Make Sync
-        run: make prep-sync env=prod target=$GITHUB_TOKEN
+        run: make prep-sync env=prod token=$GITHUB_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GithubToken }}
 
