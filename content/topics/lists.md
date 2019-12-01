@@ -362,13 +362,14 @@ min(your_numeric_list)
 """
 
 team_batting_avgs = [.328, .299, .208, .301, .275, .226, .253, .232, .287]
-print(f'The highest batting average is {max(team_batting_avgs}')
+print(f'The highest batting average is {max(team_batting_avgs)}')
 # ... 0.328
 print(f'The lowest batting average is {min(team_batting_avgs)}')
 # ... 0.208
 ```
 
 #### `.index()`
+
 
 Given a list element's value, return its index.
 
