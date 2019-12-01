@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'content/**'
+      - '!content/psets/**'
+      - '!content/raw_data/**'
 jobs:
   build:
     name: Generate and Deploy
