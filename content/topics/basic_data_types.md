@@ -133,9 +133,9 @@ c = '    hi mom!    '
 print(f'LEADING & TRAILING SPACES: \n{c} \n{c.strip()}')
 ```
 
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Complete the "Easy" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+Complete the "Easy" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
 ## Typecasting
 
@@ -199,9 +199,9 @@ float_to_boolean = bool(0.0) # False, <class 'bool'>
 string_to_boolean = bool('') # False, <class 'bool'>
 ```
 
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Take a stab at the "Typecasting" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+Take a stab at the "Typecasting" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
 ## Simple Integer, Float, & String Operators
 
@@ -258,9 +258,9 @@ print('this will not work' + 4) doesn't work
 because you can't add a number to a string"""
 ```
 
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Complete the "Operators" PSET in the [Basic Data Types Practice notebook](https://colab.research.google.com/drive/1GrJG85Kee__bgcT2xRUbj1M9K9q57_Ns).
+Complete the "Operators" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
 
 ## Additional Resources

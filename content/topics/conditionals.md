@@ -229,9 +229,9 @@ result = 'k' not in line # True
 result = 'a' not in line # False
 ```
 
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Try out the "Weather" PSET in the [Conditionals Practice notebook](https://colab.research.google.com/drive/18Hj2RdAlx-ewtIjR8KHW3PpVh89fvicB).
+Try out the "Weather" PSET in your copy of `conditionals_psets.ipynb` in Google Drive.
 
 ## Conditional Statements
 
@@ -301,9 +301,9 @@ else:
 In the example above, we print one of 4 possibilities - the elif allows us to go from 2 potential conditions to N potential conditions.
 
 
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Complete the "Logic" PSET in the [Conditionals Practice notebook](https://colab.research.google.com/drive/18Hj2RdAlx-ewtIjR8KHW3PpVh89fvicB).
+Complete the "Logic" PSET in your copy of `conditionals_psets.ipynb` in Google Drive.
 
 ### BONUS TOPIC: Random Numbers
 
@@ -344,3 +344,7 @@ elif flip == 1:
 else:
 	print('I can\'t believe it landed on its edge!')
 ```
+
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Now try the "Random Numbers" PSET and the "RPS" PSET in your copy of `conditionals_psets.ipynb` in Google Drive.
