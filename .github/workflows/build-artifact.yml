@@ -19,13 +19,22 @@ jobs:
         run: echo '${{ secrets.VaultPass }}' >> ~/.vault_pass
 
       - name: Run docker + build script
-        run: make run-app env=dev 
+        run: make run-app env=prod
 
-      - name: Deploy to GitHub Pages
-        if: success()
-        uses: crazy-max/ghaction-github-pages@v1
+      - name: Prep Sync
+        run: make prep-sync env=prod 
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          target_branch: gh-pages
-          build_dir: static 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GithubToken }}
+          github_token: ${{ secrets.GithubToken }}
+          repository: "mottaquikarim/PYTH122"
+
+#      - name: Deploy to GitHub Pages
+#        if: success()
+#        uses: crazy-max/ghaction-github-pages@v1
+#        with:
+#          target_branch: gh-pages
+#          build_dir: static 
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GithubToken }}

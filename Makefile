@@ -26,6 +26,9 @@ endif
 run-app: require-env build-app build-config
 	docker-compose run pycontent python -m run
 
+prep-sync: require-env build-app build-config
+	docker-compose run pycontent docker/pycontent/prep_sync.sh
+
 encrypt:
 	docker-compose run pycontent ansible-vault encrypt scripts/group_vars/all/vault scripts/inventories/*/group_vars/all/vault
 

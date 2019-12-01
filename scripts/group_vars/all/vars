@@ -1,6 +1,6 @@
 ---
 # shared items here
 src_path: '{{ playbook_dir }}/../content'
-out_path: '{{ playbook_dir }}/../static/out'
+out_path: '{{ playbook_dir }}/../.out'
 mainfest_name: 'manifest.txt'
 base_name: 'README.md'
