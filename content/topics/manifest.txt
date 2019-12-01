@@ -7,7 +7,3 @@
 - loops.md: Loops
 - functions.md: Functions
 - classes.md: Classes
-- data_science.md: Principles of Data Science
-- foundations_pandas.md: Foundational Pandas Objects
-- accessing_data.md: Accessing Data
-- wrangling1.md: Data Wrangling I
