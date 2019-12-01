@@ -261,6 +261,8 @@ print(pet_kv_pairs[0])
 # ('Taq', ['teacup pig','cat','cat'])
 ```
 
+the "Dict Manipulation" PSET in your copy of `dicts_psets.ipynb` in Google Drive.
+
 ## Built-in Operators for Manipulating Dicts
 
 Just like lists, you can edit, analyze, and format your dicts. Some work the same for dicts and lists such as `len()` -- that will give you the number of key/value pairs in the dict. However, adding, deleting, and updating data requires a little more detail for dicts than for lists.
@@ -408,5 +410,3 @@ print(seceded1) # ('GA': 'Atlanta') for example
 ## Summary
 
 <img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Dicts_Summary.png?raw=true" width="100%" align="left"/>
-
-
