@@ -21,14 +21,10 @@ jobs:
       - name: Run docker + build script
         run: make run-app env=prod
 
-      - name: Prep Sync
-        run: make prep-sync env=prod 
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GithubToken }}
-          repository: "mottaquikarim/PYTH122"
+      - name: Make Sync
+        run: make prep-sync env=prod target=$GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GithubToken }}
 
 #      - name: Deploy to GitHub Pages
 #        if: success()

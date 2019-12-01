@@ -26,8 +26,13 @@ endif
 run-app: require-env build-app build-config
 	docker-compose run pycontent python -m run
 
-prep-sync: require-env build-app build-config
-	docker-compose run pycontent docker/pycontent/prep_sync.sh
+require-gh_token:
+ifndef token
+	$(error env arg is required for this target)
+endif
+
+prep-sync: require-env require-gh_token build-app build-config
+	docker-compose run -e GITHUB_TOKEN=${token} pycontent docker/pycontent/prep_sync.sh
 
 encrypt:
 	docker-compose run pycontent ansible-vault encrypt scripts/group_vars/all/vault scripts/inventories/*/group_vars/all/vault

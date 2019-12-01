@@ -18,3 +18,4 @@ mkdir out
 cp -r ../.out/* out
 
 git commit -am "New Build 🎉🎈🎂🍾🎊🍻💃"
+git push https://mottaquikarim:${GITHUB_TOKEN}@github.com/${GITHUB_PATH}.git HEAD:master --follow-tags;
