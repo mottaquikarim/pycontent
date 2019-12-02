@@ -24,6 +24,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
+
 *As a bonus, I've added the notation for importing the other two libraries to be used in this class - matplotlib and seaborn. More to come on these later!*
 
 ## NumPy ndarray Objects
@@ -222,9 +223,11 @@ Here's a Series containing names of people:
 |   Index label    |  0    |   1 |   2   |      3     |   4   |
 | *index position* |  0    |   1 |   2   |      3     |   4   |
 
-Now, let's say you alphabetize the Series by sorting the values. The index position doesn't change, but the `Index` labels follow their corresponding values.
+Now, let's say you alphabetize the Series by sorting the values...
 
 |                  | Aleksander | Brandi | Olaf | Sasha  |  Zoe  |
 |:----------------:|:----------:|:------:|:----:|:------:|:-----:|
 |   Index Label    |  3         |   0    |   4  |    2   |   1   |
 | *index position* |  0         |   1    |   2  |    3   |   4   |
+
+Notice how the index position doesn't change, but the `Index` labels follow their corresponding values. This is extremely helpful in data analysis because, no matter how you've sorted or sliced the data, each item can always be accessed by the same `Index` label.
