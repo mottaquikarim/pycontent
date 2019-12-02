@@ -50,12 +50,13 @@ from math import sqrt as s
 s(25) # 5
 ```
 
-By importing the `sqrt as s`, you can call the function as `s()` instead of `math.sqrt`. The same works for modules. Note the difference in how we reference the square root function though... 
+By importing the `sqrt as s`, you can call the function as `s()` instead of `math.sqrt`. The same works for modules. Note the difference in how we reference the square root function though:
 
-```python
-import math as m
-m.sqrt(25) # 5.0
-```
+`import math as m`
+
+Here we are importing a module with an alias.
+
+`m.sqrt(25) # 5.0`
 
 ...we only renamed the module in this import and not the function. So we have to go back to the `module_name.function()` syntax. *However*, because we renamed the module on import, we can reference it in function calls by its shortened name, i.e. `m.sqrt`.
 
