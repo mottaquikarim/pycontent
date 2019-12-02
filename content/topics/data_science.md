@@ -43,9 +43,9 @@ That's pretty broad though. What skills in each of these areas are needed for da
 * **COMPUTER SCIENCE**: Has experience in data engineering (i.e. organizing data, running models, visualizing results, etc.); proficient in R and/or Python
 * **DOMAIN EXPERTISE**: Understands the business and social context of issue and can ask questions that lead to appropriate approaches and insights
 
-#### DISCUSSION: What are some real-world scenarios where people might use data science to solve a problem?
+### DISCUSSION: What are some real-world scenarios where people might use data science to solve a problem?
 
-==1) **Safer, smarter self-driving cars**
+1) **Safer, smarter self-driving cars**
 	- Data from sensors, including radars, cameras and lasers, to create a map of its surroundings. 
 	- Create a map of its current surroundings such as proximity to other moving or stationary objects like other vehicles, traffic light signals, sirens, pedestrian crosswalk signals, etc.
 	- Decisions like when to speed up/down, stop, turn, signal, etc.
@@ -56,7 +56,7 @@ That's pretty broad though. What skills in each of these areas are needed for da
 3) **Natural disaster prediction**
 	- Data from ships, aircrafts, radars, satellites
 	- Predict occurrences of natural disasters, the areas to be affected, and (where applicable) the path of the storm
-	- Earlier predictions to maximize evacuation potential==
+	- Earlier predictions to maximize evacuation potential
 
 ## The Data Science Lifecycle
 
@@ -68,27 +68,52 @@ The image above delineates the general steps you would take when you start a dat
 
 ### 1) BUSINESS UNDERSTANDING
 
-- understand your issue
-- for example... TBD
+First and foremost, you have to understand your problem:
 
+* Why is it a problem?
+* Who is affected by this problem and how?
+* Can you quantify the problem and/or its consequences? ("Consequences" might simply be opportunity cost in some cases.)
+* What theories do you have about what is causing your problem?
+* What ideas do you have about solving your problem?
+* How valuable would solving this problem be to each stakeholders and to the group as a whole?
+* What kind of data might you want to explore?
+* What data is available to you or can you gain access to?
 
 ### 2) DATA MINING
 
-- obtain the data
+This step mainly concerns obtaining the data. You'll have a number of items to consider, including:
 
+* Is there a single source that contains all the data variables you need, or will you have to compile data from different sources?
+* Do you have first-party data relating to this problem?
+* Is your first-party data enough to help you solve the problem, or do you need to complement it with third-party data?
+* Is the data publicly available (and thus available to your competitors, if applicable)?
+* Will you need to pay for the data and/or negotiate how much access you will be allowed?
+* If you're compiling data from multiple sources, can you accurately align them?
+
+This last point is of crucial importance. You must use contextual logic when compiling variables. For example, you can't evaluate how the weather affects Citibike usage if you compare Citibike rides from 2018 to weather from 2016. You also can't confidently predict a country's employment rate based solely on its GDP. Your sample space of countries has far too many extraneous variables that need to be accounted for, such as their domestically available natural resources, their wealth gap, their population's age distribution, etc.
 
 ### 3) DATA CLEANING
 
-- standardize data formatting
-- remove null values or duplicates
-- remove extreme outliers
+Data cleaning is a relatively straightforward phase. During it, your aim is to:
 
+* Standardize data formatting
+	* e.g. If states are formatted in different ways ("New York", "NY", and "N.Y."), you should convert them to be consistent
+* Remove duplicate data and/or entries containing "NULL" values to avoid unintentionally skewing results
+* Remove extreme outliers so that these edge cases don't skew your results.
+* Normalize units across variables
+	* e.g. Ensure all units use the metric system
+* Normalize the scale of variable data to allow for smooth visualizations
+* Create dummy variables for categorical vars as a way to quantify your qualitative data
 
 ### 4) DATA EXPLORATION
 
-We already looked at the columns in this dataset, but now we want to gain a deeper understanding and create some meaning to help determine our path forward. To do so, we will look at descriptive statistics, probably starting with summary statistics for the different variables in the dataset. 
+At this point, we want to gain a deeper understanding of the dataset's details and create some meaning to help determine our path forward. This exploration might include (but is certainly not limited to!) the following: 
 
+* Observe descriptive statistics, probably starting with summary statistics for the different variables in the dataset.
+* If our goal is to build a confident predictive model, we would start by looking for signs of strong correlation between variables.
+* If our goal is to conduct a sentiment analysis, we might evaluate which parts of the data could serve to measure positive and negative sentiments.
 
+As you gain more context about the relationships in the data, you will think of more theories about your problem.
 
 ### 5) FEATURE ENGINEERING
 

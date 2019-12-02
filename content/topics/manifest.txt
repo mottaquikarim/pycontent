@@ -7,3 +7,4 @@
 - loops.md: Loops
 - functions.md: Functions
 - classes.md: Classes
+- data_science.md: Principles of Data Science
