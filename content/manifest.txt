@@ -1,4 +1,4 @@
-- intro: Intro
+- intro: Intro 
 - topics: Topics
 - homework: Homework
 - resources: Resources 
