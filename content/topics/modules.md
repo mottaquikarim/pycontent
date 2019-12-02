@@ -65,7 +65,7 @@ In addition to "built-in" modules, we have the ability in python to create, dist
 
 This is powerful because anyone who builds something useful has the ability to share with the larger python community. Creating and distributing python modules is outside the scope of this class, but we can consume any module we'd like by running the:
 
-```bash
+```python
 pip install [module_name]
 ```
 
@@ -75,26 +75,26 @@ However, in order to safely install modules across projects (ie: perhaps project
 
 In order to create a virtual environment:
 
-```bash
+```python
 python3 -m venv .env
 source .env/bin/activate
 ```
 
 The `.env` folder contains everything needed for this **"virtualenv"**. We go *inside* the env by running the `source ./env/bin/activate` command. To deactivate, (while in virtualenv):
 
-```bash
+```python
 deactivate
 ```
 
 The best part about this is not only can we install our pip modules safely, we can also do this:
 
-```bash
+```python
 pip freeze > requirements.txt
 ```
 
 This will collect all the installed pip modules in the virtual env and store into a file (that we are calling `requirements.txt`). This is useful because if we ever wanted to run this software from a different computer, all we would have to do is pull down the python files, create a new virtualenv and then:
 
-```bash
+```python
 pip install -r requirements.txt
 ```
 
