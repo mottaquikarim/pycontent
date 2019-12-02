@@ -2,15 +2,15 @@
 
 ### Where can I find the link to our Slack channel?
 
-[Slack <channel_name>](??????)
+[Slack PYTH122](https://pyth122.slack.com)
 
 ### Where are all the practice problems?
 
-You can find a link to the practice problem source files and how to use them on the [Admin Info](https://mottaquikarim.github.io/pycontent/#out/intro/admin_info) page under the section named "Practice Problem Source Files".
+You can find a link to the practice problem source files and how to use them on the [Admin Info](https://mottaquikarim.github.io/pycontent/#in/intro/admin_info) page under the section named "Practice Problem Source Files".
 
 ### How can I see what the agenda for the next class is?
 
-On the [Admin Info](https://mottaquikarim.github.io/pycontent/#out/intro/admin_info) page, you will find a list of lecture topics with dates. *This is a living list* based on how much material we cover in each class.
+On the [Admin Info](https://mottaquikarim.github.io/pycontent/#in/intro/admin_info) page, you will find a list of lecture topics with dates. *This is a living list* based on how much material we cover in each class.
 
 ### How does Colab work?
 
@@ -22,11 +22,11 @@ When you open them, make a copy for yourself. You can do this by going to File >
 
 Homework will be announced during class and on Slack every week.
 
-Also, you can go to the [Homework](https://mottaquikarim.github.io/pycontent/#out/homework) section to see a list of each homework assignment, the day it was assigned, and its due date. Typically, each assignment is due at 6pm on the day of the next class.
+Also, you can go to the [Homework](https://mottaquikarim.github.io/pycontent/#in/homework) section to see a list of each homework assignment, the day it was assigned, and its due date. Typically, each assignment is due at 6pm on the day of the next class.
 
 ### How do I submit my homework?
 
-Assuming you have shared your PYTH122 folder with your Instructor and IA, simply ping your IA on Slack when you have finished your homework. If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Admin Info](https://mottaquikarim.github.io/pycontent/#out/intro/admin_info) page.
+Assuming you have shared your PYTH122 folder with your Instructor and IA, simply ping your IA on Slack when you have finished your homework. If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Admin Info](https://mottaquikarim.github.io/pycontent/#in/intro/admin_info) page.
 
 ### How and when will we receive feedback on our work?
 
@@ -44,4 +44,4 @@ Office hours will be **Monday evening from 8:30-9:30pm.**
 
 ### Where can I find MORE practice problems?
 
-Go to the [Reference Sources](https://mottaquikarim.github.io/pycontent/#out/resources/refs) section. There are lots of places here you can explore! You can use these for more practice problems as well as helpful tutorials for debugging your code.
+Go to the [Reference Sources](https://mottaquikarim.github.io/pycontent/#in/resources/refs) section. There are lots of places here you can explore! You can use these for more practice problems as well as helpful tutorials for debugging your code.

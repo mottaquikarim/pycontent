@@ -1,3 +1,4 @@
 - class_info.md: Class Info
 - tools.md: Tools
 - faq.md: FAQ
+- about.md: About
