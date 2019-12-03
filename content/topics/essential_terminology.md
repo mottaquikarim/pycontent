@@ -81,10 +81,6 @@ For example, we can write a program that converts temperature from **fahrenheit*
 
 ^^ This is a form of pseudocode where we define the steps a computer program &mdash; **any** &mdash; computer program can take to convert **fahrenheit** to **celsius**.
 
-```python
-# PRACTICE SECTION!
-```
-
 #### **EXAMPLE 1**: Write the logic for the functionality of a smart thermostat.
 - **When room temp is lower than some temp pre-set by the user, turn on heat. Call this value "cold".**
 - **When room temp is higher than some temp pre-set by the user, turn on the A/C. Call this value "hot".**
@@ -121,7 +117,6 @@ if current_temp >= heat then...
 ```
 
 #### **PRACTICE 1**: Based on user input, deposit money into a bank account with some existing balance.
-
 
 ```python
 # Practice 1 Answer...
@@ -333,10 +328,10 @@ search p3 metadata for TSH_level info
 
 # existing record is...
 TSH_level = 
-  month1, tsh1
-  month2, ths2
-  ... etc ...
-  month 15, tsh15
+    month1, tsh1
+    month2, ths2
+    ... etc ...
+    month 15, tsh15
 
 last_years_TSH = subset of TSH_level w. last 12 months (month4 through month15)
 
@@ -348,11 +343,9 @@ graph_values(last_years_TSH)
 """
 ```
 
-#### **EXAMPLE 2**: You work for an ecommerce platform. After a customer buys one or more products, you need to update the remaining inventory of each product as well as record the profit you just made from this sale.
+#### **Practice 6**: You work for an ecommerce platform. After a customer buys one or more products, you need to update the remaining inventory of each product as well as record the profit you just made from this sale.
 
 ```python
-# Example 2 Answer...
-
 """
 1. Look at first product and its metadata (e.g. inventory amount, quantity purchased, retail price, and wholesale price).
 2. How many of this product were in the inventory before this purchase?
