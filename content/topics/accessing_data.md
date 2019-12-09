@@ -257,3 +257,28 @@ Select a slice of a DataFrame by entering a range of row and column index positi
 ```python
 movies.iloc[625:631,0:5]
 ```
+
+## Iterating Through Data
+
+`.iterrows()`
+
+
+```python
+movies.sort_values(by="imdbRating", ascending=False, inplace=True)
+temp = movies.head(5)
+
+d = None # how to grab the rows without the index or col labels?
+i = temp.index
+c = temp.columns
+
+top5_movie = pd.DataFrame(data = d, index = i, columns = c)
+# pd.DataFrame(data = [], index = [], columns= [])
+
+for idx, row in top5_movie:
+	print(i, 'is', row)
+```
+
+
+
+
+

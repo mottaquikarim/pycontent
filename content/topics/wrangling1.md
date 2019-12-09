@@ -6,6 +6,4 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 
 
-
-
 ## Iterating Through Data
