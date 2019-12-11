@@ -6,21 +6,14 @@ Before we dig deeper into conditionals, let us first examine the `Boolean` datat
 
 ## Booleans & Their Operators
 
-In short, a boolean represents a "yes" or "no" value. In python, booleans are written as:
+In short, a boolean represents a "yes" or "no" value. In Python, booleans are written as:
 
 ```python
 True # this is a boolean, for "yes"
 False # this is a boolean, for "no"
 ```
 
-Because booleans are just datatypes, we can store them into variables.
-
-```python
-is_it_summer = False
-will_it_be_summer_soon = True
-```
-
-Moreover, because booleans are data types, certain operators will *evaluate* to booleans:
+Because booleans are datatypes, certain operators will *evaluate* to booleans:
 
 ```python
 age = 13
@@ -130,7 +123,7 @@ sky_is_green = False
 result = not sky_is_green # True
 ```
 
-A statement with **The `or` operator** evaluates to `True` if **AT LEASE ONE** of the items are `True.` For instance, 
+A statement with **the `or` operator** evaluates to `True` if **AT LEASE ONE** of the items are `True.` For instance, 
 
 ```python
 layla_is_maine_coon = True
@@ -272,7 +265,7 @@ In the example above, we make use of comparison operators *and* logical operator
 
 ### `else`s and `elif`s
 
-If we have a condition that can only go two ways (ie: it will only be true or false), we can leverage the `else` statement:
+If we have a condition that can only go two ways (i.e. it will only be true or false), we can leverage the `else` statement:
 
 ```python
 temp = 43
@@ -300,14 +293,13 @@ else:
 
 In the example above, we print one of 4 possibilities - the elif allows us to go from 2 potential conditions to N potential conditions.
 
-
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Complete the "Logic" PSET in your copy of `conditionals_psets.ipynb` in Google Drive.
 
 ### BONUS TOPIC: Random Numbers
 
-If you want to generate random numbers in your programs, you can import Python's `random` package ***at the top of your code***.
+If you want to generate random numbers in your programs, you can import Python's `random` module.
 
 The example below generates a random number from 1 to 100:
 

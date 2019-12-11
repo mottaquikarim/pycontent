@@ -40,11 +40,13 @@ If you liked it, then you should have put a ring on it
 These are the most basic data types, which compose the more complex data types we'll learn about later:
 
 * Strings: alphanumeric characters read as text
-	* **Important takeaway!** If you use a `'`, say in a contraction, the string might misinterpret it as the ending `'` for the string. To avoid this, add `\` right before that `'` like this: 'I\'ll`.
+	* **Important takeaway!** If you use a `'`, say in a contraction, the string might misinterpret it as the ending `'` for the string. To avoid this, add `\` right before that `'` like this: `I\'ll`.
+
 * Integers: whole numbers
 * Floats: decimals
 * Booleans: represents True or False values; used for evaluating conditional statements
 * Nonetype: represents variables not yet defined or essentially blank values (shown as None, used as placeholder to avoid error)
+
 
 ```python
 # Strings
