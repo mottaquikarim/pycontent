@@ -1,57 +1,46 @@
 # Basic Data Types
 
-Let's discuss variables - how to name them and what types of data can be stored in them.
+## Variables & Primitive Data Types
 
-## Variables
+### Creating & Reading Variables
 
-A data type is a unit of information that can be stored and retrieved using a program language. **Variables** store different types of data. You can display the value stored in a variable on the screen using the `print()` statement. Because variables are so ubiquitous, there are some **rules for naming variables** that help avoid confusion.
+In all programming languages, developers leverage **variables** to store and retrieve units of information. Each language categorizes these pieces of data...hence the term **data types**. Because variables are so ubiquitous, there are some **rules for naming variables** that help avoid confusion.
 
-- **Rule:** snake_case with the underscore character
-- **Rule:** Can’t use keywords as var names, e.g. True, None, function, class, object
-- **Rule:** Can’t start with a numeric value, e.g. can't name something "1var", but you CAN do function1
-- **Best Practice:** You COULD use CamelCase to name a variable, but this is typically reserved for naming a different Python object called a "class".
+* **Rule:** snake_case with the underscore character
+* **Rule:** Can’t use keywords as var names, e.g. True, None, function, class, object
+* **Rule:** Can’t start with a numeric value, e.g. can't name something "1var", but you CAN do function1
+* **Best Practice:** You COULD use CamelCase to name a variable, but this is typically reserved for naming a different Python object called a "class".
 
-#### Creating & Reading a Variable
+As seen below, once you create your variable, you can display the value stored in a variable on the screen using the `print()` statement. 
 
 ```python
 first_prime = 2
 print(first_prime) # expect to see 2
 ```
-
-#### Comments
-
-Real quick, let's see how we create comments so that you can write notes to yourself in your code - **very** useful!
+>>**Pro tip!** Let's quickly look at how to write **comments** in the code. Documenting notes with comments is extremely useful, especially when multiple people are working on a project.
 
 ```python
 # I'm a comment!
 
-
-# Here is a multi-line comment:
 """
-'Cause if you liked it, then you should have put a ring on it
-If you liked it, then you should have put a ring on it
-Don't be mad once you see that he want it
-If you liked it, then you should have put a ring on it
+I'm a
+multi-line
+comment
 """
 ```
+### Primitive Data Types
 
-## Fundamental Python Data Types
+The following list defines Python's "primitive" data types. In other words, these are the building blocks, which compose the more complex data types we'll learn about later.
 
-These are the most basic data types, which compose the more complex data types we'll learn about later:
-
-* Strings: alphanumeric characters read as text
-	* **Important takeaway!** If you use a `'`, say in a contraction, the string might misinterpret it as the ending `'` for the string. To avoid this, add `\` right before that `'` like this: `I\'ll`.
-
-* Integers: whole numbers
-* Floats: decimals
-* Booleans: represents True or False values; used for evaluating conditional statements
-* Nonetype: represents variables not yet defined or essentially blank values (shown as None, used as placeholder to avoid error)
-
+* **Strings**: alphanumeric characters read as text
+* **Integers**: whole numbers
+* **Floats**: decimals
+* **Booleans**: represents True or False values; used for evaluating conditional statements
+* **Nonetype**: represents variables not yet defined or essentially blank values (shown as None, used as a placeholder to avoid errors)
 
 ```python
 # Strings
 cat = 'Layla' # or "Layla" because single & double quotes are both valid
-cat_description = 'Layla\'s a mischievous, but very cute kitty!' # Note the use of \' here.
 
 # Integers
 age = 8
@@ -67,59 +56,131 @@ good_with_other_cats = False
 good_with_other_dogs = None
 ```
 
-### String Formatting
+## String Formatting
 
-Strings have some special qualities that make dealing with them easier. For instance, you can store several separate snippets of text within a single string. One way to do this is adding `\n` to signify that you want to create a new line. However, there's another way to do this that makes it much more readable! To do this, you can use triple quotes i.e. `'''` or `"""`. You can use single and double quotes within the string freely, so no need to worry about that detail!
-
-Let's say you're storing song lyrics, so you want to have a line break between each line of the song.
+A string can be any combination of alphanumeric characters of any length. The below are all examples of strings. Notice how putting quotes around other data types turns them into strings.
 
 ```python
-'Cause if you liked it, then you should have put a ring on it\nIf you liked it, then you should have put a ring on it\nDon\'t be mad once you see that he want it\nIf you liked it, then you should have put a ring on it'
+cat = 'Layla' # a single word
+colors = 'white and orange' # a phrase or sentence
 
-'''
+age = '8'
+weight = '10.5'
+
+vaccinated = 'True'
+good_with_other_cats = 'False'
+
+good_with_other_dogs = 'None'
+```
+Because the content of a string can vary so much, Python has several features that make handling them much easier...
+
+### Escape Characters
+
+Python has defined certain **escape characters** that will NOT be read literally when placed inside a string. Instead, they tell Python to insert a character in a special way. For example, since strings can be enclosed by single or double quotes, what happens when you need to use one of those within the string? Python will get confused as to where you want your string to start and end! That's where the `\'` and `\"` escape characters come in.
+
+```python
+demeanor = 'Layla\'s mischievous, but very sweet!'
+print(demeanor)
+
+
+sound = "Layla says \"Meow\"!"
+print(sound)
+```
+
+The `\n` escape character tells Python to start a new line before displaying the rest of the string. 
+
+```python
+print('Layla:\nMaine Coon\n8 years old\n10.5 lb')
+```
+
+### String Formatting with f-Strings
+
+Python supports a feature called **f-strings** that enables dynamic formatting of strings. By placing "f" before a string, it notifies Python to interpret the string dynamically based on the rules and syntax of f-string formatting. Without the "f", Python will interpret the string literally. Here are some of the most common use cases:
+
+1. Multi-Line Strings
+
+Using `\n` will let you tell Python to split your string into multiple lines when printed. Using an f-string makes the text more readable within your code as well. For a multi-line f-string, you need to enclose your string in triple `'''` or `"""`. Let's say you're storing song lyrics, so you want to have a line break between each line of the song. 
+
+```python
+print('Cause if you liked it, then you should have put a ring on it\nIf you liked it, then you should have put a ring on it\nDon\'t be mad once you see that he want it\nIf you liked it, then you should have put a ring on it')
+
+print(f'''
 'Cause if you liked it, then you should have put a ring on it
 If you liked it, then you should have put a ring on it
 Don't be mad once you see that he want it
 If you liked it, then you should have put a ring on it
-'''
-```
-
-If you want to insert variables within a string, you can do this:
-
-```python
-cat = 'Layla'
-
-print(cat, 'is a mischievous, but very cute kitty!')
-# Note that the ',' automatically adds a space character.
-```
-
-But that can be annoying if you're inserting multiple variables. To simplify this, you dynamically add variables directly within a string like this:
-
-```python
-cat = 'Layla' # or "Layla" because single & double quotes are both valid
-age = 8
-weight = 10.5
-
-
-print(f'{cat} is {age} years old.\n{cat} weighs {weight} pounds.')
-print(f'''
-{cat} is {age} years old.
-{cat} weighs {weight} pounds.
 ''')
-
-"""
-Both of these print...
-
-Layla is 8 years old.
-Layla weighs 10.5 pounds.
-"""
 ```
 
-**Pro Tip**: You can use several versions of the the `.strip()` function to remove leading and trailing spaces from strings.
+>**Remember!**
+> If you use triples quotes *without* the "f", you're creating a multi-line *comment*, which won't print out.
 
-* `lstrip()`: remove all leading AND trailing spaces
-* `rstrip()`: remove all leading AND trailing spaces
-* `strip()`: remove all leading AND trailing spaces
+
+2. Insert Variables in a String
+
+If you want to insert variables within a string, you can separate string snippets with commas. Note that the commas will not be printed, but also that each comma automatically adds a space before the next item.
+
+```python
+a = 5
+b = 12
+c = 'pomegranate'
+
+print(a, '+', b, '= 17') # 5 + 12 = 17
+print('I\'d like a', c, '.') # I'd like a pomegranate .
+```
+But that can get annoying when you're inserting multiple variables. It can also end up printing out spaces where you don't want them (e.g. between `pomegranate` and `.` To simplify this with an f-string, you can add variables directly into a string within `{}`. Remember that if you don't add the "f" before the opening quote, it will interpret the string content literally!
+
+```python
+a = 5
+b = 12
+c = 'pomegranate'
+
+print(f'{a} + {b} = 17') # 5 + 12 = 17
+print('{a} + {b} = 17') # {a} + {b} = 17
+
+
+print(f'I\'d like a {c}.') # I'd like a pomegranate.
+print('I\'d like a {c}.') # I'd like a {c}.
+```
+
+You can insert as many variables as you want than one variable
+
+3. Manipulate Variables Directly in a String
+
+You can even do simple operations on variables within the `{}` such as...
+
+* Math
+
+```python
+a = 5
+b = 12
+
+print(f'{a} + {b} = {a + b}') # 5 + 12 = 17
+print(f'{b % a}') # 2
+```
+
+* Apply a function
+
+```python
+c = 'pomegranate'
+
+print(f'{len(c)}') # 11
+```
+
+* Apply a method
+
+```python
+c = 'pomegranate'
+
+print(f'{c.upper()}') # POMEGRANATE
+```
+
+
+>**Pro Tip**: You can use several versions of the the `.strip()` function to remove leading and trailing spaces from strings.
+
+* `.lstrip()`: remove all leading AND trailing spaces
+* `.rstrip()`: remove all leading AND trailing spaces
+* `.strip()`: remove all leading AND trailing spaces
 
 ```python
 a = '    hi mom!'
