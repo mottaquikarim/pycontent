@@ -406,6 +406,9 @@ seceded1 = state_capitals.popitem()
 # ^ removes a random item and returns it as a tuple
 print(seceded1) # ('GA': 'Atlanta') for example
 ```
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Try out all the dict PSETs in your copy of `dict_psets.ipynb` in Google Drive.
 
 ## Summary
 
