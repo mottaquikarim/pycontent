@@ -1,15 +1,6 @@
 # Lists
 
-In order to begin to truly write dynamic programs, we need to be able to work with *dynamic* data where we do not know how much of a certain type of variable we have.
-
-The problem, essentially is, *variables hold only one item*.
-
-```python
-my_color = 'red'
-my_peer = 'Brandi'
-```
-
-**Lists** hold multiple items, called **elements**. List elements can represent any data type, and *a single list can hold any mix of different data types, including **other lists**.*
+In order to begin to truly write dynamic programs, we need to be able to work with data even when we do not know how much we have. Since *variables hold only one item*, Python has some objects that hold collections of data. A **list** object is one of those. **Lists** hold multiple items, called **elements**. List elements can represent any data type, and most, importantly, *a single list can hold any mix of different data types, **including other lists**.*
 
 ## Creating lists
 
@@ -34,7 +25,6 @@ print(f'Nested Lists: {nested_lists}\n')
 mix = [True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]]
 print(f'Mixed Data Types: {mix}\n')
 ```
-
 If you choose to use the `list()` method, there are a couple things to remember. First, you can only add **one** parameter into `list()`. So if you want to add multiple items, you have to pass them to `list()` within the `[]` syntax anyway.
 
 ```python
@@ -49,8 +39,7 @@ print(colors)
 mix = list([True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]])
 print(f'Mixed Data Types: {mix}\n')
 ```
-
-Take a look at what happens if you don't pass your desired item or items using the `[]` for list syntax.
+Take a look at what happens if you don't pass your desired item or items using the `list()` syntax.
 
 ```python
 colors = list('red', 'yellow', 'green')
@@ -69,9 +58,9 @@ print(coin_flips)
 The one use case that does not throw an error is if you pass a single string value. Still, this doesn't have the intended output of adding a single names to a list of names!
 
 ```python
-names = list('Julianna')
+names = list('Layla')
 print(names)
-# ['J', 'u', 'l', 'i', 'a', 'n', 'n', 'a']
+# ['L', 'a', 'y', 'l', 'a']
 ```
 
 And if you think it works for sentences by parsing a new list element at each space character...*nope!*
@@ -84,40 +73,38 @@ print(sentence)
 
 ## Accessing Elements in the List
 
-The **list index** means the location of something (an *element*) in the list.
-
-List indexes start counting at 0!
+The **list index** means the location of each element in the list. List indexes start counting at 0!
 
 |  List | "Brandi" | "Zoe" | "Steve" | "Aleksander" | "Dasha" |
 |:-----:|:--------:|:-----:|:-------:|:------:|:------:|
 | Index |     0    |   1   |    2    |    3   |    4   |
 
 
-```python
-"""list_name[index]"""
+To access one of them use the syntax `list_name[index_position]`.
 
+```python
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 print(my_class[0]) # Prints "Brandi"
 print(my_class[1]) # Prints "Zoe"
 print(my_class[4]) # Prints "Dasha"
 ```
-
-To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `[2:7]`.
-
-**NOTE!** It's important to remember that the upper bound is NOT inclusive. If you want the elements and index 1 through at including index 4, you have to write `[2:5]`. See this in action below:
+If you pass in any list index greater than or equal to the length of the list, you will get an `IndexError`:
 
 ```python
-"""list_name[start_index:end_index_+1]"""
+print(len(my_class)) # 
 
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-print(my_class[1:4])
+print(my_class[len(my_class)]) # IndexError: list index out of range
 ```
 
-Here are a few examples that illustrate what happens when you don't specify a bound:
+To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `my_list[2:7]`. It's important to remember that **the upper bound is NOT inclusive**. In other words, if you want the elements at index 3 and index 4, you have to write `[3:5]`. (Likewise, `my_class[1:1]` would print nothing.) 
 
 ```python
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+print(my_class[3:5])
+```
+Ommitting one or both bounds acts as a shortcut when the length and order of your list might vary. It allows you to say, "Give me everything from the beginning of the list to index `x`" or "Give me everything from index `x` and onward."
 
+```python
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 
 print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
@@ -125,10 +112,7 @@ print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
 print('[2:] -- ', my_class[2:]) # Index 2 through end of list
 
 print('[:] -- ', my_class[:]) # Prints WHOLE LIST
-
-print('[1:1] -- ', my_class[1:1]) # Prints NOTHING
 ```
-
 If you have nested lists, you simply add another level of index selection, like so:
 
 ```python
@@ -160,11 +144,6 @@ pets = ['dog', 'cat', 'guinea pig', 'ferret', 'bird', 'lizard']
 
 
 ```
-
-🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
-
-Complete the "?????" PSET in the [Conditionals Practice notebook]().
-
 
 ## Built-In Operations for Manipulating Lists
 
