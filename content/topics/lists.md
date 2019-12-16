@@ -148,58 +148,65 @@ pets = ['dog', 'cat', 'guinea pig', 'ferret', 'bird', 'lizard']
 ## Built-In Operations for Manipulating Lists
 
 ### Add Items to a List
-If you want to extend the content of a single list, you can use `.append()`, `.extend()` `.insert()` to add elements of any data type.
+If you want to add elements to a single list, you can use `.append()`, `.extend()` `.insert()`. These all work with any basic data type.
 
 #### `.append()` vs. `.extend()`
-These methods both add items to the end of the list. The difference here is that `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add each element of the group *individually*. Here are a few examples to show you the difference in outcomes.
+These methods both add items to the end of the list. The difference here is that `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add each element of the group *individually*. 
 
 ```python
-""" Passing direct argument """
-# Append..
+# APPEND
 x = ['a', 'b', 'c', 'd']
 x.append(['e', 'f', 'g'])
 print(x)
 # ['a', 'b', 'c', 'd', ['e', 'f', 'g']]
 
-# ... vs. extend
+# EXTEND
 x = ['a', 'b', 'c', 'd']
 x.extend(['e', 'f', 'g'])
 print(x)
 # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 ```
 
-Notice in this next example how `.extend()` only considers individual values of the parent list. It still adds the tuple and list - `('f', 'g')` and `['h', 'i']` - to our list `x` as their own items.
+In the next example, take a look at how `.extend()` only considers individual values of the parent list passed in. It still adds the nested lists - `['f', 'g']` and `['h', 'i']` - to our list `x` as their own items.
 
 ```python
-""" Passing argument within a var"""
-# Append..
+# APPEND
 x = ['a', 'b', 'c', 'd']
-y = ['e', ('f', 'g'), ['h', 'i'], 'j']
+y = ['e', ['f', 'g'], ['h', 'i'], 'j']
 x.append(y)
 print(y)
-# ['a', 'b', 'c', 'd', ['e', ('f', 'g'), ['h', 'i'], 'j']]
+# ['a', 'b', 'c', 'd', ['e', ['f', 'g'], ['h', 'i'], 'j']]
 
-# ... vs. extend
+
+# EXTEND
 x = ['a', 'b', 'c', 'd']
-y = ['e', ('f', 'g'), ['h', 'i'], 'j']
+y = ['e', ['f', 'g'], ['h', 'i'], 'j']
 x.extend(y)
 print(x)
-# ['a', 'b', 'c', 'd', 'e', ('f', 'g'), ['h', 'i'], 'j']
+# ['a', 'b', 'c', 'd', 'e', ['f', 'g'], ['h', 'i'], 'j']
 ```
 
 #### `.insert(index, value)`
+
 If you want to add an item to a specific point in your list, you can pass the desired index and value into `.insert()` as follows.
 
 ```python
-"""your_list.insert(index, item)"""
-
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
 my_class.insert(1, 'Sanju')
 print(my_class)
 # ['Brandi', 'Sanju', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
 ```
+Whatever you pass into the `value` parameter will be added as a single element though!
+
+```python
+my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
+my_class.insert(1, ['Sanju', 'Reginald'])
+print(my_class)
+# ['Brandi', ['Sanju', 'Reginald'], 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
+```
 
 ### Remove Items from a List
+
 Likewise, you can use `.pop()` or `.pop(index)` to remove any type of element from a list.
 
 #### `.pop()`
@@ -414,7 +421,6 @@ P_tails = tails / num_tosses
 
 print(f'P(Heads) = {P_heads} vs. P(Tails) = {P_tails}')
 ```
-
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Test your new knowledge with the "List Ops" PSET in your copy of `lists_psets.ipynb` in Google Drive.
@@ -427,7 +433,8 @@ If you want to organize your lists better, you can sort them with the `.sort()` 
 * Strings: alphabetically and reverse alphabetically
 * You **cannot** sort a list that includes different data types. 
 
-It's important to remember that the `.sort()` function modifies the list *in place*, while the `sorted()` function requires you to assign its result back to the variable.
+>**GOTCHA!**
+>It's important to remember that the `.sort()` method modifies the list *in place*, while the `sorted()` function requires you to assign its result back to the variable.
 
 #### `.sort()`
 
@@ -483,10 +490,6 @@ letters = ['b', 'e', 'c', 'a', 'd']
 descending = sorted(letters, reverse=True)
 print(descending) # ['e', 'd', 'c', 'b', 'a']
 ```
-
->**GOTCHA!**
->When using the `.sorted()` method, you do NOT need to reassign the sorted list to the variable. When using the `sorted()` function, you DO. This is because `.sorted()` edits the list *in-place*.
-
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
