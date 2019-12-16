@@ -25,7 +25,7 @@ print(f'Nested Lists: {nested_lists}\n')
 mix = [True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]]
 print(f'Mixed Data Types: {mix}\n')
 ```
-If you choose to use the `list()` method, there are a couple things to remember. First, you can only add **one** parameter into `list()`. So if you want to add multiple items, you have to pass them to `list()` within the `[]` syntax anyway.
+If you choose to use the `list()` method, there are a couple things to remember. First, you can only add **one** parameter into `list()`. So if you want to add multiple items, you have to pass them to `list()` within the `[]` syntax anyway. (However, `list()` does come in handy for *typecasting* another object into a list, as we'll see soon.)
 
 ```python
 blank = list() # blank list
@@ -388,7 +388,8 @@ word = 'sunburnt'
 print(word.count('u')) # 2
 ```
 
-*...BUT only on **strings**.* Notice how `.count()` throws an error if you try to count the number of times the digit "2" appears in the number below. And remember, you CANNOT use the `.split()` method as a workaround because `.split()` only works on strings!
+>**GOTCHA!**
+>`.count()` throws an error if you try to count the number of times the digit "2" appears in the number below. And remember, you CANNOT use the `.split()` method as a workaround because `.split()` only works on strings!
 
 ```python
 num = 22384232348
@@ -470,7 +471,7 @@ ascending = sorted(letters)
 print(ascending) # ['a', 'b', 'c', 'd', 'e']
 ```
 
-To do this in **descending order**, simply add `reverse=True` as an argument in `.sorted()` like this:
+To do this in **descending order**, simply add `reverse=True` as an argument in `sorted()` like this:
 
 ```python
 numbers = [1, 3, 7, 5, 2, 4, 6]
@@ -483,24 +484,34 @@ descending = sorted(letters, reverse=True)
 print(descending) # ['e', 'd', 'c', 'b', 'a']
 ```
 
+>**GOTCHA!**
+>When using the `.sorted()` method, you do NOT need to reassign the sorted list to the variable. When using the `sorted()` function, you DO. This is because `.sorted()` edits the list *in-place*.
+
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
 
 ## Tuples
 
-Tuples are a special subset of lists - they are *immutable* - in that they cannot be changed after creation. Tuples are denoted with `()` as opposed to `[]`.
+Tuples are a special subset of lists. They are *immutable* in that they cannot be changed after creation. Tuples are denoted with `()` as opposed to `[]`.
 
-You can declare sets in two ways:
+Similar to lists, you can declare tuples with `tuple()` or just `()`. Again, the former can only take one argument, but is useful when you're creating a tuple from an existing list.
 
 ```python
-score1 = ('Taq', 100)
-print(score1) # ('Taq', 100)
+x = ['Taq', 100]
+score1 = tuple(x)
+print(score1) # ('Taq', 100) 
 
 # OR
 
-score2 = 'Sue', 101 # ('Sue', 101)
+score2 = ('Randy', 101) # ('Randy', 101)
 print(score2)
+```
+There is also a third way to create a tuple... simply place a comma between two separate values.
+
+```python
+score3 = 'Eliza', 102
+print(score3) # ('Eliza', 102)
 ```
 
 We read tuples just like we would read a list:
@@ -514,32 +525,25 @@ print(dna[0]) # ('A', 'T')
 print(dna[1][0]) # G
 ```
 
-You can do SOME of the same operations on tuples despite their immutability. For example:
+You can do SOME operations as long as those operations would not attempt to change the tuple. Since the tuple is immutable, that will throw an error. 
 
 ```python
-tuple1 = (1, 3, 7, 5, 2, 4, 6)
-
-len_tuple1 = len(tuple1) # 7
-sum_tuple1 = sum(tuple1) # 28
-min_tuple1 = min(tuple1) # 1
-max_tuple1 = max(tuple1) # 7
-
-count_val4 = tuple1.count(4) # 1
-index_val2 = tuple1.index(2) # 4
+tuple1 = (1, 4, 3, 7, 5, 4, 2, 6)
 
 print(f'''
-Length: {len_tuple1}
-Sum: {sum_tuple1}
-Min: {min_tuple1}
-Max: {max_tuple1}
-Occurrences of "4": {count_val4}
-Index of "2": {index_val2}
+Length: {len(tuple1)}
+Sum: {sum(tuple1)}
+Min: {min(tuple1)}
+Max: {max(tuple1)}
+Occurrences of "4": {tuple1.count(4)}
+Index of "2": {tuple1.index(2)}
 ''')
 ```
-
-You *can sort, join, or split* a tuple the same as a list, **BUT** because you can't edit a tuple:
-* You can't use `.sort()` because that edits the object in place
+You can also sort, join, or split a tuple the same as a list, **BUT** because you can't edit a tuple:
+* You can't use `.sort()` because that edits the object *in place*.
 * Each of these will return a *new list object*
+
+#### Sort 
 
 ```python
 tuple2 = ('b', 'e', 'c', 'a', 'd')
@@ -549,12 +553,16 @@ print(sort_asc, type(sort_asc)) # ['a', 'b', 'c', 'd', 'e'] <class 'list'>
 
 sort_desc = sorted(tuple2, reverse = True)
 print(sort_desc, type(sort_desc)) # ['e', 'd', 'c', 'b', 'a'] <class 'list'>
+```
+#### Join
 
-print('\n')
-
+```python
 joined = ', '.join(tuple2) # Joined: b, e, c, a, d <class 'str'>
 print('Joined:', joined, type(joined))
+```
+#### Split
 
+```python
 split_up = joined.split(',') # Split: ['b', ' e', ' c', ' a', ' d'] <class 'list'>
 print('Split:', split_up, type(split_up))
 ```
@@ -570,8 +578,7 @@ print(set_2) # {1,2,3,4,5}
 
 print(set_1 == set_2) # True
 ```
-
-Sets are also not indexed, so you cannot access, say, the 3rd element in a set. Instead, you can use *boolean membership operators* to check for a value's existence in the set. Remember those?
+Sets are NOT indexed, so you cannot access, say, the 3rd element in a set. Instead, you can use *boolean membership operators* to check for a value's existence in the set. Remember those?
 
 ```python
 set_1 = {1,2,3,4,5}
@@ -583,30 +590,26 @@ print(2 and 8 in set_1) # False
 print(2 and 3 in set_1) # True
 ```
 
-That said, you can still perform mathmetical operations on sets. These are the same examples we used for tuples, and they have the same results. Notice how you can't find the index of an element for the reasons we just discussed!
+That said, you can still perform mathmetical operations on sets. These are the same examples we used for tuples, and they have the same results... EXCEPT you can't find the index of an element for the reasons we just discussed! And as such, you can't count the number of occurrences of an item in a set.
 
 ```python
-set1 = (1, 3, 7, 5, 2, 4, 6)
-
-len_set1 = len(set1) # 7
-sum_set1 = sum(set1) # 28
-min_set1 = min(set1) # 1
-max_set1 = max(set1) # 7
-
-count_val4 = set1.count(4) # 1
+set1 = (1, 4, 3, 7, 5, 4, 2, 6)
 
 print(f'''
-Length: {len_set1}
-Sum: {sum_set1}
-Min: {min_set1}
-Max: {max_set1}
-Occurrences of "4": {count_val4}
+Length: {len(set1)}
+Sum: {sum(set1)}
+Min: {min(set1)}
+Max: {max(set1)}
+set1.count(4) won't work
+set1.index(2) won't work
 ''')
 ```
 
 You *can also sort, join, or split* a set, **BUT** you have the same limitations as you do with a tuple:
 * You can't use `.sort()` because that edits the object in place
 * Each of these will return a *new list object*
+
+#### Sort
 
 ```python
 set2 = {'b', 'e', 'c', 'a', 'd'}
@@ -616,17 +619,21 @@ print(sort_asc, type(sort_asc)) # ['a', 'b', 'c', 'd', 'e'] <class 'list'>
 
 sort_desc = sorted(set2, reverse = True)
 print(sort_desc, type(sort_desc)) # ['e', 'd', 'c', 'b', 'a'] <class 'list'>
+```
+#### Join
 
-print('\n')
-
+```python
 joined = ', '.join(set2) # Joined: b, e, c, a, d <class 'str'>
 print('Joined:', joined, type(joined))
+```
+#### Split
 
+```python
 split_up = joined.split(',') # Split: ['b', ' e', ' c', ' a', ' d'] <class 'list'>
 print('Split:', split_up, type(split_up))
 ```
-
-**Pro Tip**: Sets give a great way to remove duplicates from a list!
+>**Pro Tip!**
+>Sets give a great way to remove duplicates from a list!
 
 ```python
 my_list = [1,2,4,5,2,3,1,4,5,1,5,3]
@@ -640,19 +647,11 @@ print(my_list) # [1, 2, 3, 4, 5]
 
 Here's a **[helpful list](https://snakify.org/en/lessons/sets/#section_4)** of other set operations.
 
-## Summary
-
-<img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Lists_Summary.png?raw=true" width="100%" align="left"/>
-
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Complete the "List Manipulation" PSET in your copy of `lists_psets.ipynb` in Google Drive. Then, try to solve the "List Challenges" PSET.
 
+## Summary
 
-## Additional Resources
+<img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Lists_Summary.png?raw=true" width="100%" align="left"/>
 
-- [Python Lists - Khan Academy Video](https://www.youtube.com/watch?v=zEyEC34MY1A)
-- [Google For Education: Python Lists](https://developers.google.com/edu/python/lists)
-- [Python-Lists](https://www.tutorialspoint.com/python/python_lists.htm)
-- [Python List Methods](https://www.programiz.com/python-programming/methods/list/)
-- [Python Data Structures: Lists, Tuples, Sets, and Dictionaries Video](https://www.youtube.com/watch?v=R-HLU9Fl5ug)
