@@ -120,4 +120,26 @@ print(f'LEADING & TRAILING SPACES: \n{c} \n{c.strip()}')
 
 ## User Input
 
+As a bonus topic, let's discuss how to collect input from the user while running your program. It's quite simple - declare a variable equal to the `input()` function. Your program will stop when it reaches that function and wait for user input. You can (and probably should) add a string within the `input()` function. This will act as a written prompt for the user. Let's see this in action:
+
+```python
+answer = input('What is your name? ')
+print(answer)
+```
+One vital thing to remember is that *the `input()` function will always typecast the user's input into a string.* This can be problematic:
+
+```python
+subtotal = 48.37
+tip = input('Please enter the amount of tip you want to leave: ')
+total = subtotal + tip # TypeError
+```
+To remedy this, you have to remember to typecast the user's input into whatever data type you ultimately need.
+
+```python
+subtotal = 48.37
+tip = float(input('Please enter the amount of tip you want to leave: '))
+total = subtotal + tip 
+print(f'{total:.2f}')
+```
+
 
