@@ -97,7 +97,7 @@ print('Layla:\nMaine Coon\n8 years old\n10.5 lb')
 
 Python supports a feature called **f-strings** that enables dynamic formatting of strings. By placing "f" before a string, it notifies Python to interpret the string dynamically based on the rules and syntax of f-string formatting. Without the "f", Python will interpret the string literally. Here are some of the most common use cases:
 
-1. Multi-Line Strings
+#### Multi-Line Strings
 
 Using `\n` will let you tell Python to split your string into multiple lines when printed. Using an f-string makes the text more readable within your code as well. For a multi-line f-string, you need to enclose your string in triple `'''` or `"""`. Let's say you're storing song lyrics, so you want to have a line break between each line of the song. 
 
@@ -116,7 +116,7 @@ If you liked it, then you should have put a ring on it
 > If you use triples quotes *without* the "f", you're creating a multi-line *comment*, which won't print out.
 
 
-2. Insert Variables in a String
+#### Insert Variables in a String
 
 If you want to insert variables within a string, you can separate string snippets with commas. Note that the commas will not be printed, but also that each comma automatically adds a space before the next item.
 
@@ -145,42 +145,30 @@ print('I\'d like a {c}.') # I'd like a {c}.
 
 You can insert as many variables as you want than one variable
 
-3. Manipulate Variables Directly in a String
+####    Manipulate Variables Directly in a String
 
-You can even do simple operations on variables within the `{}` such as...
-
-* Math
+You can even do simple operations on variables within the `{}` such as math, functions, and methods. (More on the latter two to come!
 
 ```python
 a = 5
 b = 12
+c = pomegranate
 
+# MATH
 print(f'{a} + {b} = {a + b}') # 5 + 12 = 17
 print(f'{b % a}') # 2
-```
 
-* Apply a function
-
-```python
-c = 'pomegranate'
-
+# FUNCTION
 print(f'{len(c)}') # 11
-```
 
-* Apply a method
-
-```python
-c = 'pomegranate'
-
+# METHOD
 print(f'{c.upper()}') # POMEGRANATE
 ```
 
-
->**Pro Tip**: You can use several versions of the the `.strip()` function to remove leading and trailing spaces from strings.
-
-* `.lstrip()`: remove all leading AND trailing spaces
-* `.rstrip()`: remove all leading AND trailing spaces
-* `.strip()`: remove all leading AND trailing spaces
+>**Bonus Topic**: You can use several versions of the the `.strip()` function to remove leading and trailing spaces from strings.
+>* `.lstrip()`: remove all leading AND trailing spaces
+>* `.rstrip()`: remove all leading AND trailing spaces
+>* `.strip()`: remove all leading AND trailing spaces
 
 ```python
 a = '    hi mom!'
@@ -248,19 +236,46 @@ string_to_float = str('strawberry') # ERROR!
 
 #### Converting Booleans
 
-As you'll see below, you can convert any number to a True boolean, BUT a True boolean will only ever become 1 or 1.0. Notice that the **ONLY** way a string converted into a boolean will be False is if it's **empty**. Spaces count as characters even though they wouldn't display anything if printed.
+Typecasting between strings and booleans is relatively simple.
 
 ```python
-"""EVALS TO TRUE"""
-int_to_boolean = bool(10) # True, <class 'bool'>
-float_to_boolean = bool(2.5) # True, <class 'bool'>
-string_to_boolean = bool('peach') # True, <class 'bool'>
+t = str(True) # 'True'
+f = str(False) # 'False'
 
-"""EVALS TO FALSE"""
-int_to_boolean = bool(0) # False, <class 'bool'>
-float_to_boolean = bool(0.0) # False, <class 'bool'>
-string_to_boolean = bool('') # False, <class 'bool'>
+str_to_True_bool = bool('peach') # True (<class 'bool'>)
 ```
+The **ONLY** way a *string* converted into a boolean will be False is if it's **empty** (as seen above). Spaces count as characters even though they wouldn't display anything if printed. We can prove this by finding the length of a string that only contains spaces.
+
+```python
+empty = ''
+print(bool(empty), len(empty)) # False (<class 'bool'>), 0
+
+spaces = '     '
+print(bool(spaces), len(spaces)) # True (<class 'bool'>), 5
+```
+
+Typecasting numbers to and from boolean values is a little more nuanced. A `False` boolean is always associated with `0` or `0.0`.
+
+```python
+int_to_boolean = bool(0) # False (<class 'bool'>)
+float_to_boolean = bool(0.0) # False (<class 'bool'>)
+
+
+false_to_int = int(False) # 0
+false_to_float = float(False) # 0.0
+```
+However, while you can convert any number to a True boolean, a True boolean will only ever become 1 or 1.0. 
+
+```python
+int_to_boolean = bool(10) # True (<class 'bool'>)
+float_to_boolean = bool(2.5) # True (<class 'bool'>)
+
+
+true_to_int = int(True) # 1
+true_to_float = float(True) # 1.0
+```
+
+To give you a contextual example, let's say you're running a drug trial at a pharmaceutical company. You have a spreadsheet of the participants and info about them such as their name, age, gender, etc. You also have a field that represents whether or not that participant is on the real drug (True / 1) or a placebo (False / 0). The reason you'd use the 1s and 0s is to allow you to quantify that categorical variable.\
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
