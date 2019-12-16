@@ -274,14 +274,13 @@ float_to_boolean = bool(2.5) # True (<class 'bool'>)
 true_to_int = int(True) # 1
 true_to_float = float(True) # 1.0
 ```
-
-To give you a contextual example, let's say you're running a drug trial at a pharmaceutical company. You have a spreadsheet of the participants and info about them such as their name, age, gender, etc. You also have a field that represents whether or not that participant is on the real drug (True / 1) or a placebo (False / 0). The reason you'd use the 1s and 0s is to allow you to quantify that categorical variable.\
+To give you a contextual example, let's say you're running a drug trial at a pharmaceutical company. You have a spreadsheet of the participants and info about them such as their name, age, gender, etc. You also have a field that represents whether or not that participant is on the real drug (True / 1) or a placebo (False / 0). The reason you'd use the 1s and 0s is to allow you to quantify that categorical variable.
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a stab at the "Typecasting" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
-## Simple Integer, Float, & String Operators
+## Simple Operators
 
 **Operators** are shortcuts for manipulating values stored in variables.
 
@@ -314,7 +313,6 @@ num4 = orig_num / 5 # 2
 num5 = orig_num % 5 # 0
 num6 = orig_num % 3 # 1
 ```
-
 ### String Operators
 
 * We can "add" strings
@@ -335,20 +333,6 @@ print(a, 'and', b) # 'this string and that string'
 print('this will not work' + 4) doesn't work 
 because you can't add a number to a string"""
 ```
-
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Complete the "Operators" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
-
-
-## Additional Resources
-
-* [A Repl.it Summarizing Print Statements](https://repl.it/@brandiw/Python-01-Variables-4?lite=true)
-* [Python For Beginners](http://www.pythonforbeginners.com/basics/python-variables)
-* [Python Programming Tutorial: Variables](https://www.youtube.com/watch?v=vKqVnr0BEJQ)
-* [Variables in Python](https://www.guru99.com/variables-in-python.html)
-* [Operators Cheatsheet](http://python-reference.readthedocs.io/en/latest/docs/operators/)
-* [Python Style Guide: Naming](https://www.python.org/dev/peps/pep-0008/#descriptive-naming-styles)
-* [Python-Strings](https://www.tutorialspoint.com/python/python_strings.htm)
-* [String Concatenation and Formatting](http://www.pythonforbeginners.com/concatenation/string-concatenation-and-formatting-in-python)
-* [String Concatenation and Formatting - Video](https://www.youtube.com/watch?v=jA5LW3bR0Us)
