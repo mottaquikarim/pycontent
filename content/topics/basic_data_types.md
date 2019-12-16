@@ -56,8 +56,7 @@ good_with_other_cats = False
 good_with_other_dogs = None
 ```
 
-## String Formatting
-
+**NOTE!**
 A string can be any combination of alphanumeric characters of any length. The below are all examples of strings. Notice how putting quotes around other data types turns them into strings.
 
 ```python
@@ -72,121 +71,64 @@ good_with_other_cats = 'False'
 
 good_with_other_dogs = 'None'
 ```
-Because the content of a string can vary so much, Python has several features that make handling them much easier...
+## Simple Operators
 
-### Escape Characters
+**Operators** are shortcuts for manipulating values stored in variables.
 
-Python has defined certain **escape characters** that will NOT be read literally when placed inside a string. Instead, they tell Python to insert a character in a special way. For example, since strings can be enclosed by single or double quotes, what happens when you need to use one of those within the string? Python will get confused as to where you want your string to start and end! That's where the `\'` and `\"` escape characters come in.
+### Integer/Float Operators
+
+We can operate on integers/floats in the following ways:
+
+* Addition
+* Subtraction
+* Multiplication
+* Division
+* Modulus (This one divides and returns **only the remainder**.)
 
 ```python
-demeanor = 'Layla\'s mischievous, but very sweet!'
-print(demeanor)
+orig_num = 10
 
+# Addition
+num1 = orig_num + 5 # 15
 
-sound = "Layla says \"Meow\"!"
-print(sound)
+# Subtraction
+num2 = orig_num - 5 # 5
+
+# Multiplication
+num3 = orig_num * 5 # 50
+
+# Division
+num4 = orig_num / 5 # 2
+
+# Modulus
+num5 = orig_num % 5 # 0
+num6 = orig_num % 3 # 1
 ```
+### String Operators
 
-The `\n` escape character tells Python to start a new line before displaying the rest of the string. 
+To print out multiple variables within one `print()` statement...
+* We can "add" strings as a way to save or print out multiple variables dynamically
+* We CANNOT add strings to non-strings, i.e. `'this will not work' + 4`
 
 ```python
-print('Layla:\nMaine Coon\n8 years old\n10.5 lb')
+a = 'peanut butter'
+b = 'jelly'
+
+print(a + b) # 'peanut butterjelly'
+print(a + ' and ' + b) # 'peanut butter and jelly'
 ```
-
-### String Formatting with f-Strings
-
-Python supports a feature called **f-strings** that enables dynamic formatting of strings. By placing "f" before a string, it notifies Python to interpret the string dynamically based on the rules and syntax of f-string formatting. Without the "f", Python will interpret the string literally. Here are some of the most common use cases:
-
-#### Multi-Line Strings
-
-Using `\n` will let you tell Python to split your string into multiple lines when printed. Using an f-string makes the text more readable within your code as well. For a multi-line f-string, you need to enclose your string in triple `'''` or `"""`. Let's say you're storing song lyrics, so you want to have a line break between each line of the song. 
+You can also separate variables and strings with commas. Notice how each comma automatically adds a space when you execute the `print()` statementl.
 
 ```python
-print('Cause if you liked it, then you should have put a ring on it\nIf you liked it, then you should have put a ring on it\nDon\'t be mad once you see that he want it\nIf you liked it, then you should have put a ring on it')
+a = 'peanut butter'
+b = 'jelly'
 
-print(f'''
-'Cause if you liked it, then you should have put a ring on it
-If you liked it, then you should have put a ring on it
-Don't be mad once you see that he want it
-If you liked it, then you should have put a ring on it
-''')
-```
-
->**Remember!**
-> If you use triples quotes *without* the "f", you're creating a multi-line *comment*, which won't print out.
-
-
-#### Insert Variables in a String
-
-If you want to insert variables within a string, you can separate string snippets with commas. Note that the commas will not be printed, but also that each comma automatically adds a space before the next item.
-
-```python
-a = 5
-b = 12
-c = 'pomegranate'
-
-print(a, '+', b, '= 17') # 5 + 12 = 17
-print('I\'d like a', c, '.') # I'd like a pomegranate .
-```
-But that can get annoying when you're inserting multiple variables. It can also end up printing out spaces where you don't want them (e.g. between `pomegranate` and `.` To simplify this with an f-string, you can add variables directly into a string within `{}`. Remember that if you don't add the "f" before the opening quote, it will interpret the string content literally!
-
-```python
-a = 5
-b = 12
-c = 'pomegranate'
-
-print(f'{a} + {b} = 17') # 5 + 12 = 17
-print('{a} + {b} = 17') # {a} + {b} = 17
-
-
-print(f'I\'d like a {c}.') # I'd like a pomegranate.
-print('I\'d like a {c}.') # I'd like a {c}.
-```
-
-You can insert as many variables as you want than one variable
-
-####    Manipulate Variables Directly in a String
-
-You can even do simple operations on variables within the `{}` such as math, functions, and methods. (More on the latter two to come!
-
-```python
-a = 5
-b = 12
-c = pomegranate
-
-# MATH
-print(f'{a} + {b} = {a + b}') # 5 + 12 = 17
-print(f'{b % a}') # 2
-
-# FUNCTION
-print(f'{len(c)}') # 11
-
-# METHOD
-print(f'{c.upper()}') # POMEGRANATE
-```
-
->**Bonus Topic**: You can use several versions of the the `.strip()` function to remove leading and trailing spaces from strings.
->* `.lstrip()`: remove all leading AND trailing spaces
->* `.rstrip()`: remove all leading AND trailing spaces
->* `.strip()`: remove all leading AND trailing spaces
-
-```python
-a = '    hi mom!'
-print(f'LEADING SPACES: \n{a} \n{a.strip()}\n\n')
-
-
-b = 'hi mom!    '
-print(f'TRAILING SPACES: \n{b} \n{c.strip()}\n\n')
-
-
-c = '    hi mom!    '
-# print(c, '\n', c.strip(), '\n\n')
-print(f'LEADING & TRAILING SPACES: \n{c} \n{c.strip()}')
+print(a, 'and', b) # 'this string and that string'
 ```
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Complete the "Easy" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
+Complete the "Easy" and "Operators" PSETs in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
 ## Typecasting
 
@@ -279,60 +221,3 @@ To give you a contextual example, let's say you're running a drug trial at a pha
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a stab at the "Typecasting" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
-
-## Simple Operators
-
-**Operators** are shortcuts for manipulating values stored in variables.
-
-### Integer/Float Operators
-
-We can operate on integers/floats in the following ways:
-
-* Addition
-* Subtraction
-* Multiplication
-* Division
-* Modulus (This one divides and returns **only the remainder**.)
-
-```python
-orig_num = 10
-
-# Addition
-num1 = orig_num + 5 # 15
-
-# Subtraction
-num2 = orig_num - 5 # 5
-
-# Multiplication
-num3 = orig_num * 5 # 50
-
-# Division
-num4 = orig_num / 5 # 2
-
-# Modulus
-num5 = orig_num % 5 # 0
-num6 = orig_num % 3 # 1
-```
-### String Operators
-
-* We can "add" strings
-* We CANNOT add strings to non strings
-
-```python
-a = 'this string'
-b = 'that string'
-
-print(a + b) # 'this stringthat string'
-
-
-print(a + ' and ' + b) # 'this string and that string'
-print(a, 'and', b) # 'this string and that string'
-
-
-"""ERROR!!!
-print('this will not work' + 4) doesn't work 
-because you can't add a number to a string"""
-```
-### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
-
-Complete the "Operators" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
