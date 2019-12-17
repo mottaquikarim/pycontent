@@ -91,21 +91,38 @@ print(my_class[4]) # Prints "Dasha"
 If you pass in any list index greater than or equal to the length of the list, you will get an `IndexError`:
 
 ```python
-print(len(my_class)) # 
+print(len(my_class)) # 5
 
 print(my_class[len(my_class)]) # IndexError: list index out of range
+```
+
+**Question** How could we print the last item in the list?
+
+```python
+list_len = len(my_class)
+print(f'The last item is {my_class[(list_len-1)]}')
+
+# OR
+
+print(f'The last item is {my_class[-1]}')
+```
+Likewise, you can extend this "backward index" concept to other positions.
+
+```python
+print(f'2nd to last item is {my_class[-2]}')
+print(f'3rd to last item is {my_class[-3]}')
 ```
 
 To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `my_list[2:7]`. It's important to remember that **the upper bound is NOT inclusive**. In other words, if you want the elements at index 3 and index 4, you have to write `[3:5]`. (Likewise, `my_class[1:1]` would print nothing.) 
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+my_class = ['Roxanne', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 print(my_class[3:5])
 ```
 Ommitting one or both bounds acts as a shortcut when the length and order of your list might vary. It allows you to say, "Give me everything from the beginning of the list to index `x`" or "Give me everything from index `x` and onward."
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+my_class = ['Roxanne', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 
 print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
 
@@ -213,12 +230,10 @@ Likewise, you can use `.pop()` or `.pop(index)` to remove any type of element fr
 - Removes an item from the end of the list.
 
 ```python
-"""your_list.pop()"""
-
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
 student_that_left = my_class.pop()
-print("The student", student_that_left, "has left the class.")
-# Sonyl
+print(f'{student_that_left} has left the class.')
+# Sonyl has left the class.
 print(my_class)
 # ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 ```
@@ -229,8 +244,6 @@ print(my_class)
 - Can take an index.
 
 ```python
-"""your_list.pop(index)"""
-
 my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 student_that_left = my_class.pop(2) # Remember to count from 0!
 print('The student', student_that_left, 'has left the class.')
@@ -290,8 +303,6 @@ Python has some built-in operations that allow you to analyze the content of a l
 This counts the numbers of elements in the list, or its *length*, regardless of data type.
 
 ```python
-# length_variable = len(your_list)
-
 my_class = ['Brandi', 'Zoe', 'Aleksander', 'Dasha']
 num_students = len(my_class)
 print(f'There are {num_students} students in the class')
@@ -330,8 +341,6 @@ print(last_element_last_nested_list) # artist
 This returns the sum of all items in *numerical lists*.
 
 ```python
-"""sum_variable = sum(your_numeric_list)"""
-
 team_batting_avgs = [.328, .299, .208, .301, .275, .226, .253, .232, .287]
 sum_avgs = sum(team_batting_avgs)
 print(f'The total of all the batting averages is {sum_avgs}.')
@@ -342,11 +351,6 @@ print(f'The total of all the batting averages is {sum_avgs}.')
 Return the smallest or largest number *in a numerical list*.
 
 ```python
-"""
-max(your_numeric_list)
-min(your_numeric_list)
-"""
-
 team_batting_avgs = [.328, .299, .208, .301, .275, .226, .253, .232, .287]
 print(f'The highest batting average is {max(team_batting_avgs)}')
 # ... 0.328
@@ -355,7 +359,6 @@ print(f'The lowest batting average is {min(team_batting_avgs)}')
 ```
 
 #### `.index()`
-
 
 Given a list element's value, return its index.
 
@@ -368,7 +371,7 @@ print(pig_index)
 
 If the element occurs multiple times in the list, `.index()` will only return the index of its *first* occurrence!
 
-```
+```python
 sentence = ['a', 'purple', 'pig', 'AND', 'a', 'green', 'donkey', 'flew', 'a', 'kite', 'in', 'the', 'middle','of', 'the', 'night', 'AND', 'ended', 'up', 'sunburnt']
 
 and_index = sentence.index('AND')
@@ -410,16 +413,6 @@ Now, take a look at how these list operations work together in this contextual e
 ```python
 coin_toss = [True, False, False, False, True, False, True, True, False, False, True, True, False, True]
 
-num_tosses = len(coin_toss)
-
-heads = coin_toss.count(True)
-tails = coin_toss.count(False)
-print(f'# Heads: {heads} vs. # Tails: {tails}\n')
-
-P_heads = heads / num_tosses
-P_tails = tails / num_tosses
-
-print(f'P(Heads) = {P_heads} vs. P(Tails) = {P_tails}')
 ```
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
