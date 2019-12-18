@@ -4,65 +4,46 @@ In order to begin to truly write dynamic programs, we need to be able to work wi
 
 ## Creating lists
 
-To declare a new list varaible, you have two options -- `[]` or `list()`. The `[]` syntax is a bit more straightforward, as seen below.
+To declare a new list varaible, you have two options -- `[]` or `list()`. The `[]` syntax is a bit more straightforward. If you choose to use the `list()` method, you still have to pass the items to it within `[]` because it will only accept **one** parameter...
 
 ```python
-blank = []
-print(f'Blank: {blank}\n')
-
-colors = ['red', 'yellow', 'green']
-print(f'Strings: {colors}\n')
-
-grades = [100, 99.5, 65, 54.1, 19]
-print(f'Numbers: {grades}\n')
-
-coin_flips = [True, False, True, True]
-print(f'Booleans: {coin_flips}\n')
-
-nested_lists = [['circus', 'clown'], ['trapeze', 'artist']]
-print(f'Nested Lists: {nested_lists}\n')
-
-mix = [True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]]
-print(f'Mixed Data Types: {mix}\n')
+# Empty
+empty1 = []
+empty2 = list()
 ```
-If you choose to use the `list()` method, there are a couple things to remember. First, you can only add **one** parameter into `list()`. So if you want to add multiple items, you have to pass them to `list()` within the `[]` syntax anyway. (However, `list()` does come in handy for *typecasting* another object into a list, as we'll see soon.)
-
 ```python
-blank = list() # blank list
-print(blank)
-
-colors = list(['red', 'yellow', 'green']) # strings
-print(colors)
-
-# etc...
-
-mix = list([True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]])
-print(f'Mixed Data Types: {mix}\n')
+# Mixed Data Types
+mix1 = [True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]]
+mix2 = list([True, ['seal', 'spider monkey'], 22, 'lion', [False, 13]])
 ```
-Take a look at what happens if you don't pass your desired item or items using the `list()` syntax.
+```python
+# Nested List
+nested1 = [['circus', 'clown'], ['trapeze', 'artist']]
+nested2 = list([['circus', 'clown'], ['trapeze', 'artist']])
+```
+
+The `list()` method can be tricky. Here's what happens if you pass more than one item to it:
 
 ```python
 colors = list('red', 'yellow', 'green')
-print(colors)
 ### TypeError: list() takes at most 1 argument (3 given)
-
-grades = list(100) # or any float e.g. 100.0
-print(grades)
-### TypeError: 'int' object is not iterable
-
-coin_flips = list(True) # booleans
-print(coin_flips)
-### TypeError: 'bool' object is not iterable
 ```
-
-The one use case that does not throw an error is if you pass a single string value. Still, this doesn't have the intended output of adding a single names to a list of names!
+Even if you do pass only *one* item, you still have to enclose it with `[]`. If you pass a single number or a single boolean without using brackets, you'll get a `TypeError`.
 
 ```python
-names = list('Layla')
-print(names)
+x = list(100) # or any float e.g. 100.0
+### TypeError: 'int' object is not iterable
+
+y = list(True) # booleans
+### TypeError: 'bool' object is not iterable
+```
+And if you pass a string without using brackets, you won't get quite what you want.
+
+```python
+z = list('Layla')
+print(z)
 # ['L', 'a', 'y', 'l', 'a']
 ```
-
 And if you think it works for sentences by parsing a new list element at each space character...*nope!*
 
 ```python
@@ -88,30 +69,53 @@ print(my_class[0]) # Prints "Brandi"
 print(my_class[1]) # Prints "Zoe"
 print(my_class[4]) # Prints "Dasha"
 ```
+What if you want to grab a single element from a list nested within a list though? Simply add another level of index selection.
+
+```python
+nested_lists = list([['circus', 'clown'], ['trapeze', 'artist']])
+print(nested_lists[0][0]) # circus
+print(nested_lists[1][0]) # trapeze
+```
+
+The `len()` function will give you the total number of list elements (regardless of data type).
+
+```python
+my_class = ['Brandi', 'Zoe', 'Aleksander', 'Dasha']
+num_students = len(my_class)
+print(num_students) # 5
+```
+>>**REMEMBER!** 
+>>Because the index starts at 0, the index position of the last item in the list will NOT be equal to the list's length.
+
 If you pass in any list index greater than or equal to the length of the list, you will get an `IndexError`:
 
 ```python
-print(len(my_class)) # 5
-
-print(my_class[len(my_class)]) # IndexError: list index out of range
+print(my_class[num_students])
+### IndexError: list index out of range
 ```
-
-**Question** How could we print the last item in the list?
+Aside from merely finding the length, `len()` comes in handy if you need to dynamically select the last element of a list. Logically, the length of the list minus 1 will give you the index of the last list element, i.e. `index_of_last_element = len(list_name) - 1`.
 
 ```python
-list_len = len(my_class)
-print(f'The last item is {my_class[(list_len-1)]}')
+my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+num_students = len(my_class)
 
-# OR
-
-print(f'The last item is {my_class[-1]}')
+# (num_students - 1) is the index of the last element
+print(my_class[num_students - 1]) # Dasha
 ```
-Likewise, you can extend this "backward index" concept to other positions.
+
+That brings us to something called **negative indexing**. Because of the above rule, Python allows you to take this shortcut to access the last list element:
+
+```python
+print(my_class[-1])
+```
+Likewise, as you count backwards from the last list element, the negative index extends...
 
 ```python
 print(f'2nd to last item is {my_class[-2]}')
 print(f'3rd to last item is {my_class[-3]}')
 ```
+
+### Selecting Ranges
 
 To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `my_list[2:7]`. It's important to remember that **the upper bound is NOT inclusive**. In other words, if you want the elements at index 3 and index 4, you have to write `[3:5]`. (Likewise, `my_class[1:1]` would print nothing.) 
 
@@ -127,14 +131,6 @@ my_class = ['Roxanne', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
 print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
 
 print('[2:] -- ', my_class[2:]) # Index 2 through end of list
-
-print('[:] -- ', my_class[:]) # Prints WHOLE LIST
-```
-If you have nested lists, you simply add another level of index selection, like so:
-
-```python
-nested_lists = list([['circus', 'clown'], ['trapeze', 'artist']])
-print(nested_lists[0][0]) # circus
 ```
 
 #### Practice together!
@@ -165,23 +161,32 @@ pets = ['dog', 'cat', 'guinea pig', 'ferret', 'bird', 'lizard']
 ## Built-In Operations for Manipulating Lists
 
 ### Add Items to a List
-If you want to add elements to a single list, you can use `.append()`, `.extend()` `.insert()`. These all work with any basic data type.
+If you want to add elements to a list, you can use any of the below methods:
 
-#### `.append()` vs. `.extend()`
-These methods both add items to the end of the list. The difference here is that `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add each element of the group *individually*. 
+* `.append()`: adds items to the end of a list in one chunk
+* `.extend()`: adds items to the end of a list individually
+* `.insert(index, value)`: adds an item to a specific position in the list
+* `[index] = value`: adds item to a specific position in the list
+
+Let's go through some examples. First, we'll look at the difference between `.append()` and `.extend()`. As mentioned above, `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add *each* element of the group *individually*. 
+
+**APPEND**
 
 ```python
-# APPEND
-x = ['a', 'b', 'c', 'd']
-x.append(['e', 'f', 'g'])
-print(x)
-# ['a', 'b', 'c', 'd', ['e', 'f', 'g']]
+pies = ['apple', 'pumpkin', 'pecan', 'blueberry']
+more_pies = ['lemon meringue', 'strawberry peach', 'banana cream']
 
-# EXTEND
-x = ['a', 'b', 'c', 'd']
-x.extend(['e', 'f', 'g'])
-print(x)
-# ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+pies.append(more_pies)
+print(f'.append(): {pies}\n')
+```
+**EXTEND**
+
+```python
+pies = ['apple', 'pumpkin', 'pecan', 'blueberry']
+more_pies = ['lemon meringue', 'strawberry peach', 'banana cream']
+
+pies.extend(more_pies)
+print(f'.extend(): {pies}')
 ```
 
 In the next example, take a look at how `.extend()` only considers individual values of the parent list passed in. It still adds the nested lists - `['f', 'g']` and `['h', 'i']` - to our list `x` as their own items.
@@ -298,64 +303,20 @@ print(data) # ['Sandra', 'hi@email.com', '646-212-1234', '8 Cherry Lane', 'Split
 
 Python has some built-in operations that allow you to analyze the content of a list. Some basic ones include:
 
-#### `len()`
-
-This counts the numbers of elements in the list, or its *length*, regardless of data type.
-
-```python
-my_class = ['Brandi', 'Zoe', 'Aleksander', 'Dasha']
-num_students = len(my_class)
-print(f'There are {num_students} students in the class')
-# => 5
-```
-
-Aside from merely finding the length, `len()` comes in handy during a number of other use cases. For example, you can use `len()` to dynamically select the last element of a list. If you find the list's length then subtract 1, you will have the index of the last list element. Watch this:
-
-```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-num_students = len(my_class)
-last_student_index = num_students - 1
-print(my_class[last_student_index]) # Dasha
-
-# You can do this all in one line if you want!
-# print(my_class[(len(my_class)-1)])
-```
-
-Here it is with a nested list:
-
-```python
-nested_lists = [['circus', 'clown'], ['trapeze', 'artist']]
-last_index_nested_lists = len(nested_lists) - 1
-print(last_index_nested_lists)
-
-last_index_last_nested_list = len(nested_lists[last_index_nested_lists]) - 1
-print(last_index_last_nested_list)
-
-last_element_last_nested_list = nested_lists[last_index_nested_lists][last_index_last_nested_list]
-
-print(last_element_last_nested_list) # artist
-```
-
-#### `sum()`
-
-This returns the sum of all items in *numerical lists*.
+**`sum()`**: returns the sum of all items in *numerical lists*.
 
 ```python
 team_batting_avgs = [.328, .299, .208, .301, .275, .226, .253, .232, .287]
 sum_avgs = sum(team_batting_avgs)
 print(f'The total of all the batting averages is {sum_avgs}.')
 ```
-
-#### `min()` & `max()`
-
-Return the smallest or largest number *in a numerical list*.
+**`min()`** & **`max()`**: return the smallest or largest number *in a numerical list*.
 
 ```python
-team_batting_avgs = [.328, .299, .208, .301, .275, .226, .253, .232, .287]
-print(f'The highest batting average is {max(team_batting_avgs)}')
-# ... 0.328
-print(f'The lowest batting average is {min(team_batting_avgs)}')
-# ... 0.208
+team_batting_avgs = [.299, .208, .301, .275, .328, .226, .253, .232, .287]
+
+print(f'Highest: {max(team_batting_avgs)}') # .328
+print(f'Lowest: {min(team_batting_avgs)}') # .208
 ```
 
 #### `.index()`
@@ -398,8 +359,8 @@ word = 'sunburnt'
 print(word.count('u')) # 2
 ```
 
->**GOTCHA!**
->`.count()` throws an error if you try to count the number of times the digit "2" appears in the number below. And remember, you CANNOT use the `.split()` method as a workaround because `.split()` only works on strings!
+>>**GOTCHA!**
+>>`.count()` throws an error if you try to count the number of times the digit "2" appears in the number below. And remember, you CANNOT use the `.split()` method as a workaround because `.split()` only works on strings!
 
 ```python
 num = 22384232348
