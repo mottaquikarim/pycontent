@@ -1,13 +1,23 @@
 # Dicts
 
-In addition to lists, another more comprehensive method for storing complex data are **dicts**, or dictionaries. In the example below, we associate a `key` (e.g. 'taq') to a `value` (e.g. 'karim'). Instead of being enclosed in `[]`, dicts are enclosed in `{}`.
+## Intro 
+
+In addition to lists, another more comprehensive method for storing complex data are **dicts**, or dictionaries. In this lesson, you'll:
+
+* Define the rules for the structure of dict objects
+* Create dicts using 4 different methods
+* Access dict data
+* Edit dict content
+
+## Dict Structure
+
+In the example below, we associate a `key` (e.g. 'taq') to a `value` (e.g. 'karim'). Instead of being enclosed in `[]`, dicts are enclosed in `{}`.
 
 ```python
 my_dict = {
     'key' : 'value'
 }
 ```
-
 The keys and values of a single dict don't have to be homogenous. In other words, you can mix and match different key, value, and key/value pair data types within one dict as seen below.
 
 ```python
@@ -44,7 +54,7 @@ dict2 = {
 
 There are several ways you can create your `dict`, but we'll go through the most basic ones here.
 
-#### 1. The simplest way is by passing in key value pairs directly using this syntax:
+### Method 1: Pass in key value pairs directly using `{}`:
 
 
 ```python
@@ -60,7 +70,7 @@ food_groups = {
 print(food_groups)
 ```
 
-#### 2. You can also create an empty dict with the `dict()` method.
+### Method 2: Create an empty dict with the `dict()` method.
 
 Just like with the `list()` method, `dict()` only accepts one argument, meaning you have to pass in key/value pairs within the `{}`.
 
@@ -77,7 +87,9 @@ food_groups = dict({
 print(food_groups)
 ```
 
-#### 3. You can also convert a *list of tuples* into a dict using `dict()`...
+### Method 3: Convert a *list of tuples* into a dict using `dict()`
+
+This is a good example of using typecasting on more complex data structures. 
 
 ```python
 # list of tuples   
@@ -87,7 +99,7 @@ wordFrequency = dict(listofTuples)
 print(wordFrequency) # {'this': 77, 'there': 45, 'hi': 10, 'at': 23, 'Hello': 7}
 ```
 
-#### 4. ...and even combine two lists to create a dict by using the `zip()` method.
+### Method 4: Use `zip()` to convert two lists into dict keys and values
 
 The `.zip()` method takes the names of each list as parameters - the first list will become the dict's keys, and the second list will become the dict's values.
 
@@ -144,7 +156,7 @@ print(state_capitals['PA']) # KeyError from missing key
 print(state_capitals[2]) # KeyError from index reference
 ```
 
-Instead, it's better to look up a key in a dict using `.get(key, [])`. The `.get()` method takes the key argument just as above EXCEPT it allows you to enter some default value it should return if the key you enter does not exist. Usually, we use `[]` as that value.
+Instead, it's better to look up a key in a dict using `.get(key)`. The `.get(key)` method takes the key argument just as above EXCEPT it allows you to enter some default value it should return if the key you enter does not exist. Usually, we use `[]` as that value so that it's `.get(key, [])`.
 
 ```python
 state_capitals = {
@@ -166,9 +178,9 @@ Now, this dict has 4 keys, but what if it had *hundreds?* We can isolate pieces 
 * `.values()` -- returns a collection of all the values in a dict 
 * `.items()` -- returns a collection of all the key/value pairs in a dict 
 
-#### Isolating Key & Values
+#### Isolating Keys & Values
 
-You would think the `.keys()` and `.values()` functions return lists of the keys and values repsectively, right? Wrong. These functions return *list-LIKE* objects called `dict_keys()` and `dict_values()`.
+Let's separate the keys and values from the `pets` dict below.
 
 ```python
 pets = {
@@ -179,33 +191,32 @@ pets = {
 }
 
 pet_keys = pets.keys()
-print(f'Keys: \n{pet_keys}\n{type(pet_keys)}\n\n')
-# ['Taq', 'Francesca', 'Walter', 'Caleb']
-
-
 pet_values = pets.values()
-print(f'Values: \n{pet_values}\n{type(pet_values)}')
-# [['teacup pig','cat','cat'], ['dog','rabbit','parakeet'], etc ]]
 ```
 
-In contrast to lists, you CANNOT access the elements in either a `dict_keys` or a `dict_values` object by index.
+You would think the `.keys()` and `.values()` functions return lists of the keys and values repsectively, right? Wrong. These functions return *list-LIKE* objects called `dict_keys()` and `dict_values()`. Run this cell to see the results summarized for you.
+```python
+print(f'''
+Keys: 
+{pet_keys}
+{type(pet_keys)}
+''')
+
+print(f'''
+Values: 
+{pet_values}
+{type(pet_values)}
+''')
+```
+
+In contrast to lists, you CANNOT access the elements in either a `dict_keys` or a `dict_values` object by index. Here's what happens if you try to:
 
 ```python
-pets = {
-  'Taq': ['teacup pig','cat','cat'],
-  'Francesca': ['llama','horse','dog'],
-  'Walter': ['ferret','iguana'],
-  'Caleb': ['dog','rabbit','parakeet']
-}
-
-pet_keys = pets.keys() # ['Taq', 'Francesca', 'Walter', 'Caleb']
 print(pet_keys[0])
 # TypeError: 'dict_keys' object is not subscriptable
-
-# The same happens for 'dict_values'
 ```
 
-The easiest way to get around this is to simply convert the objects to lists when you access them.
+The same error would occur if you tried that with a `dict_values` object. Because of this, it's often best to convert the objects to lists when you create them.
 
 ```python
 pets = {
@@ -216,20 +227,18 @@ pets = {
 }
 
 pet_keys = list(pets.keys())
-print(f'Keys: \n{pet_keys}\n{type(pet_keys)}\n\n')
-# ['Taq', 'Francesca', 'Walter', 'Caleb']
-
 pet_values = list(pets.values())
-print(f'Values: \n{pet_values}\n{type(pet_values)}\n\n')
-# [['teacup pig','cat','cat'], ['dog','rabbit','parakeet'], etc ]]
+```
+Then you can easily access each key or value by index: 
 
+```python
 print(f'First Key: {pet_keys[0]}') # 'Taq'
 print(f'First Value: {pet_values[0]}') # ['teacup pig','cat','cat']
 ```
 
 #### Isolating Key/Value Pairs
 
-This one will return a `dict_items` object.
+You can access the full group of key/value pairs with `.items()`. Accordingly, `.items()` one will return a `dict_items` object.
 
 ```python
 pets = {
@@ -239,8 +248,13 @@ pets = {
   'Caleb': ['dog','rabbit','parakeet']
 }
 
-pet_kv_pairs = pets.items() # [('Taq', ['teacup pig','cat','cat']), ('Francesca', [['llama','horse','dog']), etc]
-print(f'Key/Value Pairs: \n{pet_kv_pairs}\n{type(pet_kv_pairs)}')
+pet_kv_pairs = pets.items()
+
+print(f'''
+Key/Value Pairs: 
+{pet_kv_pairs}
+{type(pet_kv_pairs)}
+''')
 ```
 
 It looks like a list of tuples, right? Again, you'd think you could access each pair's tuple by index then, but you can't without first converting the `dict_items` object to a list like we did before.
@@ -261,7 +275,7 @@ print(pet_kv_pairs[0])
 # ('Taq', ['teacup pig','cat','cat'])
 ```
 
-the "Dict Manipulation" PSET in your copy of `dicts_psets.ipynb` in Google Drive.
+We'll learn *WHY* this is useful in the next section on loops!
 
 ## Built-in Operators for Manipulating Dicts
 
