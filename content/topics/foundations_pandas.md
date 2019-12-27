@@ -131,7 +131,7 @@ print(array1 + 1) # [4 6 8]
 
 A **Series** object from the Pandas library is a 1-D ndarray that has been streamlined for data processing.
 
-* All the values in a Series must homogenous.
+* All the values in a Series must be homogenous.
 * A Series is always 1-D.
 * Series support vectorized operations
 * By default, the `index` parameter assigns an zero-based index. Alternatively, you can assign custom index labels to a Series. On this front, you can think of a Series kind of like a dict.
@@ -164,7 +164,7 @@ s_ndarray = pd.Series(np.ndarray(['red', 'orange' 'yellow','green','blue','purpl
 print(s_ndarray)
 ```
 
-**Series from a dict, using implicit custom index**
+**Series from a single-column dict, using implicit custom index**
 
 ```python
 my_dict = {'c': 15, 'B': 20, 'a': 10}
@@ -178,7 +178,7 @@ print(s_dict)
 
 A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
 
-The syntx for creating a dataframe manually is `df = pd.DataFrame(data, index, columns)`. This is syntactically similar to creating a series, with two notable differences. First, there is no `dtype` parameter for a dataframe, since each column could contain data of a different type. Second, a series is 1-D, so it only needs an index for axis 0. Since a dataframe is 2-D, it includes another parameter called `columns` for labeling axis 1.
+The syntax for creating a dataframe manually is `df = pd.DataFrame(data, index, columns)`. This is syntactically similar to creating a series, with two notable differences. First, there is no `dtype` parameter for a dataframe, since each column could contain data of a different type. Second, a series is 1-D, so it only needs an index for axis 0. Since a dataframe is 2-D, it includes another parameter called `columns` for labeling axis 1.
 
 Constructing a DataFrame manually is a little more complex because you have to ensure the values for the rows and columns align correctly. The examples below illustrate multiple different ways to create the same dataframe. 
 
@@ -241,3 +241,18 @@ Now, let's say you alphabetize the Series by sorting the values...
 | *index position* |  0         |   1    |   2  |    3   |   4   |
 
 Notice how the index position doesn't change, but the `Index` labels follow their corresponding values. This is extremely helpful in data analysis because, no matter how you've sorted or sliced the data, each item can always be accessed by the same `Index` label.
+
+## Key Takeaways
+
+* When you import Numpy and Pandas, it's standard convention to import `numpy as np` and `pandas as pd`.
+* Conceptually, an ndarray is like a matrix that can have any number of dimensions.
+* The syntax for creating an ndarray manually is `a = np.array(data, ndim)`, where `ndim` is the number of dimensions.
+* All the values in an ndarray must be homogenous.
+* An ndarray supports vectorized operations.
+* A Series is a 1-D ndarray that inherits the above ndarray qualities.
+* The syntax for creating a Series manually is `s = pd.Series(data, index)`.
+* By default, the `index` parameter assigns an zero-based index to a Series. Alternatively, you can assign custom index labels.
+* A DataFrame is a 2-D ndarray that is conceptually similar to a table in a spreadsheet.
+* The syntax for creating a DataFrame manually is `df = pd.DataFrame(data, index, columns)`.
+* In a Pandas Series or DataFrame, you can access each value, row, or column by referencing its `Index` label OR its numerical index position.
+* When you manipulate data, a value's index *position* can change, but its index *label* will not.
