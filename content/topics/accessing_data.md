@@ -53,15 +53,15 @@ Reading and writing data to and from your notebook primarily relies on the forma
 * **Read:** `pd.read_<format>(<path>)`
 * **Write:** `pd.to_<format>(<path>)`
 
-*Notice how saving your data uses pd.to_<format> and NOT pd.write_.* For the syntax of how to load the most common data types, you can reference ==**this (URL TBD) section**== of our Pandas Cheat Sheet. 
+*Notice how saving your data uses pd.to_<format> and NOT pd.write_.* For the syntax of how to load the most common data types, you can reference the "Reading & Writing Data" section of our [Pandas Cheat Sheet](https://mottaquikarim.github.io/PYTH122/#out/resources/pandas_cheat_sheet).
 
-There are a number of optional parameters you might want or need to use. A quick exaplanation of the most useful ones are:
+There are a number of **optional parameters** you might want or need to use. A quick exaplanation of the most useful ones are:
 
 * `sep`: By default, ','
 You can specify the character that delimits the values so that Pandas can recognize it.
 * `header`: By default, Pandas infers the headers.
 If you know there is no header row, you should pass `False` and pass a list of column names to the `names` parameter.
-* `names`: (see "header	" above)
+* `names`: (see "header" above)
 * `index_col`: By default, `None` and Pandas will use a 0-based numerical index for the `Index` labels. If you want to use one (or more) of the columns as the index for axis 0 (the rows), specify them here.
 * `usecols`: If you want only a subset of columns loaded, indicate which ones here.
 * `nrows`: By default, Pandas loads the full file. If you want only a subset of the data, you can specify a number of rows to load.
@@ -71,10 +71,10 @@ If you know there is no header row, you should pass `False` and pass a list of c
 Since this is our first time looking at it, let's load the OMDb dataset as is. 
 
 ```python
-omdb_orig = pd.read_csv('omdb_5000.csv')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_movies.csv')
 movies = omdb_orig.copy()
 ```
-It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can your data to the original dataset. You can make a shallow copy (see below), but it's always better to the `.copy()` method.
+It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can compare your data to the original dataset. You can make a shallow copy (see below), but it's always better to make a hard copy with the `.copy()` method.
 
 >> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/) ==<-- **important article to read!!**==
 
@@ -175,10 +175,6 @@ Select a single value in a Series by its index position
 ```python
 titles.iloc[478]
 ```
-
-
-
-
 
 * Select a single value in a DataFrame...
     * **`df.loc[row_label, col_label]`** -- by row & column index label
