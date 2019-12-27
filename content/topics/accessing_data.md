@@ -1,6 +1,17 @@
 # Accessing Data
 
-Before we get into any sort of data analysis, we need to understand the most basic code for loading, summarizing, and selecting data. This is a lot of individual examples. But! Once we get past that, we will have the flexibility to learn via a contextual analysis. First, let's get familiar with the data we've chosen.
+## **Core Objectives**
+
+You can't analyze your data unless you can select exactly which parts you want at any given time. This lesson focuses on how to:
+
+* Document metadata based on common standards
+* Load and save data to and from your notebook
+* Access a summary or a preview of the dataset
+* Reference data using index positions vs. index labels
+* Select single values and subsets of a Series
+* Select a single column, row, or cell in a dataframe
+* Select a slice of rows or columns in a dataframe
+* Select a chunk of a dataframe
 
 ## Data Dictionaries
 
@@ -76,13 +87,13 @@ movies = omdb_orig.copy()
 ```
 It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can compare your data to the original dataset. You can make a shallow copy (see below), but it's always better to make a hard copy with the `.copy()` method.
 
->> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/) ==<-- **important article to read!!**==
+>> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/)
 
 ## Summarizing Data
 
 #### Metadata
 
-Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the data in your dataframe. This will tell you things like how many rows there are, what datatype each column Series contains, and how many non-null values are in each column.
+Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the data in your dataframe. This will tell you things like how many rows there are, what datatype each column Series contains, and how many non-null values are in each column. Note that Series objects do NOT have this attribute.
 
 ```python
 movies.info()
@@ -101,11 +112,7 @@ print(
 '\nShape:', movies.shape
 )
 ```
-By now, you'll probably want to preview the data itself
-
-#### Data Preview
-
-`.head(n)` and `.tail(n)` will return the first and last *n* rows of data respectively. If you don't pass in a number, they will both return 5 rows by default.
+By now, you'll probably want to preview the data itself. `.head(n)` and `.tail(n)` will return the first and last *n* rows of data respectively. If you don't pass in a number, they will both return 5 rows by default. You can use `.head()` and `.tail()` on Series objects as well.
 
 ```python
 movies.head() 
@@ -115,13 +122,18 @@ movies.head()
 movies.tail(3) 
 ```
 
-In this column, we can see that we have an existing unique ID for each movie - the IMDb ID. Especially because IMDb is the most well-known movie database, we should make `imdbID` the index.
+In this column, we can see that we have an existing unique ID for each movie - the IMDb ID. Especially because IMDb is the most well-known movie database, we should make `imdbID` the index. That way we can access each movie via its imdbID label.
 
 ```python
-movies.set_index(['imdbID'], inplace=True)
+movies.set_index(['imdbID'], drop=True, inplace=True)
 movies.head(3)
 ```
 By default, the `drop` parameter in the `.set_index()` function is `True`. As you can see above, `imdbID` no longer exists as a column in the dataframe. It has been converted into an `Index` object.
+
+```python
+imdbID = movies.index
+type(imdbID)
+```
 
 If you ever want to go back to the default numerical `Index` labels, you can use `.reset_index()`. It will simply add the custom `Index` object back to the dataframe as a column Series.
 
@@ -129,9 +141,6 @@ If you ever want to go back to the default numerical `Index` labels, you can use
 movies.reset_index(inplace=True)
 movies.tail()
 ```
->>Warning!
-
->>Be careful with `.reset_index()`. If you accidentally rerun this cell, it will add the generic 0-based index to the dataframe as a *column*.
 
 Now, let's set the index back to `imdbID`.
 
@@ -141,9 +150,9 @@ movies.set_index(['imdbID'], inplace=True)
 
 ## Selecting Data
 
-Dataframe columns are the easiest and most flexible pieces of data to select and maneuver...
+Dataframe columns are the easiest and most flexible pieces of data to select and maneuver.
 
-Returns a single column as a Series
+**Return a single column as a Series:**
 
 ```python
 print(type(movies['Title']), '\n')
@@ -151,18 +160,18 @@ titles = movies['Title']
 titles
 ```
 
-Returns multiple columns (in any order) as a new DataFrame
+**Return a subset of columns (in any order) as a new DataFrame:**
 
 ```python
 movies[['Title', 'Genre', 'Director', 'Actors']]
 ```
 
-...For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. Before we go into specific examples, it's important to understand the difference between these two functions: 
+For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. It's vital to understand the difference between these two functions: 
 
 * **`.loc[]`** selects and returns data by passing index **LABELS** as arguments
 * **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments
 
-### Single Values
+### **Single Value in a Series**
 
 Select a single value in a Series by its index label
 
@@ -173,15 +182,10 @@ titles.loc['tt0088763']
 Select a single value in a Series by its index position
 
 ```python
-titles.iloc[478]
+titles.iloc[675]
 ```
 
-* Select a single value in a DataFrame...
-    * **`df.loc[row_label, col_label]`** -- by row & column index label
-    * **`df.iloc[row_idx, col_idx]`** -- by row & column index label position
-
-
-#### Single Row
+### **Single Row**
 
 Select a single row by its label
 
@@ -192,12 +196,12 @@ movies.loc['tt0088763']
 Select a single row by its index position
 
 ```python
-movies.iloc[478]
+movies.iloc[675]
 ```
 
-#### Single DataFrame Cell
+### **Single DataFrame Cell**
 
-Select a single cell in a DataFrame by row & column labels
+**Select a single cell in a DataFrame by row & column labels**
 
 ```python
 movies.loc['tt0088763', 'Year']
@@ -206,75 +210,58 @@ movies.loc['tt0088763', 'Year']
 Select a single cell in a DataFrame by row & column index positions
 
 ```python
-movies.iloc[478, 1]
+movies.iloc[675, 1]
 ```
 
-#### Subset of a Series
+### **Subset of a Series**
 
 Returns a subset of a Series by entering a range of labels
 
 ```python
-titles.loc['tt0088763':'tt0079641']
+titles.loc['tt1302006':'tt0133093']
 ```
 
 Returns a subset of a Series by entering a range of index positions
 
 ```python
-titles.iloc[478:500]
+titles.iloc[100:105]
 ```
 
-#### Slice of Rows
+### **Slice of Rows**
 
 Returns a *slice* of rows as a new DataFrame by entering a range of labels
 
 ```python
-movies.loc['tt0088763':'tt0079641']
+movies.loc['tt1302006':'tt0133093']
 ```
 
 Returns a *slice* of rows as a new DataFrame by entering a range of index positions
 
 ```python
-movies.iloc[478:500]
+movies.iloc[1003:1008]
 ```
 
-#### Chunk of a Dataframe
+### Chunk of a Dataframe
 
-* Slice of Rows
-* Slice of Series values
-
-Select a slice of a DataFrame by entering a range of row and column labels
+Select a chunk of a DataFrame by entering a range of row and column labels
 
 ```python
-movies.loc['tt0203009':'tt2674426','Title':'Runtime']
+movies.loc['tt0203009':'tt1013753','Title':'Runtime']
 ```
 
 Select a slice of a DataFrame by entering a range of row and column index positions
 
 ```python
-movies.iloc[625:631,0:5]
+movies.iloc[50:55,0:5]
 ```
 
-## Iterating Through Data
+## Key Takeaways
 
-`.iterrows()`
-
-
-```python
-movies.sort_values(by="imdbRating", ascending=False, inplace=True)
-temp = movies.head(5)
-
-d = None # how to grab the rows without the index or col labels?
-i = temp.index
-c = temp.columns
-
-top5_movie = pd.DataFrame(data = d, index = i, columns = c)
-# pd.DataFrame(data = [], index = [], columns= [])
-
-for idx, row in top5_movie:
-	print(i, 'is', row)
-```
-
-
-
-
-
+* A data dictionary documents metadata for a dataset by defining each column
+* The general syntax for reading (i.e. loading) data is `pd.read_<format>(<path>)`
+* The general syntax for writing (i.e. saving) data is `pd.to_<format>(<path>)`
+* Use the `.info()` method to see a summary of the data in your dataframe. Series objects do NOT have this attribute.
+* `.head(n)` and `.tail(m)` return the first and last *n* elements of an object respectively. (i.e. values for a Series and rows for a Dataframe)
+* `.set_index(data, drop=True)` allows you to assign custom index labels to a Series or dataframe
+* `.loc[]` selects and returns data by passing index **LABELS** as arguments
+* `.iloc[]` selects and returns data by passing index **POSITIONS** as arguments
