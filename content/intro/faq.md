@@ -4,6 +4,15 @@
 
 [Slack PYTH122](https://pyth122.slack.com)
 
+### How do I submit my homework?
+
+1. If you have not done so already, append your name to your PYTH122 folder like so: PYTH122_TaqKarim. This is where all your files should be stored.
+2. Share this folder (with edit access) with your Instructor and IA via Google Drive *and send them the link over Slack*.
+3. Append your name to your homework file(s) the same way: dict_psets_TaqKarim.ipynb.
+4. DM your Instructor and IA on Slack to let them know you have finished the homework assignment. Since you already shared your folder link, they should be able to go straight to your folder and access the files. 
+
+If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Class Info](https://mottaquikarim.github.io/PYTH122/#in/intro/class_info) page.
+
 ### Where are all the practice problems?
 
 You can find a link to the practice problem source files and how to use them on the [Admin Info](https://mottaquikarim.github.io/pycontent/#in/intro/admin_info) page under the section named "Practice Problem Source Files".
@@ -23,15 +32,6 @@ When you open them, make a copy for yourself. You can do this by going to File >
 Homework will be announced during class and on Slack every week.
 
 Also, you can go to the [Homework](https://mottaquikarim.github.io/pycontent/#in/homework) section to see a list of each homework assignment, the day it was assigned, and its due date. Typically, each assignment is due at 6pm on the day of the next class.
-
-### How do I submit my homework?
-
-1. If you have not done so already, append your name to your PYTH122 folder like so: PYTH122_TaqKarim. This is where all your files should be stored.
-2. Share this folder (with edit access) with your Instructor and IA via Google Drive *and send them the link over Slack*.
-3. Append your name to your homework file(s) the same way: dict_psets_TaqKarim.ipynb.
-4. DM your Instructor and IA on Slack to let them know you have finished the homework assignment. Since you already shared your folder link, they should be able to go straight to your folder and access the files. 
-
-If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Class Info](https://mottaquikarim.github.io/PYTH122/#in/intro/class_info) page.
 
 ### How and when will we receive feedback on our work?
 
