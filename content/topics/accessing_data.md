@@ -176,13 +176,13 @@ For most other pieces of data that you want to select, you will use some variati
 Select a single value in a Series by its index label
 
 ```python
-titles.loc['tt0088763']
+titles.loc['tt1302006']
 ```
 
 Select a single value in a Series by its index position
 
 ```python
-titles.iloc[675]
+titles.iloc[516]
 ```
 
 ### **Single Row**
@@ -196,7 +196,7 @@ movies.loc['tt0088763']
 Select a single row by its index position
 
 ```python
-movies.iloc[675]
+movies.iloc[112]
 ```
 
 ### **Single DataFrame Cell**
@@ -210,7 +210,7 @@ movies.loc['tt0088763', 'Year']
 Select a single cell in a DataFrame by row & column index positions
 
 ```python
-movies.iloc[675, 1]
+movies.iloc[112, 8]
 ```
 
 ### **Subset of a Series**
@@ -218,13 +218,13 @@ movies.iloc[675, 1]
 Returns a subset of a Series by entering a range of labels
 
 ```python
-titles.loc['tt1302006':'tt0133093']
+titles.loc['tt1302006':'tt1025100']
 ```
 
 Returns a subset of a Series by entering a range of index positions
 
 ```python
-titles.iloc[100:105]
+titles.iloc[4870:4875]
 ```
 
 ### **Slice of Rows**
@@ -232,13 +232,13 @@ titles.iloc[100:105]
 Returns a *slice* of rows as a new DataFrame by entering a range of labels
 
 ```python
-movies.loc['tt1302006':'tt0133093']
+movies.loc['tt1302006':'tt1025100']
 ```
 
 Returns a *slice* of rows as a new DataFrame by entering a range of index positions
 
 ```python
-movies.iloc[1003:1008]
+movies.iloc[4870:4875]
 ```
 
 ### Chunk of a Dataframe
@@ -246,13 +246,13 @@ movies.iloc[1003:1008]
 Select a chunk of a DataFrame by entering a range of row and column labels
 
 ```python
-movies.loc['tt0203009':'tt1013753','Title':'Runtime']
+movies.loc['tt4972582':'tt1396484','Title':'Runtime']
 ```
 
 Select a slice of a DataFrame by entering a range of row and column index positions
 
 ```python
-movies.iloc[50:55,0:5]
+movies.iloc[4870:4875,0:5]
 ```
 
 ## Key Takeaways
