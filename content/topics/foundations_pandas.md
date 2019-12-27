@@ -1,6 +1,16 @@
-# Foundations of Pandas
+# Foundational Pandas Objects
 
 <img src="https://media.giphy.com/media/EatwJZRUIv41G/giphy.gif" style="margin: 0 auto; float: right;"/>
+
+### **Core Objectives**
+
+* What can you do with the Pandas library?
+* What are ndarrays and their distinctive qualities?
+* What are Series objects and how do you construct them?
+* What are Dataframe objects and how do you construct them?
+* What are Index objects and why are they unique?
+
+## Introduction 
 
 **Pandas** is an open-source Python library of data structures and tools for exploratory data analysis (EDA). Pandas primarily facilitates acquisition, cleaning, formatting, and manipulating. Used in tandem with NumPy, Matplotlib, SciPy, and other Python libraries, Pandas is an integral part of practicing data science. Its core capabilities include: 
 

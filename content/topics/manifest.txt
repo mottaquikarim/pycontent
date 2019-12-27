@@ -9,4 +9,4 @@
 - functions.md: Functions
 - classes.md: Classes
 - data_science.md: Principles of Data Science
-- foundations_pandas.md: Foundations of Pandas
+- foundations_pandas.md: Foundational Pandas Objects
