@@ -26,7 +26,12 @@ Also, you can go to the [Homework](https://mottaquikarim.github.io/pycontent/#in
 
 ### How do I submit my homework?
 
-Assuming you have shared your PYTH122 folder with your Instructor and IA, simply ping your IA on Slack when you have finished your homework. If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Admin Info](https://mottaquikarim.github.io/pycontent/#in/intro/admin_info) page.
+1. If you have not done so already, append your name to your PYTH122 folder like so: PYTH122_TaqKarim. This is where all your files should be stored.
+2. Share this folder (with edit access) with your Instructor and IA via Google Drive *and send them the link over Slack*.
+3. Append your name to your homework file(s) the same way: dict_psets_TaqKarim.ipynb.
+4. DM your Instructor and IA on Slack to let them know you have finished the homework assignment. Since you already shared your folder link, they should be able to go straight to your folder and access the files. 
+
+If you need more info on what "your PYTH122 folder" is and how to share it, go to the section named "Practice Problem Source Files" on the [Class Info](https://mottaquikarim.github.io/PYTH122/#in/intro/class_info) page.
 
 ### How and when will we receive feedback on our work?
 
