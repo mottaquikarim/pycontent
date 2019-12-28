@@ -89,9 +89,7 @@ It's also a helpful practice to immediately make a hard copy of the dataset so t
 
 >> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/)
 
-## Summarizing Data
-
-#### Metadata
+## Summary Data & Metadata
 
 Typically, the first thing you'll want to do is use the `.info()` method to see a summary of the data in your dataframe. This will tell you things like how many rows there are, what datatype each column Series contains, and how many non-null values are in each column. Note that Series objects do NOT have this attribute.
 
@@ -152,7 +150,7 @@ movies.set_index(['imdbID'], inplace=True)
 
 Dataframe columns are the easiest and most flexible pieces of data to select and maneuver.
 
-**Return a single column as a Series:**
+Return a single column as a Series:
 
 ```python
 print(type(movies['Title']), '\n')
@@ -160,7 +158,7 @@ titles = movies['Title']
 titles
 ```
 
-**Return a subset of columns (in any order) as a new DataFrame:**
+Return a subset of columns (in any order) as a new DataFrame:
 
 ```python
 movies[['Title', 'Genre', 'Director', 'Actors']]
@@ -241,7 +239,7 @@ Returns a *slice* of rows as a new DataFrame by entering a range of index positi
 movies.iloc[4870:4875]
 ```
 
-### Chunk of a Dataframe
+### **Chunk of a Dataframe**
 
 Select a chunk of a DataFrame by entering a range of row and column labels
 
