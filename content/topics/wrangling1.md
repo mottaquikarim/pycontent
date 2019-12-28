@@ -4,17 +4,55 @@ Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyz
 
 This might get a little confusing, so brace yourself! Ultimately though, this approach will help you apply the material on your own much more easily. To help keep things as consistent as possible, we'll use the same dataset across units. We also created a **[categorized cheat sheet of common Pandas functions](../resources/pandas_cheat_sheet.md)**.
 
+### Sorting
 
-* sort by imdbRating
+`.sort_values(by, axis, ascending=False, inplace=False, na_position=last)`
+
+* Put one or more columns in the `by` parameter
+* The `ascending` parameter is True by default
+
+*Example:*
+`df.sort_values(by=[col1,col2], ascending=[True,False], inplace=False)`
+*This sorts values in a col1 in **ascending** order, THEN sorts values in col2 in **descending** order*
+
+```python
+movies.head(3)
+```
+
+```python
+movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True)
+movies.head(3)
+```
+
+### Drop Duplicates
 * remove duplicate imdbIDs
     * remove duplicates based on a certain col
+
+
+
+
+
+```python
+
+```
+
+### Organizing Cols
+
 * rename cols (imdb, genres, languages)
 * add / drop cols
+
+### Remove Non-Movies
+
 * filter out Type == video series
     * unique / nunique
     * value_counts()
     * pd.isnull / pd.notnull
 
+
+
+
+
+>>OUTLINE
 
 * dropna
     * or fillna w. mean
@@ -61,55 +99,3 @@ top5_movie = pd.DataFrame(data = d, index = i, columns = c)
 for idx, row in top5_movie:
     print(i, 'is', row)
 ```
-
-
-### Duplicate Values
-
-* `df.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
-
-When finding dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. The `keep` param denotes the occurrence which should be marked as duplicate. You can choose `first` or `last`, but the default is `first`. In other words:
-
-* first : All duplicates except their first occurrence will be marked as True
-* last : All duplicates except their last occurrence will be marked as True
-
-**Count the number of dups**
-
-Shows number of Trues and Falses; number of Trues is how many dups there are
-
-```python
-movies.duplicated().sum()
-```
-
-```python
-movies.duplicated().value_counts()
-```
-
-whole row vs. dup titles 
-
-```python
-movies.duplicated(['Title']).value_counts()
-```
-
-**Return a new df of rows containing dups**
-
-```python
-dup_rows = movies[movies.duplicated()]
-
-print(len(dup_rows))
-dup_rows.head(5)
-```
-
-**Drop duplicates**
-
-* `drop_duplicates([subset, keep, inplace])` -- returns DataFrame with duplicate rows removed, optionally only considering certain columns.
-
-```python
-print('ROWS BEFORE:', len(movies))
-
-movies = movies.drop_duplicates()
-
-print('ROWS AFTER:', len(movies))
-```
-
-Note: If you run this cell more than once, the before and after lengths will be equal because you already dropped the dups.
-
