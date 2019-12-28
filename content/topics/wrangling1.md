@@ -15,26 +15,20 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 You can sort a Series or dataframe by different ==ELEMENTS== and specs with the `.sort_values()` method. Its general syntax and default parameter arguments (where applicable) are as follows:
 
-`.sort_values(by, axis, ascending=False, inplace=False, na_position=last)`
+`.sort_values(by, axis=0, ascending=False, inplace=False, na_position=last)`
 
-The `by` parameter takes one or more columns, sorting the rows 
+The `by` parameter takes one or more columns from the dataframe. The method will sort by the first column passed, then the second, and so on. Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.
 
-Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.
+If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
 
-* Put one or more columns in the `by` parameter
-* The `ascending` parameter is True by default
-You can use the `na_position` parameter 
-
-*Example:*
-`df.sort_values(by=[col1,col2], ascending=[True,False], inplace=False)`
-*This sorts values in a col1 in **ascending** order, THEN sorts values in col2 in **descending** order*
+If any of the columns you pass to the `by` parameter contain null values, you can choose whether to places those rows first or last using the `na_position` parameter.
 
 ```python
 movies.head(3)
 ```
 
 ```python
-movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True)
+movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position=True)
 movies.head(3)
 ```
 
