@@ -82,7 +82,7 @@ If you know there is no header row, you should pass `False` and pass a list of c
 Since this is our first time looking at it, let's load the OMDb dataset as is. 
 
 ```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_movies.csv')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_5000.csv')
 movies = omdb_orig.copy()
 ```
 It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can compare your data to the original dataset. You can make a shallow copy (see below), but it's always better to make a hard copy with the `.copy()` method.
