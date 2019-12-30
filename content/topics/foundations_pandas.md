@@ -39,7 +39,7 @@ import seaborn as sns
 
 ## NumPy ndarray Objects
 
-Pandas is built on top of NumPy, so before  new users should first understand one NumPy data object that often appears within Pandas objects - the **ndarray, or N-dimensional array**.
+Pandas is built on top of NumPy, so new users should first understand one NumPy data object that often appears within Pandas objects - the **ndarray, or N-dimensional array**.
 
 `Ndarrays` are deceptively similar to the more general Python `list` type we've been working with. An `ndarray` type is a group of elements, which can be accessed and updated using a zero-based index. Sounds exactly like a `list`, right? 
 
