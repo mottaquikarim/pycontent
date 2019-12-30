@@ -6,17 +6,60 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 ## Objectives
 
+* Document metadata based on common standards
 * Add, drop, & rename columns 
 * Sort the data
 * Count & drop duplicate rows
 * Count & drop rows with null values
 * Filter the data
 
-* Find & replace data
-* Reformat
-* Normalize 
+>>* Find & replace data
+>>* Reformat
+>>* Normalize 
 
-Import your libraries:
+## Data Dictionaries
+
+Our complete movies dataset contains a *lot* more movie metadata from the [OMDb API](http://www.omdbapi.com/). When you work with a large dataset, you should always include a `data dictionary`, or a list of variable definitions, alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as share information about how certain variables are formatted. If you're looking to study a dataset yourself, the data dictionary can also give you high-level ideas for what you might want to analyze and how.
+
+Below is a data dictionary for the *unaltered OMDb data*. (We've left the definitions for a few self-explanatory variables blank.) If it seems disorganized and convoluted... that's because it is! The fields and formats here are the original ones obtained straight from the OMDB API. 
+
+**5788 records x 29 columns**
+
+* **Title**
+* **Year**: Year the movie was made
+* **Rated**: MPAA content rating (e.g. PG, NC17, R, etc.)
+* **Released**: Date the movie was released to theaters
+* **Runtime**: How long in number of minutes 
+* **Genre**: One or more genres that describe the movie* 
+* **Director**
+* **Writer**
+* **Actors**
+* **Plot**
+* **Language**
+* **Country**
+* **Awards**: # of nominations and # of wins for one or more types of awards
+* **Poster**: Amazon-hosted image url for the poster of the movie
+* **Ratings**: Series containing ratings from multiple sources (e.g. Rotten Tomatoes)
+* **Metascore**: Metacritic rating from critics
+* **imdbRating**: Crowd-sourced audience rating from IMDb
+* **imdbVotes**: Number of user ratings from IMDb
+* **imdbID**: Unique movie ID from IMDb
+* **Type**: Content category ==(e.g. movie, tv, etc.)==
+* **DVD**: Date the movie was released to DVD
+* **BoxOffice**: Box office earnings in US dollars
+* **Production**: Production company
+* **Website**: URL
+* **Response**: Boolean stored as string, indicates whether the API response was valid
+* **Internet Movie Database**: Crowd-sourced audience rating from IMDb out of 10
+* **Rotten Tomatoes**: Rotten Tomatoes rating from critics 
+* **Metacritic**: Metacritic rating from critics
+* **totalSeasons**: Number of seasons, if applicable
+
+## The Broad Strokes: Big Picture Organization
+
+As a first step, you'll want to familiarize yourself with the data and organize it at a high-level. Check off the big ticket items - get rid of any excess data, set a custom index, give the columns more apropos names, sort the data, etc.. This makes handling the lower-level tasks (i.e. reformatting the data within a specific column) much easier.
+
+Let's get to it. Import your libraries:
 
 ```python
 import numpy as np
@@ -25,7 +68,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 
-Load the data:
+Load the data and make a copy:
 
 ```python
 omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_5000.csv')
@@ -33,11 +76,7 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-## The Broad Strokes: Big Picture Organization
-
-As a first step, you'll want to familiarize yourself with the data and organize it at a high-level. Before you dive into minutiae like reformatting the data within a specific column, check off the big ticket items - get rid of any excess data, set a custom index, give the columns more apropos names, sort the data... This makes handling the lower-level tasks much easier.
-
-On that note, let's set "imdbID" as the index like we did in the last section.
+We'll also set "imdbID" as the custom index like we did in the last section.
 
 ```python
 movies.set_index('imdbID', inplace=True)
@@ -45,7 +84,38 @@ movies.set_index('imdbID', inplace=True)
 
 ### Add, Drop, & Rename Columns
 
+Adding a column to the data is just like declaring a variable:
 
+```python
+movies['Average Rating'] = pd.Series() # can add actual Series data as long as it's the same length
+movies.iloc[57:59]
+```
+
+Here are all the column names in the original data:
+
+```python
+print(f'BEFORE: \n{movies.columns}')
+```
+
+
+```python
+print(f'BEFORE: \n{movies.columns}')
+movies.rename(columns={'Internet Movie Database': 'IMDb', 'Genre': 'Genres', 'Language': 'Languages', 'Writer': 'Writers'}, inplace=True)
+print('\nAFTER:')
+movies.iloc[20]
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
 
 ### Sorting
 
