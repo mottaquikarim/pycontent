@@ -2,9 +2,8 @@
 
 ## **Core Objectives**
 
-You can't analyze your data unless you can select exactly which parts you want at any given time. This lesson focuses on how to:
+We have just one more section before we can get into the kind of contextual analysis you'll use for data science. After all, you can't analyze your data unless you can select exactly which parts you want at any given time. This lesson focuses on how to:
 
-* Document metadata based on common standards
 * Load and save data to and from your notebook
 * Access a summary or a preview of the dataset
 * Reference data using index positions vs. index labels
@@ -13,51 +12,15 @@ You can't analyze your data unless you can select exactly which parts you want a
 * Select a slice of rows or columns in a dataframe
 * Select a chunk of a dataframe
 
-## Data Dictionaries
-
-When you analyze a set of data, always include a `data dictionary`, or a list of variable definitions, alongside your notebook. It can serve as a contextual overview of the variables in the dataset as well as share information about how certain variables are formatted. If you're looking to study a dataset yourself, the data dictionary can also give you high-level ideas for what you might want to analyze and how.
-
-Our dataset contains movie metadata that we pulled from the [OMDb API](http://www.omdbapi.com/). Below is the data dictionary for the *unaltered OMDb data*. If it seems disorganized and convoluted... that's because it is! The fields and formats here are the original ones obtained straight from the OMDB API. In order to wrangle this data for our purposes, we have to first clean it ourselves. (That said, the OMDb dataset does have a few pretty self-explanatory variables, so we've left some definitions blank.)
-
-* **Title**
-* **Year**: Year the movie was made
-* **Rated**: MPAA content rating (e.g. PG, NC17, R, etc.)
-* **Released**: Date the movie was released to theaters
-* **Runtime**: How long in number of minutes 
-* **Genre**: One or more genres that describe the movie* 
-* **Director**
-* **Writer**
-* **Actors**
-* **Plot**
-* **Language**
-* **Country**
-* **Awards**: # of nominations and # of wins for one or more types of awards
-* **Poster**: Amazon-hosted image url for the poster of the movie
-* **Ratings**: Series containing ratings from multiple sources (e.g. Rotten Tomatoes)
-* **Metascore**: Metacritic rating from critics
-* **imdbRating**: Crowd-sourced audience rating from IMDb
-* **imdbVotes**: Number of user ratings from IMDb
-* **imdbID**: Unique movie ID from IMDb
-* **Type**: Content category ==(e.g. movie, tv, etc.)==
-* **DVD**: Date the movie was released to DVD
-* **BoxOffice**: Box office earnings in US dollars
-* **Production**: Production company
-* **Website**: URL
-* **Response**: Boolean stored as string, indicates whether the API response was valid
-* **Internet Movie Database**: Crowd-sourced audience rating from IMDb out of 10
-* **Rotten Tomatoes**: Rotten Tomatoes rating from critics 
-* **Metacritic**: Metacritic rating from critics
-* **totalSeasons**: Number of seasons, if applicable
+Over the next several lessons, we're going to use a dataset containing movie metadata that we pulled from the [OMDb API](http://www.omdbapi.com/). In this section, we'll use a subset of that data for simplicity's sake. This subset will include three fields: imdbID, Title, and Year.
 
 ## Reading & Writing Data
 
-Before we load any data, we have to import all the libraries we'll use throughout the next few units.
+Before we can even load this data, we have to import the necessary libraries.
 
 ```python
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 ```
 Reading and writing data to and from your notebook primarily relies on the format and location of your data. The general syntax is:
 
@@ -82,7 +45,7 @@ If you know there is no header row, you should pass `False` and pass a list of c
 Since this is our first time looking at it, let's load the OMDb dataset as is. 
 
 ```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_5000.csv')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_subset.csv')
 movies = omdb_orig.copy()
 ```
 It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can compare your data to the original dataset. You can make a shallow copy (see below), but it's always better to make a hard copy with the `.copy()` method.
