@@ -6,10 +6,46 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 ## Objectives
 
-* Sorting
-* Counting & dropping duplicate rows
-* Renaming Columns
-* 
+* Add, drop, & rename columns 
+* Sort the data
+* Count & drop duplicate rows
+* Count & drop rows with null values
+* Filter the data
+
+* Find & replace data
+* Reformat
+* Normalize 
+
+Import your libraries:
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+Load the data:
+
+```python
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_5000.csv')
+movies = omdb_orig.copy()
+print('data loaded successfully')
+```
+
+## The Broad Strokes: Big Picture Organization
+
+As a first step, you'll want to familiarize yourself with the data and organize it at a high-level. Before you dive into minutiae like reformatting the data within a specific column, check off the big ticket items - get rid of any excess data, set a custom index, give the columns more apropos names, sort the data... This makes handling the lower-level tasks much easier.
+
+On that note, let's set "imdbID" as the index like we did in the last section.
+
+```python
+movies.set_index('imdbID', inplace=True)
+```
+
+### Add, Drop, & Rename Columns
+
+
 
 ### Sorting
 
@@ -21,16 +57,24 @@ The `by` parameter takes one or more columns from the dataframe. The method will
 
 If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
 
-If any of the columns you pass to the `by` parameter contain null values, you can choose whether to places those rows first or last using the `na_position` parameter.
+If any of the columns you pass to the `by` parameter contain null values, you can choose whether to place those rows `first` or `last` using the `na_position` parameter.
+
+For our movies dataset, it makes logical sense to sort the movies in order of most to least popular or well-known. We have three different movie ratings sources which can serve as a measure of that for us - IMDb, Rotten Tomatoes, & Metacritic. (The "Ratings" column is an aggregate of these, and the "Internet Movie Database" column is a duplicate of "imdbRating.") Which should we use then? If you take a look at `movies.info()`...
 
 ```python
-movies.head(3)
+movies.info()
 ```
 
+...you'll see that IMDb has the most the non-null values
+
+
+Above, are the 
 ```python
 movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position=True)
 movies.head(3)
 ```
+
+
 
 ### Drop Duplicates
 * remove duplicate imdbIDs
