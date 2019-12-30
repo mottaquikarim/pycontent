@@ -31,12 +31,7 @@ The first thing you have to do start a new analysis is import whichever data sci
 ```python
 import numpy as np 
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 ```
-
-*As a bonus, I've added the notation for importing the other two libraries to be used in this class - matplotlib and seaborn. More to come on these later!*
-
 ## NumPy ndarray Objects
 
 Pandas is built on top of NumPy, so new users should first understand one NumPy data object that often appears within Pandas objects - the **ndarray, or N-dimensional array**.
