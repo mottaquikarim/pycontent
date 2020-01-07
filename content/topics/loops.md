@@ -5,38 +5,82 @@
 In programming, we define `iteration` to be the act of running the same block of code over and over again a certain number of times.For example, say you want to print out every item within a list. You could certainly do it this way -
 
 ```python
-visible_colors = ["red", "orange", "yellow", "green", "blue", "violet"]
+visible_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+
 print(visible_colors[0])
 print(visible_colors[1])
 print(visible_colors[2])
 print(visible_colors[3])
 print(visible_colors[4])
 print(visible_colors[5])
+print(visible_colors[6])
 ```
 
 Attempting to print each item in this list - while redundant - isn't so bad. But what if there were over 1000 items in that list? Or, worse still, what if that list changed based on user input (ie: *either* 10 items *or* 10000 items)?
 
 To solve such problems, we can create a **loop** that will iterate through each item on our list and run the `print()` function. This way, we only have to write the print() one time to print out the whole list!
 
-When you can iterate through an object (e.g. a string, list, dict, tuple, set, etc.), we say that the object is `iterable`. Python has many built-in iterables. You can reference some of the most common ones in the `itertools` module (read more about itertools [here](https://realpython.com/python-itertools/)). 
+When you can iterate through an object (e.g. a string, list, dict, tuple, set, etc.), we call it an `iterable` object. Python has many built-in `iterables`. You can reference some of the most common ones in the `itertools` module (read more about itertools [here](https://realpython.com/python-itertools/)). You can also define your own Python iterables using the principles of OOP (object-oriented programming). In fact, Python features a more advanced construct called a `generator` to simplify this process for you.
 
-You can also define your own Python iterables using the principles of OOP (object-oriented programming). In fact, Python features a construct called a `generator` to simplify this process for you.
+For now, let's print each color in the visible spectrum again, but take one step toward making this more dynamic. We'll use a variable called `idx` to represent the index positions in `visible_colors`. We'll set `idx = 0` to start, since the first list element is at index 0.
+
+```python
+visible_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+
+idx = 0
+
+print(visible_colors[idx]) # idx = 0
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 1
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 2
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 3
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 4 
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 5
+idx = idx + 1
+
+print(visible_colors[idx]) # idx = 6
+```
+
+As you can see, you simply have to increase the value of idx by 1 after each item you print. That way, we can repeat `print(visible_colors[idx])` to access ALL elements in the list without typing in their unique index numbers. If you consider this code conceptually...
 
 ## the `while` loop
 
-This is the simplest loop and has two primary use cases.
+...it is functionally the same as the `while` loop below.
+
+```python
+idx = 0
+
+while idx < len(visible_colors):
+    print(visible_colors[idx])
+    idx = idx + 1
+```
+
+The loop represents an abstraction of the code above, wherein we use a boolean expression to determine how many times to run the code in the loop's body. 
+
+At each iteration, we increase the value of idx by 1. As long as `idx < len(visible_colors)` evaluates to `True`, the loop keeps running. Once `idx < len(visible_colors)` evaluates to `False`, the loop ends and your program moves onto the next code block.
 
 ### Counting
+
+Here's another very basic use case for the `while` loop:
 
 ```python
 i = 0
 while i < 10:
-	print(i)
-	i += 1
+    print(i)
+    i += 1
 print(i) # will print out numbers 1 through 10
 ```
 
-What is happening here is we are running the code block within the `while` 100 times. We know to stop because the `boolean comparison` will evaluate to `False` once i exceeds `100`, which is possible only because `i` is being incremented when we write `i += 1`.
+What is happening here is we are running the code block within the `while` 10 times. We know to stop because the `boolean comparison` will evaluate to `False` once i exceeds `10`, which is possible only because `i` is being incremented when we write `i += 1`.
 
 #### Practice Together!
 
@@ -60,7 +104,7 @@ print(odds,'\n', evens)
 
 ### Booleans
 
-Here's real-life scenario where you might apply a `while` loop. Let's say you've programmed your Amazon Echo or Google Home to make a pot of coffee whenever you say the trigger word "tired". Once you say tired, here's a *simplified pseudo-code version* of what happens behind the scenes:
+While loops are based on boolean expressions. They effectively direct the program to "do this action as long as this condition is True." Here's real-life scenario where you might apply a `while` loop. Let's say you've programmed your Amazon Echo or Google Home to make a pot of coffee whenever you say the trigger word "tired". Once you say tired, here's a *simplified pseudo-code version* of what happens behind the scenes:
 
 ```python
 tired = True
@@ -82,33 +126,34 @@ Let's go back to that list of colors we wanted to print out and use a `for` loop
 #     <statement(s)>
 
 
-visible_colors = ['red', 'orange', 'yellow', 'green', 'blue', 'violet']
+visible_colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 for color in visible_colors:
   print(color)
 ```
 
 ## Loops with Ranges
 
-If you want to iterate through only a section of a list, the `range()` and `enumerate()` functions can facilitate this.
+If you want to iterate through only a section of a list, the `range()` and `enumerate()` functions can facilitate this. `range` and `enumerate` are also both their own data type objects. 
 
 ### `range()`
 
 With `while` loops, we saw one way to iterate while counting. Using `range()` with a for loop allows us to be more concise and more specific. 
 
-The  `range()` function uses this syntax: `range(<begin>, <end>, <stride>)`. It returns an iterable that yields values  starting with the <begin> index, *up to but **NOT** including the <end> index*. The <stride> argument isn't required, but if specified, it indicates an amount to skip between values. For example, `range(5, 20, 3)` would iterate through 5, 8, 11, 14, and 17. If <stride> is omitted, it defaults to incrementing by 1.
+The  `range()` function uses this syntax: `range(<begin>, <end>, <stride>)`. It returns a `range` iterable that yields values starting with the <begin> index, *up to but **NOT** including the <end> index*. The <stride> argument isn't required, but if specified, it indicates an amount to skip between values. For example, `range(5, 20, 3)` would iterate through 5, 8, 11, 14, and 17. If <stride> is omitted, it defaults to incrementing by 1.
 
 Consider the differences in the loops below...
 
 #### `range()` with a `while` loop
 
 ```python
-visible_colors = ['red', 'orange', 'yellow', 'green', 'blue', 'violet']
+visible_colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 print(len(visible_colors), '\n')
 
-i = 3
-while 2 < i < 6:
-    print(visible_colors[i]) # prints numbers 1, 2, 3, 4
-    i += 1
+idx = 3
+
+while 2 < idx < 6:
+    print(visible_colors[i]) # prints green blue indigo
+    idx += 1
 ```
 
 #### `range()` with a `for` loop
@@ -125,7 +170,7 @@ for i in x:
 
 ### `enumerate()`
 
-This one is actually its own data type! When looping through a `list`, you might want to keep track of the index position of the item in each loop iteration. Converting the `list` it into an `enumerate` object allows you to achieve this more easily.
+When looping through a `list`, you might want to keep track of the index position of the item in each loop iteration. Converting the `list` it into an `enumerate` object allows you to achieve this more easily.
 
 Take a look at what an `enumerate` object looks like below. Note that you can print the object as a whole to view its contents like you do with a list.
 
@@ -391,7 +436,3 @@ print(dict1)
 'L4': [21, 34, 40, 67]
 } """
 ```
-
-## Practice PSETs
-
-[Loop Basics](https://github.com/mottaquikarim/PYTH2/blob/master/src/PSETS/nb/loops_inclass_psets.ipynb)
