@@ -381,7 +381,7 @@ transaction = {
   "account": 1234
 }
 
-for key in transaction:
+for key in transaction.keys():
     print(f'{key}: {transaction[key]}')
 
 """Output:
@@ -402,7 +402,7 @@ transaction = {
   "account": 1234
 }
 
-for key in sorted(transaction):
+for key in sorted(transaction.keys()):
     print(f'{key}: {transaction[key]}')
 
 
