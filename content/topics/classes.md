@@ -272,6 +272,3 @@ print(isinstance(toucan1, Elephant)) # False
 * The **self variable** serves as a reference to the current instance of the class, and it must be the first parameter of *any* method in a class, including the `__init__()` method.
 * **Child classes** can inherit attributes and methods from **parent classes**. 
 * **Child classes** can also override parent attributes and behaviors without redefining the parent class.
-
-## Practice Problems
-
