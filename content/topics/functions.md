@@ -1,7 +1,3 @@
-<!---
-{"next":"Topics/list_comprehensions.md","title":"Functions"}
--->
-
 # Functions
 
 In Python, `functions` are your best friends! Let's say you need to perform some action or calculation multiple times for multiple values. For example, you might want to convert temperatures in Celsius to Fahrenheit like you did in the last chapter's exercises. It would be inefficient and messy to copy that code every time you need it. Instead, you can define a `function` to contain that code. Every time you call that function, it runs the whole block of code inside and saves you lots of time. Sweet!
@@ -20,7 +16,7 @@ def function_name(parameters):
 
 * `def` shows you are "defining" a new function
 * A unique function name; same naming rules as  variables)
-* *Optional* parameters, or arguments, to be passed into the function when it is called.
+* *Optional* parameters or arguments to be passed into the function when it is called.
 * `:` ends the function header
 * An *optional* `docstring`, i.e. a comment with documentation describing the function.
 * At least one statement make up the "function body"; this code achieves the purpose for calling the function.
@@ -30,7 +26,7 @@ def function_name(parameters):
 
 ## Input/Output: Function Arguments & The `return` Statement
 
-When you create a function, you might need to feed it some input and have it give back some output. We call function input `arguments` and function output `return` values. Remember - both `arguments` and `return` values are *optional* depending on the purpose of your function.
+When you create a function, you might need to feed it some input and have it give back some output. Remember having explicit input data or output data is *optional* and depends on the use case.
 
 Let's say we want to create a function to get the square of a number. At the most basic level, there are three parts:
 1. Input the number we want to square
@@ -74,10 +70,11 @@ print(y, type(y)) # a  <class 'str'>
 print(z, type(z)) # True <class 'bool'>
 ```
 
-## Argument Types
+## Input Types
 
-#### Required Arguments
-If your function won't work without specific arguments, you can define the function with **required arguments**. In order for anyone to call the function, that user *must* always pass values for the required arguments in the correct positional order with the correct syntax you defined in advance. For example...
+#### Parameters
+
+If your function won't work without specific arguments, you can define the function with one or more `parameters`. The term parameter is generally used to describe **required** inputs. In order for anyone to call the function, that user *must* always pass values for the required arguments in the correct positional order with the correct syntax you defined in advance. For example...
 
 ```python
 def plus(a,b):
@@ -98,20 +95,28 @@ c = plus(a=8,b=12)
 print(c) # 20
 ```
 
-#### Default Arguments
-Back to writing our own functions! If you want, you can give your function a **default argument**. Functions with default arguments take some pre-defined default value if no argument value is passed when you call the function. When defining your own function, you can assign this default value like this:
+#### Keyword Arguments
+Back to writing our own functions! If you want, you can give your function a **default argument**. Functions with default arguments take some pre-defined default value if no argument value is passed when you call the function. 
+
+If you want to make sure that you call all the required arguments in the right order, you can use the **keyword arguments** in your function call. Essentially, this means that you mention each argument's parameter name when you assign it a value during the function call. It works like this...
+
+When defining your own function, you can assign this default value like this:
 
 ```python
-def plus(a,b = 12):
+def plus(a, b = 12, c = -1):
   return a + b
   
 # Only passing a value for `a`...
-c = plus(a=8)
-print(c) # 20
+x = plus(8)
+print(x) # 20
 
-# ...vs. passing values for `a` and `b`
-c = plus(8, 17)
-print(c) # 25
+# ...vs. passing values for `a` and implicitly `b`
+y = plus(8, 17)
+print(y) # 24
+
+# ...vs. passing values for `a` and explicitly `c`
+z = plus(8, c=12)
+print(z)
 ```
 
 #### Variable number of Arguments
