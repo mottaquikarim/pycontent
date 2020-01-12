@@ -240,6 +240,7 @@ for idx, row in temp.iterrows():
 ```
 
 
+4
 # iterate over the dataframe row by row
 for index_label, row_series in salaryDfObj.iterrows():
    # For each row update the 'Bonus' value to it's double

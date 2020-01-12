@@ -8,8 +8,8 @@ For now, let's start with the basics. Here's the skeleton of a function and a br
 
 ```python
 def function_name(parameters):
-	"""docstring"""
-	# statement(s)
+  """docstring"""
+  # statement(s)
 ```
 
 **Naming & Input**
@@ -36,9 +36,9 @@ Let's implement this in a function called `NumSquared()`.
 
 ```python
 def num_squared(num):
-	"""Find the square of some number passed in"""
-	square = num*num # code to find the square
-	return square
+  """Find the square of some number passed in"""
+  square = num*num # code to find the square
+  return square
 ```
 
 1. Input the number we want to square 
@@ -62,8 +62,8 @@ print(sq12) # 144
 One last thing - you should know that the `return` statement can return multiple values *by using tuples*. Once you return the tuple from the function, you can *unpack* its values by simultaneously assigning each one to a new var as follows...
 
 ```python
-	# some function...
-	return 3,'a',True
+  # some function...
+  return 3,'a',True
 
 x, y, z = (3,'a',True)
 print(x, type(x)) # 3 <class 'int'>
@@ -196,7 +196,7 @@ print(c) # [8, 'a', True, 'hi']
 x = 'I\'m a global variable.'
 
 def foo():
-	x = 'I\'m a local variable.'
+  x = 'I\'m a local variable.'
     print(x) # I'm a local variable.
     return x
 
