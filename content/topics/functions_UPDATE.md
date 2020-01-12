@@ -8,8 +8,8 @@ For now, let's start with the basics. Here's the skeleton of a function and a br
 
 ```python
 def function_name(parameters):
-	"""docstring"""
-	# statement(s)
+    """docstring"""
+    # statement(s)
 ```
 
 **Naming & Input**
@@ -36,9 +36,9 @@ Let's implement this in a function called `NumSquared()`.
 
 ```python
 def num_squared(num):
-	"""Find the square of some number passed in"""
-	square = num*num # code to find the square
-	return square
+    """Find the square of some number passed in"""
+    square = num*num # code to find the square
+    return square
 ```
 
 1. Input the number we want to square 
@@ -48,7 +48,7 @@ We create an *parameter* called `num` to represent the number we will past into 
 Using the value of `num`, we write the formula for calculating a square and assign it to the variable `square`.
 
 3. Output the square of that number
-We return `square` to pass out the numeric value we calculated. The return statement exits the function so the program can move on to the next block of code you've written. If you don't need to specify a value to return, the function will default to `return None` in order to exit the function.
+We return `square` to pass out the numeric value we calculated. 
 
 Once we've written this logic, we can call `NumSquared()` every time we want to use it. Let's say we want to find the value of 12 squared...
 
@@ -59,11 +59,29 @@ print(sq12) # 144
 
 **NOTE!** Make sure you store the function call within a var so that the return value gets stored in the var. If you don't, how will you access the output you wanted??
 
-One last thing - you should know that the `return` statement can return multiple values *by using tuples*. Once you return the tuple from the function, you can *unpack* its values by simultaneously assigning each one to a new var as follows...
+## Function Outputs
+
+Let's expand on output a bit
+
+>>1. The return statement exits the function so the program can move on to the next block of code you've written. If you don't need to specify a value to return, the function will default to `return None` in order to exit the function.
+
+>>2. short-cut...
 
 ```python
-	# some function...
-	return 3,'a',True
+def num_squared(num):
+    """Find the square of some number passed in"""
+    square = num*num # code to find the square
+    return num*num
+```
+
+>>4. see what happens if pass in a list then show unpacking? or show unpacking in the args section? worth showing the * operator at all or over-complicating matters with it?
+
+
+>>3. The `return` statement can return multiple values *by using tuples*. Once you return the tuple from the function, you can *unpack* its values by simultaneously assigning each one to a new var as follows...
+
+```python
+    # some function...
+    return 3,'a',True
 
 x, y, z = (3,'a',True)
 print(x, type(x)) # 3 <class 'int'>
@@ -82,9 +100,10 @@ The term `parameter` and the term `argument` are often used synonomously to refe
 
 You have a fair amount of flexibility when it comes to defining function parameters. This is because there are so many different use cases for the amount and type of input needed. The differences between function inputs are signified in the syntax of the function definition. We'll go through examples for the main use cases now...
 
-#### **Required Parameters**
+**Required Parameters**
 
-Here's how you'd define parameters for two *required* inputs with *no default values*.
+Below is how you'd define parameters for two *required* inputs with *no default values*. The variables 
+ For example...
 
 ```python
 def plus(a, b):
@@ -96,19 +115,22 @@ print(c) # 20
 
 Whenever you call this function, you must pass values for each required argument *in the same positional order as they were defined*.
 
+>>Keywords Arguments
+If you want to make sure that you call all the required arguments in the right order, you can use the **keyword arguments** in your function call. Essentially, this means that you mention each argument's parameter name when you assign it a value during the function call. It works like this...
+
 ```python
 def plus(a, b):
   return a + b
 
-c = plus(8, 12)
+c = plus(a=8, b=12)
 print(c) # 20
 ```
 
 #### **Default Input Values**
 
-If you want, you can give your parameter a **default argument**. Doing so means that you don't have to explicitly pass an value for that argument when you call the function. In that case, the function assumes that you've implicitly passed the pre-defined default value to that argument.
+If you want, you can give your parameter a **default argument**. Doing so means that you don't have to explicitly pass an value for that argument when you call the function. In that case, the function assumes that you've implicitly passed the pre-defined default value to that argument. 
 
-Here's a version of our `plus()` function with default arguments for `b` and `c`. In practice, `b` and `c` are called **keyword arguments**. Essentially, this means that you mention each argument's parameter name if and when you assign it a value during the function call.
+Here's a version of our `plus()` function with default arguments for `b` and `c`:
 
 ```python
 def plus(a, b = 12, c = -1):
@@ -122,6 +144,40 @@ print(sum1) # 15
 sum2 = plus(8)
 print(sum2) # 20
 ```
+
+Here's where things get a little sticky between how terms are colloquially used and how they actually work in Python...
+
+
+1. In practice, `b` and `c` are called **keyword arguments** because you often reference their keyword when you do want to pass them some explicit value.
+
+```python
+# Explicitly passing values for b & c
+sum3 = plus(8, b = -2, c = 6)
+print(sum3) # 12
+
+# Implicitly passing default values for b & c
+sum4 = plus(8)
+print(sum4) # 20
+```
+
+That said, you CAN certainly reference the keyword for required arguments as well. It even makes sense to do so when you're using complex built-in functions. For example, some pandas functions have several required parameters AND more than a few optional ones.
+
+```python
+# ...vs. passing values for `a` and implicitly `b`
+y = plus(a = 4, c = -1)
+print(y) # 15
+
+# ...vs. passing values for `a` and explicitly `c`
+z = plus(8, c=12)
+print(z)
+```
+
+**NOTE!** Technically speaking, these parameters are still required. However, think about it what happens if you give a parameter a default value of `None` and then don't specifically pass in a value when you call the function. *Effectively*, that parameter is optional. 
+
+Parameters with default arguments take some pre-defined default value if no argument value is passed when you call the function. In practice, such parameters are called **keyword arguments** because you 
+
+If you want to make sure that you call all the required arguments in the right order, you can use the **keyword arguments** in your function call. Essentially, this means that you mention each argument's parameter name when you assign it a value during the function call. It works like this...
+
 
 Unlike required arguments, keyword arguments can be passed to the function in any order. Moreover, since you can assign `None` as a default value, keyword arguments are effectively optional. As a best practice for when you define your functions and when you use functions, you should place the required arguments first, then the optional ones.
 
@@ -196,7 +252,7 @@ print(c) # [8, 'a', True, 'hi']
 x = 'I\'m a global variable.'
 
 def foo():
-	x = 'I\'m a local variable.'
+    x = 'I\'m a local variable.'
     print(x) # I'm a local variable.
     return x
 
