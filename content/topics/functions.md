@@ -84,17 +84,7 @@ You have a fair amount of flexibility when it comes to defining function paramet
 
 #### **Required Parameters**
 
-Here's how you'd define parameters for two *required* inputs with *no default values*.
-
-```python
-def plus(a, b):
-  return a + b
-
-c = plus(8, 12)
-print(c) # 20
-```
-
-Whenever you call this function, you must pass values for each required argument *in the same positional order as they were defined*.
+Here's how you'd define parameters for two *required* inputs with *no default values*. Whenever you call this function, you must pass values for each required argument *in the same positional order as they were defined*.
 
 ```python
 def plus(a, b):
