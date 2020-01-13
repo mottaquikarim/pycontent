@@ -167,6 +167,8 @@ movies.iloc[112]
 
 **Select a single cell in a DataFrame by row & column labels**
 
+>>movies['Title'][:5]
+
 ```python
 movies.loc['tt0088763', 'Year']
 ```
@@ -203,6 +205,13 @@ Returns a *slice* of rows as a new DataFrame by entering a range of index positi
 
 ```python
 movies.iloc[4870:4875]
+```
+
+Returns a *slice* of rows as a new DataFrame by entering an unordered group of labels (also works with `.iloc()` and a list of index positions).
+
+```python
+labels = ['tt1302006', 'tt0088763', 'tt1025100', 'tt1396484', 'tt4972582']
+movies.loc[labels]
 ```
 
 ### **Chunk of a Dataframe**
