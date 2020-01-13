@@ -10,11 +10,11 @@
 * **`pd.read_sql(query, connection_object)`** -- Reads from a SQL table/database
 * **`pd.read_json(json_string)`** -- Reads from a JSON formatted string, URL or file.
 * **`pd.read_html(url)`** -- Parses an html URL, string or file and extracts tables to a list of dataframes
-* **`df.to_csv(<file_path>)`** -- Writes to a CSV file
-* **`df.to_excel(<file_path>)`** -- Writes to an Excel file
-* **`df.to_sql(table_name, connection_object)`** -- Writes to a SQL table
-* **`df.to_json(<file_path>)`** -- Writes to a file in JSON format
-* **`df.to_html(<file_path>)`** -- Saves as an HTML table
+* **`obj.to_csv(<file_path>)`** -- Writes to a CSV file
+* **`obj.to_excel(<file_path>)`** -- Writes to an Excel file
+* **`obj.to_sql(table_name, connection_object)`** -- Writes to a SQL table
+* **`obj.to_json(<file_path>)`** -- Writes to a file in JSON format
+* **`obj.to_html(<file_path>)`** -- Saves as an HTML table
 
 ## Selecting Data
 

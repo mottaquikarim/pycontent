@@ -25,9 +25,9 @@ import pandas as pd
 Reading and writing data to and from your notebook primarily relies on the format and location of your data. The general syntax is:
 
 * **Read:** `pd.read_<format>(<path>)`
-* **Write:** `pd.to_<format>(<path>)`
+* **Write:** `obj.to_<format>(<path>)` (`obj` is the var name of the object you're saving)
 
-*Notice how saving your data uses pd.to_<format> and NOT pd.write_.* For the syntax of how to load the most common data types, you can reference the "Reading & Writing Data" section of our [Pandas Cheat Sheet](https://mottaquikarim.github.io/PYTH122/#out/resources/pandas_cheat_sheet).
+*Notice how saving your data uses obj.to_<format> and NOT obj.write_.* For the syntax of how to load the most common data types, you can reference the "Reading & Writing Data" section of our [Pandas Cheat Sheet](https://mottaquikarim.github.io/PYTH122/#out/resources/pandas_cheat_sheet).
 
 There are a number of **optional parameters** you might want or need to use. A quick exaplanation of the most useful ones are:
 
@@ -91,6 +91,8 @@ movies.set_index(['imdbID'], drop=True, inplace=True)
 movies.head(3)
 ```
 By default, the `drop` parameter in the `.set_index()` function is `True`. As you can see above, `imdbID` no longer exists as a column in the dataframe. It has been converted into an `Index` object.
+
+>>**NOTE!** If we wanted, we could have set `imdbID` as the index upon loading the files by passing `index_col='imdbID'` to our `pd.read_csv()` function.
 
 ```python
 imdbID = movies.index
