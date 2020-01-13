@@ -130,8 +130,8 @@ movies[['Title', 'Genre', 'Director', 'Actors']]
 
 For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. It's vital to understand the difference between these two functions: 
 
-* **`.loc[]`** selects and returns data by passing index **LABELS** as arguments
-* **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments
+* **`.loc[]`** selects and returns data by passing index **LABELS** as arguments; ranges are *inclusive* (i.e. .loc[0:10] will select rows 0 to 10)
+* **`.iloc[]`** selects and returns data by passing index **POSITIONS** as arguments; ranges are *exclusive* (i.e. .iloc[0:10] will select rows 0 to 9)
 
 ### **Single Value in a Series**
 
