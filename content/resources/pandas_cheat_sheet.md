@@ -39,12 +39,18 @@
 
 ### Summary Metadata
 
-* `df.shape`
-* `df.columns`
-* `obj.index` 
-* `s.isunique`
-* `obj.describe()`
 * `obj.info()`
+* `df.head(n=5)` -- return first n rows
+* `df.tail(n=5)` -- return last n rows
+* `s.nlargest(n)` -- select and order largest n entries
+* `s.nsmallest(n)` -- select and order smallest n entries
+* `df.nlargest(n, columns)` -- select and order largest n entries based on one or more cols
+* `df.nsmallest(n, columns)` -- select and order smallest n entries based on one or more cols
+* `df.shape` -- returns tuple w. (# of rows, # of cols)
+* `df.columns` -- returns Index object containing the df's column labels
+* `obj.index` -- returns Index object containing the obj's row values
+* `s.isunique` -- returns boolean for whether Series values are unique
+* `obj.describe()`
 
 ### Typecasting
 
@@ -61,11 +67,58 @@
 
 * `obj.set_index(keys, drop=False, append=False, inplace=False)`
 * `obj.reset_index(drop=False, inplace=False)` -- reset index to default integer index; adds current index as a col to the df when drop=False
-* 
 
 ### Renaming & Replacing
 
 * `df.rename(columns/index={'old_name': 'new_ name'})` -- rename specific columns (or index) with dict of old to new names
 * `df.rename_axis('new_name', axis)` -- rename the axis
 
-###
+>>s.replace() / df.replace()
+
+
+### Null Values
+
+
+### Duplicates
+
+
+### Filtering / Conditional Selection
+
+
+### Apply
+
+
+### Map
+
+
+## Structuring
+
+
+* `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
+
+
+### Sorting
+
+* `s.sort_values(ascending=False, inplace=False)` -- sort values of a Series in ascending order
+* `df.sort_values(by=[col1, col2], ascending=False, inplace=False)` -- sort df rows by col1, then by col2; descending order by default
+
+>>* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
+
+
+### Grouping
+
+
+### Combining
+
+
+### Reshaping
+
+
+
+## Statistics
+
+
+### Normalization
+
+
+
