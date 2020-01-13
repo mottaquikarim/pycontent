@@ -48,6 +48,7 @@ Since this is our first time looking at it, let's load the OMDb dataset as is.
 omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_subset.csv')
 movies = omdb_orig.copy()
 ```
+
 It's also a helpful practice to immediately make a hard copy of the dataset so that, at any time, you can compare your data to the original dataset. You can make a shallow copy (see below), but it's always better to make a hard copy with the `.copy()` method.
 
 >> Warning! [SettingWithCopyWarning](https://www.dataquest.io/blog/settingwithcopywarning/)
@@ -74,6 +75,7 @@ print(
 '\nShape:', movies.shape
 )
 ```
+
 By now, you'll probably want to preview the data itself. `.head(n)` and `.tail(n)` will return the first and last *n* rows of data respectively. If you don't pass in a number, they will both return 5 rows by default. You can use `.head()` and `.tail()` on Series objects as well.
 
 ```python
@@ -84,12 +86,21 @@ movies.head()
 movies.tail(3) 
 ```
 
-In this column, we can see that we have an existing unique ID for each movie - the IMDb ID. Especially because IMDb is the most well-known movie database, we should make `imdbID` the index. That way we can access each movie via its imdbID label.
+Now, it would be very intuitive for us to use the `Title` column for index labels, but you can easily see that it's not unique:
 
 ```python
+movies['Title'].is_unique
+```
+
+The `imdbID` column is though. Especially because IMDb is the most well-known movie database, we should use `imdbID` as the index. That way we can access each movie via its imdbID label.
+
+```python
+print('Is imdbID unique?', movies['imdbID'].is_unique)
+
 movies.set_index(['imdbID'], drop=True, inplace=True)
 movies.head(3)
 ```
+
 By default, the `drop` parameter in the `.set_index()` function is `True`. As you can see above, `imdbID` no longer exists as a column in the dataframe. It has been converted into an `Index` object.
 
 >>**NOTE!** If we wanted, we could have set `imdbID` as the index upon loading the files by passing `index_col='imdbID'` to our `pd.read_csv()` function.
