@@ -217,7 +217,6 @@ Select a slice of a DataFrame by entering a range of row and column index positi
 movies.iloc[4870:4875,0:5]
 ```
 
-
 ## Key Takeaways
 
 * A data dictionary documents metadata for a dataset by defining each column
@@ -228,3 +227,7 @@ movies.iloc[4870:4875,0:5]
 * `.set_index(data, drop=True)` allows you to assign custom index labels to a Series or dataframe
 * `.loc[]` selects and returns data by passing index **LABELS** as arguments
 * `.iloc[]` selects and returns data by passing index **POSITIONS** as arguments
+
+## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Get your hands dirty by exploring the data in your copy of `taqueria_pset1.ipynb` in Google Drive.
