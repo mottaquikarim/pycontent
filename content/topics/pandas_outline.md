@@ -1,29 +1,62 @@
+# OMDb Movies Pandas Content Outline
+
+## Data Wrangling I Objectives
+
+* **Document metadata based on common standards**
 
 
-# Data Wrangling II
+* **Add, drop, & rename columns**
 
 
+* **Sort the data**
 
-## Objectives (part I)
 
-* Document metadata based on common standards
-* Add, drop, & rename columns 
-* Sort the data
 * Count & drop duplicate rows
-* Count & drop rows with null values
+
+
+* Count & drop (OR FILLNA) rows with null values
+
+
 * Filter the data
 
 
-## Objectives (part II)
+https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
+
+
+## Data Cleaning Objectives
+
+* Genre is str representation of list. need to convert to actual list
 
 >>* Find & replace data???
->>* Reformat
->>* Normalize 
+
+```python
+.str.contains()
+.to_numeric() # for the ratings that are in str format
+
+
+
+desc = reviews.description
+
+tropical_count = desc.map(lambda d: 'tropical' in d).sum()
+fruity_count = desc.map(lambda d: 'fruity' in d).sum()
+
+descriptor_counts = pd.Series([tropical_count, fruity_count], index=['tropical', 'fruity'])
+descriptor_counts
+```
+
+## Data Normalization Objectives
+
+
+## Data Wrangling II Objectives / (or EDA?)
+
+>>relative frequencies
+https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
+>>correlation?
+>>regression?
+>>stats?
+>>
 >>* groupyby
-
-## Data Dictionaries
-
-merge()
+>>merge()
 >>join()
 >>concat()
 
