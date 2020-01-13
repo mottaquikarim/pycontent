@@ -1,4 +1,3 @@
 - refs.md: Reference Sources
 - python_glossary.md: Python Glossary
-- pandas_cheat_sheet.md: Pandas Cheat Sheet
 - install_py_locally.md: How To Install Python

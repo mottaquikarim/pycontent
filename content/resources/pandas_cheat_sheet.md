@@ -4,6 +4,8 @@
 
 ## Reading & Writing Data
 
+[pd.read_csv() parameter documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html)
+
 * **`pd.read_csv(<file_path>)`** -- From a CSV file
 * **`pd.read_table(<file_path>)`** -- From a delimited text file (like TSV)
 * **`pd.read_excel(<file_path>)`** -- From an Excel file
@@ -33,9 +35,37 @@
     * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
     * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
 
-
 ## Data Wrangling
 
-## Basic Stats
+### Summary Metadata
 
-## Organizating Data
+* `df.shape`
+* `df.columns`
+* `obj.index` 
+* `s.isunique`
+* `obj.describe()`
+* `obj.info()`
+
+### Typecasting
+
+* `s.astype()` -- convert items in series to a diff dtype
+* `s.tolist()` -- convert Pandas Series to Python List type
+* `s.to_dict()` -- convert Pandas Series to Python Dict type
+* `s.to_frame()` -- convert Pandas Series to Pandas Dataframe
+* `pd.to_numeric(s, errors='coerce')` -- convert the items within a Series to numbers
+* `s.to_string()` -- convert the items within a Series to strings
+
+**!!!to_dict() has an underscore, but tolist() doesn't!!!**
+
+### Indexing
+
+* `obj.set_index(keys, drop=False, append=False, inplace=False)`
+* `obj.reset_index(drop=False, inplace=False)` -- reset index to default integer index; adds current index as a col to the df when drop=False
+* 
+
+### Renaming & Replacing
+
+* `df.rename(columns/index={'old_name': 'new_ name'})` -- rename specific columns (or index) with dict of old to new names
+* `df.rename_axis('new_name', axis)` -- rename the axis
+
+###
