@@ -6,7 +6,7 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 ## Objectives
 
-* Document metadata based on common standards
+>>* Document metadata based on common standards
 * Add, drop, & rename columns 
 * Sort the data
 * Count & drop duplicate rows
@@ -221,19 +221,3 @@ Note: If you run this cell more than once, the before and after lengths will be 
 ## Filtering
 
 ...?
-
->>OUTLINE
-
-* dropna
-    * or fillna w. mean
-
-
-* replace (production companies?)
-* append single row vs. concat multiple rows
-* merge
-* update
-    * single value
-    * remove "min" from Runtime and cast to int so that you can do math
-
-* iterate through Genres and separate strings to list
-    * then do via .apply()
