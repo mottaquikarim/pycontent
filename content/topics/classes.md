@@ -264,7 +264,7 @@ print(isinstance(elephant1, Animal)) # True
 print(isinstance(toucan1, Elephant)) # False
 ```
 
-## Review of Classes & Inheritance
+## Key Takeaways
 * A **class** outlines a set of **attributes** and **methods**, which will help categorize other objects.
 * To add objects to the class, you declare them as an **instance** of that class.
 * **Class variables** store values belonging to ALL instances of a class, whereas **instance variables** store values unique to each instance. 
@@ -272,3 +272,7 @@ print(isinstance(toucan1, Elephant)) # False
 * The **self variable** serves as a reference to the current instance of the class, and it must be the first parameter of *any* method in a class, including the `__init__()` method.
 * **Child classes** can inherit attributes and methods from **parent classes**. 
 * **Child classes** can also override parent attributes and behaviors without redefining the parent class.
+
+## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Become an expert in classes by completing your copy of `classes_psets.ipynb` in Google Drive.
