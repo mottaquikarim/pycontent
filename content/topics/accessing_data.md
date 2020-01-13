@@ -217,6 +217,7 @@ Select a slice of a DataFrame by entering a range of row and column index positi
 movies.iloc[4870:4875,0:5]
 ```
 
+
 ## Key Takeaways
 
 * A data dictionary documents metadata for a dataset by defining each column

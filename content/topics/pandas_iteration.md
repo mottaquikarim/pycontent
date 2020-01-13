@@ -1,6 +1,5 @@
 pandas_iteration.md
 
-
 ## Iterating Through Data
 
 To edit all the data in a Python list or dict object, you have to iterate through and change each item individually. As we discussed in the last section, you can apply vectorized operations to Series and dataframe objects. That might mean applying some mathematical operation or even a custom function. As such, it's actually inefficient to iterate through the items or rows in a Series or dataframe when you want to edit the data. The main use case for iterating through these objects is simply to access the data for some purpose. For example, you might be checking its validity upon ingesting it, sending data you've recorded to a client, etc.
