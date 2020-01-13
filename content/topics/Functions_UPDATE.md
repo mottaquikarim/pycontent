@@ -91,6 +91,8 @@ print(z, type(z)) # True <class 'bool'>
 
 ## Types of Function Input
 
+>>https://realpython.com/courses/python-kwargs-and-args/
+
 The term `parameter` and the term `argument` are often used synonomously to refer to function input values. However, there *IS* a distinction between the two terms:
 
 * **`Parameters`** are values you declare when defining a function. 
@@ -99,6 +101,17 @@ The term `parameter` and the term `argument` are often used synonomously to refe
 ### Required vs. Optional Parameters
 
 You have a fair amount of flexibility when it comes to defining function parameters. This is because there are so many different use cases for the amount and type of input needed. The differences between function inputs are signified in the syntax of the function definition. We'll go through examples for the main use cases now...
+
+>>https://docs.python.org/3/glossary.html
+>>https://medium.com/@boxed/keyword-argument-confusion-in-python-59105c5a1159
+>>https://treyhunner.com/2018/04/keyword-arguments-in-python/
+>>keyword argument: an argument preceded by an identifier (e.g. name=) in a function call or passed as a value in a dictionary preceded by **. For example, 3 and 5 are both keyword arguments in the following calls to complex():
+
+>>complex(real=3, imag=5)
+complex(**{'real': 3, 'imag': 5})
+positional argument: an argument that is not a keyword argument. Positional arguments can appear at the beginning of an argument list and/or be passed as elements of an iterable preceded by *. For example, 3 and 5 are both positional arguments in the following calls:
+complex(3, 5)
+complex(*(3, 5))
 
 **Required Parameters**
 
