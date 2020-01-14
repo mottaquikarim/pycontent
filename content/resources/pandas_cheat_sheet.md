@@ -88,14 +88,12 @@
 * `df.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
 * `s.fillna(s.mean())` -- Replaces all null values with the mean (mean can be replaced with almost any function from the statistics section)
 
-### Duplicates - NEED FLESH OUT
+### Duplicates
 
-* `df.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
-
-When finding dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. The `keep` param denotes the occurrence which should be marked as duplicate. You can choose `first` or `last`, but the default is `first`. In other words:
-
-* first : All duplicates except their first occurrence will be marked as True
-* last : All duplicates except their last occurrence will be marked as True
+* `s.duplicated(keep='first')` -- return boolean Series denoting duplicate rows; by default keeps the first instance of a dup
+* `s.drop_duplicates(keep='first', inplace=False)` -- return Series with dups removed; by default keeps the first instance of a dup
+* `df.duplicated(subset=None, keep='first')` -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
+* `df.drop_duplicates(subset=None, keep='first', inplace=False)` -- return df with dups removed; by default determines whether full row is a dup; 
 
 ### Filtering / Conditional Selection
 
