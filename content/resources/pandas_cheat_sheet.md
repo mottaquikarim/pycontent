@@ -72,18 +72,35 @@
 
 * `df.rename(columns/index={'old_name': 'new_ name'})` -- rename specific columns (or index) with dict of old to new names
 * `df.rename_axis('new_name', axis)` -- rename the axis
-
->>s.replace() / df.replace()
-
-
-### Null Values
+* `s.replace(1,'one')` -- replace all values equal to 1 with 'one'
+* `s.replace([1,3],['one','three'])` -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
+* `df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)` -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
 
 
-### Duplicates
+### Null Values - NEED FLESH OUT 
 
+* `pd.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
+* `pd.isnull().sum()` -- returns a count of null (NaN)
+* `pd.notnull()` -- returns all values that are NOT null
+
+* `df.dropna(subset=[col1])` -- Drops all **rows** that contain null values in one or more specific columns and returns a new df
+* `df.dropna(axis=1)` -- Drops all **columns** that contain null values and returns a new df
+* `df.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
+* `s.fillna(s.mean())` -- Replaces all null values with the mean (mean can be replaced with almost any function from the statistics section)
+
+### Duplicates - NEED FLESH OUT
+
+* `df.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
+
+When finding dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. The `keep` param denotes the occurrence which should be marked as duplicate. You can choose `first` or `last`, but the default is `first`. In other words:
+
+* first : All duplicates except their first occurrence will be marked as True
+* last : All duplicates except their last occurrence will be marked as True
 
 ### Filtering / Conditional Selection
 
+* `obj.where(cond, other = NaN, inplace = False, axis = None)` -- replace values in the object where the condition is False (*S or df)
+* `.isin()`
 
 ### Apply
 
@@ -95,7 +112,7 @@
 
 
 * `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
-
+* `insert(<position>,<column_name>, <data>)`
 
 ### Sorting
 
