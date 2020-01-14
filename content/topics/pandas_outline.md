@@ -2,23 +2,36 @@
 
 ## Data Wrangling I Objectives
 
-* **Document metadata based on common standards**
-
-
 * **Add, drop, & rename columns**
-
+`.rename` a few
+`.drop` ['Average Rating', 'Ratings', 'DVD', 'Awards', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response']
 
 * **Sort the data**
+`.sort` by imdbRating, then Title
 
-
-* Count & drop duplicate rows
+* **Count & drop duplicate rows**
+count & drop dup full rows
+count BUT NOT drop rows with dup title
+count & drop rows with dup tital/year combin
 
 
 * Count & drop (OR FILLNA) rows with null values
+count & drop rows where imdbRating is null
+count rows where RT rating is null (& fill with mean?)
+
+fill or drop rows lacking Genre / Country / Language / Year / Runtime?
 
 
 * Filter the data
 
+>>Remove TV Series --> filter rows where type == series
+1. `.nunique` & `.unique` / `value_counts` Type AND total Seasons
+    * FIND THE DIFF....???
+2. filter rows where type == series
+3. pd.isnull film series with NaN totalSeasons
+4. pd.notnull totalSeasons
+5. ...remove the idx rows 
+`.value_counts` to show how many movies vs. video series 
 
 https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 
@@ -32,7 +45,7 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 ```python
 .str.contains()
 .to_numeric() # for the ratings that are in str format
-
+.isin()
 
 
 desc = reviews.description
@@ -79,6 +92,15 @@ reviews.loc[reviews.country == 'Italy']
 >>* append single row vs. concat multiple rows???
 >>* merge???
 
+>>np.where(cond[, other, inplace, axis, level, …])	Replace values where the condition is False.
+
+https://realpython.com/python-data-cleaning-numpy-pandas/#tidying-up-fields-in-the-data
+
+`np.where(condition, then, else)`
+`np.where(condition1, x1, 
+        np.where(condition2, x2, 
+            np.where(condition3, x3, ...)))`
+
 * update
     * single value
     * remove "min" from Runtime and cast to int so that you can do math
@@ -117,20 +139,7 @@ Instead, to edit all the data in a Python list or dict object, you have to itera
 
 >>As such, it's actually inefficient to iterate through the items or rows in a Series or dataframe when you want to edit the data. The main use case for iterating through these objects is simply to access the data for some purpose. For example, you might be checking its validity upon ingesting it, sending data you've recorded to a client, etc.
 
-In Pandas, the `.iterrows()` method of iterating supplies a balance between efficiency and simplicity of use. It's similar in both concept and syntax to looping through the key/value pairs in a Python dict:
-
-**Dict**: `for key, value in my_dict.items():`
-**Series or dataframe**: `for idx, row in obj.iterrows():`
-
-
-```python
-temp = movies.copy()
-temp = 
-
-for idx, row in temp.iterrows():
-    # print(f'{idx}: {row}\n\n')
-    # print(temp.loc[idx])
-    print(row['Year'], type(row['Year']))
-    row['Year'] = int(row['Year'])
-    print(row['Year'], type(row['Year']), '\n')
-```
+"They follow a common pattern:
+1. Write a function that works on a single value
+2. Test that function on a single value
+3. Apply that function to a whole column"
