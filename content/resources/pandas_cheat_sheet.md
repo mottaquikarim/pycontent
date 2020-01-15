@@ -42,6 +42,7 @@
 * `obj.info()`
 * `df.head(n=5)` -- return first n rows
 * `df.tail(n=5)` -- return last n rows
+* `df.dtypes`
 * `s.nlargest(n)` -- select and order largest n entries
 * `s.nsmallest(n)` -- select and order smallest n entries
 * `df.nlargest(n, columns)` -- select and order largest n entries based on one or more cols
@@ -50,7 +51,11 @@
 * `df.columns` -- returns Index object containing the df's column labels
 * `obj.index` -- returns Index object containing the obj's row values
 * `s.isunique` -- returns boolean for whether Series values are unique
-* `obj.describe()`
+* `obj.describe(include=np.object)` -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
+* `.count()`
+* `.unique()`
+* `.nunique()`
+* ``
 
 ### Typecasting
 
@@ -78,6 +83,9 @@
 
 
 ### Null Values - NEED FLESH OUT 
+
+>>* `.isnull()` -- 
+* `.notnull()` -- 
 
 * `pd.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
 * `pd.isnull().sum()` -- returns a count of null (NaN)
