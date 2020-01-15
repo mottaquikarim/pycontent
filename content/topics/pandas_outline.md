@@ -2,12 +2,35 @@
 
 ## Data Wrangling I Objectives
 
+* auto-set the index on load
+show that title would be no good bc not unique
+
 * **Add, drop, & rename columns**
 `.rename` a few
 `.drop` ['Average Rating', 'Ratings', 'DVD', 'Awards', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response']
 
+>>update / insert??
+>>replace (production companies?)
+>>`.update`
+    * single value
+    * remove "min" from Runtime and cast to int so that you can do math?
+
 * **Sort the data**
 `.sort` by imdbRating, then Title
+
+* **Filtering** 
+
+>>Remove TV Series --> filter rows where type == series
+1. `.nunique` & `.unique` / `value_counts` Type AND total Seasons
+    * FIND THE DIFF....???
+2. filter rows where type == series
+3. pd.isnull film series with NaN totalSeasons
+4. pd.notnull totalSeasons
+5. ...remove the idx rows 
+`.value_counts` to show how many movies vs. video series 
+
+>>.isin()??
+
 
 * **Count & drop duplicate rows**
 count & drop dup full rows
@@ -24,27 +47,27 @@ fill or drop rows lacking Genre / Country / Language / Year / Runtime?
 
 * Filter the data
 
->>Remove TV Series --> filter rows where type == series
-1. `.nunique` & `.unique` / `value_counts` Type AND total Seasons
-    * FIND THE DIFF....???
-2. filter rows where type == series
-3. pd.isnull film series with NaN totalSeasons
-4. pd.notnull totalSeasons
-5. ...remove the idx rows 
-`.value_counts` to show how many movies vs. video series 
 
-https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
+
+
+>>https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 
 
 ## Data Cleaning Objectives
 
-* Genre is str representation of list. need to convert to actual list
+`map` & `apply`
+
+* Genre / Language have str representations of lists. need to convert to actual list
+* created a calculated col that is the average of the rating across the 3 sources
+* Actors should be a real list also
+	* fun activity to order EACH row's actor list in order of how many films they've been in?
+* list of actors
 
 >>* Find & replace data???
 
 ```python
 .str.contains()
-.to_numeric() # for the ratings that are in str format
+.to_numeric() # for the ratings that are in str format & also for Year col
 .isin()
 
 
@@ -60,11 +83,14 @@ descriptor_counts
 ## Data Normalization Objectives
 
 
+
 ## Data Wrangling II Objectives / (or EDA?)
 
 >>relative frequencies
 https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 >>correlation?
+>>word frequency in the plot col?
+>>
 >>regression?
 >>stats?
 >>
@@ -76,21 +102,7 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 
 >>OUTLINE
 
-* dropna
-    * or fillna w. mean
 
-
-* filter out Type == video series
-    * unique / nunique
-    * value_counts()
-    * pd.isnull / pd.notnull
-
-reviews.loc[reviews.country == 'Italy']
-
-* replace (production companies?)
-
->>* append single row vs. concat multiple rows???
->>* merge???
 
 >>np.where(cond[, other, inplace, axis, level, …])	Replace values where the condition is False.
 
@@ -101,9 +113,6 @@ https://realpython.com/python-data-cleaning-numpy-pandas/#tidying-up-fields-in-t
         np.where(condition2, x2, 
             np.where(condition3, x3, ...)))`
 
-* update
-    * single value
-    * remove "min" from Runtime and cast to int so that you can do math
 
 * apply() 
     * convert list as str to real list
