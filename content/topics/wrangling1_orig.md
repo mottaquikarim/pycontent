@@ -12,45 +12,12 @@
 >>* Reformat
 >>* Normalize 
 
-
 ### Add, Drop, & Rename Columns
 
-Adding a column to the data is just like declaring a variable:
-
-```python
-movies['Average Rating'] = pd.Series() # can add actual Series data as long as it's the same length
-movies.iloc[57:59]
-```
-
-Here are all the column names in the original data:
-
-```python
-print(f'BEFORE: \n{movies.columns}')
-```
-
-
-```python
-print(f'BEFORE: \n{movies.columns}')
-movies.rename(columns={'Internet Movie Database': 'IMDb', 'Genre': 'Genres', 'Language': 'Languages', 'Writer': 'Writers'}, inplace=True)
-print('\nAFTER:')
-movies.iloc[20]
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
 
 ### Sorting
 
-You can sort a Series or dataframe by different ==ELEMENTS== and specs with the `.sort_values()` method. Its general syntax and default parameter arguments (where applicable) are as follows:
+Using the `.sort_values()` method.You can sort a Series or dataframe by different criteria using the `.sort_values()` method. Its general syntax and default parameter arguments (where applicable) are as follows:
 
 `.sort_values(by, axis=0, ascending=False, inplace=False, na_position=last)`
 

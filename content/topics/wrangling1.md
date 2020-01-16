@@ -92,7 +92,7 @@ Adding a column to the data is just like declaring a variable: `movies['Average 
 >>can add actual Series data as long as it's the same length
 
 ```python
-movies.rename(columns={'Genre': 'Genres', 'Language': 'Languages', 'Writer': 'Writers'}, inplace=True)
+movies.rename(columns={'Genre': 'Genres', 'Language': 'Languages'}, inplace=True)
 movies.columns
 ```
 
@@ -103,6 +103,11 @@ movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na
 ```
 
 >>FILTERING (removing non-movies)
+
+    >>what's your fave movie?
+    `movies[movies.Title.str.contains('Nosferatu')]`
+    `.isin()`
+    `Title ==`
 
 ```python
 print(movies['Type'].nunique())
@@ -146,7 +151,7 @@ movies.columns
 movies = movies.copy()
 # get rid of Released, IMDb, Metacritic
 movies = movies[['Title', 'Year', 'Genres', 'imdbRating', 'imdbVotes', 'Rotten Tomatoes', 'Metascore', 'Country', 'Languages', 'Runtime', 'Director',
-       'Writers', 'Actors', 'Plot']]
+       'Writer', 'Actors', 'Plot']]
 movies.columns
 ```
 
@@ -189,11 +194,12 @@ dup_titles = movies[movies.duplicated(subset=['Title'])]
 len(dup_titles)
 ```
 
->> MAP() Genre
+>> MAP() List to Str
+>> Genre, Language, Country
 
 ```python
 missing_genre = movies[pd.isnull(movies['Genres'])]
-print(len(missing_genre))
+print(movies['Genres'].isnull().sum())
 missing_genre
 ```
 
@@ -207,9 +213,7 @@ genre_updates = {
 for imdbID, genre in genre_updates.items():
     movies.loc[imdbID, 'Genres'] = genre
 
-missing_genre = movies[pd.isnull(movies['Genres'])]
-print(len(missing_genre))
-missing_genre
+print(movies['Genres'].isnull().sum())
 ```
 
 ```python
@@ -228,11 +232,55 @@ movies['Genres'] = temp_genre
 movies['Genres']
 ```
 
+    >>Country
+    >>Languages
+
 >>Reformat Str to Numbers
->>Convert Year to Int
+
+>>CONVERT DATATYPE (Year to Int)
 
 ```python
-movies['Year'] = pd.to_numeric(movies['Year'])
+year = movies['Year']
+type(year[0])
+```
+
+```python
+movies['Year'] = pd.to_numeric(year)
+```
+
+```python
+silent_films = movies[movies['Year'] < 1927].copy()
+silent_films
+```
+
+
+```python
+silent_list = list(silent_films.index)
+
+for film in silent_list:
+    movies.loc[film, 'Languages'] = 'Silent'
+```
+
+
+```python
+silent_films = movies[movies['Year'] < 1927].copy()
+silent_films
+```
+
+>>Scale imdbRating to match Metascore
+
+```python
+movies[movies.imdbRating.isnull()]
+```
+
+```python
+"""
+test = movies['imdbRating']*10
+test
+"""
+
+movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
+movies.head()
 ```
 
 >>Reformat Runtime 
@@ -297,22 +345,6 @@ movies.drop(labels=shorts, axis=0, inplace=True)
 movies[movies['Runtime'] < 45].copy()
 ```
 
->>Scale imdbRating to match Metascore
-
-```python
-movies[movies.imdbRating.isnull()]
-```
-
-```python
-"""
-test = movies['imdbRating']*10
-test
-"""
-
-movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
-movies.head()
-```
-
 >>Reformat imdbVotes
 
 ```python
@@ -337,9 +369,15 @@ temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
 temp_imdbVotes
 ```
 
+```python
+movies['imdbVotes'] = temp_imdbVotes.astype('int64')
+```
+
+
+
 >>Reformat Rotten Tomatoes
->>fillna now?
->>have to sep and re-concat nulls?
+    >>fillna now?
+    >>have to sep and re-concat nulls?
 
 ```python
 temp_rt = movies['Rotten Tomatoes'].copy()
