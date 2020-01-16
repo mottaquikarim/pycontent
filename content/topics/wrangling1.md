@@ -34,13 +34,13 @@ Below is a data dictionary for the *unaltered OMDb data*. (We've left the defini
 * **Writer**
 * **Actors**
 * **Plot**
-* **Language**
-* **Country**
+* **Language**: Audio languages available for movie (might exclude sub-title language availability)
+* **Country**: Country/countries that produced the movie 
 * **Awards**: # of nominations and # of wins for one or more types of awards
 * **Poster**: Amazon-hosted image url for the poster of the movie
 * **Ratings**: Series containing ratings from multiple sources (e.g. Rotten Tomatoes)
-* **Metascore**: Metacritic rating from critics
-* **imdbRating**: Crowd-sourced audience rating from IMDb
+* **Metascore**: Metacritic rating from critics (from 0.0-100.0)
+* **imdbRating**: Crowd-sourced audience rating from IMDb (from 0.0-10.0)
 * **imdbVotes**: Number of user ratings from IMDb
 * **imdbID**: Unique movie ID from IMDb
 * **Type**: Content category ==(e.g. movie, tv, etc.)==
@@ -49,9 +49,9 @@ Below is a data dictionary for the *unaltered OMDb data*. (We've left the defini
 * **Production**: Production company
 * **Website**: URL
 * **Response**: Boolean stored as string, indicates whether the API response was valid
-* **Internet Movie Database**: Crowd-sourced audience rating from IMDb out of 10
-* **Rotten Tomatoes**: Rotten Tomatoes rating from critics 
-* **Metacritic**: Metacritic rating from critics
+* **Internet Movie Database**: Crowd-sourced audience rating from IMDb (from 0.0-10.0)
+* **Rotten Tomatoes**: Rotten Tomatoes rating from critics (from 0-100%)
+* **Metacritic**: Metacritic rating from critics (from 0.0-100.0)
 * **totalSeasons**: Number of seasons, if applicable
 
 ## The Broad Strokes: Big Picture Organization
@@ -61,34 +61,25 @@ As a first step, you'll want to familiarize yourself with the data and organize 
 Let's get to it. Import your libraries:
 
 ```python
-import numpy as np
 import pandas as pd
+import numpy as np
+from scipy import stats
 import matplotlib.pyplot as plt
+%matplotlib inline
 import seaborn as sns
+
+print('import successful')
 ```
 
-Load the data and make a copy:
+Now, load the data and make a copy. We'll also set "imdbID" as the custom index like we did in the last section, but this time we'll do it by passing it into `.read_csv()`'s `index_col` parameter.
 
 ```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_5000.csv')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb_4500.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-We'll also set "imdbID" as the custom index like we did in the last section.
-
-```python
-movies.set_index('imdbID', inplace=True)
-```
-
 ### Add, Drop, & Rename Columns
-
-Adding a column to the data is just like declaring a variable:
-
-```python
-movies['Average Rating'] = pd.Series() # can add actual Series data as long as it's the same length
-movies.iloc[57:59]
-```
 
 Here are all the column names in the original data:
 
@@ -96,139 +87,311 @@ Here are all the column names in the original data:
 print(f'BEFORE: \n{movies.columns}')
 ```
 
+Adding a column to the data is just like declaring a variable: `movies['Average Rating'] = <series_data>`
+
+>>can add actual Series data as long as it's the same length
 
 ```python
-print(f'BEFORE: \n{movies.columns}')
-movies.rename(columns={'Internet Movie Database': 'IMDb', 'Genre': 'Genres', 'Language': 'Languages', 'Writer': 'Writers'}, inplace=True)
-print('\nAFTER:')
-movies.iloc[20]
+movies.rename(columns={'Genre': 'Genres', 'Language': 'Languages', 'Writer': 'Writers'}, inplace=True)
+movies.columns
+```
+
+>>SORTING
+
+```python
+movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position='last')
+```
+
+>>FILTERING (removing non-movies)
+
+```python
+print(movies['Type'].nunique())
+movies['Type'].value_counts()
 ```
 
 ```python
-
+print(movies['totalSeasons'].count())
+movies['totalSeasons'].value_counts()
 ```
 
 ```python
+non_movies = movies[movies['Type'] == 'series']
+has_seasons = movies[pd.notnull(movies['totalSeasons'])]
 
+print(len(non_movies), len(has_seasons))
 ```
 
 ```python
-
+non_movies.info()
 ```
 
-### Sorting
+As you can see, 4 of these have `nan` values. # 4 have nan values, meaning `non_movies` includes all the rows that are in `has_seasons` so dropping non_movies suffices
 
-You can sort a Series or dataframe by different ==ELEMENTS== and specs with the `.sort_values()` method. Its general syntax and default parameter arguments (where applicable) are as follows:
-
-`.sort_values(by, axis=0, ascending=False, inplace=False, na_position=last)`
-
-The `by` parameter takes one or more columns from the dataframe. The method will sort by the first column passed, then the second, and so on. Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.
-
-If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
-
-If any of the columns you pass to the `by` parameter contain null values, you can choose whether to place those rows `first` or `last` using the `na_position` parameter.
-
-For our movies dataset, it makes logical sense to sort the movies in order of most to least popular or well-known. We have three different movie ratings sources which can serve as a measure of that for us - IMDb, Rotten Tomatoes, & Metacritic. (The "Ratings" column is an aggregate of these, and the "Internet Movie Database" column is a duplicate of "imdbRating.") Which should we use then? If you take a look at `movies.info()`...
+>>DROPPING ROWS/COLS
 
 ```python
-movies.info()
+non_movie_ids = list(non_movies.index)
+movies.drop(labels=non_movie_ids,axis=0,inplace=True)
+
+movies['Type'].value_counts() # check
 ```
 
-...you'll see that IMDb has the most the non-null values
-
-
-Above, are the 
 ```python
-movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position=True)
+movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
+movies.columns
+```
+
+```python
+# REORDERING COLS
+movies = movies.copy()
+# get rid of Released, IMDb, Metacritic
+movies = movies[['Title', 'Year', 'Genres', 'imdbRating', 'imdbVotes', 'Rotten Tomatoes', 'Metascore', 'Country', 'Languages', 'Runtime', 'Director',
+       'Writers', 'Actors', 'Plot']]
+movies.columns
+```
+
+>> DUPLICATES
+ 
+```python
+num_dup_rows = movies.duplicated().sum()
+num_dup_titles = movies.duplicated(subset=['Title']).sum()
+num_dup_title_yr = movies.duplicated(subset=['Title', 'Year']).sum()
+
+print(f'''
+{num_dup_rows}
+{num_dup_titles}
+{num_dup_title_yr}
+''')
+```
+
+```python
+print('# Dup Rows Before:', num_dup_rows)
+movies.drop_duplicates(inplace=True)
+print('# Dup Rows After:', movies.duplicated().sum())
+```
+
+```python
+movies[movies.duplicated(subset=['Title', 'Year'])]
+```
+
+```python
+movies[movies.Title == 'The Cave']
+```
+
+```python
+print('tt8726180' in movies.index)
+movies.drop('tt8726180', inplace=True) # it infers axis=0 here
+'tt8726180' in movies.index
+```
+
+```python
+dup_titles = movies[movies.duplicated(subset=['Title'])]
+len(dup_titles)
+```
+
+>> MAP() Genre
+
+```python
+missing_genre = movies[pd.isnull(movies['Genres'])]
+print(len(missing_genre))
+missing_genre
+```
+
+```python
+genre_updates = {
+    'tt8026554': 'Drama',
+    'tt6215446': 'Comedy, Horror', # Ghost Light
+    'tt10084752': 'Documentary'
+}
+
+for imdbID, genre in genre_updates.items():
+    movies.loc[imdbID, 'Genres'] = genre
+
+missing_genre = movies[pd.isnull(movies['Genres'])]
+print(len(missing_genre))
+missing_genre
+```
+
+```python
+temp_genre = movies['Genres'].copy()
+```
+
+
+```python
+temp_genre = temp_genre.map(lambda x: x.split(','))
+temp_genre
+```
+
+
+```python
+movies['Genres'] = temp_genre
+movies['Genres']
+```
+
+>>Reformat Str to Numbers
+>>Convert Year to Int
+
+```python
+movies['Year'] = pd.to_numeric(movies['Year'])
+```
+
+>>Reformat Runtime 
+
+```python
+missing_runtime = movies[pd.isnull(movies['Runtime'])]
+
+print(len(movies))
+len(missing_runtime)
+```
+
+```python
+movies.dropna(subset=['Runtime'], inplace=True)
+```
+
+```python
+missing_runtime = movies[pd.isnull(movies['Runtime'])]
+
+print(len(movies))
+len(missing_runtime)
+```
+
+```python
+temp_runtime = movies['Runtime'].copy()
+temp_runtime.head(3)
+```
+
+```python
+def runtime_reformat(row):
+    """remove min from str and convert field to int"""
+    try:
+        split_row = row.split(' ')
+        numeric_runtime = int(split_row[0])
+        #print(numeric_runtime, type(numeric_runtime))
+        return numeric_runtime
+    except Exception as e:
+        # if pd.isnull(row), error will occur
+        # print(e)
+        return row
+
+temp_runtime = temp_runtime.apply(runtime_reformat)
+temp_runtime
+```
+
+```python
+movies['Runtime'] = temp_runtime.astype('int64')
+movies['Runtime']
+```
+
+>>Filter/Drop Shorts
+
+```python
+shorts = movies[movies['Runtime'] < 45].copy()
+shorts.sort_values(by=['Runtime'], ascending=False, inplace=True)
+print(len(shorts))
+shorts = list(shorts.index)
+shorts
+```
+
+```python
+movies.drop(labels=shorts, axis=0, inplace=True)
+movies[movies['Runtime'] < 45].copy()
+```
+
+>>Scale imdbRating to match Metascore
+
+```python
+movies[movies.imdbRating.isnull()]
+```
+
+```python
+"""
+test = movies['imdbRating']*10
+test
+"""
+
+movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
+movies.head()
+```
+
+>>Reformat imdbVotes
+
+```python
+movies.to_csv('omdb_ratings_eval.csv')
+```
+
+
+```python
+def votes_reformat(row):
+    """remove commas from str and convert field to int"""
+    try:
+        split_row = row.split(',')
+        votes = int(''.join(split_row))
+        return votes
+    except Exception as e:
+        # if pd.isnull(row), error will occur
+        # print(e)
+        return row
+
+temp_imdbVotes = movies['imdbVotes'].copy()
+temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
+temp_imdbVotes
+```
+
+>>Reformat Rotten Tomatoes
+>>fillna now?
+>>have to sep and re-concat nulls?
+
+```python
+temp_rt = movies['Rotten Tomatoes'].copy()
+temp_rt.isnull().sum()
+```
+
+
+```python
+def strip_rt(row):
+    try:
+        stripped = int(row.strip('%'))
+        return stripped
+    except Exception as e:
+        # print(e)
+        return row
+        
+temp_rt = temp_rt.apply(strip_rt)
+temp_rt
+```
+
+>>FILL/DROP NULLS????
+
+```python
+#temp_rt_mean = temp_rt.mean()
+#print(f'Mean: {temp_rt_mean}\n')
+#temp_rt.fillna(temp_rt_mean, inplace=True)
+#temp_rt
+```
+
+
+```python
+movies['Rotten Tomatoes'] = temp_rt.round(1)
 movies.head(3)
 ```
 
 
-
-### Drop Duplicates
-* remove duplicate imdbIDs
-    * remove duplicates based on a certain col
-
-* `df.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
-
-When finding dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. The `keep` param denotes the occurrence which should be marked as duplicate. You can choose `first` or `last`, but the default is `first`. In other words:
-
-* first : All duplicates except their first occurrence will be marked as True
-* last : All duplicates except their last occurrence will be marked as True
-
-**Count the number of dups**
-
-Shows number of Trues and Falses; number of Trues is how many dups there are
-
 ```python
-movies.duplicated().sum()
+
 ```
-
-```python
-movies.duplicated().value_counts()
-```
-
-whole row vs. dup titles 
-
-```python
-movies.duplicated(['Title']).value_counts()
-```
-
-**Return a new df of rows containing dups**
-
-```python
-dup_rows = movies[movies.duplicated()]
-
-print(len(dup_rows))
-dup_rows.head(5)
-```
-
-**Drop duplicates**
-
-* `drop_duplicates([subset, keep, inplace])` -- returns DataFrame with duplicate rows removed, optionally only considering certain columns.
-
-```python
-print('ROWS BEFORE:', len(movies))
-
-movies = movies.drop_duplicates()
-
-print('ROWS AFTER:', len(movies))
-```
-
-Note: If you run this cell more than once, the before and after lengths will be equal because you already dropped the dups.
-
 
 
 ```python
 
 ```
 
-### Organizing Cols
-
-* rename cols (imdb, genres, languages)
-* add / drop cols
-
-## Filtering
-
-### Remove Non-Movies
-
-* filter out Type == video series
-    * unique / nunique
-    * value_counts()
-    * pd.isnull / pd.notnull
-    * .isin()
-
-reviews.loc[reviews.country == 'Italy']
-"To combine filtering conditions in Pandas, use bitwise operators ('&' and '|') not pure Python ones ('and' and 'or')"
-
-Create a DataFrame `top_oceania_wines` containing all reviews with at least 95 points (out of 100) for wines from Australia or New Zealand.
 
 ```python
-# top_oceania_wines = reviews[(reviews['country'] == 'Australia' | reviews['country'] == 'New Zealand') & (reviews['points'] >= 95)]
 
-top_oceania_wines = reviews.loc[(reviews.country.isin(['Australia', 'New Zealand'])) & (reviews.points >= 95)
-]
 ```
 
 
-...?
+```python
+
+```
+
