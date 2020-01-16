@@ -53,6 +53,7 @@
 * `s.isunique` -- returns boolean for whether Series values are unique
 * `obj.describe(include=np.object)` -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
 * `.count()`
+* `.sum()`
 * `.unique()`
 * `.nunique()`
 * ``
