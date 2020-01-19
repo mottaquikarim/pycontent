@@ -35,6 +35,19 @@
     * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
     * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
 
+## Object Structuring
+
+* `pd.Series(data=None, index=None, dtype=None, name=None, copy=False)` -- create a Series object from list of data and index list or from dict
+	* `name` can serve to match with df col name
+* `pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)` -- create a DataFrame object
+* `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
+* `df.insert(loc, column, value)` -- insert a col into a df at a specified index location
+* `df.update(other, join='left', overwrite=True, errors='ignore')` -- update a df with values passed to `other`
+	* if a Series is passed in, its `name` attribute must match a column in the df
+	* always a `left` join to keep the index and columns of the original object
+	* `overwrite` signals whether or not to overwrite existing values for overlapping keys
+	* When `'raise'` is passed to `errors`, the function will raise a `ValueError` if both objects contain non-NA data in the same place
+
 ## Data Wrangling
 
 ### Summary Metadata
@@ -109,18 +122,6 @@
 
 
 ### Map
-
-
-## Structuring
-
-
-* `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
-* `df.insert(loc, column, value)` -- insert a col into a df at a specified index location
-* `df.update(other, join='left', overwrite=True, errors='ignore')` -- update a df with values passed to `other`
-	* if a Series is passed in, its `name` attribute must match a column in the df
-	* always a `left` join to keep the index and columns of the original object
-	* `overwrite` signals whether or not to overwrite existing values for overlapping keys
-	* When `'raise'` is passed to `errors`, the function will raise a `ValueError` if both objects contain non-NA data in the same place
 
 
 ### Sorting

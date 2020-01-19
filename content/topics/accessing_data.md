@@ -2,7 +2,7 @@
 
 ## **Core Objectives**
 
-We have one more section before we can get into the kind of contextual analysis you'll use for data science. After all, you can't analyze your data unless you understand how to select exactly which pieces of data you want. This lesson focuses on how to:
+You can't analyze your data unless you understand how to select exactly which pieces of data you want. This lesson focuses on how to:
 
 * Load and save data to and from your notebook
 * Access a summary or a preview of the dataset
