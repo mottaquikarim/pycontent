@@ -92,7 +92,7 @@ print(arrayC)
 """
 ```
 
-**3-D array: 2x3x3**
+<!-- **3-D array: 2x3x3**
 
 ```python
 arrayD = np.array((([1, 2, 3], [4, 5, 6], [7, 8, 9]), ([1, 2, 3], [4, 5, 6], [7, 8, 9])), ndmin = 3)
@@ -106,7 +106,7 @@ print(arrayD)
   [4 5 6]
   [7 8 9]]]
 """
-```
+``` -->
 
 ### 3) ndarrays are designed to handle `vectorized` operations
 
@@ -177,7 +177,7 @@ The syntax for creating a dataframe manually is `df = pd.DataFrame(data, index, 
 
 Constructing a DataFrame manually is a little more complex because you have to ensure the values for the rows and columns align correctly. The examples below illustrate multiple different ways to create the same dataframe. 
 
-1) Specify column labels directly within the `data` parameter by passing in a **dict of lists and/or ndarrays**. 
+<!-- 1) Specify column labels directly within the `data` parameter by passing in a **dict of lists and/or ndarrays**. 
 
 
 ```python
@@ -188,9 +188,9 @@ d1 = {
 
 df1 = pd.DataFrame(data = d1, index = ['foo', 'bar', 'baz'])
 df1
-```
+``` -->
 
-2) Specify both the index AND column labels directly within the `data` parameter by passing in a **dict of Series**. 
+1) Specify both the index AND column labels directly within the `data` parameter by passing in a **dict of Series**. 
 
 ```python
 d2 = {
@@ -202,7 +202,7 @@ df2 = pd.DataFrame(data = d2)
 df2
 ```
 
-3) Specify the values in the `data` parameter in the form of a 2-D ndarray. Then separately specify the index and column labels in their corresponding parameters.
+2) Specify the values in the `data` parameter in the form of a 2-D ndarray. Then separately specify the index and column labels in their corresponding parameters.
 
 ```python
 df3 = pd.DataFrame(
