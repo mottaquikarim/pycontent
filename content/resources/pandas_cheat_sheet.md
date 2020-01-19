@@ -56,7 +56,6 @@
 * `.sum()`
 * `.unique()`
 * `.nunique()`
-* ``
 
 ### Typecasting
 
@@ -117,13 +116,18 @@
 
 * `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
 * `df.insert(loc, column, value)` -- insert a col into a df at a specified index location
+* `df.update(other, join='left', overwrite=True, errors='ignore')` -- update a df with values passed to `other`
+	* if a Series is passed in, its `name` attribute must match a column in the df
+	* always a `left` join to keep the index and columns of the original object
+	* `overwrite` signals whether or not to overwrite existing values for overlapping keys
+	* When `'raise'` is passed to `errors`, the function will raise a `ValueError` if both objects contain non-NA data in the same place
+
 
 ### Sorting
 
 * `s.sort_values(ascending=False, inplace=False)` -- sort values of a Series in ascending order
 * `df.sort_values(by=[col1, col2], ascending=False, inplace=False)` -- sort df rows by col1, then by col2; descending order by default
-
->>* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
+* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
 
 
 ### Grouping
@@ -138,8 +142,8 @@
 
 ## Statistics
 
-
-### Normalization
+* `obj.value_counts()` -- 
+* 
 
 
 
