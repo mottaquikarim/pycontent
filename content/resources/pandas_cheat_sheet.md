@@ -88,7 +88,7 @@
 
 ### Renaming & Replacing
 
-* `df.rename(columns/index={'old_name': 'new_ name'})` -- rename specific columns (or index) with dict of old to new names
+* `df.rename(columns/index={'old_name': 'new_ name'}, inplace=False)` -- rename specific columns (or index) with dict of old to new names
 * `df.rename_axis('new_name', axis)` -- rename the axis
 * `s.replace(1,'one')` -- replace all values equal to 1 with 'one'
 * `s.replace([1,3],['one','three'])` -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
@@ -126,8 +126,8 @@
 
 ### Sorting
 
-* `s.sort_values(ascending=False, inplace=False)` -- sort values of a Series in ascending order
-* `df.sort_values(by=[col1, col2], ascending=False, inplace=False)` -- sort df rows by col1, then by col2; descending order by default
+* `s.sort_values(ascending=False, inplace=False, na_position='last')` -- sort values of a Series in ascending order
+* `df.sort_values(by=[col1, col2], ascending=False, inplace=False, na_position='last')` -- sort df rows by col1, then by col2; descending order by default
 * `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
 
 

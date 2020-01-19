@@ -1,4 +1,4 @@
-# Data Wrangling I
+# Data Wrangling I - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
 
 Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyze, and visualize data. We know that the data science lifecycle is NOT made of discrete, linear steps. As such, we will not review one-off examples of each function or attribute. Instead, we will walk through the analysis of a dataset together. We will integrate Pandas examples based on how and when we need to use them.
 
@@ -11,10 +11,6 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 * Filtering
 * Sorting
 * Handling duplicate rows
-
->>* Find & replace data
->>* .update()
->>* .insert()
 
 ## Data Dictionaries
 
@@ -79,13 +75,13 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-### Dropping & Renaming Columns
-
 Preview the data:
 
 ```python
-movies.head(3)
+movies.iloc[25:50]
 ```
+
+## Renaming Columns
 
 Here's a summary of the amount and type of data available per column:
 
@@ -93,51 +89,44 @@ Here's a summary of the amount and type of data available per column:
 movies.info()
 ```
 
-#### Dropping Extra Columns
+A lot of these movies are tagged under multiple genres and are available in multiple languages. We'll rename those columns to reflect this. 
 
-First, let's get rid of some clutter by dropping a few columns we definitely won't need. The general syntax is:
+*`df.rename(columns={'old_name': 'new_ name'}, inplace=False)`*
 
-*`df.drop(columns, inplace=False)`*
+>>**NOTE!** Many Pandas functions have an `inplace` parameter that allows you to specify whether you want the function to change the object without having to reassign the output to a variable. The default argument is usually False.
 
-Piece of cake. Reference the name of the dataframe and specify which columns to drop. The **most crucial takeaway** at this point is that `inplace` parameter. By default, that argument is set to `False` because it could cause problems with running other cells in your notebook. For example...
-
-Run this cell:
-
-```python
-movies['BoxOffice']
-```
-
-Now let's drop these extraneous columns:
-
-```python
-print(f'BEFORE: \n{movies.columns}')
-movies.drop(columns=['Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
-movies.columns
-```
-
-Go back and re-run the cell `movies['BoxOffice']` cell. KeyError... because you dropped that col from the dataframe earlier in the session. The only way to print that BoxOffice column now is to reload the data from the csv.
-
-```python
-```
-
-We have no need to add any new columns to the data yet, so 
-Actually adding a new column to the dataframe can be a little more complex, and we  can be as simple as declaring a variable: `df[col_name] = series_name`. As long as 
-
->>can add actual Series data as long as it's the same length
-
-Again, note we used `inplace=True`.
 ```python
 movies.rename(columns={'Genre': 'Genres', 'Language': 'Languages'}, inplace=True)
 movies.columns
 ```
 
->>SORTING
+## Sorting
+
+More popular and/or well-known movies should have the most thorough data, so we should sort by highest to lowest rating. `imdbRating` offers the most complete set of rating data for this sample of movies, so sort by `imdbRating` first. This also conveniently aligns better with our index, since we're using `imdbID` as a unique identifier.
+
+1. You can use `.sort_values()` on both dataframes and Series objects. For dataframes, the `by` parameter takes one or more columns. It will sort by the first column passed, then the second, and so on. (Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.) Since multiple movies probably share the same rating, let's add `Title` as a second level to the sorting specs. 
+
+*`.sort_values(by, ascending=False, inplace=False, na_position='last')`*
 
 ```python
 movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position='last')
 ```
 
->>FILTERING (removing non-movies)
+2. If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False]`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. We want `imdbRating` highest to lowest, then `Titles` alphabetically, so we'll pass the default argument of `False` to `ascending`.
+
+3. Again, we set `inplace` to `True`.
+
+4. If any of the columns you pass to the `by` parameter contain null values, you can choose whether to place those rows `'first'` or `'last'` using the `na_position` parameter.
+
+Run this cell to see the results of our sort:
+
+```python
+movies.head()
+```
+
+## Filtering
+
+>> (removing non-movies)
 
     >>what's your fave movie?
     `movies[movies.Title.str.contains('Nosferatu')]`
@@ -167,7 +156,7 @@ non_movies.info()
 
 As you can see, 4 of these have `nan` values. # 4 have nan values, meaning `non_movies` includes all the rows that are in `has_seasons` so dropping non_movies suffices
 
->>DROPPING ROWS/COLS
+## Dropping Rows & Columns
 
 ```python
 non_movie_ids = list(non_movies.index)
@@ -177,7 +166,7 @@ movies['Type'].value_counts() # check
 ```
 
 ```python
-movies.drop(columns=['Type', 'totalSeasons'], inplace=True)
+movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
 movies.columns
 ```
 
@@ -190,7 +179,7 @@ movies = movies[['Title', 'Year', 'Genres', 'imdbRating', 'imdbVotes', 'Rotten T
 movies.columns
 ```
 
->> DUPLICATES
+## DUPLICATES
  
 ```python
 num_dup_rows = movies.duplicated().sum()
@@ -229,242 +218,12 @@ dup_titles = movies[movies.duplicated(subset=['Title'])]
 len(dup_titles)
 ```
 
->> MAP() List to Str
->> Genre, Language, Country
-
-```python
-missing_genre = movies[pd.isnull(movies['Genres'])]
-print(movies['Genres'].isnull().sum())
-missing_genre
-```
-
-```python
-genre_updates = {
-    'tt8026554': 'Drama',
-    'tt6215446': 'Comedy, Horror', # Ghost Light
-    'tt10084752': 'Documentary'
-}
-
-for imdbID, genre in genre_updates.items():
-    movies.loc[imdbID, 'Genres'] = genre
-
-print(movies['Genres'].isnull().sum())
-```
-
-```python
-temp_genre = movies['Genres'].copy()
-```
-
-
-```python
-temp_genre = temp_genre.map(lambda x: x.split(','))
-temp_genre
-```
-
-
-```python
-movies['Genres'] = temp_genre
-movies['Genres']
-```
-
-    >>Country
-    >>Languages
-
->>Reformat Str to Numbers
-
->>CONVERT DATATYPE (Year to Int)
-
-```python
-year = movies['Year']
-type(year[0])
-```
-
-```python
-movies['Year'] = pd.to_numeric(year)
-```
-
-```python
-silent_films = movies[movies['Year'] < 1927].copy()
-silent_films
-```
-
-
-```python
-silent_list = list(silent_films.index)
-
-for film in silent_list:
-    movies.loc[film, 'Languages'] = 'Silent'
-```
-
-
-```python
-silent_films = movies[movies['Year'] < 1927].copy()
-silent_films
-```
-
->>Scale imdbRating to match Metascore
-
-```python
-movies[movies.imdbRating.isnull()]
-```
-
-```python
-"""
-test = movies['imdbRating']*10
-test
-"""
-
-movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
-movies.head()
-```
-
->>Reformat Runtime 
-
-```python
-missing_runtime = movies[pd.isnull(movies['Runtime'])]
-
-print(len(movies))
-len(missing_runtime)
-```
-
-```python
-movies.dropna(subset=['Runtime'], inplace=True)
-```
-
-```python
-missing_runtime = movies[pd.isnull(movies['Runtime'])]
-
-print(len(movies))
-len(missing_runtime)
-```
-
-```python
-temp_runtime = movies['Runtime'].copy()
-temp_runtime.head(3)
-```
-
-```python
-def runtime_reformat(row):
-    """remove min from str and convert field to int"""
-    try:
-        split_row = row.split(' ')
-        numeric_runtime = int(split_row[0])
-        #print(numeric_runtime, type(numeric_runtime))
-        return numeric_runtime
-    except Exception as e:
-        # if pd.isnull(row), error will occur
-        # print(e)
-        return row
-
-temp_runtime = temp_runtime.apply(runtime_reformat)
-temp_runtime
-```
-
-```python
-movies['Runtime'] = temp_runtime.astype('int64')
-movies['Runtime']
-```
-
->>Filter/Drop Shorts
-
-```python
-shorts = movies[movies['Runtime'] < 45].copy()
-shorts.sort_values(by=['Runtime'], ascending=False, inplace=True)
-print(len(shorts))
-shorts = list(shorts.index)
-shorts
-```
-
-```python
-movies.drop(labels=shorts, axis=0, inplace=True)
-movies[movies['Runtime'] < 45].copy()
-```
-
->>Reformat imdbVotes
-
-```python
-movies.to_csv('omdb_ratings_eval.csv')
-```
-
-
-```python
-def votes_reformat(row):
-    """remove commas from str and convert field to int"""
-    try:
-        split_row = row.split(',')
-        votes = int(''.join(split_row))
-        return votes
-    except Exception as e:
-        # if pd.isnull(row), error will occur
-        # print(e)
-        return row
-
-temp_imdbVotes = movies['imdbVotes'].copy()
-temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
-temp_imdbVotes
-```
-
-```python
-movies['imdbVotes'] = temp_imdbVotes.astype('int64')
-```
-
-
-
->>Reformat Rotten Tomatoes
-    >>fillna now?
-    >>have to sep and re-concat nulls?
-
-```python
-temp_rt = movies['Rotten Tomatoes'].copy()
-temp_rt.isnull().sum()
-```
-
-
-```python
-def strip_rt(row):
-    try:
-        stripped = int(row.strip('%'))
-        return stripped
-    except Exception as e:
-        # print(e)
-        return row
-        
-temp_rt = temp_rt.apply(strip_rt)
-temp_rt
-```
-
->>FILL/DROP NULLS????
-
-```python
-#temp_rt_mean = temp_rt.mean()
-#print(f'Mean: {temp_rt_mean}\n')
-#temp_rt.fillna(temp_rt_mean, inplace=True)
-#temp_rt
-```
-
-
-```python
-movies['Rotten Tomatoes'] = temp_rt.round(1)
-movies.head(3)
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
+## Key Takeaways
+
+>>* Functions featured include:
+    >>* `.rename(columns={'old_name': 'new_ name'}, inplace=False)`
+    >>* `df.sort_values(by=[col1, col2, etc.], ascending=False, inplace=False)`
+    >>* `.()`
+    >>* `df.drop(columns, inplace=False)`
+    >>* `.()`
+    >>* `.()`

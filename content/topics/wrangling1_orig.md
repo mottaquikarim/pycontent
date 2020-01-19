@@ -12,6 +12,33 @@
 >>* Reformat
 >>* Normalize 
 
+
+
+
+## Dropping Extra Columns
+
+First, let's get rid of some clutter by dropping a few columns we definitely won't need. The general syntax is:
+
+*`df.drop(columns, inplace=False)`*
+
+Piece of cake. Reference the name of the dataframe and specify which columns to drop. The **most crucial takeaway** at this point is that `inplace` parameter. By default, that argument is set to `False` because it could cause problems with running other cells in your notebook. For example...
+
+Run this cell:
+
+```python
+movies['BoxOffice']
+```
+
+Now let's drop these extraneous columns:
+
+```python
+print(f'BEFORE: \n{movies.columns}')
+movies.drop(columns=['Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
+movies.columns
+```
+
+Go back and re-run the cell `movies['BoxOffice']` cell. KeyError... because you dropped that col from the dataframe earlier in the session. The only way to print that BoxOffice column now is to reload the data from the csv.
+
 ### Add, Drop, & Rename Columns
 
 
@@ -23,7 +50,7 @@ Using the `.sort_values()` method.You can sort a Series or dataframe by differen
 
 The `by` parameter takes one or more columns from the dataframe. The method will sort by the first column passed, then the second, and so on. Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.
 
-If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
+If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False]`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
 
 If any of the columns you pass to the `by` parameter contain null values, you can choose whether to place those rows `first` or `last` using the `na_position` parameter.
 
