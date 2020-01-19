@@ -11,3 +11,4 @@
 - data_science.md: Principles of Data Science
 - foundations_pandas.md: Foundational Pandas Objects
 - accessing_data.md: Accessing Data
+- df_data_flow.md: How Data Flows through DataFrames
