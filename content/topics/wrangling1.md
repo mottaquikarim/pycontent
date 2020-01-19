@@ -6,15 +6,15 @@ This might get a little confusing, so brace yourself! Ultimately though, this ap
 
 ## Objectives
 
->>* Document metadata based on common standards
-* Add, drop, & rename columns 
-* Sort the data
-* Count & drop duplicate rows
-* Count & drop rows with null values
-* Filter the data
+* Document metadata based on common standards
+* Renaming & reorganizing columns
+* Filtering
+* Sorting
+* Handling duplicate rows
+
 >>* Find & replace data
->>* Reformat
->>* Normalize 
+>>* .update()
+>>* .insert()
 
 ## Data Dictionaries
 
@@ -79,18 +79,53 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-### Add, Drop, & Rename Columns
+### Dropping & Renaming Columns
 
-Here are all the column names in the original data:
+Preview the data:
+
+```python
+movies.head(3)
+```
+
+Here's a summary of the amount and type of data available per column:
+
+```python
+movies.info()
+```
+
+#### Dropping Extra Columns
+
+First, let's get rid of some clutter by dropping a few columns we definitely won't need. The general syntax is:
+
+*`df.drop(columns, inplace=False)`*
+
+Piece of cake. Reference the name of the dataframe and specify which columns to drop. The **most crucial takeaway** at this point is that `inplace` parameter. By default, that argument is set to `False` because it could cause problems with running other cells in your notebook. For example...
+
+Run this cell:
+
+```python
+movies['BoxOffice']
+```
+
+Now let's drop these extraneous columns:
 
 ```python
 print(f'BEFORE: \n{movies.columns}')
+movies.drop(columns=['Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
+movies.columns
 ```
 
-Adding a column to the data is just like declaring a variable: `movies['Average Rating'] = <series_data>`
+Go back and re-run the cell `movies['BoxOffice']` cell. KeyError... because you dropped that col from the dataframe earlier in the session. The only way to print that BoxOffice column now is to reload the data from the csv.
+
+```python
+```
+
+We have no need to add any new columns to the data yet, so 
+Actually adding a new column to the dataframe can be a little more complex, and we  can be as simple as declaring a variable: `df[col_name] = series_name`. As long as 
 
 >>can add actual Series data as long as it's the same length
 
+Again, note we used `inplace=True`.
 ```python
 movies.rename(columns={'Genre': 'Genres', 'Language': 'Languages'}, inplace=True)
 movies.columns
@@ -142,7 +177,7 @@ movies['Type'].value_counts() # check
 ```
 
 ```python
-movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
+movies.drop(columns=['Type', 'totalSeasons'], inplace=True)
 movies.columns
 ```
 
