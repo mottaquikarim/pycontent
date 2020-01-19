@@ -85,16 +85,13 @@
 
 ### Null Values - NEED FLESH OUT 
 
->>* `.isnull()` -- 
-* `.notnull()` -- 
-
-* `pd.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
-* `pd.isnull().sum()` -- returns a count of null (NaN)
-* `pd.notnull()` -- returns all values that are NOT null
-
-* `df.dropna(subset=[col1])` -- Drops all **rows** that contain null values in one or more specific columns and returns a new df
-* `df.dropna(axis=1)` -- Drops all **columns** that contain null values and returns a new df
-* `df.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
+* `s.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
+* `s.isnull().sum()` -- returns a count of nulls (NaN)
+* `s.notnull()` -- returns all values that are NOT null
+* `s.notnull().sum()` -- returns a count of non-null values in the series
+* `s.dropna(subset=[col1])` -- Drops all **rows** that contain null values in one or more specific columns and returns a new df
+* `s.dropna(axis=1)` -- Drops all **columns** that contain null values and returns a new df
+* `s.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
 * `s.fillna(s.mean())` -- Replaces all null values with the mean (mean can be replaced with almost any function from the statistics section)
 
 ### Duplicates
@@ -119,7 +116,7 @@
 
 
 * `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
-* `insert(<position>,<column_name>, <data>)`
+* `df.insert(loc, column, value)` -- insert a col into a df at a specified index location
 
 ### Sorting
 
