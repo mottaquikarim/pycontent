@@ -1,26 +1,26 @@
-imdbID,Title,Year,imdbRating
-tt0111161,The Shawshank Redemption,1994,9.3
-tt0068646,The Godfather,1972,9.2
-tt8354112,Mosul,2019,9.1
-tt0071562,The Godfather: Part II,1974,9.0
-tt0071562,The Godfather: Part II,1974,9.0
-tt0468569,The Dark Knight,2008,9.0
-tt0167260,The Lord of the Rings: The Return of the King,2003,8.9
-tt0108052,Schindler's List,1993,8.9
-tt0110912,Pulp Fiction,1994,8.9
-tt7286456,Joker,2019,8.9
-tt0050083,12 Angry Men,1957,8.9
-tt0120737,The Lord of the Rings: The Fellowship of the Ring,2001,8.8
-tt0060196,"The Good, the Bad and the Ugly",1966,8.8
-tt1375666,Inception,2010,8.8
-tt0109830,Forrest Gump,1994,8.8
-tt0137523,Fight Club,1999,8.8
-tt0133093,The Matrix,1999,8.7
-tt0167261,The Lord of the Rings: The Two Towers,2002,8.7
-tt1302006,The Irishman,2019,8.7
-tt0080684,Star Wars: Episode V - The Empire Strikes Back,1980,8.7
-tt0073486,One Flew Over the Cuckoo's Nest,1975,8.7
-tt0099685,Goodfellas,1990,8.7
-tt2421956,Butterfly Girl,2014,8.7
-tt0102926,The Silence of the Lambs,1991,8.6
-tt0120689,The Green Mile,1999,8.6
+Title,Year,imdbRating
+The Shawshank Redemption,1994,9.3
+The Godfather,1972,9.2
+Mosul,2019,9.1
+The Godfather: Part II,1974,9.0
+The Godfather: Part II,1974,9.0
+The Dark Knight,2008,9.0
+The Lord of the Rings: The Return of the King,2003,8.9
+Schindler's List,1993,8.9
+Pulp Fiction,1994,8.9
+Joker,2019,8.9
+12 Angry Men,1957,8.9
+The Lord of the Rings: The Fellowship of the Ring,2001,8.8
+"The Good, the Bad and the Ugly",1966,8.8
+Inception,2010,8.8
+Forrest Gump,1994,8.8
+Fight Club,1999,8.8
+The Matrix,1999,8.7
+The Lord of the Rings: The Two Towers,2002,8.7
+The Irishman,2019,8.7
+Star Wars: Episode V - The Empire Strikes Back,1980,8.7
+One Flew Over the Cuckoo's Nest,1975,8.7
+Goodfellas,1990,8.7
+Butterfly Girl,2014,8.7
+The Silence of the Lambs,1991,8.6
+The Green Mile,1999,8.6
