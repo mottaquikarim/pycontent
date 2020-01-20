@@ -214,11 +214,11 @@ movies.columns
 
 ## Counting & Dropping Duplicate Values
 
-Having duplicate movies can alter our analysis of the dataset. First, we need to define "duplicate" in the context of our dataset and analysis. Before we decide, we should count the number of duplicates based on different definitions. To do this, we can chain `.sum()` to the `.duplicated()` method.
+Having duplicate movies can alter our analysis of the dataset. The `.duplicated()` method returns a dataframe of booleans indicating whether each row is a duplicate (i.e. `True`) or not. Chaining the `.sum()` method to `.duplicated()` further summarizes this by returning the count of the `True` rows.
 
 *`.duplicated(subset=None)`*
 
-Below are the counts for 3 different definitions of "duplicate":
+When finding/counting dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. That gives us some flexibility for how we want to define "duplicate" in the context of our dataset and analysis. Below are the counts for 3 different definitions of "duplicate" in the context of our data:
 
 1. `num_dup_rows`: row with the same values for all columns
 2. `num_dup_titles`: rows with the same Title
