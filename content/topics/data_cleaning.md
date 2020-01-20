@@ -165,49 +165,183 @@ silent_films
 
 
 ```python
-# NEED TO MAP LANGUAGES NOW THAT THIS IS FIXED
+temp_lang = movies['Languages'].copy()
+temp_lang = temp_lang.map(lambda x: x.split(','))
+temp_lang
 ```
 
 
 
 ```python
+movies['Languages'] = temp_lang
+movies['Languages']
+```
 
+
+### Scale imdbRating to Match Metascore
+
+
+```python
+movies[movies.imdbRating.isnull()]
 ```
 
 
 
 ```python
+"""
+test = movies['imdbRating']*10
+test
+"""
 
+movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
+movies.head()
 ```
 
-
-```python
-
-```
-
-
-
-```python
-
-```
+### Reformat Runtime
 
 
 
 ```python
+missing_runtime = movies[pd.isnull(movies['Runtime'])]
 
-```
-
-
-
-```python
-
+print(len(movies))
+len(missing_runtime)
 ```
 
 
 
 ```python
-
+movies.dropna(subset=['Runtime'], inplace=True)
 ```
+
+
+
+```python
+missing_runtime = movies[pd.isnull(movies['Runtime'])]
+
+print(len(movies))
+len(missing_runtime)
+```
+
+
+
+```python
+temp_runtime = movies['Runtime'].copy()
+temp_runtime.head(3)
+```
+
+
+
+```python
+def runtime_reformat(row):
+    """remove min from str and convert field to int"""
+    try:
+        split_row = row.split(' ')
+        numeric_runtime = int(split_row[0])
+        #print(numeric_runtime, type(numeric_runtime))
+        return numeric_runtime
+    except Exception as e:
+        # if pd.isnull(row), error will occur
+        # print(e)
+        return row
+
+temp_runtime = temp_runtime.apply(runtime_reformat)
+temp_runtime
+```
+
+
+
+```python
+movies['Runtime'] = temp_runtime.astype('int64')
+movies['Runtime']
+```
+
+### Filter/Drop Shorts
+
+
+
+```python
+shorts = movies[movies['Runtime'] < 45].copy()
+shorts.sort_values(by=['Runtime'], ascending=False, inplace=True)
+print(len(shorts))
+shorts = list(shorts.index)
+shorts
+```
+
+
+
+```python
+movies.drop(labels=shorts, axis=0, inplace=True)
+movies[movies['Runtime'] < 45].copy()
+```
+
+
+### Reformat imdbVotes
+
+
+
+```python
+movies.info()
+```
+
+
+
+```python
+def votes_reformat(row):
+    """remove commas from str and convert field to int"""
+    try:
+        split_row = row.split(',')
+        votes = int(''.join(split_row))
+        return votes
+    except Exception as e:
+        # if pd.isnull(row), error will occur
+        # print(e)
+        return row
+
+temp_imdbVotes = movies['imdbVotes'].copy()
+temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
+temp_imdbVotes
+```
+
+
+
+```python
+movies['imdbVotes'] = temp_imdbVotes.astype('int64')
+```
+
+### Reformat Rotten Tomatoes
+
+
+```python
+temp_rt = movies['Rotten Tomatoes'].copy()
+temp_rt.isnull().sum()
+```
+
+
+
+```python
+def strip_rt(row):
+    try:
+        stripped = int(row.strip('%'))
+        return stripped
+    except Exception as e:
+        # print(e)
+        return row
+        
+temp_rt = temp_rt.apply(strip_rt)
+temp_rt
+```
+
+
+
+```python
+movies['Rotten Tomatoes'] = temp_rt.round(1)
+movies.head(3)
+```
+
+
+
+
 
 
 
