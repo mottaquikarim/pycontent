@@ -12,4 +12,4 @@
 - foundations_pandas.md: Foundational Pandas Objects
 - accessing_data.md: Accessing Data
 - df_data_flow.md: How Data Flows through DataFrames
-- wrangling1.md: Data Wrangling I
+- wrangling1.md: Data Wrangling

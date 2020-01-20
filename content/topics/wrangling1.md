@@ -1,4 +1,4 @@
-# Data Wrangling I
+# Data Wrangling
 
 Over the next few lessons, we will use Pandas to wrangle, clean, explore, analyze, and visualize data. We know that the data science lifecycle is NOT made of discrete, linear steps. As such, we will not review one-off examples of each function or attribute. Instead, we will walk through the analysis of a dataset together. We will integrate Pandas examples based on how and when we need to use them.
 
@@ -245,6 +245,8 @@ print('# Dup Rows Before:', num_dup_rows)
 movies.drop_duplicates(inplace=True)
 print('# Dup Rows After:', movies.duplicated().sum())
 ```
+
+>>**Note!**: If you run this cell more than once, the before and after lengths will be equal because you already dropped the dups.
 
 Let's look at that extra duplicate for Title/Year:
 
