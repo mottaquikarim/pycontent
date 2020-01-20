@@ -37,12 +37,12 @@
 
 ## Object Structuring
 
-* `pd.Series(data=None, index=None, dtype=None, name=None, copy=False)` -- create a Series object from list of data and index list or from dict
+* **`pd.Series(data=None, index=None, dtype=None, name=None, copy=False)`** -- create a Series object from list of data and index list or from dict
 	* `name` can serve to match with df col name
-* `pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)` -- create a DataFrame object
-* `df.drop(axis, labels, index, columns=[col1, col2, ...])` -- drops specified columns from the dataframe
-* `df.insert(loc, column, value)` -- insert a col into a df at a specified index location
-* `df.update(other, join='left', overwrite=True, errors='ignore')` -- update a df with values passed to `other`
+* **`pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)`** -- create a DataFrame object
+* **`df.drop(axis, labels, index, columns=[col1, col2, ...])`** -- drops specified columns from the dataframe
+* **`df.insert(loc, column, value)`** -- insert a col into a df at a specified index location
+* **`df.update(other, join='left', overwrite=True, errors='ignore')`** -- update a df with values passed to `other`
 	* if a Series is passed in, its `name` attribute must match a column in the df
 	* always a `left` join to keep the index and columns of the original object
 	* `overwrite` signals whether or not to overwrite existing values for overlapping keys
@@ -52,97 +52,85 @@
 
 ### Summary Metadata
 
-* `.info()`
-* `.index` -- return Index of the Series or df
-* `df.head(n=5)` -- return first n rows
-* `df.tail(n=5)` -- return last n rows
-* `df.dtypes`
-* `s.nlargest(n)` -- select and order largest n entries
-* `s.nsmallest(n)` -- select and order smallest n entries
-* `df.nlargest(n, columns)` -- select and order largest n entries based on one or more cols
-* `df.nsmallest(n, columns)` -- select and order smallest n entries based on one or more cols
-* `df.shape` -- returns tuple w. (# of rows, # of cols)
-* `df.columns` -- returns Index object containing the df's column labels
-* `obj.index` -- returns Index object containing the obj's row values
-* `s.isunique` -- returns boolean for whether Series values are unique
-* `.describe(include=np.object)` -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
-* `.count()`
-* `.sum()`
-* `.unique()`
-* `.nunique()`
+* **`.info()`**
+* **`.index`** -- return Index of the Series or df
+* **`df.head(n=5)`** -- return first n rows
+* **`df.tail(n=5)`** -- return last n rows
+* **`df.dtypes`**
+* **`s.nlargest(n)`** -- select and order largest n entries
+* **`s.nsmallest(n)`** -- select and order smallest n entries
+* **`df.nlargest(n, columns)`** -- select and order largest n entries based on one or more cols
+* **`df.nsmallest(n, columns)`** -- select and order smallest n entries based on one or more cols
+* **`df.shape`** -- returns tuple w. (# of rows, # of cols)
+* **`df.columns`** -- returns Index object containing the df's column labels
+* **`obj.index`** -- returns Index object containing the obj's row values
+* **`s.isunique`** -- returns boolean for whether Series values are unique
+* **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
+* **`.count()`**
+* **`.sum()`**
+* **`.unique()`**
+* **`.nunique()`**
 
 ### Typecasting
 
-* `s.astype()` -- convert items in series to a diff dtype
-* `s.tolist()` -- convert Pandas Series to Python List type
-* `s.to_dict()` -- convert Pandas Series to Python Dict type
-* `s.to_frame()` -- convert Pandas Series to Pandas Dataframe
-* `pd.to_numeric(s, errors='coerce')` -- convert the items within a Series to numbers
-* `s.to_string()` -- convert the items within a Series to strings
+* **`s.astype()`** -- convert items in series to a diff dtype
+* **`s.tolist()`** -- convert Pandas Series to Python List type
+* **`s.to_dict()`** -- convert Pandas Series to Python Dict type
+* **`s.to_frame()`** -- convert Pandas Series to Pandas Dataframe
+* **`pd.to_numeric(s, errors='coerce')`** -- convert the items within a Series to numbers
+* **`s.to_string()`** -- convert the items within a Series to strings
 
 **!!!to_dict() has an underscore, but tolist() doesn't!!!**
 
 ### Indexing
 
-* `obj.set_index(keys, drop=False, append=False, inplace=False)`
-* `obj.reset_index(drop=False, inplace=False)` -- reset index to default integer index; adds current index as a col to the df when drop=False
+* **`obj.set_index(keys, drop=False, append=False, inplace=False)`**
+* **`obj.reset_index(drop=False, inplace=False)`** -- reset index to default integer index; adds current index as a col to the df when drop=False
 
 ### Renaming & Replacing
 
-* `df.rename(columns/index={'old_name': 'new_ name'}, inplace=False)` -- rename specific columns (or index) with dict of old to new names
-* `df.rename_axis('new_name', axis)` -- rename the axis
+* **`df.rename(columns/index={'old_name': 'new_ name'}, inplace=False)`** -- rename specific columns (or index) with dict of old to new names
+* **`df.rename_axis('new_name', axis)`** -- rename the axis
 * `s.replace(1,'one')` -- replace all values equal to 1 with 'one'
-* `s.replace([1,3],['one','three'])` -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
-* `df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)` -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
+* **`s.replace([1,3],['one','three'])`** -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
+* **`df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)`** -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
 
 ### Sorting
 
-* `s.sort_values(ascending=False, inplace=False, na_position='last')` -- sort values of a Series in ascending order
-* `df.sort_values(by=[col1, col2], ascending=False, inplace=False, na_position='last')` -- sort df rows by col1, then by col2; descending order by default
-* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
+* **`s.sort_values(ascending=False, inplace=False, na_position='last')`** -- sort values of a Series in ascending order
+* **`df.sort_values(by=[col1, col2], ascending=False, inplace=False, na_position='last')`** -- sort df rows by col1, then by col2; descending order by default
+* **`df.sort_index(axis=0, ascending=True, inplace=False)`** -- sort axis values by index in *ascending* order
 
 ### Duplicates
 
-* `s.duplicated(keep='first')` -- return boolean Series denoting duplicate rows; by default keeps the first instance of a dup
-* `s.drop_duplicates(keep='first', inplace=False)` -- return Series with dups removed; by default keeps the first instance of a dup
-* `df.duplicated(subset=None, keep='first')` -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
-* `df.drop_duplicates(subset=None, keep='first', inplace=False)` -- return df with dups removed; by default determines whether full row is a dup
-
-### Null Values
-
-* `s.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
-* `s.isnull().sum()` -- returns a count of nulls (NaN)
-* `s.notnull()` -- returns all values that are NOT null
-* `s.notnull().sum()` -- returns a count of non-null values in the series
-* `s.dropna(subset=[col1])` -- Drops all **rows** that contain null values in one or more specific columns and returns a new df
-* `s.dropna(axis=1)` -- Drops all **columns** that contain null values and returns a new df
-* `s.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
-* `s.fillna(s.mean())` -- Replaces all null values with the mean (mean can be replaced with almost any function from the statistics section)
-
+* **`s.duplicated(keep='first')`** -- return boolean Series denoting duplicate rows; by default keeps the first instance of a dup
+* **`s.drop_duplicates(keep='first', inplace=False)`** -- return Series with dups removed; by default keeps the first instance of a dup
+* **`df.duplicated(subset=None, keep='first')`** -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
+* **`df.drop_duplicates(subset=None, keep='first', inplace=False)`** -- return df with dups removed; by default determines whether full row is a dup
 
 ## Statistics
 
-* `obj.value_counts()` -- 
-* `df.sample(frac = 0.5)` - randomly select a fraction of rows of a DataFrame
-* `df.sample(n=10)` - randomly select n rows of a DataFrame
-* `.mean()` -- mean
-* `.median()` -- median
-* `.min()` -- minimum
-* `.max()` -- maximum
-* `.quantile(x)` -- quantile
-* `.var()` -- variance
-* `.std()` -- standard deviation
-* `.mad()` -- mean absolute variation
-* `.skew()` -- skewness of distribution
-* `.sem()` -- unbiased standard error of the mean
-* `.kurt()` -- kurtosis
-* `.cov()` -- covariance
-* `.corr()` -- Pearson Correlation coefficent
-* `.autocorr()` -- autocorelation
-* `.diff()` -- first discrete difference
-* `.cumsum()` -- cummulative sum
-* `.comprod()` -- cumulative product
-* `.cummin()` -- cumulative minimum
+* **`obj.value_counts()`** -- 
+* **`df.sample(frac = 0.5)`** - randomly select a fraction of rows of a DataFrame
+* **`df.sample(n=10)`** - randomly select n rows of a DataFrame
+* **`.mean()`** -- mean
+* **`.median()`** -- median
+* **`.min()`** -- minimum
+* **`.max()`** -- maximum
+* **`.quantile(x)`** -- quantile
+* **`.var()`** -- variance
+* **`.std()`** -- standard deviation
+* **`.mad()`** -- mean absolute variation
+* **`.skew()`** -- skewness of distribution
+* **`.sem()`** -- unbiased standard error of the mean
+* **`.kurt()`** -- kurtosis
+* **`.cov()`** -- covariance
+* **`.corr()`** -- Pearson Correlation coefficent
+* **`.autocorr()`** -- autocorelation
+* **`.diff()`** -- first discrete difference
+* **`.cumsum()`** -- cummulative sum
+* **`.comprod()`** -- cumulative product
+* **`.cummin()`** -- cumulative minimum
 
 
 
