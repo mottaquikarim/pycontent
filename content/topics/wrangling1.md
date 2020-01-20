@@ -126,17 +126,32 @@ movies.head()
 
 ## Filtering
 
->> (removing non-movies)
+Often, you will want to filter an object based on one or more conditions. To return a view of that object containing only the rows that meet your condition or conditions, you place your conditional inside the `object[]` notation. 
 
-    >>what's your fave movie?
-    `movies[movies.Title.str.contains('Nosferatu')]`
-    `.isin()`
-    `Title ==`
+For instance, let's say you want to find out if your favorite movie is in this sample. You probably don't know its imdbID off-hand, so you can use an **exact match** filter to find all movies with that title.
+
+```python
+movies[movies['Title'] == 'The Intouchables']
+```
+
+You have extra flexibility for columns containing strings. Pandas extends certain methods for string data types to these Series objects. For example, this returns all the movies that contain "Avengers" in the title:
+
+```python
+movies[movies.Title.str.contains('Avengers')]
+```
+
+### Remove TV Shows from Movie Data
+
+Right now, filtering can help us remove TV shows from our movie data. The `Type` and `totalSeasons` columns hint that multiple types of audiovisual content exist in this dataset.
+
+*First*, we'll use `.nunique()` to look at the number of unique values in the `Type` column to see what the categories in this OMDb dataset are. *Then*, we'll count the instances of each unique category in `Type` by applying the `.value_counts()` method.
 
 ```python
 print(movies['Type'].nunique())
 movies['Type'].value_counts()
 ```
+
+Similarly, 
 
 ```python
 print(movies['totalSeasons'].count())
@@ -220,10 +235,20 @@ len(dup_titles)
 
 ## Key Takeaways
 
->>* Functions featured include:
+>>* Functions featured include (in order of appearance):
     >>* `.rename(columns={'old_name': 'new_ name'}, inplace=False)`
     >>* `df.sort_values(by=[col1, col2, etc.], ascending=False, inplace=False)`
-    >>* `.()`
+    >>* `Series.str.contains()`
+    >>* `.nunique()`
+    >>* `.value_counts()`
+    >>* `.count()`
+    >>* `pd.notnull()`
     >>* `df.drop(columns, inplace=False)`
+    >>* `.()`
+    >>* `.()`
+    >>* `.()`
+    >>* `.()`
+    >>* `.()`
+    >>* `.()`
     >>* `.()`
     >>* `.()`

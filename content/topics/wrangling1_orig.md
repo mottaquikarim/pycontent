@@ -42,40 +42,11 @@ Go back and re-run the cell `movies['BoxOffice']` cell. KeyError... because you 
 ### Add, Drop, & Rename Columns
 
 
-### Sorting
-
-Using the `.sort_values()` method.You can sort a Series or dataframe by different criteria using the `.sort_values()` method. Its general syntax and default parameter arguments (where applicable) are as follows:
-
-`.sort_values(by, axis=0, ascending=False, inplace=False, na_position=last)`
-
-The `by` parameter takes one or more columns from the dataframe. The method will sort by the first column passed, then the second, and so on. Since a Series is effectively a single column, the `by` parameter isn't required when sorting a Series object.
-
-If you're sorting based on multiple columns, you have the option to specify the order in which to sort each column. Let's say you pass in `by=[col1, col2], ascending=[True, False]`. This would sort the rows based on the values in col1 in **ascending** order, THEN sort by the values in col2 in **descending** order. If you only pass one argument to ascending, it will sort all the columns passed to `by` in that order.
-
-If any of the columns you pass to the `by` parameter contain null values, you can choose whether to place those rows `first` or `last` using the `na_position` parameter.
-
-For our movies dataset, it makes logical sense to sort the movies in order of most to least popular or well-known. We have three different movie ratings sources which can serve as a measure of that for us - IMDb, Rotten Tomatoes, & Metacritic. (The "Ratings" column is an aggregate of these, and the "Internet Movie Database" column is a duplicate of "imdbRating.") Which should we use then? If you take a look at `movies.info()`...
-
-```python
-movies.info()
-```
-
-...you'll see that IMDb has the most the non-null values
-
-
-Above, are the 
-```python
-movies.sort_values(by=['imdbRating', 'Title'], ascending=False, inplace=True, na_position=True)
-movies.head(3)
-```
-
-
-
 ### Drop Duplicates
 * remove duplicate imdbIDs
     * remove duplicates based on a certain col
 
-* `df.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
+* `.duplicated([subset, keep])` -- Return boolean Series denoting duplicate rows
 
 When finding dups, you can choose to consider a `subset` of columns or check whether entire rows are the same across all columns. The `keep` param denotes the occurrence which should be marked as duplicate. You can choose `first` or `last`, but the default is `first`. In other words:
 
