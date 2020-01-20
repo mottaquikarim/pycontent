@@ -47,7 +47,25 @@ fill or drop rows lacking Genre / Country / Language / Year / Runtime?
 
 * Filter the data
 
+### Remove Non-Movies
 
+* filter out Type == video series
+    * unique / nunique
+    * value_counts()
+    * pd.isnull / pd.notnull
+    * .isin()
+
+reviews.loc[reviews.country == 'Italy']
+"To combine filtering conditions in Pandas, use bitwise operators ('&' and '|') not pure Python ones ('and' and 'or')"
+
+Create a DataFrame `top_oceania_wines` containing all reviews with at least 95 points (out of 100) for wines from Australia or New Zealand.
+
+```python
+# top_oceania_wines = reviews[(reviews['country'] == 'Australia' | reviews['country'] == 'New Zealand') & (reviews['points'] >= 95)]
+
+top_oceania_wines = reviews.loc[(reviews.country.isin(['Australia', 'New Zealand'])) & (reviews.points >= 95)
+]
+```
 
 
 >>https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
