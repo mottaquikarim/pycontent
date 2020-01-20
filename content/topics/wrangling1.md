@@ -182,32 +182,37 @@ non_movies.info()
 
 ## Dropping Rows & Columns
 
-We just concluded that 
-the indeces for all the TV show rows.
+Now that we've identified and isolated all the TV shows, we should drop those rows.
 
+*`df.drop(labels=None, columns=None, inplace=False)`*
+
+Since they're rows, we pass the indeces from the `non_movies` dataframe as `labels` keyword argument and set `axis = 0`. Afterwards, we can use `.value_counts()` on the `Type` column again to check that there are no TV shows in the `movies` dataframe anymore.
 
 ```python
 non_movie_ids = list(non_movies.index)
-movies.drop(labels=non_movie_ids,axis=0,inplace=True)
+movies.drop(labels=non_movie_ids, axis=0, inplace=True)
 
-movies['Type'].value_counts() # check
+movies['Type'].value_counts()
 ```
+
+While we're at it, let's drop all the columns we're sure we won't need from this point on. We simply pass those to the `column` parameter of `.drop()` and use `.columns` to check our work.
 
 ```python
 movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
 movies.columns
 ```
 
+Alternatively, there is a way we can simultaneously drop certain columns and reorder the columns that remain. It's essentially another filter.
+
 ```python
 # REORDERING COLS
 movies = movies.copy()
-# get rid of Released, IMDb, Metacritic
 movies = movies[['Title', 'Year', 'Genres', 'imdbRating', 'imdbVotes', 'Rotten Tomatoes', 'Metascore', 'Country', 'Languages', 'Runtime', 'Director',
        'Writer', 'Actors', 'Plot']]
 movies.columns
 ```
 
-## DUPLICATES
+## Counting & Dropping Duplicate Values
  
 ```python
 num_dup_rows = movies.duplicated().sum()
@@ -246,22 +251,24 @@ dup_titles = movies[movies.duplicated(subset=['Title'])]
 len(dup_titles)
 ```
 
-## Key Takeaways
 
->>* Functions featured include (in order of appearance):
-    >>* `.rename(columns={'old_name': 'new_ name'}, inplace=False)`
-    >>* `df.sort_values(by=[col1, col2, etc.], ascending=False, inplace=False)`
-    >>* `Series.str.contains()`
-    >>* `.nunique()`
-    >>* `.value_counts()`
-    >>* `.count()`
-    >>* `pd.notnull()`
-    >>* `df.drop(columns, inplace=False)`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
-    >>* `.()`
+## Functions Featured
+
+Functions featured include (in order of appearance):
+* `.rename(columns={'old_name': 'new_ name'}, inplace=False)`
+* `df.sort_values(by=[col1, col2, etc.], ascending=False, inplace=False)`
+* `Series.str.contains()`
+* `.nunique()`
+* `.value_counts()`
+* `.unique()`
+* `.count()`
+* `pd.notnull()`
+* `df.drop(labels=None, columns=None, inplace=False)`
+* `.duplicated()`
+* `.sum()`
+* `.drop_duplicates()`
+
+
+## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+*TBD*
