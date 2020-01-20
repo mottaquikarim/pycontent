@@ -213,7 +213,17 @@ movies.columns
 ```
 
 ## Counting & Dropping Duplicate Values
- 
+
+Having duplicate movies can alter our analysis of the dataset. First, we need to define "duplicate" in the context of our dataset and analysis. Before we decide, we should count the number of duplicates based on different definitions. To do this, we can chain `.sum()` to the `.duplicated()` method.
+
+*`.duplicated(subset=None)`*
+
+Below are the counts for 3 different definitions of "duplicate":
+
+1. `num_dup_rows`: row with the same values for all columns
+2. `num_dup_titles`: rows with the same Title
+3. `num_dup_title_yr`: rows with the same Title and Year combination
+
 ```python
 num_dup_rows = movies.duplicated().sum()
 num_dup_titles = movies.duplicated(subset=['Title']).sum()
@@ -226,31 +236,35 @@ print(f'''
 ''')
 ```
 
+The counts for the first and third definition of "duplicate" are nearly the same. We can start by employing the `.drop_duplicates()` method to drop fully duplicated rows.
+
+*`.drop_duplicates(subset=None, inplace=False)`*
+
 ```python
 print('# Dup Rows Before:', num_dup_rows)
 movies.drop_duplicates(inplace=True)
 print('# Dup Rows After:', movies.duplicated().sum())
 ```
 
+Let's look at that extra duplicate for Title/Year:
+
 ```python
 movies[movies.duplicated(subset=['Title', 'Year'])]
 ```
 
+It's "The Cave", 2019. So let's look at all the rows where `Title` is "The Cave":
+
 ```python
 movies[movies.Title == 'The Cave']
 ```
+
+As expected, there are two rows with this Title/Year combination. The version with an id of `'tt8726180'` has less data, so let's drop that one. We can use a conditional to check whether that id is still in the dataframe after we try to drop it.
 
 ```python
 print('tt8726180' in movies.index)
 movies.drop('tt8726180', inplace=True) # it infers axis=0 here
 'tt8726180' in movies.index
 ```
-
-```python
-dup_titles = movies[movies.duplicated(subset=['Title'])]
-len(dup_titles)
-```
-
 
 ## Functions Featured
 
@@ -264,9 +278,9 @@ Functions featured include (in order of appearance):
 * `.count()`
 * `pd.notnull()`
 * `df.drop(labels=None, columns=None, inplace=False)`
-* `.duplicated()`
+* `.duplicated(subset=None, keep='first')`
 * `.sum()`
-* `.drop_duplicates()`
+* `.drop_duplicates(subset=None, keep='first', inplace=False)`
 
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
