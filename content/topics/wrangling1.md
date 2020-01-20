@@ -151,12 +151,19 @@ print(movies['Type'].nunique())
 movies['Type'].value_counts()
 ```
 
-Similarly, 
+As you can see, From this, we see that there are 31 rows categorized as "series". **(We'll refer to them as TV shows to avoid confusion with Pandas Series objects!)**
+
+Similarly, `.unique()` will show us all the unique values `totalSeasons`. Unless the only non-null value is 0, we can infer that rows with some number of seasons are TV shows, not movies. Then, `.count()` can tell us how many rows contain one of these non-null values for the `totalSeasons` column.
 
 ```python
-print(movies['totalSeasons'].count())
-movies['totalSeasons'].value_counts()
+print(movies['totalSeasons'].unique())
+movies['totalSeasons'].count()
 ```
+
+Hmmm... the results from our investigation of the `Type` column suggest that there are 31 TV shows, while the results from `totalSeasons` suggest that there are only 27 TV shows. Let's use filters to look at these specific rows.
+
+1. `non_movies`: The first filtered dataframe should include rows where `Type` equals `'series'`.
+2. `has_seasons`: The second dataframe should include all rows containing non-null data for `totalSeasons`.
 
 ```python
 non_movies = movies[movies['Type'] == 'series']
@@ -165,13 +172,19 @@ has_seasons = movies[pd.notnull(movies['totalSeasons'])]
 print(len(non_movies), len(has_seasons))
 ```
 
+Printing out the length of each dataframe confirms that we wrote the filters correctly. They match the counts we got above: 31 and 27 respectively.
+
+So where's the difference coming from? If we look at `.info()` for `non_movies`, you'll see that 4 of the rows where `Type` is `'series'` have `NaN` values in the `totalSeasons` column. As such, we can safely assume that the `non_movies` dataframe contains all the TV shows in our original `movies` dataframe. 
+
 ```python
 non_movies.info()
 ```
 
-As you can see, 4 of these have `nan` values. # 4 have nan values, meaning `non_movies` includes all the rows that are in `has_seasons` so dropping non_movies suffices
-
 ## Dropping Rows & Columns
+
+We just concluded that 
+the indeces for all the TV show rows.
+
 
 ```python
 non_movie_ids = list(non_movies.index)
