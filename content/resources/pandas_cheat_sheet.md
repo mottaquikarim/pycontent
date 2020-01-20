@@ -52,7 +52,8 @@
 
 ### Summary Metadata
 
-* `obj.info()`
+* `.info()`
+* `.index` -- return Index of the Series or df
 * `df.head(n=5)` -- return first n rows
 * `df.tail(n=5)` -- return last n rows
 * `df.dtypes`
@@ -64,7 +65,7 @@
 * `df.columns` -- returns Index object containing the df's column labels
 * `obj.index` -- returns Index object containing the obj's row values
 * `s.isunique` -- returns boolean for whether Series values are unique
-* `obj.describe(include=np.object)` -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
+* `.describe(include=np.object)` -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
 * `.count()`
 * `.sum()`
 * `.unique()`
@@ -94,8 +95,20 @@
 * `s.replace([1,3],['one','three'])` -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
 * `df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)` -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
 
+### Sorting
 
-### Null Values - NEED FLESH OUT 
+* `s.sort_values(ascending=False, inplace=False, na_position='last')` -- sort values of a Series in ascending order
+* `df.sort_values(by=[col1, col2], ascending=False, inplace=False, na_position='last')` -- sort df rows by col1, then by col2; descending order by default
+* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
+
+### Duplicates
+
+* `s.duplicated(keep='first')` -- return boolean Series denoting duplicate rows; by default keeps the first instance of a dup
+* `s.drop_duplicates(keep='first', inplace=False)` -- return Series with dups removed; by default keeps the first instance of a dup
+* `df.duplicated(subset=None, keep='first')` -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
+* `df.drop_duplicates(subset=None, keep='first', inplace=False)` -- return df with dups removed; by default determines whether full row is a dup
+
+### Null Values
 
 * `s.isnull()` -- checks for null (NaN values in the data and returns an array of booleans, where "True" means missing and "False" means present
 * `s.isnull().sum()` -- returns a count of nulls (NaN)
@@ -106,45 +119,30 @@
 * `s.fillna(value=x)` —- replace all missing values with some value `x` (*S & df)
 * `s.fillna(s.mean())` -- Replaces all null values with the mean (mean can be replaced with almost any function from the statistics section)
 
-### Duplicates
-
-* `s.duplicated(keep='first')` -- return boolean Series denoting duplicate rows; by default keeps the first instance of a dup
-* `s.drop_duplicates(keep='first', inplace=False)` -- return Series with dups removed; by default keeps the first instance of a dup
-* `df.duplicated(subset=None, keep='first')` -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
-* `df.drop_duplicates(subset=None, keep='first', inplace=False)` -- return df with dups removed; by default determines whether full row is a dup; 
-
-### Filtering / Conditional Selection
-
-* `obj.where(cond, other = NaN, inplace = False, axis = None)` -- replace values in the object where the condition is False (*S or df)
-* `.isin()`
-
-### Apply
-
-
-### Map
-
-
-### Sorting
-
-* `s.sort_values(ascending=False, inplace=False, na_position='last')` -- sort values of a Series in ascending order
-* `df.sort_values(by=[col1, col2], ascending=False, inplace=False, na_position='last')` -- sort df rows by col1, then by col2; descending order by default
-* `df.sort_index(axis=0, ascending=True, inplace=False)` -- sort axis values by index in *ascending* order
-
-
-### Grouping
-
-
-### Combining
-
-
-### Reshaping
-
-
 
 ## Statistics
 
 * `obj.value_counts()` -- 
-* 
+* `df.sample(frac = 0.5)` - randomly select a fraction of rows of a DataFrame
+* `df.sample(n=10)` - randomly select n rows of a DataFrame
+* `.mean()` -- mean
+* `.median()` -- median
+* `.min()` -- minimum
+* `.max()` -- maximum
+* `.quantile(x)` -- quantile
+* `.var()` -- variance
+* `.std()` -- standard deviation
+* `.mad()` -- mean absolute variation
+* `.skew()` -- skewness of distribution
+* `.sem()` -- unbiased standard error of the mean
+* `.kurt()` -- kurtosis
+* `.cov()` -- covariance
+* `.corr()` -- Pearson Correlation coefficent
+* `.autocorr()` -- autocorelation
+* `.diff()` -- first discrete difference
+* `.cumsum()` -- cummulative sum
+* `.comprod()` -- cumulative product
+* `.cummin()` -- cumulative minimum
 
 
 
