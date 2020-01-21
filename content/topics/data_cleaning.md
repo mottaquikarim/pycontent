@@ -29,10 +29,36 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-## Mapping Strings to Lists
+## Elementwise Functions with `.map()`
+
+An **elementwise** function is one that you call on a Series object as a whole, but that vectorizes the functions actions across each of the Series elements. 
+
+### Convert Year to Integer
+
+```python
+year = movies['Year']
+type(year[0])
+```
+
+
+```python
+movies['Year'] = pd.to_numeric(year)
+```
+
+
+### The `.map()` function
+
+For the next few example, we'll leverage the `Series.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. 
+
+By default, if there are null values in the Series, an error will stop your `.map()` function's execution. The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
+
+### Mapping Strings to Lists
+
+The `Genres`, `Country`, and `Languages` columns often hold more than one value per row. But when we pulled this data from the API, we got the contents of each cell in the form of a single string with the values separated by commas. If we want to evaluate the different categories within each of these variables, we need to break out the individual values from the string into list format.
 
 ### Genres
 
+Count and view the rows with missing `Genres` data:
 
 ```python
 missing_genre = movies[pd.isnull(movies['Genres'])]
@@ -40,6 +66,7 @@ print(movies['Genres'].isnull().sum())
 missing_genre
 ```
 
+We could pass `na_action='ignore'`, but since there are only 3, we might as well look up how to 
 
 
 ```python
@@ -126,18 +153,7 @@ print('^ This will return an error.')
 
 ## Reformatting Strings to Numbers
 
-### Convert Year to Integer
 
-```python
-year = movies['Year']
-type(year[0])
-```
-
-
-
-```python
-movies['Year'] = pd.to_numeric(year)
-```
 
 
 
