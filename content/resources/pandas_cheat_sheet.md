@@ -108,6 +108,20 @@
 * **`df.duplicated(subset=None, keep='first')`** -- return boolean Series denoting duplicate rows; by default determines whether full row is a dup; by default keeps the first instance of a dup
 * **`df.drop_duplicates(subset=None, keep='first', inplace=False)`** -- return df with dups removed; by default determines whether full row is a dup
 
+### Null Values
+
+* **`.isna()`** -- return Series or df of booleans, where True indicates a null value; empty strings are NOT considered null values
+    * chain with `.sum()` to get a count of nulls
+* **`.notna()`** -- boolean inverse of `.isna()`
+* **`pd.isnull(obj)`** -- same functionality as `.isna()`
+* **`pd.notnull(obj)`** -- same functionality as `.notna()`
+* **`s.dropna(inplace=False)`** -- Drops all null values and returns new Series
+* **`s.fillna(value=None, inplace=False)`** -- replace all missing values with some value (e.g. the mean, some placeholder value, etc.)
+* **`df.dropna(axis=0, how='any', subset=[col1], inplace=False)`** -- Drops rows/columns containing null values in one or more specific fields and returns new df
+    * when `how='all'`, drop that row or column only if all values are null
+    * `subset` indicates which columns to check for null values *when dropping rows*
+* **`df.fillna(value=None, axis=0, inplace=False)`** -- replaces all null values with some value (e.g. the mean, some placeholder value, etc.)
+
 ## Statistics
 
 * **`obj.value_counts()`** -- 
