@@ -5,9 +5,8 @@
 >>* Converting data types en masse
 >>* Reformatting Strings to Lists & Numbers
 >>* Scaling variables
->>* 
->>* Map
->>* Apply
+>>* Elementwise functions with .map()
+>>* Row- & Column-wise functions with .apply()
 
 ### Import
 
