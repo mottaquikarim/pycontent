@@ -73,7 +73,7 @@ For the next few example, we'll leverage the `Series.map(arg, na_action=None)` f
 |    Series     |     Index     |     Value    |
 
 
-By default, if there are null values in the original Series, an error will stop your `.map()` function's execution. The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
+In *most* cases, if there are null values in the original Series, an error will stop your `.map()` function's execution. (We'll see the exception soon.) The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
 
 ### Mapping Strings to Lists
 
@@ -217,42 +217,55 @@ movies[movies['Year'] < 1927]
 
 ### Scaling Variables
 
+If we look at the three movie rating variables, each source has provided ratings for each movie on a different scale and in a different format. 
+
 * `imdbRating`: 0.0-10.0; float format
 * `Metascore`: 0.0-100.0; float format
 * `Rotten Tomatoes`: 0-100%; string format
 
-## Reformatting Strings to Numbers
+For graphical comparisons, you always want numeric variables on the same scale. Since it's easier to see minute differences between data points on a larger scale, we'll scale `imdbRating` to match `Metascore` and eventually Rotten Tomatoes.
 
-
-
-
-
-
-
-
-
-
-
-
-
-### Scale imdbRating to Match Metascore
-
+First, how many movies are missing a rating from IMDb?
 
 ```python
-movies[movies.imdbRating.isnull()]
+movies['imdbRating'].isna().sum()
 ```
 
+There are 5 null values, so we need to set `na_action='ignore'`, right? Nope! Here's the exception to `.map()`'s rule about null values. 
 
+Assume `a = np.nan` (`np.nan` is the notation for a null value):
+
+* `a.split(',')` would raise an error because you can't apply that, or any, method or function to a null value
+* `a*10` will NOT raise an error because *basic mathematical operators* treat null values like 0s
+
+Knowing this, we could easily scale `imdbRating` with `movies['imdbRating']*10`, but let's use this opportunity to prove the null value exception with `.map()`.
 
 ```python
-"""
-test = movies['imdbRating']*10
-test
-"""
-
 movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
 movies.head()
 ```
+
+## Row- & Column-wise Functions with .apply()
+
+When applied to a Series object, the `Series.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
+
+>>In contrast, the `DataFrame.apply()` function is a **row-wise or column-wise** function. 
+You can use the `.apply(arg, na_action=None)` function to substitute or transform each value in a Series with another value. 
+Like `.map()`, `.apply()` itself serves to pass along "instructions" for how to manipulate individual elements. Accordingly, its `func` parameter will accept functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
+>>objects passed to `func` are Series objects whose index is either the df's index or the df's column labels
+
+    >>* `s.apply(func)`
+    >>* `df.apply(func, axis=0)`
+
+As with `.map()`, if there are null values in any of the data you need for the function you pass to `.apply()`, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
+
+### Reformatting Strings to Numbers
+
+
+
+
+
+
 
 ### Reformat Runtime
 
@@ -295,7 +308,7 @@ def runtime_reformat(row):
     try:
         split_row = row.split(' ')
         numeric_runtime = int(split_row[0])
-        #print(numeric_runtime, type(numeric_runtime))
+        # print(numeric_runtime, type(numeric_runtime))
         return numeric_runtime
     except Exception as e:
         # if pd.isnull(row), error will occur
