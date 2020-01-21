@@ -43,3 +43,12 @@ print('data loaded successfully')
 ## Dropping vs. Filling Null Values
 
 explain how correlation doesn't work if vars are not identically distributed
+
+
+>>"Drop the data:
+Drop the whole row (line #2)
+Drop the whole column (the same as line #2 but with axis = 1)
+Replace the data:
+Replace NaN with the mean (numerical data) (line #8)
+Replace NaN with the frequency (categorical data) (line #14)
+Replace with another function (here we can use a function with np.vectorize() or the .apply() method)" -- Pyariksha Tiluk *"Python & pandas: serving data cleaning realness. You better wrangle!"**
