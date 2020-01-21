@@ -33,7 +33,7 @@ print('data loaded successfully')
 
 An **elementwise** function is one that you call on a Series object as a whole, but that vectorizes the functions actions across each of the Series elements. 
 
-### Convert Year to Integer
+### Typecasting
 
 Typecasting a Series is one of the most basic elementwise functions. Most commonly in cleaning your data, you'll use:
 
@@ -63,9 +63,17 @@ type(test_year[0])
 
 ### The `.map()` function
 
-For the next few example, we'll leverage the `Series.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. 
+For the next few example, we'll leverage the `Series.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
 
-By default, if there are null values in the Series, an error will stop your `.map()` function's execution. The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
+
+| Type of `arg` |    Map From   |    Map To    |
+|:-------------:|:-------------:|:------------:|
+|   Function    |  1 Parameter  | Return Value |
+|     Dict      |      Key      |     Value    |
+|    Series     |     Index     |     Value    |
+
+
+By default, if there are null values in the original Series, an error will stop your `.map()` function's execution. The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
 
 ### Mapping Strings to Lists
 
@@ -81,8 +89,7 @@ print(movies['Genres'].isnull().sum())
 missing_genre
 ```
 
-We could pass `na_action='ignore'`, but since there are only 3, we might as well look up how to 
-
+We could pass `na_action='ignore'`, but since there are only 3, we might as well look them up and fill in the info ourselves. We can check this by making sure the count of nulls afterward is 0.
 
 ```python
 genre_updates = {
@@ -97,20 +104,33 @@ for imdbID, genre in genre_updates.items():
 print(movies['Genres'].isnull().sum())
 ```
 
-
+Now, let's make a copy of the `Genres` column to operate on.
 
 ```python
 temp_genre = movies['Genres'].copy()
 ```
 
+To turn each string into a list, all we have to do is split each string at the commas. But we have to pass `.map()` a function for this, remember? For brevity, whenever possible, most people use **lambda functions** with `.map()`. A **lambda function** is a nameless function that is defined, used, and forgotten in one line. Here's the syntax relative to a regular function.
 
+```python
+"""
+def split_list(x):
+    return x.split(',')
+
+...equivalent to...
+
+lambda x: x.split(',')
+"""
+```
+
+Now we can map the `Genres` variable using `lambda x: x.split(',')`.
 
 ```python
 temp_genre = temp_genre.map(lambda x: x.split(','))
 temp_genre
 ```
 
-
+Reassign the original column to our manipulated Series.
 
 ```python
 movies['Genres'] = temp_genre
