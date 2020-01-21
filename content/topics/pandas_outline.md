@@ -1,63 +1,13 @@
 # OMDb Movies Pandas Content Outline
 
-
-## Data Wrangling I Objectives
-
-* auto-set the index on load
-show that title would be no good bc not unique
-
-* **Add, drop, & rename columns**
-`.rename` a few
-`.drop` ['Average Rating', 'Ratings', 'DVD', 'Awards', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response']
-
->>update / insert??
->>replace (production companies?)
->>`.update`
-    * single value
-    * remove "min" from Runtime and cast to int so that you can do math?
-
-* **Sort the data**
-`.sort` by imdbRating, then Title
-
-* **Filtering** 
-
->>Remove TV Series --> filter rows where type == series
-1. `.nunique` & `.unique` / `value_counts` Type AND total Seasons
-    * FIND THE DIFF....???
-2. filter rows where type == series
-3. pd.isnull film series with NaN totalSeasons
-4. pd.notnull totalSeasons
-5. ...remove the idx rows 
-`.value_counts` to show how many movies vs. video series 
-
+>>.str.contains()????
+>>.replace()
+>>merge()
+>>join()
+>>concat()
 >>.isin()??
-
-
-* **Count & drop duplicate rows**
-count & drop dup full rows
-count BUT NOT drop rows with dup title
-count & drop rows with dup tital/year combin
-
-
-* Count & drop (OR FILLNA) rows with null values
-count & drop rows where imdbRating is null
-count rows where RT rating is null (& fill with mean?)
-
-fill or drop rows lacking Genre / Country / Language / Year / Runtime?
-
-
-* Filter the data
-
-### Remove Non-Movies
-
-* filter out Type == video series
-    * unique / nunique
-    * value_counts()
-    * pd.isnull / pd.notnull
-    * .isin()
-
-reviews.loc[reviews.country == 'Italy']
-"To combine filtering conditions in Pandas, use bitwise operators ('&' and '|') not pure Python ones ('and' and 'or')"
+>>multiple condition filtering
+    >>"To combine filtering conditions in Pandas, use bitwise operators ('&' and '|') not pure Python ones ('and' and 'or')"
 
 Create a DataFrame `top_oceania_wines` containing all reviews with at least 95 points (out of 100) for wines from Australia or New Zealand.
 
@@ -72,21 +22,14 @@ top_oceania_wines = reviews.loc[(reviews.country.isin(['Australia', 'New Zealand
 >>https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 
 
-## Data Cleaning Objectives
-
-`map` & `apply`
-
-* Genre / Language have str representations of lists. need to convert to actual list
-* created a calculated col that is the average of the rating across the 3 sources
-* Actors should be a real list also
+>>* created a calculated col that is the average of the rating across the 3 sourcesß
+>>* Actors should be a real list also
 	* fun activity to order EACH row's actor list in order of how many films they've been in?
-* list of actors
 
->>* Find & replace data???
+>>Text analysis?
 
 ```python
 .str.contains()
-.to_numeric() # for the ratings that are in str format & also for Year col
 .isin()
 
 
@@ -99,10 +42,6 @@ descriptor_counts = pd.Series([tropical_count, fruity_count], index=['tropical',
 descriptor_counts
 ```
 
-## Data Normalization Objectives
-
-TBD...
-
 ## EDA Objectives / (or EDA?)
 
 >>relative frequencies
@@ -114,33 +53,18 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 >>stats?
 >>
 >>* groupyby
->>merge()
->>join()
->>concat()
 
 
->>OUTLINE
 
->>np.where(cond[, other, inplace, axis, level, …])	Replace values where the condition is False.
 
-https://realpython.com/python-data-cleaning-numpy-pandas/#tidying-up-fields-in-the-data
-
+>>np.where(cond[, other, inplace, axis, level, …])  Replace values where the condition is False.
 `np.where(condition, then, else)`
 `np.where(condition1, x1, 
         np.where(condition2, x2, 
             np.where(condition3, x3, ...)))`
 
 
-* apply() 
-    * convert list as str to real list
-    * https://www.geeksforgeeks.org/python-convert-a-string-representation-of-list-into-list/
-    * then do via .apply()
-
 * Normalizing, Centering, Scaling, Transform
-
-The function you pass to map() should expect a single value from the Series (a point value, in the above example), and return a transformed version of that value. map() returns a new Series where all the values have been transformed by your function.
-
-apply() is the equivalent method if we want to transform a whole DataFrame by calling a custom method on each row.
 
 ```python
 # MAP()
