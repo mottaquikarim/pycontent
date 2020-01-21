@@ -63,7 +63,7 @@ type(test_year[0])
 
 ### The `.map()` function
 
-For the next few example, we'll leverage the `Series.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
+For the next few example, we'll leverage the `s.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
 
 
 | Type of `arg` |    Map From   |    Map To    |
@@ -85,7 +85,7 @@ Count and view the rows with missing `Genres` data:
 
 ```python
 missing_genre = movies[pd.isnull(movies['Genres'])]
-print(movies['Genres'].isnull().sum())
+print(movies['Genres'].isna().sum())
 missing_genre
 ```
 
@@ -101,7 +101,7 @@ genre_updates = {
 for imdbID, genre in genre_updates.items():
     movies.loc[imdbID, 'Genres'] = genre
 
-print(movies['Genres'].isnull().sum())
+print(movies['Genres'].isna().sum())
 ```
 
 Now, let's make a copy of the `Genres` column to operate on.
@@ -267,43 +267,42 @@ Of course, the `axis` parameter is what determines whether your function is row-
 
 ### Reformat Runtime
 
+Down to business. Right now, the `Runtime` variable is in string format. If we want to include it in any quantitative analysis or even sort based on this column, we need the values to be numeric. Fixing this won't be as simple as typecasting because each value contains non-numeric characters.
 
+First, how many rows are missing data for `Runtime`?
 
 ```python
 missing_runtime = movies[pd.isnull(movies['Runtime'])]
-print(len(movies))
+print(len(missing_runtime))
 missing_runtime
 ```
 
-There are only 3, all of which are missing ratings from Rotten Tomatoes and Metascore. We might as well drop these rows...
+There are only three, all of which are missing ratings from Rotten Tomatoes and Metascore. We might as well drop these rows, but we don't need to grab each one's index this time. (Flash back to when we removed TV shows using `movies.drop(labels=non_movie_ids, axis=0)`.) Since these three are the only rows with null values for `Runtime`, we can drop them as a group using `.dropna()`.
 
 * `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
 
->>Drops rows/columns containing null values in one or more specific fields and returns new df
-    * when `how='all'`, drop that row or column only if all values are null
-    * `subset` indicates which columns to check for null values *when dropping rows*v
+When you're dropping rows (i.e. axis=0), the `subset` parameters indicates which columns to check for null values. Accordingly, if you're checking for duplicates in multiple columns, the `how` parameters indicates whether you want the function to drop the row if `'any'` of those columns contain a null value or only if `'all'` of them are null.
+
+Let's drop all rows that contain a null value in the `Runtime` column from the `movies` dataframe:
 
 ```python
 movies.dropna(subset=['Runtime'], inplace=True)
 ```
 
+Did it work?
 
-
-```python
-missing_runtime = movies[pd.isnull(movies['Runtime'])]
-
-print(len(movies))
-len(missing_runtime)
+```
+movies['Runtime'].isna().sum()
 ```
 
-
+Good. Now, we can make a temporary copy of the `Runtime` column for our `.apply()` operations.
 
 ```python
 temp_runtime = movies['Runtime'].copy()
 temp_runtime.head(3)
 ```
 
-
+Here's where we define our custom function. The best way to approach this is to test the function on a single value. By the way, even though we just dropped the rows with null values, we should still build in logic to avoid null values from causing issues.
 
 ```python
 def runtime_reformat(row):
@@ -311,21 +310,33 @@ def runtime_reformat(row):
     try:
         split_row = row.split(' ')
         numeric_runtime = int(split_row[0])
-        # print(numeric_runtime, type(numeric_runtime))
         return numeric_runtime
     except Exception as e:
         # if pd.isnull(row), error will occur
         # print(e)
         return row
 
+test = temp_runtime[0]
+result = runtime_reformat(test)
+
+# TESTING ONE VALUE...
+print(f'''
+BEFORE: {test}, {type(test)}
+AFTER: {result}, {type(result)}
+''')
+```
+
+Let it run on the whole Series:
+
+```python
 temp_runtime = temp_runtime.apply(runtime_reformat)
 temp_runtime
 ```
 
-
+Assign our freshly cleaned Series back to the `movies` dataframe.
 
 ```python
-movies['Runtime'] = temp_runtime.astype('int64')
+movies['Runtime'] = temp_runtime
 movies['Runtime']
 ```
 
@@ -343,24 +354,25 @@ print(len(shorts))
 shorts
 ```
 
-
+Drop these by grabbing their index labels and check to make sure they're gone.
 
 ```python
-shorts_idx = list(shorts_idx.index)
+shorts_idx = list(shorts.index)
 movies.drop(labels=shorts_idx, axis=0, inplace=True)
-movies[movies['Runtime'] < 45].count()
+shorts = movies['Runtime'] < 45
+shorts.sum()
 ```
-
 
 ### Reformat imdbVotes
 
-
+`imdbVotes` needs to be a numeric variable as well, and we can likewise leverage the `.apply()` method on this Series.
 
 ```python
-movies.info()
+temp_imdbVotes = movies['imdbVotes'].copy()
+temp_imdbVotes
 ```
 
-
+All we need to do for the `imdbVotes` variable is remove the commas and typecast each value. 
 
 ```python
 def votes_reformat(row):
@@ -374,66 +386,79 @@ def votes_reformat(row):
         # print(e)
         return row
 
-temp_imdbVotes = movies['imdbVotes'].copy()
+test = temp_imdbVotes[0]
+votes_reformat(test)
+```
+
+The single-value test worked, so we'll run it on the whole column...
+
+```python
 temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
 temp_imdbVotes
 ```
 
-
+...and then reassign `temp_imdbVotes` back to the `movies` dataframe.
 
 ```python
-movies['imdbVotes'] = temp_imdbVotes.astype('int64')
+movies['imdbVotes'] = temp_imdbVotes
+movies['imdbVotes'].head(3)
 ```
 
 ### Reformat Rotten Tomatoes
 
+Finally, we need to reformat `Rotten Tomatoes` ratings by simply stripping off the `%` character and typecasting it to a float. Technically, we can do this with `.map()`. We could use `lambda x: float(x.strip('%'))`. But instead, let's practice `.apply()` one more time! 
 
 ```python
 temp_rt = movies['Rotten Tomatoes'].copy()
-temp_rt.isnull().sum()
+temp_rt
 ```
 
-
+Write and test the custom function.
 
 ```python
 def strip_rt(row):
     try:
-        stripped = int(row.strip('%'))
+        stripped = float(row.strip('%'))
         return stripped
     except Exception as e:
         # print(e)
         return row
         
+test = temp_rt[0]
+print(test)
+strip_rt(test)
+```
+
+Apply the function to the whole `Rotten Tomatoes` Series.
+
+```python 
 temp_rt = temp_rt.apply(strip_rt)
 temp_rt
 ```
 
-
-
-```python
-movies['Rotten Tomatoes'] = temp_rt.round(1)
-movies.head(3)
-```
-
-
-
-
-
-
+Reassign it back to the `movies` dataframe.
 
 ```python
-
+movies['Rotten Tomatoes'] = temp_rt
+movies['Rotten Tomatoes']
 ```
 
-
+### Here's our newly bright and shiny dataframe!
 
 ```python
-
+movies.head()
 ```
 
+## New Functions Featured
 
+Functions featured include (in order of appearance):
+* `pd.to_numeric(s)`
+* `s.astype()`
+* `s.map(arg, na_action=None)`
+* `s.apply(func)`
+* `df.apply(func, axis=0)`
+* `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
 
-```python
+## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-```
-
+*TBD*
