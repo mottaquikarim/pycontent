@@ -35,16 +35,31 @@ An **elementwise** function is one that you call on a Series object as a whole, 
 
 ### Convert Year to Integer
 
+Typecasting a Series is one of the most basic elementwise functions. Most commonly in cleaning your data, you'll use:
+
+* `pd.to_numeric(s)`: typecast the items in a Series to ints or floats; will infer which numeric type is best
+* `s.astype()`: typecast the items in a Series to some data type; accepts `'int64'`, `'float64'`, `'str'`, etc.
+
+Let's test these out quickly on the `Year` column. What data type is it now?
+
 ```python
-year = movies['Year']
-type(year[0])
+test_year = movies['Year'].copy()
+print(type(test_year[0]))
 ```
 
+Convert it to string type using `.astype()`.
 
 ```python
-movies['Year'] = pd.to_numeric(year)
+test_year = test_year.astype('str')
+type(test_year[0])
 ```
 
+Convert it to one of the numeric types using `pd.to_numeric(s)`.
+
+```python
+test_year = pd.to_numeric('int64')
+type(test_year[0])
+```
 
 ### The `.map()` function
 
