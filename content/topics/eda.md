@@ -2,12 +2,22 @@
 
 ## Objectives
 
+>>* basic stats concepts
+	>>* distributions
+	>>* measures of central tendency
+	>>* 
 >>* dropping vs. filling nulls
 >>* groupby
 >>* basic descriptive stats
     >>* sampling
     >>* correlation
+    >>* relative frequencies with groupby
     >>* tbd
+
+>>relative frequencies
+https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
+>>correlation?
+>>word frequency in the plot col?
 
 ### Import
 
@@ -30,4 +40,6 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-## 
+## Dropping vs. Filling Null Values
+
+explain how correlation doesn't work if vars are not identically distributed
