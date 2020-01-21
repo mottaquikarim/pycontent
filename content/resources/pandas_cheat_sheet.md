@@ -116,8 +116,8 @@
 * **`s.dropna(inplace=False)`** -- Drops all null values and returns new Series
 * **`s.fillna(value=None, inplace=False)`** -- replace all missing values with some value (e.g. the mean, some placeholder value, etc.)
 * **`df.dropna(axis=0, how='any', subset=[col1], inplace=False)`** -- Drops rows/columns containing null values in one or more specific fields and returns new df
-    * when `how='all'`, drop that row or column only if all values are null
-    * `subset` indicates which columns to check for null values *when dropping rows*
+    * when `how='all'`, drop that row or column only if all values (in row as a whole or in all columns specified in `subset`) are null
+    * `subset` indicates which columns to check for null values (*when dropping rows, i.e. axis=0*)
 * **`df.fillna(value=None, axis=0, inplace=False)`** -- replaces all null values with some value (e.g. the mean, some placeholder value, etc.)
 
 ## Vectorized Functions
