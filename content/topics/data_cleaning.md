@@ -139,65 +139,68 @@ movies['Genres']
 
 ### Country
 
+We can do the same for the `Country` variable. First, check how many null values there are.
+
 ```python
 null_country = movies[pd.isnull(movies['Country'])].copy()
 print(movies['Country'].isnull().sum())
 null_country
 ```
 
-No dups, so we can proceed right away.
-
+None, so we can proceed right away with copying the column.
 
 ```python
 temp_country = movies['Country'].copy()
 ```
 
-
+Use the same mapping strategy of `lambda x: x.split(',')`.
 
 ```python
 temp_country = temp_country.map(lambda x: x.split(','))
 temp_country
 ```
 
-
+Reassign the original column to our manipulated Series.
 
 ```python
 movies['Country'] = temp_country
-movies['Country'].unique()
+movies['Country']
 ```
 
 ### Languages
 
+Finally, we'll repeat this with `Languages`. 
+
 ```python
 null_lang = movies[pd.isnull(movies['Languages'])].copy()
 print(movies['Languages'].isnull().sum())
-null_lang.sort_values(by=['Rotten Tomatoes'], inplace=True)
 null_lang
 ```
 
+There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. So here's what we'll do...
 
+First, map the rest of the values as planned by setting `na_action='ignore'`
 
 ```python
-# movies[movies['Year'] < 1927]
-print('^ This will return an error.')
+temp_lang = movies['Languages'].copy()
+
+temp_lang = temp_lang.map(lambda x: x.split(','), na_action='ignore')
+temp_lang
 ```
 
-^^ have to convert year to number first, so let's do that now... and then fix all the silent films 
+```python
+movies['Languages'] = temp_lang
+movies['Languages']
+```
 
-
-
-## Reformatting Strings to Numbers
-
-
-
-
+Next, filter to find all the movies made before 1927...
 
 ```python
 silent_films = movies[movies['Year'] < 1927].copy()
 silent_films
 ```
 
-
+...and change their `Language` value to "Silent".
 
 ```python
 silent_list = list(silent_films.index)
@@ -206,27 +209,30 @@ for film in silent_list:
     movies.loc[film, 'Languages'] = 'Silent'
 ```
 
-
-
-```python
-silent_films = movies[movies['Year'] < 1927].copy()
-silent_films
-```
-
-
+Now look:
 
 ```python
-temp_lang = movies['Languages'].copy()
-temp_lang = temp_lang.map(lambda x: x.split(','))
-temp_lang
+movies[movies['Year'] < 1927]
 ```
 
+### Scaling Variables
+
+* `imdbRating`: 0.0-10.0; float format
+* `Metascore`: 0.0-100.0; float format
+* `Rotten Tomatoes`: 0-100%; string format
+
+## Reformatting Strings to Numbers
 
 
-```python
-movies['Languages'] = temp_lang
-movies['Languages']
-```
+
+
+
+
+
+
+
+
+
 
 
 ### Scale imdbRating to Match Metascore
