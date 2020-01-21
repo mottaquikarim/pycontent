@@ -33,6 +33,7 @@ print('data loaded successfully')
 
 ### Genres
 
+
 ```python
 missing_genre = movies[pd.isnull(movies['Genres'])]
 print(movies['Genres'].isnull().sum())
