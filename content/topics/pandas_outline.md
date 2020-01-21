@@ -1,16 +1,6 @@
 # OMDb Movies Pandas Content Outline
 
 
-* **`s.apply(func, convert_dtype=True, args=(), **kwds)`** -- invoke custom elementwise function on each value of Series
-    * `convert_dtype` will try to find better dtype for elementwise function results; if `False` the Series remains `object` dtype
-    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
-    * `**kwds` : any keyword args to pass to `func`
-* **`df.apply(func, axis=0, args=(), **kwds)`** -- apply row-wise or column-wise function to df
-    * Objects passed to the function are Series objects whose index is either the DataFrame’s index (axis=0) or the DataFrame’s columns (axis=1). By default (result_type=None), the final return type is inferred from the return type of the applied function. Otherwise, it depends on the result_type argument.
-    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
-    * `**kwds` : any keyword args to pass to `func`
-
-
 ## Data Wrangling I Objectives
 
 * auto-set the index on load

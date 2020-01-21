@@ -125,6 +125,15 @@
 * **`s.map(arg, na_action=None)`** -- Map/substitute each value in a Series with another value
     * `arg` parameter accepts single-argument functions, dicts, or Series
     * If `na_action` is `'ignore'`, propagate NaN values, without passing them to the mapping correspondence
+* **`s.apply(func, convert_dtype=True, args=(), **kwds)`** -- same as map, but invokes a more complex custom elementwise function on each value of Series
+    * `convert_dtype` will try to find better dtype for elementwise function results; if `False` the Series remains `object` dtype
+    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
+    * `**kwds` : any keyword args to pass to `func`
+* **`df.apply(func, axis=0, args=(), **kwds)`** -- apply row-wise or column-wise function to df, i.e. objects passed to `func` are Series objects whose index is either the df's index or the df's column labels
+    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
+    * `**kwds` : any keyword args to pass to `func`
+
+
 
 ## Statistics
 
