@@ -285,7 +285,7 @@ Functions featured include (in order of appearance):
 * `.value_counts()`
 * `.unique()`
 * `.count()`
-* `pd.notnull()`
+* `pd.notnull()` / `pd.isnull()`
 * `df.drop(labels=None, columns=None, inplace=False)`
 * `.duplicated(subset=None, keep='first')`
 * `.sum()`
