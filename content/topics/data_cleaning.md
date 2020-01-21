@@ -29,7 +29,7 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-## Elementwise Functions with `.map()`
+## Element-wise Functions with `.map()`
 
 An **elementwise** function is one that you call on a Series object as a whole, but that vectorizes the functions actions across each of the Series elements. 
 
@@ -245,27 +245,25 @@ movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
 movies.head()
 ```
 
-## Row- & Column-wise Functions with .apply()
+## Element-wise Functions with .apply()
 
-When applied to a Series object, the `Series.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
+When applied to a Series object, the `.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
 
->>In contrast, the `DataFrame.apply()` function is a **row-wise or column-wise** function. 
-You can use the `.apply(arg, na_action=None)` function to substitute or transform each value in a Series with another value. 
-Like `.map()`, `.apply()` itself serves to pass along "instructions" for how to manipulate individual elements. Accordingly, its `func` parameter will accept functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
->>objects passed to `func` are Series objects whose index is either the df's index or the df's column labels
+* `s.apply()`
 
-    >>* `s.apply(func)`
-    >>* `df.apply(func, axis=0)`
+As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
 
-As with `.map()`, if there are null values in any of the data you need for the function you pass to `.apply()`, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
+### BONUS TOPIC: Row- & Column-wise Functions with .apply()
 
-### Reformatting Strings to Numbers
+For the purposes of cleaning the OMDb movies dataset, we only really need `.apply()` for editing individual columns. It's worth taking a small detour to at least mention that you can also use `.apply()` with dataframes. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
 
+* **`s.apply(func)`** dynamically changes each value of a Series
+* **`df.apply(func, axis=0)`** dynamically changes each value *of each row/column* of a dataframe
 
+Of course, the `axis` parameter is what determines whether your function is row-wise or column-wise. However, it's a little counter-intuitive. We know that `axis 0` refers to rows and `axis 1` refers to columns, but in the context of `df.apply()`:
 
-
-
-
+* If `axis=0`, the objects passed to `func` will be *a Series containing the dataframe's COLUMNS*. The changes will be made to each value (i.e. column) in the set of columns.
+* If `axis=1`, the objects passed to `func` will be *a Series containing the dataframe's ROWS*. The changes will be made to each value (i.e. column) in the set of rows.
 
 ### Reformat Runtime
 
@@ -273,12 +271,17 @@ As with `.map()`, if there are null values in any of the data you need for the f
 
 ```python
 missing_runtime = movies[pd.isnull(movies['Runtime'])]
-
 print(len(movies))
-len(missing_runtime)
+missing_runtime
 ```
 
+There are only 3, all of which are missing ratings from Rotten Tomatoes and Metascore. We might as well drop these rows...
 
+* `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
+
+>>Drops rows/columns containing null values in one or more specific fields and returns new df
+    * when `how='all'`, drop that row or column only if all values are null
+    * `subset` indicates which columns to check for null values *when dropping rows*v
 
 ```python
 movies.dropna(subset=['Runtime'], inplace=True)
@@ -328,21 +331,24 @@ movies['Runtime']
 
 ### Filter/Drop Shorts
 
+In the last lesson, we dropped all TV shows from the dataframe because we only want to evaluate movies. In the same vein, it's not truly accurate to compare long-form movies to "short-form videos". That might include [animated shorts from Pixar](https://www.studiobinder.com/blog/pixar-shorts/), for example, or "made-for-TV" specials that last ~40-45 minutes (1 hour with commercials).
 
+How many "shorts" are there?
 
 ```python
 shorts = movies[movies['Runtime'] < 45].copy()
 shorts.sort_values(by=['Runtime'], ascending=False, inplace=True)
+
 print(len(shorts))
-shorts = list(shorts.index)
 shorts
 ```
 
 
 
 ```python
-movies.drop(labels=shorts, axis=0, inplace=True)
-movies[movies['Runtime'] < 45].copy()
+shorts_idx = list(shorts_idx.index)
+movies.drop(labels=shorts_idx, axis=0, inplace=True)
+movies[movies['Runtime'] < 45].count()
 ```
 
 
