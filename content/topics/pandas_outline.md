@@ -1,5 +1,20 @@
 # OMDb Movies Pandas Content Outline
 
+## Vectorized Functions
+
+>>* **`s.map(arg, na_action=None)`** -- Map/substitute each value in a Series with another value
+    * `arg` parameters accepts single-argument functions, dicts, or Series
+    * If `na_action` is `'ignore'`, propagate NaN values, without passing them to the mapping correspondence
+* **`s.apply(func, convert_dtype=True, args=(), **kwds)`** -- invoke custom elementwise function on each value of Series
+    * `convert_dtype` will try to find better dtype for elementwise function results; if `False` the Series remains `object` dtype
+    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
+    * `**kwds` : any keyword args to pass to `func`
+* **`df.apply(func, axis=0, args=(), **kwds)`** -- apply row-wise or column-wise function to df
+    * Objects passed to the function are Series objects whose index is either the DataFrame’s index (axis=0) or the DataFrame’s columns (axis=1). By default (result_type=None), the final return type is inferred from the return type of the applied function. Otherwise, it depends on the result_type argument.
+    * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
+    * `**kwds` : any keyword args to pass to `func`
+
+
 ## Data Wrangling I Objectives
 
 * auto-set the index on load
@@ -119,8 +134,6 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 
 
 >>OUTLINE
-
-
 
 >>np.where(cond[, other, inplace, axis, level, …])	Replace values where the condition is False.
 
