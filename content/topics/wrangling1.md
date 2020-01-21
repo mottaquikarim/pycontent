@@ -159,20 +159,27 @@ Similarly, `.unique()` will show us all the unique values `totalSeasons`. Unless
 print(movies['totalSeasons'].unique())
 movies['totalSeasons'].count()
 ```
-
 Hmmm... the results from our investigation of the `Type` column suggest that there are 31 TV shows, while the results from `totalSeasons` suggest that there are only 27 TV shows. Let's use filters to look at these specific rows.
 
 1. `non_movies`: The first filtered dataframe should include rows where `Type` equals `'series'`.
-2. `has_seasons`: The second dataframe should include all rows containing non-null data for `totalSeasons`.
 
 ```python
 non_movies = movies[movies['Type'] == 'series']
-has_seasons = movies[pd.notnull(movies['totalSeasons'])]
-
-print(len(non_movies), len(has_seasons))
+len(non_movies)
 ```
 
-Printing out the length of each dataframe confirms that we wrote the filters correctly. They match the counts we got above: 31 and 27 respectively.
+2. `has_seasons`: The second dataframe should include all rows containing non-null data for `totalSeasons`. 
+
+We can find this by passing this column to `pd.notnull()`. This function returns the Series, replacing each value with a boolean indicating whether or not the value is null, or `NaN`. (In the case of `pd.notnull()`, `True` refers to non-null values, while `False` refers to null values.) By passing this into the filter syntax for the `movies` dataframe, we get a version of `movies` that the filter returns only the rows that have non-null values in the `totalSeasons` column.
+
+**NOTE!** The converse of `pd.notnull()` is of course `pd.isnull()`.
+
+```python
+has_seasons = movies[pd.notnull(movies['totalSeasons'])]
+len(has_seasons)
+```
+
+Printing out the lengths of `non_movies` and `has_seasons` confirms that we wrote the filters correctly. They match the counts we got above: 31 and 27 respectively.
 
 So where's the difference coming from? If we look at `.info()` for `non_movies`, you'll see that 4 of the rows where `Type` is `'series'` have `NaN` values in the `totalSeasons` column. As such, we can safely assume that the `non_movies` dataframe contains all the TV shows in our original `movies` dataframe. 
 
