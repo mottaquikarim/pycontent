@@ -1,10 +1,6 @@
 # OMDb Movies Pandas Content Outline
 
-## Vectorized Functions
 
->>* **`s.map(arg, na_action=None)`** -- Map/substitute each value in a Series with another value
-    * `arg` parameter accepts single-argument functions, dicts, or Series
-    * If `na_action` is `'ignore'`, propagate NaN values, without passing them to the mapping correspondence
 * **`s.apply(func, convert_dtype=True, args=(), **kwds)`** -- invoke custom elementwise function on each value of Series
     * `convert_dtype` will try to find better dtype for elementwise function results; if `False` the Series remains `object` dtype
     * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*

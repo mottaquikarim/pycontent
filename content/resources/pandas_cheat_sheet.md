@@ -73,14 +73,12 @@
 
 ### Typecasting
 
-* **`s.astype()`** -- convert items in series to a diff dtype
+* **`s.astype()`** -- typecast the items in a Series to some data type; accepts `'int64'`, `'float64'`, `'str'`, etc.
+* **`pd.to_numeric(s, errors='coerce')`** -- convert the items within a Series to numbers
 * **`s.tolist()`** -- convert Pandas Series to Python List type
 * **`s.to_dict()`** -- convert Pandas Series to Python Dict type
 * **`s.to_frame()`** -- convert Pandas Series to Pandas Dataframe
-* **`pd.to_numeric(s, errors='coerce')`** -- convert the items within a Series to numbers
-* **`s.to_string()`** -- convert the items within a Series to strings
-
-**!!!to_dict() has an underscore, but tolist() doesn't!!!**
+* **`s.to_string()`** -- convert the ENTIRE series into a single string
 
 ### Indexing
 
@@ -121,6 +119,12 @@
     * when `how='all'`, drop that row or column only if all values are null
     * `subset` indicates which columns to check for null values *when dropping rows*
 * **`df.fillna(value=None, axis=0, inplace=False)`** -- replaces all null values with some value (e.g. the mean, some placeholder value, etc.)
+
+## Vectorized Functions
+
+* **`s.map(arg, na_action=None)`** -- Map/substitute each value in a Series with another value
+    * `arg` parameter accepts single-argument functions, dicts, or Series
+    * If `na_action` is `'ignore'`, propagate NaN values, without passing them to the mapping correspondence
 
 ## Statistics
 
