@@ -115,9 +115,9 @@ descriptor_counts
 
 ## Data Normalization Objectives
 
+TBD...
 
-
-## Data Wrangling II Objectives / (or EDA?)
+## EDA Objectives / (or EDA?)
 
 >>relative frequencies
 https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
