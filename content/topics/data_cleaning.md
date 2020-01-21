@@ -291,7 +291,7 @@ movies.dropna(subset=['Runtime'], inplace=True)
 
 Did it work?
 
-```
+```python
 movies['Runtime'].isna().sum()
 ```
 
