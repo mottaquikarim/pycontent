@@ -205,7 +205,7 @@ movies['Type'].value_counts()
 While we're at it, let's drop all the columns we're sure we won't need from this point on. We simply pass those to the `column` parameter of `.drop()` and use `.columns` to check our work.
 
 ```python
-movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Production', 'Poster', 'Website', 'Response'], inplace=True)
+movies.drop(columns=['Type', 'totalSeasons', 'Ratings', 'DVD', 'Awards', 'Internet Movie Database', 'BoxOffice', 'Poster', 'Website', 'Response'], inplace=True)
 movies.columns
 ```
 
