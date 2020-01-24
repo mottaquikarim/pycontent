@@ -6,11 +6,11 @@ Data cleaning is arguably as important as any amount of insight you obtain from 
 
 ## Objectives
 
+* Handling null values
 * Element-wise functions
 * Vectorized typecasting
 * Scaling variables
 * Series.map()
-* Handling null values
 * Series.apply()
 * Row- & Column-wise functions 
 * DataFrame.apply()
@@ -35,6 +35,14 @@ omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pyconte
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
+
+## A Note on Handling Null Values
+
+Having null values in your data can cause various issues with your code and with your analysis. Deciding how to deal with null values is a huge part of cleaning your data, and you have to think about each column contextually. At a high level, you can drop rows/columns containing null values or replace all instances of null values with some default value. 
+
+In addition to the "how", you also have to contextually consider the "when". You might decide to drop rows containing null values right away so that reformatting is straightforward. Maybe you have to reformat the data before you can fill it with a default value. Then again, you might wait to evaluate how much data is missing until you reformat your data and/or remove other bad data. For example, we got rid of all rows that were TV shows instead of movies first.
+
+In this lesson, you'll see some simple examples of handling null values. Then, when we get to the Exploratory Data Analysis lesson, we'll discuss more complex examples.
 
 ## Element-wise Functions
 
@@ -173,11 +181,11 @@ When you define a custom function to use with `.apply()`, it's always a good ide
 def votes_reformat(value):
     """remove commas from str and convert field to int"""
     try:
-        split_row = row.split(',')
+        split = value.split(',')
         votes = int(''.join(split_row))
         return votes
     except Exception as e:
-        return row
+        return value
 
 test = temp_imdbVotes[0]
 votes_reformat(test)
@@ -239,15 +247,15 @@ temp_runtime
 Define and test a custom function to remove `' min'` from each value and typecast it to an integer. By the way, even though we just dropped the rows with null values, we should still build in a try/except statement to catch other potential issues!
 
 ```python
-def runtime_reformat(row):
+def runtime_reformat(value):
     """remove 'min' from str and convert field to int"""
     try:
-        split_row = row.split(' ')
-        numeric_runtime = int(split_row[0])
+        value = value.split(' ')
+        numeric_runtime = int(value[0])
         return numeric_runtime
     except Exception as e:
         print(e)
-        return row
+        return value
 
 test = temp_runtime[0]
 result = runtime_reformat(test)
@@ -287,6 +295,17 @@ print(len(shorts))
 shorts
 ```
 
+*Notice that the rows with null values are NOT included here!*
+
+Drop these by grabbing their index labels and check to make sure they're gone.
+
+```python
+shorts_idx = list(shorts.index)
+movies.drop(labels=shorts_idx, axis=0, inplace=True)
+shorts = movies['Runtime'] < 45
+shorts.sum()
+```
+
 ## BONUS: Row- & Column-wise Functions with .apply()
 
 You can also implement `.apply()` as dataframe method. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
@@ -307,15 +326,35 @@ Of course, the `axis` parameter is what determines whether your function is row-
 
 ### Languages
 
-*Notice that the rows with null values are NOT included here!*
-
-Drop these by grabbing their index labels and check to make sure they're gone.
 
 ```python
-shorts_idx = list(shorts.index)
-movies.drop(labels=shorts_idx, axis=0, inplace=True)
-shorts = movies['Runtime'] < 45
-shorts.sum()
+null_lang = movies[pd.isnull(movies['Languages'])].copy()
+print(movies['Languages'].isnull().sum())
+null_lang
+```
+
+There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. 
+
+
+* `fillna(value=None, inplace=False)`
+
+
+
+```python
+movies['Languages'].fillna(value='Silent', inplace=True)
+movies.loc[null_lang.index]
+```
+
+What if other early movies were incorrectly labeled? If we want to be consistent, we need to check and set those to "Silent" as well. Write a compound filter to find all the movies that:
+
+* were made before 1927
+* `Languages` value isn't "Silent"
+
+**NOTE!** When implementing compound filters, you have to use `&` and `|` instead of `and` and `or` respectively.
+
+```python
+silent_films = movies[(movies['Year'] < 1927) & (movies['Languages'] != 'Silent')]
+silent_films
 ```
 
 
@@ -323,6 +362,39 @@ shorts.sum()
 
 
 
+```python
+def silent_lang(row):
+    try:
+        if row['Year'] < 1927:
+            row['Languages'] = 'Silent'
+            return row
+        else:
+            return row
+    except Exception as e:
+        print(e)
+        return row
+
+temp = movies.copy()
+
+pos_test = silent_lang(temp.loc['tt0013442'].copy()) # Nosferatu
+pos_test
+```
+
+```python
+neg_test = silent_lang(temp.iloc[0].copy())
+neg_test
+```
+
+
+```python 
+temp = temp.apply(silent_lang, axis=1)
+temp.loc[silent_films.index]
+```
+
+```python
+movies = temp.copy()
+movies[movies['Year'] < 1927]
+```
 
 
 ## New Functions Featured
@@ -332,8 +404,9 @@ Functions featured include (in order of appearance):
 * `s.astype()`
 * `s.map(arg, na_action=None)`
 * `s.apply(func)`
-* `df.apply(func, axis=0)`
 * `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
+>>* `df.apply(func, axis=0)`
+* `s.fillna(value=None, inplace=False)`
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
