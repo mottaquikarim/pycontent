@@ -103,7 +103,7 @@ If we look at the three movie rating variables, each source has provided ratings
 
 Let's start by mapping `Rotten Tomatoes` ratings from strings to numeric values. 
 
-```
+```python
 movies['Rotten Tomatoes']
 ```
 
