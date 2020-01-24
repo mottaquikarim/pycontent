@@ -134,30 +134,28 @@
     * `**kwds` : any keyword args to pass to `func`
 
 
-
 ## Statistics
 
-* **`obj.value_counts()`** -- 
+* **`s.value_counts()`** -- 
+* **`s.mean()`** -- mean
+* **`s.median()`** -- median
+* **`s.min()`** -- minimum
+* **`s.max()`** -- maximum
+* **`s.quantile(x)`** -- quantile
+* **`s.var()`** -- variance
+* **`s.std()`** -- standard deviation
+* **`s.mad()`** -- mean absolute variation
+* **`s.skew()`** -- skewness of distribution
+* **`s.sem()`** -- unbiased standard error of the mean
+* **`s.kurt()`** -- kurtosis
+* **`s.cov()`** -- covariance
+* **`s.corr()`** -- Pearson Correlation coefficent
+* **`s.autocorr()`** -- autocorelation
 * **`df.sample(frac = 0.5)`** - randomly select a fraction of rows of a DataFrame
 * **`df.sample(n=10)`** - randomly select n rows of a DataFrame
-* **`.mean()`** -- mean
-* **`.median()`** -- median
-* **`.min()`** -- minimum
-* **`.max()`** -- maximum
-* **`.quantile(x)`** -- quantile
-* **`.var()`** -- variance
-* **`.std()`** -- standard deviation
-* **`.mad()`** -- mean absolute variation
-* **`.skew()`** -- skewness of distribution
-* **`.sem()`** -- unbiased standard error of the mean
-* **`.kurt()`** -- kurtosis
-* **`.cov()`** -- covariance
-* **`.corr()`** -- Pearson Correlation coefficent
-* **`.autocorr()`** -- autocorelation
-* **`.diff()`** -- first discrete difference
-* **`.cumsum()`** -- cummulative sum
-* **`.comprod()`** -- cumulative product
-* **`.cummin()`** -- cumulative minimum
+* **`s.cumsum()`** -- cummulative sum
+* **`s.comprod()`** -- cumulative product
+* **`s.cummin()`** -- cumulative minimum
 
 
 
