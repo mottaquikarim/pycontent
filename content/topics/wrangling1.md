@@ -214,8 +214,7 @@ Alternatively, there is a way we can simultaneously drop certain columns and reo
 ```python
 # REORDERING COLS
 movies = movies.copy()
-movies = movies[['Title', 'Year', 'Genres', 'imdbRating', 'imdbVotes', 'Rotten Tomatoes', 'Metascore', 'Country', 'Languages', 'Runtime', 'Director',
-       'Writer', 'Actors', 'Plot']]
+movies = movies[['Title', 'Year', 'Runtime', 'Genres', 'imdbVotes', 'imdbRating', 'Rotten Tomatoes', 'Metascore', 'Country', 'Languages', 'Production', 'Director', 'Writer', 'Actors', 'Plot']]
 movies.columns
 ```
 
