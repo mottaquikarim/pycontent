@@ -336,10 +336,7 @@ null_lang
 
 There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. 
 
-
 * `fillna(value=None, inplace=False)`
-
-
 
 ```python
 movies['Languages'].fillna(value='Silent', inplace=True)
@@ -358,10 +355,7 @@ silent_films = movies[(movies['Year'] < 1927) & (movies['Languages'] != 'Silent'
 silent_films
 ```
 
-
-
-
-
+As expected, there are a few. Let's write a function to change that. We'll want to test two values here: one movie made before 1927 and one after.
 
 ```python
 def silent_lang(row):
@@ -386,17 +380,19 @@ neg_test = silent_lang(temp.iloc[0].copy())
 neg_test
 ```
 
+The tests worked, so it's safe to apply it to the dataframe as a whole. Check to see if those silent films changed.
 
 ```python 
 temp = temp.apply(silent_lang, axis=1)
 temp.loc[silent_films.index]
 ```
 
+Remember to reassign this new dataframe back to the `movies` variable before moving on! Now look at all the movies made before 1927.
+
 ```python
 movies = temp.copy()
 movies[movies['Year'] < 1927]
 ```
-
 
 ## New Functions Featured
 
