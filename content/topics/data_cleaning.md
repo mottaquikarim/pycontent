@@ -405,7 +405,7 @@ Functions featured include (in order of appearance):
 * `s.map(arg, na_action=None)`
 * `s.apply(func)`
 * `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
->>* `df.apply(func, axis=0)`
+* `df.apply(func, axis=0)`
 * `s.fillna(value=None, inplace=False)`
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
