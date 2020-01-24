@@ -6,12 +6,14 @@ Data cleaning is arguably as important as any amount of insight you obtain from 
 
 ## Objectives
 
+* Element-wise functions
 * Vectorized typecasting
 * Scaling variables
-* Dropping null values
-* Element-wise functions with .map()
-* Element-wise functions with .apply()
-* Row- & Column-wise functions with .apply()
+* Series.map()
+* Handling null values
+* Series.apply()
+* Row- & Column-wise functions 
+* DataFrame.apply()
 
 ### Import
 
@@ -34,7 +36,7 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-## Element-wise Functions with `.map()`
+## Element-wise Functions
 
 An **elementwise** function is one that you call on a Series object as a whole, but that vectorizes the functions actions across each of the Series elements. 
 
@@ -62,7 +64,7 @@ type(test_year[0])
 Convert it to one of the numeric types using `pd.to_numeric(s)`.
 
 ```python
-test_year = pd.to_numeric('int64')
+test_year = pd.to_numeric(test_year)
 type(test_year[0])
 ```
 
@@ -80,96 +82,57 @@ For the next few example, we'll leverage the `s.map(arg, na_action=None)` functi
 
 In *most* cases, if there are null values in the original Series, an error will stop your `.map()` function's execution. (We'll see the exception soon.) The `na_action` parameter allows you to bypass this issue until you decide what how to handle different pieces of missing data in your dataset. If you set `na_action='ignore'`, `.map()` will simply skip over null values.
 
-### Mapping Strings to Lists
+Finally, *notice that there is no `inplace` parameter for `.map()`*. You have to remember to assign the results to some variable, or you'll never see them!
 
-The `Genres`, `Country`, and `Languages` columns often hold more than one value per row. But when we pulled this data from the API, we got the contents of each cell in the form of a single string with the values separated by commas. If we want to evaluate the different categories within each of these variables, we need to break out the individual values from the string into list format.
+### Reformat imdbVotes
 
-### Genres
+`imdbVotes` needs to be a numeric variable, but we'd have to remove the commas and typecast it. There are multiple ways to approach this, but we'll take this opportunity to learn how to use `.map()`. 
 
-Count and view the rows with missing `Genres` data:
+For brevity, whenever possible, most people use **lambda functions** with `.map()`. A **lambda function** is a nameless function that is defined, used, and forgotten in one line. Here's an example of the syntax relative to a regular function.
 
-```python
-missing_genre = movies[pd.isnull(movies['Genres'])]
-print(movies['Genres'].isna().sum())
-missing_genre
-```
-
-We could pass `na_action='ignore'`, but since there are only 3, we might as well look them up and fill in the info ourselves. We can check this by making sure the count of nulls afterward is 0.
-
-```python
-genre_updates = {
-    'tt8026554': 'Drama',
-    'tt6215446': 'Comedy, Horror',
-    'tt10084752': 'Documentary'
-}
-
-for imdbID, genre in genre_updates.items():
-    movies.loc[imdbID, 'Genres'] = genre
-
-print(movies['Genres'].isna().sum())
-```
-
-Now, let's make a copy of the `Genres` column to operate on.
-
-```python
-temp_genre = movies['Genres'].copy()
-```
-
-To turn each string into a list, all we have to do is split each string at the commas. But we have to pass `.map()` a function for this, remember? For brevity, whenever possible, most people use **lambda functions** with `.map()`. A **lambda function** is a nameless function that is defined, used, and forgotten in one line. Here's the syntax relative to a regular function.
 
 ```python
 """
-def split_list(x):
-    return x.split(',')
+def squared(x):
+    return x**2
 
-...equivalent to...
+...is equivalent to...
 
-lambda x: x.split(',')
+lambda x: x**2
 """
 ```
 
-Now we can map the `Genres` variable using `lambda x: x.split(',')`.
+Now, reformatting `imdbVotes` requires 3 actions:
+
+1. Splitting the string at the commas:
 
 ```python
-temp_genre = temp_genre.map(lambda x: x.split(','))
-temp_genre
+movies['imdbVotes'] = movies.imdbVotes.map(lambda x: x.split(','), na_action='ignore')
+movies['imdbVotes']
 ```
 
-Reassign the original column to our manipulated Series.
+*Side Note* We could also have leveraged the special Pandas Series string methods i.e. `movies.imdbVotes.str.split(',')`
+
+2. Joining the values back together:
 
 ```python
-movies['Genres'] = temp_genre
-movies['Genres']
+movies['imdbVotes'] = movies.imdbVotes.map(lambda x: ''.join(x), na_action='ignore')
+movies['imdbVotes']
 ```
 
-### Country
+3. Typecast the Series to integers. Again, we'll use `.map()` just for another chance see it in action.
 
-We can do the same for the `Country` variable. First, check how many null values there are.
-
-```python
-null_country = movies[pd.isnull(movies['Country'])].copy()
-print(movies['Country'].isnull().sum())
-null_country
+```
+movies['imdbVotes'] = movies.imdbVotes.map(lambda x: int(x), na_action='ignore')
+movies['imdbVotes']
 ```
 
-None, so we can proceed right away with copying the column.
+Wait... they're still floats. Why didn't that work? And if you try to typecast directly to integers using `.astype('int64)`, it will cause a `TypeError`. This is because the null values. In Pandas, `NaN` is considered a float. Since Series object must have homogenous data types, any numeric Series containing null values will be forced to `dtype='float64'`.
+
+Regardless, here's the updated column inside the whole `movies` dataframe.
 
 ```python
-temp_country = movies['Country'].copy()
-```
-
-Use the same mapping strategy of `lambda x: x.split(',')`.
-
-```python
-temp_country = temp_country.map(lambda x: x.split(','))
-temp_country
-```
-
-Reassign the original column to our manipulated Series.
-
-```python
-movies['Country'] = temp_country
-movies['Country']
+movies.head(3)
 ```
 
 ### Scaling Variables
@@ -202,17 +165,49 @@ movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
 movies.head()
 ```
 
-## Element-wise Functions with .apply()
 
-When applied to a Series object, the `.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
+## Handling Null Values
 
-* `s.apply()`
+Genre
+.dropna with Runtime
+fillna with nulls for Lang to silent
 
-As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
+### Genres
 
-### Reformat Runtime
+Count and view the rows with missing `Genres` data:
 
-Down to business. Right now, the `Runtime` variable is in string format. If we want to include it in any quantitative analysis or even sort based on this column, we need the values to be numeric. Fixing this won't be as simple as typecasting because each value contains non-numeric characters.
+```python
+missing_genre = movies[pd.isnull(movies['Genres'])]
+print(movies['Genres'].isna().sum())
+missing_genre
+```
+
+Since there are only 3, we might as well look them up and fill in the info ourselves. We can check this by making sure the count of nulls afterward is 0.
+
+```python
+genre_updates = {
+    'tt8026554': 'Drama',
+    'tt6215446': 'Comedy, Horror',
+    'tt10084752': 'Documentary'
+}
+
+for imdbID, genre in genre_updates.items():
+    movies.loc[imdbID, 'Genres'] = genre
+
+print(movies['Genres'].isna().sum())
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 First, how many rows are missing data for `Runtime`?
 
@@ -240,7 +235,28 @@ Did it work?
 movies['Runtime'].isna().sum()
 ```
 
-Good. Now, we can make a temporary copy of the `Runtime` column for our `.apply()` operations.
+
+
+
+
+
+
+
+
+
+## Element-wise Functions with .apply()
+
+When applied to a Series object, the `.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
+
+* `s.apply()`
+
+As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
+
+### Reformat Runtime
+
+Down to business. Right now, the `Runtime` variable is in string format. If we want to include it in any quantitative analysis or even sort based on this column, we need the values to be numeric. Fixing this won't be as simple as typecasting because each value contains non-numeric characters.
+
+Start by making a temporary copy of the `Runtime` column for our `.apply()` operations.
 
 ```python
 temp_runtime = movies['Runtime'].copy()
@@ -306,47 +322,6 @@ shorts_idx = list(shorts.index)
 movies.drop(labels=shorts_idx, axis=0, inplace=True)
 shorts = movies['Runtime'] < 45
 shorts.sum()
-```
-
-### Reformat imdbVotes
-
-`imdbVotes` needs to be a numeric variable as well, and we can likewise leverage the `.apply()` method on this Series.
-
-```python
-temp_imdbVotes = movies['imdbVotes'].copy()
-temp_imdbVotes
-```
-
-All we need to do for the `imdbVotes` variable is remove the commas and typecast each value. 
-
-```python
-def votes_reformat(row):
-    """remove commas from str and convert field to int"""
-    try:
-        split_row = row.split(',')
-        votes = int(''.join(split_row))
-        return votes
-    except Exception as e:
-        # if pd.isnull(row), error will occur
-        # print(e)
-        return row
-
-test = temp_imdbVotes[0]
-votes_reformat(test)
-```
-
-The single-value test worked, so we'll run it on the whole column...
-
-```python
-temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
-temp_imdbVotes
-```
-
-...and then reassign `temp_imdbVotes` back to the `movies` dataframe.
-
-```python
-movies['imdbVotes'] = temp_imdbVotes
-movies['imdbVotes'].head(3)
 ```
 
 ### Reformat Rotten Tomatoes
