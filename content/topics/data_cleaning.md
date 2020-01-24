@@ -172,54 +172,6 @@ movies['Country'] = temp_country
 movies['Country']
 ```
 
-### Languages
-
-Finally, we'll repeat this with `Languages`. 
-
-```python
-null_lang = movies[pd.isnull(movies['Languages'])].copy()
-print(movies['Languages'].isnull().sum())
-null_lang
-```
-
-There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. So here's what we'll do...
-
-First, map the rest of the values as planned by setting `na_action='ignore'`
-
-```python
-temp_lang = movies['Languages'].copy()
-
-temp_lang = temp_lang.map(lambda x: x.split(','), na_action='ignore')
-temp_lang
-```
-
-```python
-movies['Languages'] = temp_lang
-movies['Languages']
-```
-
-Next, filter to find all the movies made before 1927...
-
-```python
-silent_films = movies[movies['Year'] < 1927].copy()
-silent_films
-```
-
-...and change their `Language` value to "Silent".
-
-```python
-silent_list = list(silent_films.index)
-
-for film in silent_list:
-    movies.loc[film, 'Languages'] = 'Silent'
-```
-
-Now look:
-
-```python
-movies[movies['Year'] < 1927]
-```
-
 ### Scaling Variables
 
 If we look at the three movie rating variables, each source has provided ratings for each movie on a different scale and in a different format. 
@@ -257,18 +209,6 @@ When applied to a Series object, the `.apply()` function is effectively the same
 * `s.apply()`
 
 As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
-
-### BONUS TOPIC: Row- & Column-wise Functions with .apply()
-
-For the purposes of cleaning the OMDb movies dataset, we only really need `.apply()` for editing individual columns. It's worth taking a small detour to at least mention that you can also use `.apply()` with dataframes. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
-
-* **`s.apply(func)`** dynamically changes each value of a Series
-* **`df.apply(func, axis=0)`** dynamically changes each value *of each row/column* of a dataframe
-
-Of course, the `axis` parameter is what determines whether your function is row-wise or column-wise. However, it's a little counter-intuitive. We know that `axis 0` refers to rows and `axis 1` refers to columns, but in the context of `df.apply()`:
-
-* If `axis=0`, the objects passed to `func` will be *a Series containing the dataframe's COLUMNS*. The changes will be made to each value (i.e. column) in the set of columns.
-* If `axis=1`, the objects passed to `func` will be *a Series containing the dataframe's ROWS*. The changes will be made to each value (i.e. column) in the set of rows.
 
 ### Reformat Runtime
 
@@ -446,6 +386,72 @@ Reassign it back to the `movies` dataframe.
 ```python
 movies['Rotten Tomatoes'] = temp_rt
 movies['Rotten Tomatoes']
+```
+
+## Row- & Column-wise Functions with .apply()
+
+You can also implement `.apply()` as dataframe method. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
+
+* **`s.apply(func)`** dynamically changes each value of that column a Series
+* **`df.apply(func, axis=0)`** dynamically changes each value *of each row/column* of a dataframe
+
+
+passes values from one column of every row to a function
+when axis = 1, passes *entire rows* to a function
+>>when axis = 0, passes whole cols where the row labels are treated like col labels...?
+
+
+Of course, the `axis` parameter is what determines whether your function is row-wise or column-wise. However, it's a little counter-intuitive. We know that `axis 0` refers to rows and `axis 1` refers to columns, but in the context of `df.apply()`:
+
+* If `axis=0`, the objects passed to `func` will be *a Series containing the dataframe's COLUMNS*. The changes will be made to each value (i.e. column) in the set of columns.
+* If `axis=1`, the objects passed to `func` will be *a Series containing the dataframe's ROWS*. The changes will be made to each value (i.e. column) in the set of rows.
+
+### Languages
+
+Finally, we'll repeat this with `Languages`. 
+
+```python
+null_lang = movies[pd.isnull(movies['Languages'])].copy()
+print(movies['Languages'].isnull().sum())
+null_lang
+```
+
+There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. So here's what we'll do...
+
+First, map the rest of the values as planned by setting `na_action='ignore'`
+
+```python
+temp_lang = movies['Languages'].copy()
+
+temp_lang = temp_lang.map(lambda x: x.split(','), na_action='ignore')
+temp_lang
+```
+
+```python
+movies['Languages'] = temp_lang
+movies['Languages']
+```
+
+Next, filter to find all the movies made before 1927...
+
+```python
+silent_films = movies[movies['Year'] < 1927].copy()
+silent_films
+```
+
+...and change their `Language` value to "Silent".
+
+```python
+silent_list = list(silent_films.index)
+
+for film in silent_list:
+    movies.loc[film, 'Languages'] = 'Silent'
+```
+
+Now look:
+
+```python
+movies[movies['Year'] < 1927]
 ```
 
 ### Here's our newly bright and shiny dataframe!
