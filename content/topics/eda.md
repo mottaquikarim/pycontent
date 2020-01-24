@@ -44,6 +44,14 @@ print('data loaded successfully')
 
 explain how correlation doesn't work if vars are not identically distributed
 
+>>Some common options include:
+* Drop the whole column if it has a small percentage of non-null data,  e.g. We dropped the `Box Office` column from the original dataframe for this reason. 
+* Drop all rows with data missing in ANY of the variables.
+* Drop all rows with missing data only in a specific column or set of columns vital to your analysis.
+* Replace null values with the mean for numerical data
+* Replace null values with the frequency for categorical data. 
+* Replace null values with some other piece of default data.
+
 
 >>"Drop the data:
 Drop the whole row (line #2)
