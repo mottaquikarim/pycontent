@@ -311,14 +311,8 @@ shorts.sum()
 
 You can also implement `.apply()` as dataframe method. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
 
-* **`s.apply(func)`** dynamically changes each value of that column a Series
-* **`df.apply(func, axis=0)`** dynamically changes each value *of each row/column* of a dataframe
-
-
-passes values from one column of every row to a function
-when axis = 1, passes *entire rows* to a function
->>when axis = 0, passes whole cols where the row labels are treated like col labels...?
-
+* **`s.apply(func)`** dynamically changes each value of a Series; in the context of a dataframe, it's like passing all the rows but only a single column to the function
+* **`df.apply(func, axis=0)`** dynamically changes each value *of each row/column* of a dataframe; when axis = 1, passes *entire rows* to the function
 
 Of course, the `axis` parameter is what determines whether your function is row-wise or column-wise. However, it's a little counter-intuitive. We know that `axis 0` refers to rows and `axis 1` refers to columns, but in the context of `df.apply()`:
 
