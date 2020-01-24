@@ -84,12 +84,21 @@ In *most* cases, if there are null values in the original Series, an error will 
 
 Finally, *notice that there is no `inplace` parameter for `.map()`*. You have to remember to assign the results to some variable, or you'll never see them!
 
-### Reformat imdbVotes
+### Reformat Rotten Tomatoes
 
-`imdbVotes` needs to be a numeric variable, but we'd have to remove the commas and typecast it. There are multiple ways to approach this, but we'll take this opportunity to learn how to use `.map()`. 
+If we look at the three movie rating variables, each source has provided ratings for each movie on a different scale and in a different format. 
 
-For brevity, whenever possible, most people use **lambda functions** with `.map()`. A **lambda function** is a nameless function that is defined, used, and forgotten in one line. Here's an example of the syntax relative to a regular function.
+* `imdbRating`: 0.0-10.0; float format
+* `Metascore`: 0.0-100.0; float format
+* `Rotten Tomatoes`: 0-100%; string format
 
+Let's start by mapping `Rotten Tomatoes` ratings from strings to numeric values. 
+
+```
+movies['Rotten Tomatoes']
+```
+
+All we have to do is strip off the "%" character and typecast the values to floats. Of course, we have to pass this to `.map()` in the form of a function. For brevity, whenever possible, most people use **lambda functions** with `.map()`. A **lambda function** is a nameless function that is defined, used, and forgotten in one line. Here's an example of the syntax relative to a regular function.
 
 ```python
 """
@@ -102,48 +111,22 @@ lambda x: x**2
 """
 ```
 
-Now, reformatting `imdbVotes` requires 3 actions:
-
-1. Splitting the string at the commas:
+The body of the lambda function we need for reformatting `Rotten Tomatoes` ratings is `float(x.strip('%'))`. Also, don't forget to set `na_action='ignore'`, since there are null values in this column.
 
 ```python
-movies['imdbVotes'] = movies.imdbVotes.map(lambda x: x.split(','), na_action='ignore')
-movies['imdbVotes']
-```
-
-*Side Note* We could also have leveraged the special Pandas Series string methods i.e. `movies.imdbVotes.str.split(',')`
-
-2. Joining the values back together:
-
-```python
-movies['imdbVotes'] = movies.imdbVotes.map(lambda x: ''.join(x), na_action='ignore')
-movies['imdbVotes']
-```
-
-3. Typecast the Series to integers. Again, we'll use `.map()` just for another chance see it in action.
-
-```
-movies['imdbVotes'] = movies.imdbVotes.map(lambda x: int(x), na_action='ignore')
-movies['imdbVotes']
-```
-
-Wait... they're still floats. Why didn't that work? And if you try to typecast directly to integers using `.astype('int64)`, it will cause a `TypeError`. This is because the null values. In Pandas, `NaN` is considered a float. Since Series object must have homogenous data types, any numeric Series containing null values will be forced to `dtype='float64'`.
-
-Regardless, here's the updated column inside the whole `movies` dataframe.
-
-```python
-movies.head(3)
+movies['Rotten Tomatoes'] = movies['Rotten Tomatoes'].map(lambda x: float(x.strip('%')), na_action='ignore')
+movies['Rotten Tomatoes']
 ```
 
 ### Scaling Variables
 
-If we look at the three movie rating variables, each source has provided ratings for each movie on a different scale and in a different format. 
+Look again at the formats for our ratings variables:
 
 * `imdbRating`: 0.0-10.0; float format
 * `Metascore`: 0.0-100.0; float format
-* `Rotten Tomatoes`: 0-100%; string format
+* `Rotten Tomatoes`: 0.0-100.0; float format
 
-For graphical comparisons, you always want numeric variables on the same scale. Since it's easier to see minute differences between data points on a larger scale, we'll scale `imdbRating` to match `Metascore` and eventually Rotten Tomatoes.
+For graphical comparisons, you always want numeric variables on the same *scale*. Since it's easier to see minute differences between data points on a larger scale, we'll scale `imdbRating` to match `Metascore` and `Rotten Tomatoes`.
 
 First, how many movies are missing a rating from IMDb?
 
@@ -162,54 +145,63 @@ Knowing this, we could easily scale `imdbRating` with `movies['imdbRating']*10`,
 
 ```python
 movies['imdbRating'] = movies['imdbRating'].map(lambda x: x*10)
-movies.head()
+movies['imdbRating']
 ```
 
+## Element-wise Functions with .apply()
 
-## Handling Null Values
+When applied to a Series object, the `.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
 
-Genre
-.dropna with Runtime
-fillna with nulls for Lang to silent
+* `s.apply()`
 
-### Genres
+As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
 
-Count and view the rows with missing `Genres` data:
+### Reformat imdbVotes
+
+`imdbVotes` also needs to be a numeric variable, but it would take more than one line to accomplish this. Therefore, it wouldn't be as efficient to use `.map()`. Instead, we can define our own function and pass it to `.apply()`.
+
+First, make a temporary copy of the `imdbVotes` column to use with our `.apply()` operations.
 
 ```python
-missing_genre = movies[pd.isnull(movies['Genres'])]
-print(movies['Genres'].isna().sum())
-missing_genre
+temp_runtime = movies['Runtime'].copy()
+temp_runtime.head(3)
 ```
 
-Since there are only 3, we might as well look them up and fill in the info ourselves. We can check this by making sure the count of nulls afterward is 0.
+When you define a custom function to use with `.apply()`, it's always a good idea to test the function on a single value.
 
 ```python
-genre_updates = {
-    'tt8026554': 'Drama',
-    'tt6215446': 'Comedy, Horror',
-    'tt10084752': 'Documentary'
-}
+def votes_reformat(value):
+    """remove commas from str and convert field to int"""
+    try:
+        split_row = row.split(',')
+        votes = int(''.join(split_row))
+        return votes
+    except Exception as e:
+        return row
 
-for imdbID, genre in genre_updates.items():
-    movies.loc[imdbID, 'Genres'] = genre
-
-print(movies['Genres'].isna().sum())
+test = temp_imdbVotes[0]
+votes_reformat(test)
 ```
 
+The single-value test worked, so we'll run it on the whole column...
 
+```python
+temp_imdbVotes = temp_imdbVotes.apply(votes_reformat)
+temp_imdbVotes
+```
 
+Wait... they're floats, not ints... And if you try to typecast directly to integers using `.astype('int64)`, it will cause a `TypeError`. Why? This is because the null values. In Pandas, `NaN` is considered a float. Since Series object must have homogenous data types, any numeric Series containing null values will be forced to `dtype='float64'`.
 
+When we decide how we want to handle the null values across our ratings fields, we can re-typecast this column. For now, we'll just reassign `temp_imdbVotes` back to the `movies` dataframe.
 
+```python
+movies['imdbVotes'] = temp_imdbVotes
+movies['imdbVotes']
+```
 
+### Reformat Runtime
 
-
-
-
-
-
-
-First, how many rows are missing data for `Runtime`?
+Next, we'll repeat this process with `Runtime`. This time though, we'll look at the column's null values first.
 
 ```python
 missing_runtime = movies[pd.isnull(movies['Runtime'])]
@@ -217,7 +209,7 @@ print(len(missing_runtime))
 missing_runtime
 ```
 
-There are only three, all of which are missing ratings from Rotten Tomatoes and Metascore. We might as well drop these rows, but we don't need to grab each one's index this time. (Flash back to when we removed TV shows using `movies.drop(labels=non_movie_ids, axis=0)`.) Since these three are the only rows with null values for `Runtime`, we can drop them as a group using `.dropna()`.
+There are only three rows missing data for `Runtime`, all of which are also missing ratings from Rotten Tomatoes and Metascore. We might as well drop these rows, but we don't need to grab each one's index this time. (Flash back to when we removed TV shows using `movies.drop(labels=non_movie_ids, axis=0)`.) Since these three are the only rows with null values for `Runtime`, we can drop them as a group using `.dropna()`.
 
 * `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
 
@@ -235,46 +227,26 @@ Did it work?
 movies['Runtime'].isna().sum()
 ```
 
+Now when we reformat `Runtime`, there won't be any null values forcing the rest of the Series values into `float` format.
 
-
-
-
-
-
-
-
-
-## Element-wise Functions with .apply()
-
-When applied to a Series object, the `.apply()` function is effectively the same as `.map()`. It's just another elementwise function. The difference is that you can pass it more complex functions (e.g. more than one line, conditionals, error handling, etc.), while `.map()` is mainly paired with simple lambda functions.
-
-* `s.apply()`
-
-As with `.map()`, if there are null values in the Series, an error will stop the code's execution. However, `.apply()` has no equivalent to the `na_action` parameter in `.map()`. If you don't want to drop all the rows with null values just to get your `.apply()` function working, you can **manually** skip over null values using the same logic behind the `na_action` parameter. For example, you can build in conditional logic or a try/except statement.
-
-### Reformat Runtime
-
-Down to business. Right now, the `Runtime` variable is in string format. If we want to include it in any quantitative analysis or even sort based on this column, we need the values to be numeric. Fixing this won't be as simple as typecasting because each value contains non-numeric characters.
-
-Start by making a temporary copy of the `Runtime` column for our `.apply()` operations.
+Make a temporary copy of the `Runtime` column:
 
 ```python
 temp_runtime = movies['Runtime'].copy()
-temp_runtime.head(3)
+temp_runtime
 ```
 
-Here's where we define our custom function. The best way to approach this is to test the function on a single value. By the way, even though we just dropped the rows with null values, we should still build in logic to avoid null values from causing issues.
+Define and test a custom function to remove `' min'` from each value and typecast it to an integer. By the way, even though we just dropped the rows with null values, we should still build in a try/except statement to catch other potential issues!
 
 ```python
 def runtime_reformat(row):
-    """remove min from str and convert field to int"""
+    """remove 'min' from str and convert field to int"""
     try:
         split_row = row.split(' ')
         numeric_runtime = int(split_row[0])
         return numeric_runtime
     except Exception as e:
-        # if pd.isnull(row), error will occur
-        # print(e)
+        print(e)
         return row
 
 test = temp_runtime[0]
@@ -294,7 +266,7 @@ temp_runtime = temp_runtime.apply(runtime_reformat)
 temp_runtime
 ```
 
-Assign our freshly cleaned Series back to the `movies` dataframe.
+Assign it back to the `movies` dataframe:
 
 ```python
 movies['Runtime'] = temp_runtime
@@ -315,55 +287,7 @@ print(len(shorts))
 shorts
 ```
 
-Drop these by grabbing their index labels and check to make sure they're gone.
-
-```python
-shorts_idx = list(shorts.index)
-movies.drop(labels=shorts_idx, axis=0, inplace=True)
-shorts = movies['Runtime'] < 45
-shorts.sum()
-```
-
-### Reformat Rotten Tomatoes
-
-Finally, we need to reformat `Rotten Tomatoes` ratings by simply stripping off the `%` character and typecasting it to a float. Technically, we can do this with `.map()`. We could use `lambda x: float(x.strip('%'))`. But instead, let's practice `.apply()` one more time! 
-
-```python
-temp_rt = movies['Rotten Tomatoes'].copy()
-temp_rt
-```
-
-Write and test the custom function.
-
-```python
-def strip_rt(row):
-    try:
-        stripped = float(row.strip('%'))
-        return stripped
-    except Exception as e:
-        # print(e)
-        return row
-        
-test = temp_rt[0]
-print(test)
-strip_rt(test)
-```
-
-Apply the function to the whole `Rotten Tomatoes` Series.
-
-```python 
-temp_rt = temp_rt.apply(strip_rt)
-temp_rt
-```
-
-Reassign it back to the `movies` dataframe.
-
-```python
-movies['Rotten Tomatoes'] = temp_rt
-movies['Rotten Tomatoes']
-```
-
-## Row- & Column-wise Functions with .apply()
+## BONUS: Row- & Column-wise Functions with .apply()
 
 You can also implement `.apply()` as dataframe method. In this context, `.apply()` is a **row-wise** or **column-wise** function. Here's the difference:
 
@@ -383,57 +307,23 @@ Of course, the `axis` parameter is what determines whether your function is row-
 
 ### Languages
 
-Finally, we'll repeat this with `Languages`. 
+*Notice that the rows with null values are NOT included here!*
+
+Drop these by grabbing their index labels and check to make sure they're gone.
 
 ```python
-null_lang = movies[pd.isnull(movies['Languages'])].copy()
-print(movies['Languages'].isnull().sum())
-null_lang
+shorts_idx = list(shorts.index)
+movies.drop(labels=shorts_idx, axis=0, inplace=True)
+shorts = movies['Runtime'] < 45
+shorts.sum()
 ```
 
-There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. So here's what we'll do...
 
-First, map the rest of the values as planned by setting `na_action='ignore'`
 
-```python
-temp_lang = movies['Languages'].copy()
 
-temp_lang = temp_lang.map(lambda x: x.split(','), na_action='ignore')
-temp_lang
-```
 
-```python
-movies['Languages'] = temp_lang
-movies['Languages']
-```
 
-Next, filter to find all the movies made before 1927...
 
-```python
-silent_films = movies[movies['Year'] < 1927].copy()
-silent_films
-```
-
-...and change their `Language` value to "Silent".
-
-```python
-silent_list = list(silent_films.index)
-
-for film in silent_list:
-    movies.loc[film, 'Languages'] = 'Silent'
-```
-
-Now look:
-
-```python
-movies[movies['Year'] < 1927]
-```
-
-### Here's our newly bright and shiny dataframe!
-
-```python
-movies.head()
-```
 
 ## New Functions Featured
 
@@ -448,3 +338,6 @@ Functions featured include (in order of appearance):
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 *TBD*
+
+
+
