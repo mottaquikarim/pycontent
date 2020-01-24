@@ -76,7 +76,6 @@ test_year = pd.to_numeric(test_year)
 type(test_year[0])
 ```
 
-
 ### The `.map()` function
 
 For the next few example, we'll leverage the `s.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
@@ -183,7 +182,7 @@ def votes_reformat(value):
     """remove commas from str and convert field to int"""
     try:
         split = value.split(',')
-        votes = int(''.join(split_row))
+        votes = int(''.join(split))
         return votes
     except Exception as e:
         return value
