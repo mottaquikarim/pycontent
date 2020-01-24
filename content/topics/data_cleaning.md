@@ -76,6 +76,7 @@ test_year = pd.to_numeric(test_year)
 type(test_year[0])
 ```
 
+
 ### The `.map()` function
 
 For the next few example, we'll leverage the `s.map(arg, na_action=None)` function, another **elementwise** function. You can use the `.map(arg, na_action=None)` function to substitute or transform each value in a Series with another value. `.map()` itself serves to pass along "instructions" for how to manipulate each element in the Series. Accordingly, the `arg` parameter will accept single-argument functions, dicts, or Series. As you might imagine, `.map()` requires us to pass it a "mapping" for the before and after values.
@@ -171,8 +172,8 @@ As with `.map()`, if there are null values in the Series, an error will stop the
 First, make a temporary copy of the `imdbVotes` column to use with our `.apply()` operations.
 
 ```python
-temp_runtime = movies['Runtime'].copy()
-temp_runtime.head(3)
+temp_imdbVotes = movies['imdbVotes'].copy()
+temp_imdbVotes.head(3)
 ```
 
 When you define a custom function to use with `.apply()`, it's always a good idea to test the function on a single value.
