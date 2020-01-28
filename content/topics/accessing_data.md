@@ -245,7 +245,7 @@ movies.iloc[4870:4875,0:1]
 * The general syntax for reading (i.e. loading) data is `pd.read_<format>(<path>)`
 * The general syntax for writing (i.e. saving) data is `pd.to_<format>(<path>)`
 * Use the `.info()` method to see a summary of the data in your dataframe. Series objects do NOT have this attribute.
-* `.head(n)` and `.tail(m)` return the first and last *n* elements of an object respectively. (i.e. values for a Series and rows for a Dataframe)
+* `.head(n)` and `.tail(n)` return the first and last *n* elements of an object respectively. (i.e. values for a Series and rows for a Dataframe)
 * `.set_index(data, drop=True)` allows you to assign custom index labels to a Series or dataframe
 * `.loc[]` selects and returns data by passing index **LABELS** as arguments
 * `.iloc[]` selects and returns data by passing index **POSITIONS** as arguments
