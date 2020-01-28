@@ -138,7 +138,7 @@ titles
 Return a subset of columns (in any order) as a new DataFrame:
 
 ```python
-movies[['Title', 'Genre', 'Director', 'Actors']]
+movies[['Title']] # NOT a Series object, but a one column Series
 ```
 
 For most other pieces of data that you want to select, you will use some variation of `.loc[]` or `.iloc[]`. It's vital to understand the difference between these two functions: 
@@ -187,7 +187,7 @@ movies.loc['tt0088763', 'Year']
 Select a single cell in a DataFrame by row & column index positions
 
 ```python
-movies.iloc[112, 8]
+movies.iloc[112, 0]
 ```
 
 ### **Subset of a Series**
@@ -230,13 +230,13 @@ movies.loc[labels]
 Select a chunk of a DataFrame by entering a range of row and column labels
 
 ```python
-movies.loc['tt4972582':'tt1396484','Title':'Runtime']
+movies.loc['tt4972582':'tt1396484','Title':'Year']
 ```
 
 Select a slice of a DataFrame by entering a range of row and column index positions
 
 ```python
-movies.iloc[4870:4875,0:5]
+movies.iloc[4870:4875,0:1]
 ```
 
 ## Key Takeaways
