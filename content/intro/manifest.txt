@@ -1,4 +1,5 @@
 - class_info.md: Class Info
 - tools.md: Tools
 - faq.md: FAQ
+- project_info.md: Final Project Info
 - about.md: About
