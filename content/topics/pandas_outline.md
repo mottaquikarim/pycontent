@@ -52,7 +52,7 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 >>regression?
 >>stats?
 >>
->>* groupyby
+>>* groupyby https://chrisalbon.com/python/data_wrangling/pandas_apply_operations_to_groups/
 
 
 

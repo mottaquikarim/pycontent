@@ -39,7 +39,7 @@ Below is a data dictionary for the *unaltered OMDb data*. (We've left the defini
 * **imdbRating**: Crowd-sourced audience rating from IMDb (from 0.0-10.0)
 * **imdbVotes**: Number of user ratings from IMDb
 * **imdbID**: Unique movie ID from IMDb
-* **Type**: Content category ==(e.g. movie, tv, etc.)==
+* **Type**: Content format
 * **DVD**: Date the movie was released to DVD
 * **BoxOffice**: Box office earnings in US dollars
 * **Production**: Production company
@@ -137,7 +137,7 @@ movies[movies['Title'] == 'The Intouchables']
 You have extra flexibility for columns containing strings. Pandas extends certain methods for string data types to these Series objects. For example, this returns all the movies that contain "Avengers" in the title:
 
 ```python
-movies[movies.Title.str.contains('Avengers')]
+movies[movies['Title'].str.contains('Avengers')]
 ```
 
 ### Remove TV Shows from Movie Data
@@ -263,7 +263,7 @@ movies[movies.duplicated(subset=['Title', 'Year'])]
 It's "The Cave", 2019. So let's look at all the rows where `Title` is "The Cave":
 
 ```python
-movies[movies.Title == 'The Cave']
+movies[movies['Title'] == 'The Cave']
 ```
 
 As expected, there are two rows with this Title/Year combination. The version with an id of `'tt8726180'` has less data, so let's drop that one. We can use a conditional to check whether that id is still in the dataframe after we try to drop it.
