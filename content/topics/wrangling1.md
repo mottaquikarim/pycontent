@@ -293,4 +293,4 @@ Functions featured include (in order of appearance):
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-*TBD*
+Practice using these methods in your copy of wrangling_pset.ipynb in Google Drive.
