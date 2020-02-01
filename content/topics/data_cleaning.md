@@ -327,7 +327,7 @@ null_lang
 
 There are 4 movies with `NaN` in their `Languages` field. But do you notice anything? The first movie with sound was The Jazz Singer, released in 1927. All four of these movies were released before that year. 
 
-* `fillna(value=None, inplace=False)`
+* `.fillna(value=None, inplace=False)`
 
 ```python
 movies['Languages'].fillna(value='Silent', inplace=True)
@@ -393,7 +393,8 @@ Functions featured include (in order of appearance):
 * `s.map(arg, na_action=None)`
 * `s.apply(func)`
 * `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
-* `df.apply(func, axis=0)`
+* `.fillna(value=None, inplace=False)`
+* `df.apply(func, axis=1)`
 * `s.fillna(value=None, inplace=False)`
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
