@@ -398,4 +398,4 @@ Functions featured include (in order of appearance):
 
 ## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Practice using these methods in your copy of cleaning_pset.ipynb in Google Drive.
+Practice using these methods in your copy of wrangling_pset2.ipynb in Google Drive.
