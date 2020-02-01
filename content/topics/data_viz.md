@@ -1,5 +1,9 @@
 # Data Visualization with Matplotlib & Seaborn
 
+https://towardsdatascience.com/geopandas-101-plot-any-data-with-a-latitude-and-longitude-on-a-map-98e01944b972
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html
+
 ![](https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/chart_types.png)
 
 In this section, we'll go over example code for different types of common visualizations.

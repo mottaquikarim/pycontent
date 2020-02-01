@@ -35,18 +35,24 @@
     * **`df.loc[row_start : row_end , col_start : col_end]`** -- index labels
     * **`df.iloc[row_start : row_end , col_start : col_end]`** -- index positions
 
-## Object Structuring
+## Object Structuring & Indexing
 
 * **`pd.Series(data=None, index=None, dtype=None, name=None, copy=False)`** -- create a Series object from list of data and index list or from dict
-	* `name` can serve to match with df col name
+    * `name` can serve to match with df col name
 * **`pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)`** -- create a DataFrame object
-* **`df.drop(axis, labels, index, columns=[col1, col2, ...])`** -- drops specified columns from the dataframe
+* **`obj.set_index(keys, drop=False, append=False, inplace=False)`**
+* **`obj.reset_index(drop=False, inplace=False)`** -- reset index to default integer index; adds current index as a col to the df when drop=False
+* **`obj.rename_axis(mapper=None, index=None, columns=None, axis=None, inplace=False)`** -- rename either the index or column(s), where mapper represents the new name
+* **`obj.rename(columns/index={'old_name': 'new_ name'}, inplace=False)`** -- rename specific columns (or index) with dict of old to new names
 * **`df.insert(loc, column, value)`** -- insert a col into a df at a specified index location
+* **`df.drop(axis, labels, index, columns=[col1, col2, ...])`** -- drops specified columns from the dataframe
 * **`df.update(other, join='left', overwrite=True, errors='ignore')`** -- update a df with values passed to `other`
-	* if a Series is passed in, its `name` attribute must match a column in the df
-	* always a `left` join to keep the index and columns of the original object
-	* `overwrite` signals whether or not to overwrite existing values for overlapping keys
-	* When `'raise'` is passed to `errors`, the function will raise a `ValueError` if both objects contain non-NA data in the same place
+    * if a Series is passed in, its `name` attribute must match a column in the df
+    * always a `left` join to keep the index and columns of the original object
+    * `overwrite` signals whether or not to overwrite existing values for overlapping keys
+    * When `'raise'` is passed to `errors`, the function will raise a `ValueError` if both objects contain non-NA data in the same place
+* **`s.replace([1,3],['one','three'])`** -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
+* **`df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)`** -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
 
 ## Data Wrangling
 
@@ -79,19 +85,6 @@
 * **`s.to_dict()`** -- convert Pandas Series to Python Dict type
 * **`s.to_frame()`** -- convert Pandas Series to Pandas Dataframe
 * **`s.to_string()`** -- convert the ENTIRE series into a single string
-
-### Indexing
-
-* **`obj.set_index(keys, drop=False, append=False, inplace=False)`**
-* **`obj.reset_index(drop=False, inplace=False)`** -- reset index to default integer index; adds current index as a col to the df when drop=False
-
-### Renaming & Replacing
-
-* **`df.rename(columns/index={'old_name': 'new_ name'}, inplace=False)`** -- rename specific columns (or index) with dict of old to new names
-* **`df.rename_axis('new_name', axis)`** -- rename the axis
-* `s.replace(1,'one')` -- replace all values equal to 1 with 'one'
-* **`s.replace([1,3],['one','three'])`** -- replace all values equal to 1 with 'one' and all values equal to 3 with 'three'
-* **`df.replace(to_replace=None, value=None, inplace=False, limit=None, regex=False)`** -- replace values (passed per `to_replace` param) in a DataFrame per those passed via `value` param.
 
 ### Sorting
 
@@ -156,6 +149,5 @@
 * **`s.cumsum()`** -- cummulative sum
 * **`s.comprod()`** -- cumulative product
 * **`s.cummin()`** -- cumulative minimum
-
 
 
