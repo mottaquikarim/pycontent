@@ -40,7 +40,7 @@ print('data loaded successfully')
 
 Having null values in your data can cause various issues with your code and with your analysis. Deciding how to deal with null values is a huge part of cleaning your data, and you have to think about each column contextually. At a high level, you can drop rows/columns containing null values or replace all instances of null values with some default value. 
 
-In addition to the "how", you also have to contextually consider the "when". You might decide to drop rows containing null values right away so that reformatting is straightforward. Maybe you have to reformat the data before you can fill it with a default value. Then again, you might wait to evaluate how much data is missing until you reformat your data and/or remove other bad data. For example, we had to get rid of all rows containing TV shows before we could sort by year because those rows contained non-numeric values such as "2009-2017".
+In addition to the "how", you also have to contextually consider the "when". You might decide to drop rows containing null values right away so that reformatting is straightforward. Maybe you have to reformat the data before you can fill it with a default value. Then again, you might wait to evaluate how much data is missing until you reformat your data and/or remove other bad data. For example, we had to get rid of all rows containing TV shows before we could sort by year because those rows contained non-numeric values such as "2009-2017". We'll be dropping rows with null values as we consider different variables.
 
 ## Element-wise Functions
 
@@ -318,7 +318,6 @@ Of course, the `axis` parameter is what determines whether your function is row-
 
 ### Languages
 
-
 ```python
 null_lang = movies[pd.isnull(movies['Languages'])].copy()
 print(movies['Languages'].isnull().sum())
@@ -334,15 +333,10 @@ movies['Languages'].fillna(value='Silent', inplace=True)
 movies.loc[null_lang.index]
 ```
 
-What if other early movies were incorrectly labeled? If we want to be consistent, we need to check and set those to "Silent" as well. Write a compound filter to find all the movies that:
-
-* were made before 1927
-* `Languages` value isn't "Silent"
-
-**NOTE!** When implementing compound filters, you have to use `&` and `|` instead of `and` and `or` respectively.
+What if other early movies were incorrectly labeled? If we want to be consistent, we need to check all the movies made before 1927 and set those to "Silent" as well.
 
 ```python
-silent_films = movies[(movies['Year'] < 1927) & (movies['Languages'] != 'Silent')]
+silent_films = movies[movies['Year'] < 1927]
 silent_films
 ```
 
@@ -383,6 +377,107 @@ Remember to reassign this new dataframe back to the `movies` variable before mov
 ```python
 movies = temp.copy()
 movies[movies['Year'] < 1927]
+```
+
+## Compound Filtering & Handling Null Movie Ratings 
+
+We can probably uncover some interesting insights by comparing different characteristics of movies to different ratings sources. For movies missing one or more ratings, we can always replace those null values with the mean of the column. However, a strict statistician would tell you that this distorts the accuracy of your results. And when there's money riding on the outcomes of your analyses, you probably want to aim as close to the bull's eye as possible.
+
+Ultimately, we want to know what proportion of movies is missing at least one rating. If it's too large, we might consider dropping one of the rating sources. The count of non-null values per column that we see with `.info()` will NOT answer this question for us. 
+
+```python
+movies.info()
+```
+
+We don't know whether each movie is missing one, both, or neither of the ratings from Rotten Tomatoes and Metacritic. We have to use compound filtering to determine the proportion of movies with complete ratings data vs. the proportion missing at least one rating. First, we need the total number of movies:
+
+```python
+whole_rows = len(movies)
+```
+
+Now we need to write a compound filter to return all the movies that:
+
+* have a rating from IMDb *AND*
+* have a rating from Rotten Tomatoes *AND*
+* have a rating from Metacritic
+
+**NOTE!** When implementing compound filters, you have to use `&` and `|` instead of `and` and `or` respectively.
+
+```python
+full_ratings = movies[pd.notnull(movies['imdbRating']) & pd.notnull(movies['Rotten Tomatoes']) & pd.notnull(movies['Metascore'])]
+
+p1 = len(full_ratings)
+print(f'{p1} movies, or', '{:.2%},'.format(p1/whole_rows), 'have ratings from all 3 sources.')
+```
+
+Next, we need to write a compound filter to return all the movies that:
+
+* are missing a rating from IMDb *OR*
+* are missing a rating from Rotten Tomatoes *OR*
+* hare missing a rating from Metacritic
+
+```python
+missing_rating = movies[pd.isnull(movies['Rotten Tomatoes']) | pd.isnull(movies['Metascore']) | pd.isnull(movies['imdbRating'])]
+
+p2 = len(missing_rating)
+print(f'{p2} movies, or', '{:.2%},'.format(p2/whole_rows), 'are missing a rating from at least one source.')
+```
+
+A good gut check to make sure your results line up with what you expect is to run this conditional:
+
+```python
+p1 + p2 == whole_rows
+```
+
+A significant chunk of these movies are missing at least one rating, but even if we remove those, we still have a relatively large sample size. As such, we'll drop all the rows missing a rating. 
+
+Notice how we pass `how='any'` *as well as* a subset of columns. This very specifically drops all the rows where *any column in the subset* contains a null value.
+
+```python
+movies.dropna(axis=0, how='any', subset=['imdbRating', 'Rotten Tomatoes', 'Metascore'], inplace=True)
+```
+
+
+## Missing Qualitative Data 
+
+With qualitative or categorical data, you can either drop null values or fill them with some version of an "Unknown" category. How you determine that value is really subjective.
+
+Let's see how many movies are missing data about their **actors**.
+
+```python
+missing_actors = movies[pd.isnull(movies['Actors'])]
+print(f'{len(missing_actors)} movies are missing actor info.\n')
+missing_actors
+```
+
+ALL of these are documentaries. Documentaries shouldn't theoretically have actors, so we can use `.fillna()` to update all of these with "None (Documentary)".
+
+```python
+movies['Actors'].fillna('None (Documentary)', inplace=True)
+movies['Actors'].isna().sum()
+```
+
+**How about writers?**
+
+```python
+missing_writer = movies[pd.isnull(movies.Writer)]
+print(f'{len(missing_writer)} movies are missing writer info.\n')
+missing_writer
+```
+
+It looks like a lot of there are documentaries too. We can isolate the ones which aren't documentaries by negating `movies['Genre'].str.contains('Documentary')`. To negate a whole condition, simply preface it with a tilde `~`.
+
+```python
+missing_doc_writer = movies[(pd.isnull(movies.Writer)) & ~movies['Genre'].str.contains('Documentary')]
+missing_doc_writer
+```
+
+Only one of them isn't a documentary. I looked up the outlier, so we could add it here. The rest, we can fill with "Unknown".
+
+```python
+movies.loc['tt4063178', 'Writer'] = 'Alex Ranarivelo, Ali Afshar'
+movies['Writer'].fillna('Unknown', inplace=True)
+movies['Writer'].isna().sum()
 ```
 
 ## New Functions Featured
