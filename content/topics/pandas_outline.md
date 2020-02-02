@@ -1,10 +1,9 @@
 # OMDb Movies Pandas Content Outline
 
->>.str.contains()????
+
+>>omdb data viz lab from PYTH2: https://colab.research.google.com/github/mottaquikarim/PythonProgramming/blob/master/app/src/Notebooks/omdb_viz_solution.ipynb#scrollTo=JMjiEiyRT1ey
+
 >>concat()
->>.isin()??
->>multiple condition filtering
-    >>"To combine filtering conditions in Pandas, use bitwise operators ('&' and '|') not pure Python ones ('and' and 'or')"
 
 
 >>https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
