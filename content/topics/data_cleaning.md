@@ -38,9 +38,9 @@ print('data loaded successfully')
 
 ## A Note on Handling Null Values
 
-Having null values in your data can cause various issues with your code and with your analysis. Deciding how to deal with null values is a huge part of cleaning your data, and you have to think about each column contextually. At a high level, you can drop rows/columns containing null values or replace all instances of null values with some default value. 
+Having null values in your data can cause various issues with your code and with your analysis. Deciding how to deal with null values is a huge part of cleaning your data, and you have to think about each column contextually. At a high level, you can drop rows/columns containing null values or replace all instances of null values with some default value (e.g. the mean, the value with the highest frequency, "Unknown", etc.). 
 
-In addition to the "how", you also have to contextually consider the "when". You might decide to drop rows containing null values right away so that reformatting is straightforward. Maybe you have to reformat the data before you can fill it with a default value. Then again, you might wait to evaluate how much data is missing until you reformat your data and/or remove other bad data. For example, we had to get rid of all rows containing TV shows before we could sort by year because those rows contained non-numeric values such as "2009-2017". We'll be dropping rows with null values as we consider different variables.
+In addition to the "how", you also have to contextually consider the "when". For example, we had to get rid of all rows containing TV shows before we could sort by year because those rows contained non-numeric values such as "2009-2017". In this lesson, we'll be dropping rows with null values as we explore different concepts and consider different variables.
 
 ## Element-wise Functions
 
