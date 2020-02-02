@@ -1,8 +1,10 @@
 # Data Visualization with Matplotlib & Seaborn
 
+>> https://github.com/mottaquikarim/PYTH2/blob/master/src/Topics/nb/data_viz.ipynb
+
 https://towardsdatascience.com/geopandas-101-plot-any-data-with-a-latitude-and-longitude-on-a-map-98e01944b972
 
-https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html
+http://queirozf.com/entries/pandas-dataframe-groupby-examples#groupby-plot-mean-with-error-bars
 
 ![](https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/chart_types.png)
 
