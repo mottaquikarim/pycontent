@@ -1,4 +1,9 @@
 >>https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ne.html#pandas.DataFrame.ne
+^^ finding intersection or its complement?
+
+>>categorical data
+https://www.datacamp.com/community/tutorials/categorical-data#exploration
+
 
 >>TESTING FUNCTIONS https://pandas.pydata.org/pandas-docs/stable/reference/general_utility_functions.html#testing-functions
 
@@ -15,14 +20,12 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 
 
 
-`get_dummies(data[, prefix, prefix_sep, …])`: Convert categorical variable into dummy/indicator variables.
-`factorize(values, sort, na_sentinel, …)`: Encode the object as an enumerated type or categorical variable.
-`cut(x, bins, right[, labels])`: Bin values into discrete intervals.
-`qcut(x, q[, labels])`: Quantile-based discretization function.
+
 
 
 ## Statistics
 
+* **`s.round(n)`** -- round each value to n decimal places
 * **`s.value_counts()`** -- 
 * **`s.mean()`** -- mean
 * **`s.median()`** -- median
@@ -39,30 +42,28 @@ https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-a
 * **`s.corr()`** -- Pearson Correlation coefficent
 * **`s.autocorr()`** -- autocorelation
 * **`df.sample(frac = 0.5)`** - randomly select a fraction of rows of a DataFrame
-* **`df.sample(n=10)`** - randomly select n rows of a DataFrame
+* **`df.sample(n=10)`** -- randomly select n rows of a DataFrame
 * **`s.cumsum()`** -- cummulative sum
 * **`s.comprod()`** -- cumulative product
 * **`s.cummin()`** -- cumulative minimum
 
 
-* `df.pct_change(self[, periods, …])`
-Percentage change between the current and a prior element.
+* **`df.pct_change(self[, periods, …])`** -- % change between the current and a prior element.
 
-* `df.quantile(q, axis, ...)`
-Return values at the given quantile over requested axis.
+* **`df.quantile(q, axis, ...)`** -- Return values at the given quantile over requested axis.
 
-* `df.rank(self[, axis])`
-Compute numerical data ranks (1 through n) along axis.
-
-* `df.round(decimals)`
-Round a DataFrame to a variable number of decimal places.
-
-## Grouping
+* **`df.rank(self[, axis])`** -- Compute numerical data ranks (1 through n) along axis.
+`get_dummies(data[, prefix, prefix_sep, …])`: Convert categorical variable into dummy/indicator variables.
+`factorize(values, sort, na_sentinel, …)`: Encode the object as an enumerated type or categorical variable.
+`cut(x, bins, right[, labels])`: Bin values into discrete intervals.
+`qcut(x, q[, labels])`: Quantile-based discretization function.
 
 
 ## Grouping
 
-DataFrame.groupby(self, by=None, axis=0, level=None, as_index: bool = True, sort: bool = True, group_keys: bool = True, squeeze: bool = False, observed: bool = False)
+
+
+
 ## Reshaping & Transposing
 
 

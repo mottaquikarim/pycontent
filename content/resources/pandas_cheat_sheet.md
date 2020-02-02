@@ -71,7 +71,6 @@
 * **`df.columns`** -- returns Index object containing the df's column labels
 * **`obj.index`** -- returns Index object containing the obj's row values
 * **`s.isunique`** -- returns boolean for whether Series values are unique
-* **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
 * **`.count()`**
 * **`.sum()`**
 * **`.unique()`**
@@ -129,7 +128,8 @@
 
 ## Statistics
 
-* **`s.value_counts()`** -- 
+* **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
+* **`s.value_counts()`** -- returns numerical frequency of each unique value in the Series
 * **`s.mean()`** -- mean
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
