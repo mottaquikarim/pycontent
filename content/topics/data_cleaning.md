@@ -431,12 +431,13 @@ p1 + p2 == whole_rows
 
 A significant chunk of these movies are missing at least one rating, but even if we remove those, we still have a relatively large sample size. As such, we'll drop all the rows missing a rating. 
 
-Notice how we pass `how='any'` *as well as* a subset of columns. This very specifically drops all the rows where *any column in the subset* contains a null value.
+Notice how we pass `how='any'` *as well as* a subset of columns. This very specifically drops all the rows where *any column in the subset* contains a null value. After that, we'll be able to typecast the `imdbVotes` column to `int64` because there won't be any null values to stop us!
 
 ```python
 movies.dropna(axis=0, how='any', subset=['imdbRating', 'Rotten Tomatoes', 'Metascore'], inplace=True)
+movies['imdbVotes'] = movies['imdbVotes'].astype('int64')
+movies.info()
 ```
-
 
 ## Missing Qualitative Data 
 
@@ -468,7 +469,7 @@ missing_writer
 It looks like a lot of there are documentaries too. We can isolate the ones which aren't documentaries by negating `movies['Genre'].str.contains('Documentary')`. To negate a whole condition, simply preface it with a tilde `~`.
 
 ```python
-missing_doc_writer = movies[(pd.isnull(movies.Writer)) & ~movies['Genre'].str.contains('Documentary')]
+missing_doc_writer = movies[(pd.isnull(movies.Writer)) & ~movies['Genres'].str.contains('Documentary')]
 missing_doc_writer
 ```
 
@@ -478,6 +479,13 @@ Only one of them isn't a documentary. I looked up the outlier, so we could add i
 movies.loc['tt4063178', 'Writer'] = 'Alex Ranarivelo, Ali Afshar'
 movies['Writer'].fillna('Unknown', inplace=True)
 movies['Writer'].isna().sum()
+```
+
+The **Production** companies are a bit more complicated. The values need to be disamiguated, and there are over 150 missing data. So for the purposes of this course, we'll just fill the null values with "Indie".
+
+```python
+movies['Production'].fillna('Indie', inplace=True)
+movies.info()
 ```
 
 ## New Functions Featured
