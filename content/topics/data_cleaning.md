@@ -461,7 +461,7 @@ movies['Actors'].isna().sum()
 **How about writers?**
 
 ```python
-missing_writer = movies[pd.isnull(movies.Writer)]
+missing_writer = movies[pd.isnull(movies['Writer'])]
 print(f'{len(missing_writer)} movies are missing writer info.\n')
 missing_writer
 ```
@@ -469,7 +469,7 @@ missing_writer
 It looks like a lot of there are documentaries too. We can isolate the ones which aren't documentaries by negating `movies['Genre'].str.contains('Documentary')`. To negate a whole condition, simply preface it with a tilde `~`.
 
 ```python
-missing_doc_writer = movies[(pd.isnull(movies.Writer)) & ~movies['Genres'].str.contains('Documentary')]
+missing_doc_writer = movies[(pd.isnull(movies['Writer'])) & ~movies['Genres'].str.contains('Documentary')]
 missing_doc_writer
 ```
 
