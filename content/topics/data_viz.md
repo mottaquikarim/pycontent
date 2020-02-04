@@ -8,6 +8,10 @@ http://queirozf.com/entries/pandas-dataframe-groupby-examples#groupby-plot-mean-
 
 ![](https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/chart_types.png)
 
+
+>>groupby plot mean with error bars
+http://queirozf.com/entries/pandas-dataframe-groupby-examples#groupby-plot-mean-with-error-bars
+
 In this section, we'll go over example code for different types of common visualizations.
 
 ==We'll use this dataset!!!!!!!!!!!!!! TBD??????????????==
@@ -28,6 +32,11 @@ Below is a brief review of the key points about data visualization & storytellin
 - The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
 - Visual considerations include: position, color, order, size. 
 - With data visualizations becoming increasingly popular, a clean and clear chart goes a long way in conveying a message from a data set.==
+
+
+>>IMAGE OF PLOT ELEMENTS
+<img src="../images/plot_elements.png" style="margin: 0 auto; float: right;"/>
+
 
 ## Line Graphs
 ==- change over time; continuous not discrete
