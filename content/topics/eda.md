@@ -1,19 +1,10 @@
 # Basic EDA (Exploratory Data Analysis)
 
-## Objectives
-
-
-
 ### Import
 
 ```python
 import pandas as pd
 import numpy as np
-from scipy import stats
-import matplotlib.pyplot as plt
-%matplotlib inline
-import seaborn as sns
-
 print('import successful')
 ```
 
@@ -23,6 +14,28 @@ Load the data with `imdbID` as the index and make a copy.
 omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_eda.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
+```
+
+For simplicity's sake, we want only one value for Genres, Languages, and Country. Run these cells to temporarily change that in the movies dataframe. Note that we're renaming the former two columns to make them singular.
+
+```python
+def single_val(v):
+    x = v.replace(' ', '')
+    y = x.split(',')
+    z = y[0]
+    return z
+
+g = movies['Genres'].iloc[:10] 
+g = g.apply(single_val)
+g
+```
+
+```python
+movies['Genres'] = movies['Genres'].apply(single_val)
+movies['Languages'] = movies['Languages'].apply(single_val)
+movies['Country'] = movies['Country'].apply(single_val)
+movies.rename(columns={'Genre': 'Genre', 'Language': 'Language'}, inplace=True)
+movies.head(10)
 ```
 
 ## Summary & Descriptive Statistics
@@ -38,50 +51,134 @@ Generally speaking, histograms represent "how frequently or infrequently certain
 
 ## Describing Data in Pandas
 
-In a Pandas dataframe, each row represents an item in your sample space, and each column is a variable representing some numerical or categorical characteristic of the items. Thus, each column will have its own set of descriptive statistics. Below is a quick overview of Pandas Series methods that return basic descriptive statistics for each column, or variable.
+In a Pandas dataframe, each row represents an item in your sample space, and each column is a variable representing some numerical or categorical characteristic of the items. Thus, each column will have its own set of descriptive statistics. Below is a quick overview of Pandas Series methods that return basic descriptive statistics for each column, or variable...
 
-**Measures of Central Tendency** i.e. Where's the middle of the data?
+* **`.describe(include=np.object)`** -- returns count, mean, standard deviation, min, max, & IQR (interquartile range)
+    * *only includes numerical columns by default*
+
+^^ We'll define most of these individually below in the context of some of the OMDb variables!
+
+### Averages
 
 * **`s.mean()`** -- the simple average; 
     * *Downside is that it's greatly affected by outliers in the data!*
 * **`s.median()`** -- in a lineup of ordinal data, the median is the middle number or category
 * **`s.mode()`** -- the number or category that occurs most often in the dataset
+    * Notice that even if this only returns one value, it returns a Series object
 
-**Measures of Variability** i.e. How spread out are the values, or how far away are they from the average?
+```python
+imdb_ratings = movies['imdbRating']
+
+mean_imdb = imdb_ratings.mean()
+median_imdb = imdb_ratings.median()
+mode_imdb = imdb_ratings.mode()
+
+print(f'''
+MEAN: {mean_imdb}, 
+type = {type(mean_imdb)}
+
+MEDIAN: {median_imdb}, 
+type = {type(median_imdb)}''')
+
+print(f'''
+MODE: {mode_imdb}, 
+type = {type(mode_imdb)}''')
+```
+
+### Ranges
 
 * **`s.min()`** -- minimum; smallest value in the variable's data
 * **`s.max()`** -- maximum; largest value in the variable's data
-* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 < q < 1.
+* *range* -- max value minus the min value
+* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1
+
+Most often, people speak of "quartiles" which divide the data into 4 equal parts, each containing 25% of the data. As you can see below, the 2nd quartile is always the median.
 
 <img src="../images/quartiles.png" style="margin: 0 auto;"/>
 
+People use the **IQR (Interquartile Range)** to describe the middle two quartiles of data. You calculate by taking the difference between the 3rd quartile and the 1st quartile. It's more useful than the regular range *because it excludes outliers*, which can skew your analysis.
+
+Examine how quartiles overlap with other key statistical measures within the context of the `imdbRating` variable:
+
+```python
+imdbRating_quantiles = movies['imdbRating'].quantile(q=[0, 0.25, 0.5, 0.75, 1])
+imdbRating_quantiles
+```
+
+Here we construct a dataframe to label these values contextually:
+
+```python
+imdb_quartiles = pd.DataFrame(index=['Min', '1st Quartile', '2nd Quartile (aka Median)', '3rd Quartile', 'Max'])
+imdb_quartiles['Quantile'] = imdbRating_quantiles.index.values
+imdb_quartiles['Value per imdbRating'] = imdbRating_quantiles.values
+imdb_quartiles
+```
+
+Finally, we calculate the IQR:
+
+```python
+imdb_iqr = imdb_ratings.quantile(0.75) - imdb_ratings.quantile(0.25)
+print(f'imdbRating IQR = {imdb_iqr}')
+```
+
+### Relative Frequency
+
+We already know about using `s.value_counts()` to obtain a count of each unique value within a Series object, but did you know that we can also get percentages from it? This method has a parameter called `normalize`, which is set to `False` by default. However, when you set it to `True`...
+
+**`s.value_counts(normalize=True)`** -- returns percentages that represent each unique value's relative frequency within the data
+
+Take a look at the percentage of movies made by each of the top 10 directors
+
+```python
+movies['Director'].value_counts(normalize=True).nlargest(10)
+```
+
+### Practice with Basic Descriptive Stats
+
+#### 1) What's the longest movie?
+
 ```python
 
-labels = ['min', 'Q1', 'Q2/Median', 'Q3', 'max']
-quantiles = {
-    'min': imdb_min,
+```
 
-    '' 
-    
-}
-movies['imdbRating'].quantile(q=[0.25, 0.5, 0.75])
+#### 2) What's the IQR of Metascore?
+
+```python
+
+```
+
+#### 3) What's the percent difference between the average critic rating and the average audience rating (i.e. Rotten Tomatoes and imdbRating)? 
+
+```python
+
+```
+
+#### 4) What country has produced the most movies?
+
+```python
+
+```
+
+#### 5) What span of years do the movies in our sample cover?
+
+```python
 
 ```
 
 
-IQR: Interquartile range
-    -- useful because it excludes outliers, which can skew your analysis
+## Functions Featured
 
-
-
-* **`s.quantile(x)`** -- quantile
-* **`ss.iqr()`** -- interquartile range
-
-**Measures of Frequency**
-
-* **`s.value_counts()`** -- returns numerical frequency of each unique value in the Series
+* **`.describe(include=np.object)`** -- returns count, mean, standard deviation, min, max, & IQR (interquartile range)
+    * *only includes numerical columns by default*
+* **`s.mean()`** -- the simple average; 
+    * *Downside is that it's greatly affected by outliers in the data!*
+* **`s.median()`** -- in a lineup of ordinal data, the median is the middle number or category
 * **`s.mode()`** -- the number or category that occurs most often in the dataset
+* **`s.min()`** -- minimum; smallest value in the variable's data
+* **`s.max()`** -- maximum; largest value in the variable's data
+* *range* -- max value minus the min value
+* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1
+* *IQR (Interquartile Range)* -- (3rd quartile minus 1st quartile)
+* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
 
 
-
->>Analyzing data usually focuses on 
