@@ -128,13 +128,13 @@
 
 ## Statistics
 
-* **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); only includes numerical columns by default*
-* **`s.value_counts()`** -- returns numerical frequency of each unique value in the Series
+* **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); *only includes numerical columns by default*
+* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
 * **`s.mean()`** -- mean
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
 * **`s.max()`** -- maximum
-* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 < q < 1.
+* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1.
     * Can pass multiple values for q to return a Series of quantiles
 * **`s.var()`** -- variance
 * **`s.std()`** -- standard deviation
