@@ -18,35 +18,24 @@
     	>>* https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 
 
-## Dropping vs. Filling Null Values
-
-explain how correlation doesn't work if vars are not identically distributed
-
->>Some common options include:
-* Drop the whole column if it has a small percentage of non-null data,  e.g. We dropped the `Box Office` column from the original dataframe for this reason. 
-* Drop all rows with data missing in ANY of the variables.
-* Drop all rows with missing data only in a specific column or set of columns vital to your analysis.
-* Replace null values with the mean for numerical data
-* Replace null values with the frequency for categorical data. 
-* Replace null values with some other piece of default data.
-
-
->>"Drop the data:
-Drop the whole row (line #2)
-Drop the whole column (the same as line #2 but with axis = 1)
-Replace the data:
-Replace NaN with the mean (numerical data) (line #8)
-Replace NaN with the frequency (categorical data) (line #14)
-Replace with another function (here we can use a function with np.vectorize() or the .apply() method)" -- Pyariksha Tiluk *"Python & pandas: serving data cleaning realness. You better wrangle!"**
-
 ## Basic Stats
 
 https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
 
->> Measures of central tendency
->> Measures of spread
+>> population vs. sample
+>> descriptive statistics
 >> What is a distribution?
+	>> A histogram can often add visual context to these measures. Histograms visualize the data's **probability distribution**, which is a function showing how often the values for a variable occur within the population or sample.
+
+>> Measures of Central Tendency
+>> Measures of Variability (Spread)
+>> Measuring Asymmetry
+	>> skewness important bc stats requires vars to be 
+>>Measuring Frequency
 >> Simple test?
+
+
+
 
 Min: The smallest value in the column
 Max: The largest value in the column
@@ -103,9 +92,9 @@ It can be difficult to inspect movies.groupby('Genre') because it does virtually
 
 <img src="../images/split-apply-combine.png" style="margin: 0 auto; float: right;"/>
 
-How the split-apply-combine chain of operations works
+"How the split-apply-combine chain of operations works
 How to decompose the split-apply-combine chain into steps
-How methods of a Pandas GroupBy object can be placed into different categories based on their intent and result
+How methods of a Pandas GroupBy object can be placed into different categories based on their intent and result" -- RealPython
 
 
 >>Aggregation:
@@ -113,17 +102,8 @@ How methods of a Pandas GroupBy object can be placed into different categories b
 	>>df.groupby('')
 
 
-
-
-
-1. **Aggregation** calculate some summary statistics for each group
-
-
-2. **Filter** methods "come back to you with a subset of the original DataFrame. This most commonly means using .filter() to drop entire groups based on some comparative statistic about that group and its sub-table. It also makes sense to include under this definition a number of methods that exclude particular rows from each group."
-3. 
-3. **Transformation** "methods return a DataFrame with the same shape and indices as the original, but with different values. With both aggregation and filter methods, the resulting DataFrame will commonly be smaller in size than the input DataFrame. This is not true of a transformation, which transforms individual values themselves but retains the shape of the original DataFrame."
-4. **Meta** "methods are less concerned with the original object on which you called .groupby(), and more focused on giving you high-level information such as the number of groups and indices of those groups."
-5. **Plotting** "methods mimic the API of plotting for a Pandas Series or DataFrame, but typically break the output into multiple subplots."
+**Aggregation** calculate some summary statistics for each group
+**Meta** focuses on obtaining information about the resultant groups as opposed to the original dataframe
 
 
 ## Correlation
@@ -148,6 +128,7 @@ How methods of a Pandas GroupBy object can be placed into different categories b
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
 * **`s.max()`** -- maximum
+* **`s.iqr()`** -- interquartile range
 * **`s.quantile(x)`** -- quantile
 * **`df.rank(na_option='keep', )`** -- rank each 
 * **`s.var()`** -- variance
