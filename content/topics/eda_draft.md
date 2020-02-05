@@ -35,18 +35,26 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
 >> Simple test?
 
 
+### Variability
+
+Measures of variability quantify how dispersed the values in the dataset are, usually relative to their mean. 
+
+The most basic measures of this are **variance**, **standard devitation**, and the **coefficient of variation**.
+
+<img src="https://365datascience.com/wp-content/uploads/2018/09/image7.jpg"/>
 
 
-Min: The smallest value in the column
-Max: The largest value in the column
-Quartile: A quartile is one fourth of our data
-First quartile: This is the bottom most 25 percent
-Median: The middle value. (Line all values biggest to smallest - median is the middle!) Also the 50th percentile
-Third quartile: This the the top 75 percentile of our data
+* **`s.var()`** -- variance measures the spread of the data by 
+* **`s.std()`** -- standard deviation
 
-<img src="../images/quartiles.png" style="margin: 0 auto;"/>
+sample variance quantifies the spread of the data. It shows numerically how far the data points are from the mean.  the unit of measurement is squared. 
+
+The sample standard deviation is another measure of data spread. It’s connected to the sample variance, as standard deviation, 𝑠, is the positive square root of the sample variance. The standard deviation is often more convenient than the variance because it has the same unit as the data points.
 
 
+the coefficient of variation has its edge over standard deviation when it comes to comparing data. coefficient of variation. It is equal to the standard deviation, divided by the mean. good for comparing bc it is unit agnostic
+
+`scipy.stats.variation(a[, axis, nan_policy])` -- compute the coefficient of variation, the ratio of the biased standard deviation to the mean
 
 `s.value_counts(self, normalize=False, sort=True, ascending=False, bins=None, dropna=True)` -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
 	* when bins=n, instead of counting unique values, group them into n half-open bins (similar to pd.cut())
@@ -106,6 +114,36 @@ How methods of a Pandas GroupBy object can be placed into different categories b
 **Meta** focuses on obtaining information about the resultant groups as opposed to the original dataframe
 
 
+
+
+
+## Grouping Data in Pandas
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
 ## Correlation
 
 
@@ -128,8 +166,9 @@ How methods of a Pandas GroupBy object can be placed into different categories b
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
 * **`s.max()`** -- maximum
-* **`s.iqr()`** -- interquartile range
-* **`s.quantile(x)`** -- quantile
+* **`scipy.stats.iqr()`** -- interquartile range
+ **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1.
+    * Can pass multiple values for q to return a Series of quantiles
 * **`df.rank(na_option='keep', )`** -- rank each 
 * **`s.var()`** -- variance
 * **`s.std()`** -- standard deviation
