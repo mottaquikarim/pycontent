@@ -99,7 +99,7 @@ The main difference between a bar chart and histogram is that histograms are use
 
 ## Box & Whiskers Plot
 
-
+sns.boxplot(x='diagnosis', y='area_mean', data=df)
 
 
 ## Linear Regression
