@@ -134,7 +134,8 @@
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
 * **`s.max()`** -- maximum
-* **`s.quantile(x)`** -- quantile
+* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 < q < 1.
+    * Can pass multiple values for q to return a Series of quantiles
 * **`s.var()`** -- variance
 * **`s.std()`** -- standard deviation
 * **`s.mad()`** -- mean absolute variation
