@@ -44,7 +44,8 @@ We'll start by defining some basic stats terms. When speaking about data, a **po
 
 The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization. **Histograms** often accompany descriptive statistics to help provide visual context about the measure's relation to the dataset as a whole. 
 
-<img src="https://plot.ly/static/img/literacy/fig5.gif" style="margin: 0 auto;"/>
+<img src="https://plot.ly/static/img/literacy/fig5.gif" style="margin: 0 auto; width:60%"/>
+
 *Image from Plotly: https://help.plot.ly/histogram/#what-is-a-histogram*
 
 Generally speaking, histograms represent "how frequently or infrequently certain values occur in a given set of data." In other words, they visualize the **distribution** of the data.
@@ -94,7 +95,7 @@ type = {type(mode_imdb)}''')
 
 Most often, people speak of "quartiles" which divide the data into 4 equal parts, each containing 25% of the data. As you can see below, the 2nd quartile is always the median.
 
-<img src="../images/quartiles.png" style="margin: 0 auto;"/>
+<img src="https://www.mathsisfun.com/data/images/quartiles-a.svg" style="margin: 0 auto;"/>
 
 People use the **IQR (Interquartile Range)** to describe the middle two quartiles of data. You calculate by taking the difference between the 3rd quartile and the 1st quartile. It's more useful than the regular range *because it excludes outliers*, which can skew your analysis.
 
@@ -165,6 +166,50 @@ movies['Director'].value_counts(normalize=True).nlargest(10)
 
 ```
 
+## Grouping Data in Pandas
+
+In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. 
+
+**`df.groupby(by=None, sort=True,)`** -- return a `Groupby object`
+
+For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, break it down like this:
+
+**Split**: Separate our DataFrame by a specific attribute, for example, group by Color
+**Combine**: Put our DataFrame back together and return some *aggregated* metric, such as the sum, count, or max.
+
+<img src="http://i.imgur.com/yjNkiwL.png" style="margin: 0 auto; width:60%"/>
+
+
+* Which 15 languages are rated highest on average by critics?
+
+```python
+movies.groupby('Language')['Rotten Tomatoes'].mean().sort_values(ascending=False).iloc[:15]
+```
+
+* What proportion of movies made in each year of the 1980s did each genre make up?
+
+```python
+movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
+```
+
+* Within a sample of 100 movies, how many movies were made in each Country?
+
+```python
+sample1 = movies.sample(100)
+sample1
+
+sample1.groupby('Country')['Year'].value_counts(normalize=True)
+```
+
+* More...
+
+```python
+sample1.groupby('Language')['Runtime'].max()
+```
+
+```python
+sample1.groupby('Genre')['imdbVotes'].min()
+```
 
 ## Functions Featured
 
