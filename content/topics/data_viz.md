@@ -14,28 +14,58 @@ http://queirozf.com/entries/pandas-dataframe-groupby-examples#groupby-plot-mean-
 
 In this section, we'll go over example code for different types of common visualizations.
 
-==We'll use this dataset!!!!!!!!!!!!!! TBD??????????????==
-
 ## Review
 
 Below is a brief review of the key points about data visualization & storytelling from the "Data Science Foundations" section.
 
 * Visualizations serve to quickly explain features and conclusions about data to your stakeholders.
 * As such, they should be *simple*, *uncluttered*, and *clearly labeled*. Less is more.
+* Visual considerations include position, color, order, & size.
 * The best visualizations tell a story about the data by illustrating key points supporting your thesis and conclusions.
 * Most importantly, *consider your audience* when crafting your story.
+* The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
 
-## Foundations of Matplotlib & Seaborn 
-
-
-==Choosing the right chart for your data is subjective. There are pros and cons to each. Choosing a chart type depends firstly on the data you have. Secondly, it depends on the clearest way to convey your message. The alignment of these two aspects will help you decide what type of visualization to use.
-- The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
-- Visual considerations include: position, color, order, size. 
-- With data visualizations becoming increasingly popular, a clean and clear chart goes a long way in conveying a message from a data set.==
-
-
->>IMAGE OF PLOT ELEMENTS
 <img src="../images/plot_elements.png" style="margin: 0 auto; float: right;"/>
+
+## Which Charts Say What?
+
+Choosing the right chart to visualize parts of your data is somewhat subjective. It hinges mainly on:
+* The type of data you have
+* The message you're trying to convey
+
+**The goal is always to convey your message in the clearest, cleanest way possible.** For reference here is a breakdown of which charts are commonly used to illustrate different statements and/or relationships:
+
+
+>>https://www.machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/
+>>https://seaborn.pydata.org/tutorial.html
+
+### 
+
+
+
+### Correlation
+
+
+### Composition
+
+Bar chart
+Waffle chart
+Pie charts* not recommended because it's hard to register the size of the differences
+Treemap
+
+
+## Foundations of Matplotlib & Seaborn
+
+```python
+import numpy as np
+import pandas pd
+from scipy import stats
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+print('import successful')
+```
 
 
 ## Line Graphs
