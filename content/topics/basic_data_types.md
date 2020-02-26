@@ -104,6 +104,7 @@ num4 = orig_num / 5 # 2
 num5 = orig_num % 5 # 0
 num6 = orig_num % 3 # 1
 ```
+
 ### String Operators
 
 To print out multiple variables within one `print()` statement...
@@ -186,6 +187,7 @@ f = str(False) # 'False'
 
 str_to_True_bool = bool('peach') # True (<class 'bool'>)
 ```
+
 The **ONLY** way a *string* converted into a boolean will be False is if it's **empty** (as seen above). Spaces count as characters even though they wouldn't display anything if printed. We can prove this by finding the length of a string that only contains spaces.
 
 ```python
