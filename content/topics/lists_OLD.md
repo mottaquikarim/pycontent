@@ -188,7 +188,6 @@ more_pies = ['lemon meringue', 'strawberry peach', 'banana cream']
 pies.extend(more_pies)
 print(f'.extend(): {pies}')
 ```
-
 In the next example, take a look at how `.extend()` only considers individual values of the parent list passed in. It still adds the nested lists - `['f', 'g']` and `['h', 'i']` - to our list `x` as their own items.
 
 ```python
