@@ -1,4 +1,4 @@
-# Lists - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
+# Lists
 
 In order to begin to truly write dynamic programs, we need to be able to work with data even when we do not know how much we have. Since *variables hold only one item*, Python has some objects that hold collections of data. A **list** object is one of those. **Lists** hold multiple items, called **elements**. List elements can represent any data type, and most, importantly, *a single list can hold any mix of different data types, **including other lists**.*
 
