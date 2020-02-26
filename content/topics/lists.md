@@ -307,7 +307,6 @@ pies3: {pies3}
 ''')
 ```
 
-
 ### Update/Replace Items in a List
 
 To replace items in a list, you reference them by their index position and simply declare a new value. The general syntax is `my_list[<index>] = <value>`. 
@@ -326,9 +325,9 @@ pies[1] = ['key lime', 'lemon meringue']
 print(pies)
 ```
 
-If you specify a range of index positions, 
+If you specify a range of index positions, each item in the group gets added individually (sort of like `.extend()`). Here are a few examples...
 
-This removes everything from index position 1 onward and replaces it with the 
+* This replaces everything from index position 1 onward with the three new elements passed.
 
 ```python
 pies = ['strawberry', 'banana cream', 'key lime']
@@ -337,6 +336,7 @@ print(pies)
 # ['strawberry', 'blueberry', 'cherry', 'blackberry']
 ```
 
+* This replaces every element up to, but NOT including index position 2 with the three new elements passed. Notice how the *three* new elements replaced only *two* existing elements.
 
 ```python
 pies = ['strawberry', 'blueberry', 'cherry', 'blackberry']
@@ -345,14 +345,16 @@ print(pies)
 # ['apple', 'pumpkin', 'pecan', 'cherry', 'blackberry']
 ```
 
+* Even if you pass one new element, it must be in `list` format. Otherwise, Python will try to break it up into a list like the below...
 
 ```python
 pies1 = ['strawberry', 'banana cream', 'key lime', 'apple', 'pumpkin']
 pies2 = pies1[:]
+
 pies1[1:3] = ['blueberry']
 pies2[1:3] = 'blueberry'
-print(pies1)
-print(pies2)
+print(pies1) # ['strawberry', 'blueberry', 'apple', 'pumpkin']
+print(pies2) # ['strawberry', 'b', 'l', 'u', 'e', 'b', 'e', 'r', 'r', 'y','apple', 'pumpkin']
 ```
 
 #### Join Items
@@ -371,7 +373,7 @@ print(f'{sentence}.') # 'this is fun.'
 
 #### Split Items
 
-Conversely, you can separate a string using `.split('by_char')`, which will parse values out of a string and turn each value into a list item. This one doesn't work for single words you might want to split into individual characters. That said, you *can* specify what character should convey to the method when to split out a new item. By default, `.split('by_char')` will use a space character to split the string.
+Conversely, you can separate a string using `.split(<by_char>)`, which will parse values out of a string and turn each value into a list item. This one doesn't work for single words you might want to split into individual characters. That said, you *can* specify what character should convey to the method when to split out a new item. By default, `.split(<by_char>)` will use a space character to split the string.
 
 ```python
 x = 'this is fun'
@@ -528,6 +530,7 @@ letters = ['b', 'e', 'c', 'a', 'd']
 descending = sorted(letters, reverse=True)
 print(descending) # ['e', 'd', 'c', 'b', 'a']
 ```
+
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
@@ -535,7 +538,23 @@ Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google 
 
 ## Summary
 
-==need to recreate==
-
-<img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Lists_Summary.png?raw=true" width="100%" align="left"/>
-
+* Pass comma-separated values within `[]` to create a list object
+* An element's *index position* refers to its numerical place in the list. The index always starts at 0, i.e. the first element of the list is at index position 0.
+* Access a list elements based on its index position using the syntax `my_list[<index>]`
+* `len()` will return the length of the list
+* `.append()` adds an element to the end of a list
+	* If you pass a group of elements to `.append()`, they get added as a *single* element.
+* To elements from a group to a list individually, pass the group to `.extend()`
+* `.pop()` removes the last item from the list
+	* Pass an index position into `.pop()` to remove a specific element
+* `my_list[idx] = new_value` updates an element at a specific index position
+* To create a deep, or completely separate, copy, use `my_list[:]`
+* For numerical lists...
+	* Use `sum()` to find the total of all the numbers in the list
+	* Use `max()` and `min()` to return the highest and lowest numbers in the list respectively 
+* `.index()` returns the index position of a specific item in the list
+* `.count()` returns the number of occurrences of some item within a list
+* `.join()` compile your list items into a single string
+* `.split(<by_char>)` will split a string at each occurence of <char> and group those items in a list
+* `.sort()` or `sorted()` will sort a list in ascending order
+	* Pass `reverse = True` to either one to sort the list in descending order
