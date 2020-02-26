@@ -142,4 +142,7 @@ total = subtotal + tip
 print(f'{total:.2f}')
 ```
 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Complete the "Shopping List" PSET in your copy of `basic_data_types_psets.ipynb` in Google Drive.
 
