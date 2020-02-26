@@ -1,11 +1,4 @@
-# Tuples & Sets
-
-## Objectives
-
-
-
-
-
+# Tuples & Sets - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
 
 ## Tuples
 
@@ -166,5 +159,3 @@ Here's a **[helpful list](https://snakify.org/en/lessons/sets/#section_4)** of o
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Complete the "List Manipulation" PSET in your copy of `lists_psets.ipynb` in Google Drive. Then, try to solve the "List Challenges" PSET.
-
-## Summary
