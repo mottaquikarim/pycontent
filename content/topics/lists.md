@@ -1,4 +1,4 @@
-# Lists
+# Lists - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
 
 In order to begin to truly write dynamic programs, we need to be able to work with data even when we do not know how much we have. Since *variables hold only one item*, Python has some objects that hold collections of data. A **list** object is one of those. **Lists** hold multiple items, called **elements**. List elements can represent any data type, and most, importantly, *a single list can hold any mix of different data types, **including other lists**.*
 
@@ -56,7 +56,7 @@ print(sentence)
 
 The **list index** means the location of each element in the list. List indexes start counting at 0!
 
-|  List | "Brandi" | "Zoe" | "Steve" | "Aleksander" | "Dasha" |
+|  List | 'snickerdoodles' | 'shortbread' | 'oatmeal raisin' | 'gingersnaps' | 'macarons' |
 |:-----:|:--------:|:-----:|:-------:|:------:|:------:|
 | Index |     0    |   1   |    2    |    3   |    4   |
 
@@ -64,11 +64,12 @@ The **list index** means the location of each element in the list. List indexes 
 To access one of them use the syntax `list_name[index_position]`.
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-print(my_class[0]) # Prints "Brandi"
-print(my_class[1]) # Prints "Zoe"
-print(my_class[4]) # Prints "Dasha"
+cookies = ['snickerdoodles', 'shortbread', 'oatmeal raisin', 'gingersnaps', 'macarons']
+print(cookies[0]) # snickerdoodles
+print(cookies[1]) # shortbread
+print(cookies[4]) # macarons
 ```
+
 What if you want to grab a single element from a list nested within a list though? Simply add another level of index selection.
 
 ```python
@@ -80,64 +81,61 @@ print(nested_lists[1][0]) # trapeze
 The `len()` function will give you the total number of list elements (regardless of data type).
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Aleksander', 'Dasha']
-num_students = len(my_class)
-print(num_students) # 5
+cookies = ['snickerdoodles', 'shortbread', 'oatmeal raisin', 'gingersnaps', 'macarons']
+types_of_cookies = len(cookies)
+print(types_of_cookies) # 5
 ```
+
 >>**REMEMBER!** 
 >>Because the index starts at 0, the index position of the last item in the list will NOT be equal to the list's length.
 
 If you pass in any list index greater than or equal to the length of the list, you will get an `IndexError`:
 
 ```python
-print(my_class[num_students])
+print(cookies[types_of_cookies])
 ### IndexError: list index out of range
 ```
+
 Aside from merely finding the length, `len()` comes in handy if you need to dynamically select the last element of a list. Logically, the length of the list minus 1 will give you the index of the last list element, i.e. `index_of_last_element = len(list_name) - 1`.
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-num_students = len(my_class)
+cookies = ['snickerdoodles', 'shortbread', 'oatmeal raisin', 'gingersnaps', 'macarons']
+types_of_cookies = len(cookies)
 
-# (num_students - 1) is the index of the last element
-print(my_class[num_students - 1]) # Dasha
+# (types_of_cookies - 1) is the index of the last element
+print(cookies[types_of_cookies - 1]) # Dasha
 ```
 
 That brings us to something called **negative indexing**. Because of the above rule, Python allows you to take this shortcut to access the last list element:
 
 ```python
-print(my_class[-1])
+print(cookies[-1])
 ```
+
 Likewise, as you count backwards from the last list element, the negative index extends...
 
 ```python
-print(f'2nd to last item is {my_class[-2]}')
-print(f'3rd to last item is {my_class[-3]}')
+print(f'2nd to last item is {cookies[-2]}')
+print(f'3rd to last item is {cookies[-3]}')
 ```
 
 ### Selecting Ranges
 
-To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `my_list[2:7]`. It's important to remember that **the upper bound is NOT inclusive**. In other words, if you want the elements at index 3 and index 4, you have to write `[3:5]`. (Likewise, `my_class[1:1]` would print nothing.) 
+To select multiple items from a list, simply pass the range of indeces which hold the desired elements, e.g. `my_list[2:7]`. It's important to remember that **the upper bound is NOT inclusive**. In other words, if you want the elements at index 3 and index 4, you have to write `[3:5]`. (Likewise, `my_list[1:1]` would print nothing.) 
 
 ```python
-my_class = ['Roxanne', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-print(my_class[3:5])
+cookies = ['snickerdoodle', 'chocolate chip', 'shortbread', 'oatmeal raisin', 'gingerbread', 'pizelle', 'macarons', 'gingersnaps']
+print(cookies[3:5])
 ```
+
 Ommitting one or both bounds acts as a shortcut when the length and order of your list might vary. It allows you to say, "Give me everything from the beginning of the list to index `x`" or "Give me everything from index `x` and onward."
 
 ```python
-my_class = ['Roxanne', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+cookies = ['snickerdoodle', 'chocolate chip', 'shortbread', 'oatmeal raisin', 'gingerbread', 'pizelle', 'macarons', 'gingersnaps']
 
 print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
 
 print('[2:] -- ', my_class[2:]) # Index 2 through end of list
-```
-
-### Copying Lists
-
-
->>shallow vs. deep copy w. [:]
-```python
 ```
 
 #### Practice together!
@@ -250,6 +248,65 @@ pies = ['cherry', 'lemon meringue', 'pecan', 'key lime', 'blackberry', 'strawber
 eaten = pies.pop(2) # Remember to count from 0!
 print(f'The {eaten} pie got eaten.')
 ```
+
+### Copying Lists
+
+You can create a copy of a list simply by declaring a new variable and setting it equal to the existing list, as seen with `pies2` below. In contrast, you can create a *deep copy*, one that doesn't point back to the original, using `[:]` as seen with `pies3` below.
+
+```python
+pies1 = ['strawberry', 'cherry', 'blackberry', 'blueberry']
+pies2 = pies1
+pies3 = pies1[:]
+
+print(f'''
+pies1: {pies1}
+pies2: {pies2}
+pies3: {pies3}
+''')
+```
+
+Let's look at the difference in action. With the first method, you're saying that `pies2` points to the place in memory where `pies1` is stored. That means if you edit `pies2`, you're effectively editing `pies1` along with it.
+
+```python
+pies1 = ['strawberry', 'cherry', 'blackberry', 'blueberry']
+pies2 = pies1
+
+print(f'''
+BEFORE:
+pies1: {pies1}
+pies2: {pies2}
+''')
+
+pies2.pop()
+
+print(f'''
+AFTER pies2.pop():
+pies1: {pies1}
+pies2: {pies2}
+''')
+```
+
+A deep copy creates a *separate instance* of the list in the program's memory so that the two are not tied together at all. Editing a deep copy like `pies3` will NOT alter `pies1`.
+
+```python
+pies1 = ['strawberry', 'cherry', 'blackberry', 'blueberry']
+pies3 = pies1[:]
+
+print(f'''
+BEFORE:
+pies1: {pies1}
+pies2: {pies3}
+''')
+
+pies3.pop()
+
+print(f'''
+AFTER pies3.pop():
+pies1: {pies1}
+pies3: {pies3}
+''')
+```
+
 
 ### Update/Replace Items in a List
 
