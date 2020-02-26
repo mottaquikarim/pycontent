@@ -536,7 +536,7 @@ print(descending) # ['e', 'd', 'c', 'b', 'a']
 Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
 
 
-## Summary
+## Key Takeaways
 
 * Pass comma-separated values within `[]` to create a list object
 * An element's *index position* refers to its numerical place in the list. The index always starts at 0, i.e. the first element of the list is at index position 0.
