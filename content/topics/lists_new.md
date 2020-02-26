@@ -133,6 +133,13 @@ print('[:2] -- ', my_class[:2]) # All indeces up to, but NOT including index 2
 print('[2:] -- ', my_class[2:]) # Index 2 through end of list
 ```
 
+### Copying Lists
+
+
+>>shallow vs. deep copy w. [:]
+```python
+```
+
 #### Practice together!
 
 ```python
@@ -166,9 +173,10 @@ If you want to add elements to a list, you can use any of the below methods:
 * `.append()`: adds items to the end of a list in one chunk
 * `.extend()`: adds items to the end of a list individually
 * `.insert(index, value)`: adds an item to a specific position in the list
-* `[index] = value`: adds item to a specific position in the list
 
-Let's go through some examples. First, we'll look at the difference between `.append()` and `.extend()`. As mentioned above, `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add *each* element of the group *individually*. 
+#### `.append()` vs. `.extend()`
+
+Let's go through some examples. First, we'll look at the difference between `.append()` and `.extend()`. As mentioned above, `.append()` will add whatever value or group of values you pass it *in one chunk*. In contrast, if you pass a group of values into `.extend()`, it will add *each* element of the group *individually*.
 
 **APPEND**
 
@@ -179,6 +187,7 @@ more_pies = ['lemon meringue', 'strawberry peach', 'banana cream']
 pies.append(more_pies)
 print(f'.append(): {pies}\n')
 ```
+
 **EXTEND**
 
 ```python
@@ -189,18 +198,9 @@ pies.extend(more_pies)
 print(f'.extend(): {pies}')
 ```
 
-In the next example, take a look at how `.extend()` only considers individual values of the parent list passed in. It still adds the nested lists - `['f', 'g']` and `['h', 'i']` - to our list `x` as their own items.
+In the next example, take a look at how `.extend()` only considers individual values of the *parent list* passed in. It still adds the nested lists - `['f', 'g']` and `['h', 'i']` - to our list `x` as their own items.
 
 ```python
-# APPEND
-x = ['a', 'b', 'c', 'd']
-y = ['e', ['f', 'g'], ['h', 'i'], 'j']
-x.append(y)
-print(y)
-# ['a', 'b', 'c', 'd', ['e', ['f', 'g'], ['h', 'i'], 'j']]
-
-
-# EXTEND
 x = ['a', 'b', 'c', 'd']
 y = ['e', ['f', 'g'], ['h', 'i'], 'j']
 x.extend(y)
@@ -213,18 +213,17 @@ print(x)
 If you want to add an item to a specific point in your list, you can pass the desired index and value into `.insert()` as follows.
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
-my_class.insert(1, 'Sanju')
-print(my_class)
-# ['Brandi', 'Sanju', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
+pies = ['apple', 'pumpkin', 'pecan', 'blueberry']
+pies.insert(1, 'key lime')
+print(pies)
 ```
+
 Whatever you pass into the `value` parameter will be added as a single element though!
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
-my_class.insert(1, ['Sanju', 'Reginald'])
-print(my_class)
-# ['Brandi', ['Sanju', 'Reginald'], 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
+pies = ['apple', 'pumpkin', 'pecan', 'blueberry']
+pies.insert(1, ['lemon meringue', 'strawberry peach'])
+print(pies)
 ```
 
 ### Remove Items from a List
@@ -235,12 +234,10 @@ Likewise, you can use `.pop()` or `.pop(index)` to remove any type of element fr
 - Removes an item from the end of the list.
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
-student_that_left = my_class.pop()
-print(f'{student_that_left} has left the class.')
-# Sonyl has left the class.
-print(my_class)
-# ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
+pies = ['cherry', 'lemon meringue', 'pecan', 'key lime', 'blackberry', 'strawberry peach', 'blueberry']
+eaten = pies.pop()
+print(f'The {eaten} pie got eaten.')
+print(pies)
 ```
 
 #### `.pop(index)`
@@ -249,28 +246,57 @@ print(my_class)
 - Can take an index.
 
 ```python
-my_class = ['Brandi', 'Zoe', 'Steve', 'Aleksander', 'Dasha']
-student_that_left = my_class.pop(2) # Remember to count from 0!
-print('The student', student_that_left, 'has left the class.')
-# 'Steve'
-print(my_class)
-# => ['Brandi', 'Zoe', 'Aleksander', 'Dasha']
+pies = ['cherry', 'lemon meringue', 'pecan', 'key lime', 'blackberry', 'strawberry peach']
+eaten = pies.pop(2) # Remember to count from 0!
+print(f'The {eaten} pie got eaten.')
 ```
 
-### Edit Items in a List
+### Update/Replace Items in a List
 
-#### Update/Replace Items
-
-To replace items in a list, you reference them by their index value and simply declare a new value for that element.
+To replace items in a list, you reference them by their index position and simply declare a new value. The general syntax is `my_list[<index>] = <value>`. 
 
 ```python
-x = ['Brandi', 'Sanju', 'Zoe', 'Steve', 'Aleksander', 'Dasha', 'Sonyl']
-
-x[1] = 'Raju'
-x[4:] = ['Chloe', 'Phoebe']
-print(x)
+pies = ['apple', 'pumpkin', 'pecan', 'blueberry']
+pies[0] = 'banana cream'
+print(pies)
 ```
 
+Let's say you specify one index position and pass a group of elements like the below. That group *as a whole* replaces the element at the specified index position.
+
+```python
+pies = ['banana cream', 'pumpkin', 'pecan', 'blueberry']
+pies[1] = ['key lime', 'lemon meringue']
+print(pies)
+```
+
+If you specify a range of index positions, 
+
+This removes everything from index position 1 onward and replaces it with the 
+
+```python
+pies = ['strawberry', 'banana cream', 'key lime']
+pies[1:] = ['blueberry', 'cherry', 'blackberry']
+print(pies)
+# ['strawberry', 'blueberry', 'cherry', 'blackberry']
+```
+
+
+```python
+pies = ['strawberry', 'blueberry', 'cherry', 'blackberry']
+pies[:2] = ['apple', 'pumpkin', 'pecan']
+print(pies)
+# ['apple', 'pumpkin', 'pecan', 'cherry', 'blackberry']
+```
+
+
+```python
+pies1 = ['strawberry', 'banana cream', 'key lime', 'apple', 'pumpkin']
+pies2 = pies1[:]
+pies1[1:3] = ['blueberry']
+pies2[1:3] = 'blueberry'
+print(pies1)
+print(pies2)
+```
 
 #### Join Items
 
