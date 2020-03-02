@@ -1,8 +1,12 @@
 # Tuples & Sets - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
 
+## Objective
+
+Learn the properties of tuples and sets, which are special subsets of lists.
+
 ## Tuples
 
-Tuples are a special subset of lists. They are *immutable* in that they cannot be changed after creation. Tuples are denoted with `()` as opposed to `[]`.
+Tuples are a special subset of lists. Tuples are *immutable* in that they cannot be changed after creation. Tuples are denoted with `()` as opposed to `[]`.
 
 Similar to lists, you can declare tuples with `tuple()` or just `()`. Again, the former can only take one argument, but is useful when you're creating a tuple from an existing list.
 
