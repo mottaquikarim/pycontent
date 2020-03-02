@@ -1,4 +1,4 @@
-# Tuples & Sets - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
+# Tuples & Sets
 
 ## Objective
 
