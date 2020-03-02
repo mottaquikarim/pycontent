@@ -347,3 +347,6 @@ Got it? After the first three iterations, `a` shrinks to fewer than three items 
 
 Your program will get stuck here, so you want to make sure you pay special attention to the control flow when you write loops!
 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Take a shot at the problems in your copy of `loop_psets.ipynb` in Google Drive.
