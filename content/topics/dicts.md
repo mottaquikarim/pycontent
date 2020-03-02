@@ -61,10 +61,10 @@ There are several ways you can create your `dict`, but we'll go through the most
 food_groups = {} # this creates a new, empty dict
 
 food_groups = {
-	'pomegranate': 'fruit',
-	'asparagus': 'vegetable',
-	'goat cheese': 'dairy',
-	'walnut': 'legume'
+    'pomegranate': 'fruit',
+    'asparagus': 'vegetable',
+    'goat cheese': 'dairy',
+    'walnut': 'legume'
 }
 
 print(food_groups)
@@ -78,10 +78,10 @@ Just like with the `list()` method, `dict()` only accepts one argument, meaning 
 food_groups = dict() # this creates a new, empty dict
 
 food_groups = dict({
-	'pomegranate': 'fruit',
-	'asparagus': 'vegetable',
-	'goat cheese': 'dairy',
-	'walnut': 'legume'
+    'pomegranate': 'fruit',
+    'asparagus': 'vegetable',
+    'goat cheese': 'dairy',
+    'walnut': 'legume'
 })
 
 print(food_groups)
@@ -101,7 +101,7 @@ print(wordFrequency) # {'this': 77, 'there': 45, 'hi': 10, 'at': 23, 'Hello': 7}
 
 ### Method 4: Use `zip()` to convert two lists into dict keys and values
 
-The `.zip()` method takes the names of each list as parameters - the first list will become the dict's keys, and the second list will become the dict's values.
+The `zip()` method takes the names of each list as parameters - the first list will become the dict's keys, and the second list will become the dict's values.
 
 **NOTE!** *This only works if you're sure the key/value pairs have the same index position in their original lists (so they will match in the dict).*
 
@@ -119,10 +119,10 @@ Once you've stored data in your dict, you'll need to be able to get back in and 
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 ```
 
@@ -132,10 +132,10 @@ You *CANNOT* access dict items with index positions like you do with lists! If y
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 
 MAcap = state_capitals['MA']
@@ -146,10 +146,10 @@ Attempting to find a key that does not exist leads to error.
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 
 print(state_capitals['PA']) # KeyError from missing key
@@ -160,10 +160,10 @@ Instead, it's better to look up a key in a dict using `.get(key)`. The `.get(key
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 
 print(state_capitals.get('PA', []))
@@ -287,10 +287,10 @@ You can add a single item to dict in two ways. The first way is similar to updat
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 
 state_capitals['CA'] = 'Sacramento'
@@ -302,10 +302,10 @@ print(state_capitals) # {'NY': 'Albany', 'NJ': 'Trenton', 'CT': 'Hartford', 'MA'
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston'
 }
 
 state_capitals.update('CA': 'Sacramento')
@@ -317,34 +317,34 @@ The `.update()` method also allows you to make bulk updates. In that case, you c
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Trenton',
-	'CT': 'Hartford',
-	'MA': 'Boston',
-	'CA': 'Sacramento'
+    'NY': 'Albany',
+    'NJ': 'Trenton',
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento'
 }
 more_states = {
-	'WA': 'Olympia',
-	'OR': 'Salem',
-	'TX': 'Austin',
-	'NJ': 'Hoboken',
-	'AZ': 'Phoenix',
-	'GA': 'Atlanta'
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'NJ': 'Hoboken',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 state_capitals.update(more_states)
 
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Hoboken',
-	'CT': 'Hartford',
-	'MA': 'Boston',
-	'CA': 'Sacramento',
-	'WA': 'Olympia',
-	'OR': 'Salem',
-	'TX': 'Austin',
-	'AZ': 'Phoenix',
-	'GA': 'Atlanta'
+    'NY': 'Albany',
+    'NJ': 'Hoboken',
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento',
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 ```
 
@@ -356,16 +356,16 @@ state_capitals = {
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Hoboken',
-	'CT': 'Hartford',
-	'MA': 'Boston',
-	'CA': 'Sacramento',
-	'WA': 'Olympia',
-	'OR': 'Salem',
-	'TX': 'Austin',
-	'AZ': 'Phoenix',
-	'GA': 'Atlanta'
+    'NY': 'Albany',
+    'NJ': 'Hoboken',
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento',
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 state_capitals.clear()
@@ -383,16 +383,16 @@ Unfortunately, you *can't* use the same method as we did for `.update()` to dele
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Hoboken',
-	'CT': 'Hartford',
-	'MA': 'Boston',
-	'CA': 'Sacramento',
-	'WA': 'Olympia',
-	'OR': 'Salem',
-	'TX': 'Austin',
-	'AZ': 'Phoenix',
-	'GA': 'Atlanta'
+    'NY': 'Albany',
+    'NJ': 'Hoboken',
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento',
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 state_capitals.pop('AZ', [])
@@ -404,25 +404,22 @@ This one just removes an arbitrary key value pair from dict and returns it as a 
 
 ```python
 state_capitals = {
-	'NY': 'Albany',
-	'NJ': 'Hoboken',
-	'CT': 'Hartford',
-	'MA': 'Boston',
-	'CA': 'Sacramento',
-	'WA': 'Olympia',
-	'OR': 'Salem',
-	'TX': 'Austin',
-	'AZ': 'Phoenix',
-	'GA': 'Atlanta'
+    'NY': 'Albany',
+    'NJ': 'Hoboken',
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento',
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 seceded1 = state_capitals.popitem()
 # ^ removes a random item and returns it as a tuple
 print(seceded1) # ('GA': 'Atlanta') for example
 ```
-### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
-
-Try out all the dict PSETs in your copy of `dict_psets.ipynb` in Google Drive.
 
 ## Iterating Through Dicts
 
@@ -471,7 +468,6 @@ amount: 10.0"""
 
 #### By Key
 
-
 ```python
 transaction = {
   "amount": 10.00,
@@ -514,6 +510,28 @@ print(dict1)
 } """
 ```
 
-## Summary
+## Key Takeaways
 
-<img src="https://github.com/mottaquikarim/PYTH2/blob/master/assets/Dicts_Summary.png?raw=true" width="100%" align="left"/>
+* To create a dict:
+    * Pass comma-separated `key : value` pairs within `{}`
+    * Pass a list of tuples to `dict()`
+    * Pass two lists to `zip()`
+* Unlike a list, a dict is inherently unordered and thus has no index.
+* Access a value by referencing its key using `my_dict[key]` or `.get(key, [])`. The latter is preferable because it guards against `KeyErrors` from referencing missing keys.
+* `my_dict[key] = value` and `.update(key, value)` both add or update a specific key/value pair based on whether the key passed exists already in the dict or not
+    * You can also pass another dict into `.update()` in order to make bulk edits 
+* `.update(key, value)` adds or updates a key/value pair based on whether the key passed exists already in the dict or not
+* `.pop(key, value)` removes a key/value pair from the dict
+* The following methods return list-like objects that isolate certains of a dict:
+    * `.keys()` returns the keys
+    * `.values()` returns the values
+    * `.items()` returns the key/value pairs as tuples 
+* `len(my_dict.items())` will return the number of pairs in the dict
+* To iterate through a dict, use one of the following as the context requires:
+    * `for key in my_dict.keys():`
+    * `for value in my_dict.values():`
+    * `for key, value in my_dict.items():`
+
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Try out all the dict PSETs in your copy of `dict_psets.ipynb` in Google Drive.
