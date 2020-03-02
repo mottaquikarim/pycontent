@@ -5,8 +5,8 @@
 - conditionals.md: Conditionals
 - lists.md: Lists
 - tuples_sets.md: Tuples & Sets
-- dicts.md: Dicts
 - loops.md: Loops
+- dicts.md: Dicts
 - functions.md: Functions
 - classes.md: Classes
 - data_science.md: Principles of Data Science
