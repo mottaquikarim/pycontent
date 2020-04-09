@@ -35,6 +35,15 @@ print('import successful')
 
 *`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
 
+#### Load the data
+
+```python
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_eda.csv', index_col='imdbID')
+movies = omdb_orig.copy()
+print('data loaded successfully')
+```
+
+
 ## Matplotlib Overview
 
 
