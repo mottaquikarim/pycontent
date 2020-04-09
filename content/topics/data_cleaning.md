@@ -481,7 +481,7 @@ movies['Writer'].fillna('Unknown', inplace=True)
 movies['Writer'].isna().sum()
 ```
 
-The **Production** companies are a bit more complicated. The values need to be disamiguated, and there are over 150 missing data. So for the purposes of this course, we'll just fill the null values with "Indie".
+The **Production** companies are a bit more complicated. The values need to be disambiguated, and there are over 150 missing data. So for the purposes of this course, we'll just fill the null values with "Indie".
 
 ```python
 movies['Production'].fillna('Indie', inplace=True)
