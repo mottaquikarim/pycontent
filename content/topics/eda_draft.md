@@ -2,7 +2,11 @@
 
 ## Objectives
 
+>>https://git.generalassemb.ly/mashaelalzaid/Titanic_lab
+>>https://git.generalassemb.ly/A-bdullah/Pandas-Labs/blob/master/Titanic-Lab-solution2.ipynb
+
 >>* basic stats concepts
+	>>* qualities of variables (randomness & independence)
 	>>* distributions
 	>>* measures of central tendency
 	>>* ways to handle null values and why choosing the right one is important
@@ -22,6 +26,7 @@
 
 https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
 
+>>
 >> population vs. sample
 >> descriptive statistics
 >> What is a distribution?
