@@ -13,6 +13,7 @@
 >>* groupby
 	>> .agg()
 	>> df.groupby('column').agg(['count', 'mean', 'max', 'min'])
+	>> <img src="http://i.imgur.com/yjNkiwL.png" style="margin: 0 auto; width:60%"/>
 >>* basic descriptive stats
 	>>word frequency in the plot col?
 	>>* binning (i.e. .cut())
