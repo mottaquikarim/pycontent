@@ -132,6 +132,11 @@ sns.set()
 sinplot()
 ```
 
+```python
+cpal = ['#3399FF', '#dbb409', '#b43df7', '#2ecc71', '#fa62b7', '#ff8e30', '#e63565']
+# sns.palplot(sns.color_palette(cpal))
+```
+
 
 ```python
 sns.set(context='notebook', style='ticks', palette='BrBG', font_scale=1.2, rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
@@ -139,10 +144,11 @@ sinplot()
 ```
 
 
-```python
+## Line Graphs
 
-```
+>>built-in datasets: https://github.com/mwaskom/seaborn-data
 
+Show the trend of a numerical variable over time
 
 ```python
 
