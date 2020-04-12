@@ -18,7 +18,7 @@ Below is a brief review of the key points about data visualization & storytellin
 * Most importantly, *consider your audience* when crafting your story.
 * The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
 
-## Import Libraries & Load Data
+### Import Libraries & Load Data
 
 ```python
 import numpy as np

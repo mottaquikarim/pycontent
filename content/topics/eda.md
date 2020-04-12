@@ -152,10 +152,21 @@ In Pandas, groupby statements are similar to pivot tables in that they allow us 
 
 For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, break it down like this:
 
-**Split**: Separate our DataFrame by a specific attribute, for example, group by Color
-**Combine**: Put our DataFrame back together and return some *aggregated* metric, such as the sum, count, or max.
+**Split**: Separate our DataFrame by a specific attribute, in this case, `Country`. Now each unique `Country` value represents a group of movies.
+
+**Apply**: For the movies within each Country group, find the mean of their `Runtime` values. 
+
+**Combine**: Put our DataFrame back together and return an *aggregated* metric corresponding to each group. In this case, we would end up with the average movie Runtime for each unique Country.
 
 <img src="http://i.imgur.com/yjNkiwL.png" style="margin: 0 auto; width:60%"/>
+
+This is the code for the above example:
+
+```python
+movies.groupby('Country')['Runtime'].mean()
+```
+
+### More Groupby Examples
 
 * Which 15 languages are rated highest on average by critics?
 
