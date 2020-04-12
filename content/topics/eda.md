@@ -15,7 +15,7 @@ print('import successful')
 Load the data with `imdbID` as the index and make a copy.
 
 ```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_eda.csv', index_col='imdbID')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
@@ -182,7 +182,6 @@ For example, if we want to know the average movie length by country of productio
 **Combine**: Put our DataFrame back together and return some *aggregated* metric, such as the sum, count, or max.
 
 <img src="http://i.imgur.com/yjNkiwL.png" style="margin: 0 auto; width:60%"/>
-
 
 * Which 15 languages are rated highest on average by critics?
 

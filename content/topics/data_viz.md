@@ -18,7 +18,7 @@ Below is a brief review of the key points about data visualization & storytellin
 * Most importantly, *consider your audience* when crafting your story.
 * The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
 
-## Import & Set Up Libraries
+## Import Libraries & Load Data
 
 ```python
 import numpy as np
@@ -32,6 +32,14 @@ print('import successful')
 ```
 
 *`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
+
+Load the data with `imdbID` as the index and make a copy.
+
+```python
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
+movies = omdb_orig.copy()
+print('data loaded successfully')
+```
 
 ## Anatomy of a Plot
 
