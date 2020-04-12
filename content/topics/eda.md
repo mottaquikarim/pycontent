@@ -1,6 +1,6 @@
 # Basic EDA (Exploratory Data Analysis)
 
-### Import
+### Import Libraries & Load Data
 
 ```python
 import pandas as pd
@@ -20,39 +20,13 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-For simplicity's sake, we want only one value for Genres, Languages, and Country. Run these cells to temporarily change that in the movies dataframe. Note that we're renaming the former two columns to make them singular.
-
-```python
-def single_val(v):
-    x = v.replace(' ', '')
-    y = x.split(',')
-    z = y[0]
-    return z
-
-g = movies['Genres'].iloc[:10] 
-g = g.apply(single_val)
-g
-```
-
-```python
-movies['Genres'] = movies['Genres'].apply(single_val)
-movies['Languages'] = movies['Languages'].apply(single_val)
-movies['Country'] = movies['Country'].apply(single_val)
-movies.rename(columns={'Genre': 'Genre', 'Language': 'Language'}, inplace=True)
-movies.head(10)
-```
+**For simplicity's sake**, we edited the Genre, Language, and Country columns such that each movie only has one value for each. **This compromises the statistical integrity, but our analysis is only for learning the code. No one's making investment decisions off this info!**
 
 ## Summary & Descriptive Statistics
 
 We'll start by defining some basic stats terms. When speaking about data, a **population** encompasses the *entire* set of items you're interested in, while a **sample** consists of a subset of those items. This is analagous to the difference between all the movies ever made (population) and the movies in our OMDb dataset (sample). Obtaining data on complete populations usually isn't feasible, so most statistical analyses are based on samples.
 
-The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization. **Histograms** often accompany descriptive statistics to help provide visual context about the measure's relation to the dataset as a whole. 
-
-<img src="https://plot.ly/static/img/literacy/fig5.gif" style="margin: 0 auto; width:60%"/>
-
-*Image from Plotly: https://help.plot.ly/histogram/#what-is-a-histogram*
-
-Generally speaking, histograms represent "how frequently or infrequently certain values occur in a given set of data." In other words, they visualize the **distribution** of the data.
+The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization.
 
 ## Describing Data in Pandas
 

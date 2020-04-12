@@ -22,6 +22,9 @@
     	>>* https://towardsdatascience.com/getting-more-value-from-the-pandas-value-counts-aa17230907a6
 
 
+
+
+
 ## Basic Stats
 
 https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
@@ -38,6 +41,20 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
 	>> skewness important bc stats requires vars to be 
 >>Measuring Frequency
 >> Simple test?
+
+## Summary & Descriptive Statistics
+
+We'll start by defining some basic stats terms. When speaking about data, a **population** encompasses the *entire* set of items you're interested in, while a **sample** consists of a subset of those items. This is analagous to the difference between all the movies ever made (population) and the movies in our OMDb dataset (sample). Obtaining data on complete populations usually isn't feasible, so most statistical analyses are based on samples.
+
+The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization. **Histograms** often accompany descriptive statistics to help provide visual context about the measure's relation to the dataset as a whole. 
+
+<!--<img src="https://plot.ly/static/img/literacy/fig5.gif" style="margin: 0 auto; width:60%"/>
+
+*Image from Plotly: https://help.plot.ly/histogram/#what-is-a-histogram*-->
+
+Generally speaking, histograms represent "how frequently or infrequently certain values occur in a given set of data." In other words, they visualize the **distribution** of the data.
+
+
 
 
 ### Variability
