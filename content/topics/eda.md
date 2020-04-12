@@ -146,21 +146,65 @@ movies['Director'].value_counts(normalize=True).nlargest(10)
 
 ## Grouping Data in Pandas
 
-In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. 
+In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, we'll break it down.
 
-**`df.groupby(by=None, sort=True,)`** -- return a `Groupby object`
+### Breaking Down GroupBy Statements
 
-For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, break it down like this:
+**1. Split**:
 
-**Split**: Separate our DataFrame by a specific attribute, in this case, `Country`. Now each unique `Country` value represents a group of movies.
+**`df.groupby(by=None, sort=True)`** -- return a **GroupBy** object
 
-**Apply**: For the movies within each Country group, find the mean of their `Runtime` values. 
+First, use `.groupby()` to separate our dataframe into groups by a specific attribute. The resultant GroupBy object can be thought of as a **collection of groups.** 
 
-**Combine**: Put our DataFrame back together and return an *aggregated* metric corresponding to each group. In this case, we would end up with the average movie Runtime for each unique Country.
+```python
+gb = movies.groupby('Country')
+gb
+```
 
-<img src="http://i.imgur.com/yjNkiwL.png" style="margin: 0 auto; width:60%"/>
+Printing out `g` above only shows the user the GroupBy object as an abstraction. To get a little more information, access the GroupBy object's `.groups` attribute. This will show you the name of each group and a corresponding subset of rows (referenced by their index labels) from the original dataframe. In our example, you'll see that each unique `Country` represents a subset of movies.
 
-This is the code for the above example:
+```python
+gb.groups
+```
+
+Notice the structure of the dict above. What if you wanted to return the movies in a certain group as their own independent dataframe? You'd access the dict key to obtain the group of index labels. You'd then use this group of index labels to filter out your desired rows from the original dataframe. That's what happens behind the scenes if you use the built-in `GroupBy.get_group()` method.
+
+```python
+argentina = gb.get_group('Argentina')
+argentina
+```
+
+**2. Apply**: 
+
+The reason we broke the dataframe into groups was to apply some function or calculation to each group. In our case, we want to know the average Runtime for the movies in each group.
+
+We just saw above how to manually get each group as its own dataframe. If we wanted, we could manually calculate the average Runtime for each Country's movies.
+
+Here's the result for Argentina's movies:
+
+```python
+argentina = argentina['Runtime'].mean()
+```
+
+And Australia... 
+
+```python
+australia = gb.get_group('Australia')['Runtime'].mean()
+```
+
+**3. Combine**: 
+
+Finally, we would combine those results into a Series summarizing the Average Movie Runtime for each country. 
+
+```python
+avg_runtimes = {'Argentina': argentina, 'Australia': australia}
+runtime_by_country = pd.Series(data=avg_runtimes, name='Average Movie Runtime')
+runtime_by_country
+```
+
+GroupBy objects eliminate the need to do this manually. If we put the whole groupby statement together, it will do all of these steps for us at once:
+
+*Notice that, by default, the data is sorted on the group names.*
 
 ```python
 movies.groupby('Country')['Runtime'].mean()
@@ -174,30 +218,32 @@ movies.groupby('Country')['Runtime'].mean()
 movies.groupby('Language')['Rotten Tomatoes'].mean().sort_values(ascending=False).iloc[:15]
 ```
 
-* What proportion of movies made in each year of the 1980s did each genre make up?
+* For each year of the 1980s, what was the genre distribution of movies made (in percentages)?
 
 ```python
 movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
 ```
 
+* Which genre got the fewest votes on IMDb as a group? 
+
+```python
+movies.groupby('Genre')['imdbVotes'].sum().sort_values()
+```
+
 * Within a sample of 100 movies, how many movies were made in each Country?
 
 ```python
-sample1 = movies.sample(100)
-sample1
+sample100 = movies.sample(100)
 
-sample1.groupby('Country')['Year'].value_counts(normalize=True)
+sample100.groupby('Country')['Year'].value_counts()
 ```
 
-* More...
+* What is the longest movie runtime for each language group?
 
 ```python
-sample1.groupby('Language')['Runtime'].max()
+movies.groupby('Language')['Runtime'].max().sort_values(ascending=False)
 ```
 
-```python
-sample1.groupby('Genre')['imdbVotes'].min()
-```
 
 ## Functions Featured
 
@@ -213,5 +259,6 @@ sample1.groupby('Genre')['imdbVotes'].min()
 * **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1
 * *IQR (Interquartile Range)* -- (3rd quartile minus 1st quartile)
 * **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
-
-
+* **`df.groupby(by=None, sort=True)`** -- return a `Groupby object`
+* **`gb.groups`** -- from a GroupBy object, returns the group names and a collection of each group's elements 
+* **`gb.get_group(<group_name>)`** -- returns the elements of a specific group in a GroupBy object as a new dataframe object
