@@ -112,37 +112,7 @@ Take a look at the percentage of movies made by each of the top 10 directors
 movies['Director'].value_counts(normalize=True).nlargest(10)
 ```
 
-### Practice with Basic Descriptive Stats
 
-#### 1) What's the longest movie?
-
-```python
-
-```
-
-#### 2) What's the IQR of Metascore?
-
-```python
-
-```
-
-#### 3) What's the percent difference between the average critic rating and the average audience rating (i.e. Rotten Tomatoes and imdbRating)? 
-
-```python
-
-```
-
-#### 4) What country has produced the most movies?
-
-```python
-
-```
-
-#### 5) What span of years do the movies in our sample cover?
-
-```python
-
-```
 
 ## Grouping Data in Pandas
 
@@ -210,24 +180,12 @@ GroupBy objects eliminate the need to do this manually. If we put the whole grou
 movies.groupby('Country')['Runtime'].mean()
 ```
 
-### More Groupby Examples
-
-* Which 15 languages are rated highest on average by critics?
-
-```python
-movies.groupby('Language')['Rotten Tomatoes'].mean().sort_values(ascending=False).iloc[:15]
-```
+### Two More Groupby Examples
 
 * For each year of the 1980s, what was the genre distribution of movies made (in percentages)?
 
 ```python
 movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
-```
-
-* Which genre got the fewest votes on IMDb as a group? 
-
-```python
-movies.groupby('Genre')['imdbVotes'].sum().sort_values()
 ```
 
 * Within a sample of 100 movies, how many movies were made in each Country?
@@ -237,13 +195,6 @@ sample100 = movies.sample(100)
 
 sample100.groupby('Country')['Year'].value_counts()
 ```
-
-* What is the longest movie runtime for each language group?
-
-```python
-movies.groupby('Language')['Runtime'].max().sort_values(ascending=False)
-```
-
 
 ## Functions Featured
 
