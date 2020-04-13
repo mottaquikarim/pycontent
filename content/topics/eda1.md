@@ -112,7 +112,9 @@ Take a look at the percentage of movies made by each of the top 10 directors
 movies['Director'].value_counts(normalize=True).nlargest(10)
 ```
 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
+Discover other interesting descriptive statistics in the "Basic Stats" section in your copy of `eda1_psets.ipynb` in Google Drive.
 
 ## Grouping Data in Pandas
 
@@ -164,12 +166,18 @@ australia = gb.get_group('Australia')['Runtime'].mean()
 
 **3. Combine**: 
 
-Finally, we would combine those results into a Series summarizing the Average Movie Runtime for each country. 
+Finally, we would combine those results into a Series summarizing the Average Movie Runtime for each country. You could iterate through the groups like you would any dict to record the results dynamically.
 
 ```python
-avg_runtimes = {'Argentina': argentina, 'Australia': australia}
-runtime_by_country = pd.Series(data=avg_runtimes, name='Average Movie Runtime')
-runtime_by_country
+results = {}
+
+for name, group in movies.groupby('Country'):
+    x = group['Runtime'].mean()
+    results.update({name: x})
+
+
+avg_runtime_by_country = pd.Series(data=results, name='Average Movie Runtime')
+avg_runtime_by_country
 ```
 
 GroupBy objects eliminate the need to do this manually. If we put the whole groupby statement together, it will do all of these steps for us at once:
@@ -188,13 +196,17 @@ movies.groupby('Country')['Runtime'].mean()
 movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
 ```
 
-* Within a sample of 100 movies, how many movies were made in each Country?
+* Within a random sample of 100 movies, how many movies were made in each Country?
 
 ```python
 sample100 = movies.sample(100)
 
 sample100.groupby('Country')['Year'].value_counts()
 ```
+
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Test your comprehension in the "GroupBy" section in your copy of `eda1_psets.ipynb` in Google Drive.
 
 ## Functions Featured
 
