@@ -2,10 +2,14 @@
 
 ### Objectives
 
->>* Matplotlib and the building blocks of data visualizations
-* Seaborn plotting fundamentals and styles
+In this lesson, we'll discuss what plotting capabilities are available with pandas, matplotlib, and seaborn. We'll combine a cherry-picking of features that will allow you to create common plots with elegance, but relative ease. Here is a summary of points we'll cover:
+
+>>
+* A review of qualitative data viz best practices
+* The anatomy of a plot and the building blocks of data visualizations
+	* Seaborn plotting fundamentals and styles
 * Which visualizations to use in different scenarios
-* Example code for common charts and diagrams
+* Example code for common charts and diagrams using Pandas, Seaborn, and elements of Matplotlib
 
 ### Review 
 
@@ -43,6 +47,8 @@ print('data loaded successfully')
 
 ## Anatomy of a Plot
 
+
+
 <img src="https://files.realpython.com/media/fig_map.bc8c7cabd823.png" style="margin: 0 auto; float: right;"/>
 
 * Figure encompasses the axes as well as all its accompanying parts, i.e. the title, the legend, axis labels, etc.
@@ -50,7 +56,7 @@ print('data loaded successfully')
 * Spines
 * Ticks
 * Labels
-* Legend
+* Legend (not pictured above)
 
 
 ```python
