@@ -1,8 +1,8 @@
-# Data Visualization with Matplotlib & Seaborn
+# Data Visualization
 
 ### Objectives
 
-In this lesson, we'll discuss what plotting capabilities are available with pandas, matplotlib, and seaborn. We'll combine a cherry-picking of features that will allow you to create common plots with elegance, but relative ease. Here is a summary of points we'll cover:
+In this lesson, we'll discuss what plotting capabilities are available with Pandas, Matplotlib, and Seaborn. We'll combine a cherry-picking of features that will allow you to create common plots with elegance, but relative ease. Here is a summary of points we'll cover:
 
 >>
 * A review of qualitative data viz best practices
@@ -22,6 +22,14 @@ Below is a brief review of the key points about data visualization & storytellin
 * Most importantly, *consider your audience* when crafting your story.
 * The chart type you select should accurately represent the variables you are pulling from data in a way that is clearly readable for your audience.
 
+## Intro to Plotting Libraries
+
+Let's start with where the different libraries fit in:
+
+* Matplotlib is the foundational data viz library in Python. Plotting functionality in other libraries is built on top of Matplotlib. Matplotlib is vastly flexible, but also quite complex. 
+* Pandas plotting capabilities are limited to the basics. Pandas provides a way to plot using your Series or DataFrame object as a base. (We'll explain that shortly). Any bells and whistles require you to incorporate Matplotlib.
+* Seaborn specializes in statistical visualizations. It simplifies the creation of a collection of statistical plots, but it lacks some of the customization options that Matplotlib provides.
+
 ### Import Libraries & Load Data
 
 ```python
@@ -37,26 +45,21 @@ print('import successful')
 
 *`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
 
-Load the data with `imdbID` as the index and make a copy.
-
-```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
-movies = omdb_orig.copy()
-print('data loaded successfully')
-```
-
 ## Anatomy of a Plot
 
-
+The underlying elements of a plot:
 
 <img src="https://files.realpython.com/media/fig_map.bc8c7cabd823.png" style="margin: 0 auto; float: right;"/>
+[image source](https://realpython.com/python-matplotlib-guide/#the-matplotlib-object-hierarchy)
 
-* Figure encompasses the axes as well as all its accompanying parts, i.e. the title, the legend, axis labels, etc.
-* Axes (aka subplot) are where the data will be graphed.
-* Spines
-* Ticks
-* Labels
-* Legend (not pictured above)
+* The **Figure** encompasses the axes as well as all its accompanying parts, i.e. the title, the legend, axis labels, etc.
+* If you have a grid/matrix of graphs in a single figure, we call each cell in the grid a **Subplot**. 
+* When you create a subplot, it automatically creates an **Axes** object. This is where the data actually gets graphed.
+* Spines refer to the outlines of the axes (bottom (x-axis), left (y-axis), top, and right)
+* **Ticks** are the periodic marks on the x and y axes.
+* You should also include a **title** and **labels** for the x and y axes. 
+* A **legend** (not pictured above) is used to define  different colors or shapes on a single graph as different categories or segments of data.
+
 
 
 ```python
@@ -158,7 +161,17 @@ sinplot()
 ```
 
 
+
 ## Line Graphs
+
+Load the data with `imdbID` as the index and make a copy.
+
+```python
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
+movies = omdb_orig.copy()
+print('data loaded successfully')
+```
+
 
 >>built-in datasets: https://github.com/mwaskom/seaborn-data
 
