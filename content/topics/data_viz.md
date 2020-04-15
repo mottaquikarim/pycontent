@@ -30,21 +30,6 @@ Let's start with where the different libraries fit in:
 * Pandas plotting capabilities are limited to the basics. Pandas provides a way to plot using your Series or DataFrame object as a base. (We'll explain that shortly). Any bells and whistles require you to incorporate Matplotlib.
 * Seaborn specializes in statistical visualizations. It simplifies the creation of a collection of statistical plots, but it lacks some of the customization options that Matplotlib provides.
 
-### Import Libraries & Load Data
-
-```python
-import numpy as np
-import pandas as pd
-
-import matplotlib.pyplot as plt
-%matplotlib inline # specific to Jupyter Notebooks & Colab*
-import seaborn as sns
-
-print('import successful')
-```
-
-*`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
-
 ## Anatomy of a Plot
 
 The underlying elements of a plot:
@@ -57,30 +42,43 @@ The underlying elements of a plot:
 * When you create a subplot, it automatically creates an **Axes** object. This is where the data actually gets graphed.
 * Spines refer to the outlines of the axes (bottom (x-axis), left (y-axis), top, and right)
 * **Ticks** are the periodic marks on the x and y axes.
-* You should also include a **title** and **labels** for the x and y axes. 
-* A **legend** (not pictured above) is used to define  different colors or shapes on a single graph as different categories or segments of data.
+* You should also include a **Title** and **Labels** for the x and y axes. 
+* A **Legend** (not pictured above) is used to define  different colors or shapes on a single graph as different categories or segments of data.
 
+### A Few Key Notes
 
+1. Seaborn does not allow you to add multiple independent subplots on one figure. (It does have grids of plots, but those have specific statistical purposes.)
+2. With matplotlib, many of the above objects must be created manually BEFORE plotting the data. With Pandas and Seaborn, the figure, axes, and often the labels are created implicitly when you plot the data. 
+3. You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to add some customization. The main ones you'll use are:
 
-```python
-fig, ax = plt.subplots() # default args are nrows=1, ncols=1
-```
+* `plt.title()`
+* `plt.xlabel()`
+* `plt.ylabel()`
+* `plt.legend()`
 
-
-```python
-fig, ax = plt.subplots(nrows=2, ncols=2)
-```
-
-
-```python
-fig, ax = plt.subplots(figsize=(7, 7))
-```
-
+### Importing Plotting Libraries
 
 ```python
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(9, 6))
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+%matplotlib inline # specific to Jupyter Notebooks & Colab*
+import seaborn as sns
+
+
+# change plotting colors per client request
+plt.style.use('ggplot')
+
+# Increase default figure and font sizes for easier viewing.
+plt.rcParams['figure.figsize'] = (8, 6)
+plt.rcParams['font.size'] = 14
+
+
+print('import successful')
 ```
 
+*`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
 
 ## Setting Seaborn Figure Styles
 
@@ -160,11 +158,13 @@ sns.set(context='notebook', style='ticks', palette='BrBG', font_scale=1.2, rc={'
 sinplot()
 ```
 
+## Graphs by Purpose
 
+* Line plots: Show the trend of a numerical variable over time
+* Bar plots: Show a numerical comparison across different categories
+* Histograms: Show the distribution of a numerical variable
 
-## Line Graphs
-
-Load the data with `imdbID` as the index and make a copy.
+Finally, let's load our movies data with `imdbID` as the index so that we can go through some coded examples.
 
 ```python
 omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
@@ -172,10 +172,10 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
+## Line Graphs
 
 >>built-in datasets: https://github.com/mwaskom/seaborn-data
 
-Show the trend of a numerical variable over time
 
 ```python
 
