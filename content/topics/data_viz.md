@@ -379,6 +379,31 @@ If you have a lot of categories, orienting your bar chart horizontally provides 
 
 ## Scatterplots
 
+`<series>.plot.scatter(x, y)`
+
+### Pandas
+
+```python
+
+```
+
+
+```python
+
+```
+
+### Seaborn
+
+`sns.scatterplot(x, y, hue=None,  data=None, estimator=None, ci=95, ax=None)`
+
+```python
+
+```
+
+
+```python
+
+```
 
 
 ## Key Takeaways
