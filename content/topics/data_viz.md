@@ -375,11 +375,24 @@ plt.show()
 
 #### Grouped Bar Chart
 
+```python
+country_count = movies['Country'].value_counts()
+top_countries = country_count.head(3).index.values
+top_countries
+```
 
+>>filter top countries and horror/thriller genres
+
+```python
+scary = movies[((movies['Genre'] == 'Horror') | (movies['Genre'] == 'Thriller')) &
+               (movies['Country'].isin(top_countries))]
+```
 
 
 ```python
-
+sns.barplot(x='Country', y='imdbRating', hue='Genre', data=scary, ci=None)
+plt.title('Average Rating of Thriller vs. Horror Movies by Country')
+plt.show()
 ```
 
 #### Stacked Bar Chart
