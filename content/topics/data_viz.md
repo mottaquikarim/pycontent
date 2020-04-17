@@ -4,12 +4,15 @@
 
 In this lesson, we'll discuss what plotting capabilities are available with Pandas, Matplotlib, and Seaborn. We'll combine a cherry-picking of features that will allow you to create common plots with elegance, but relative ease. Here is a summary of points we'll cover:
 
->>
 * A review of qualitative data viz best practices
 * The anatomy of a plot and the building blocks of data visualizations
-	* Seaborn plotting fundamentals and styles
-* Which visualizations to use in different scenarios
-* Example code for common charts and diagrams using Pandas, Seaborn, and elements of Matplotlib
+* Styling with Seaborn
+* Example code for common plots using Pandas, Seaborn, and elements of Matplotlib
+	* Histograms
+	* Box-and-Whiskers Plots
+	* Bar Charts
+	* Line Graphs
+	* Scatterplots
 
 ### Review 
 
