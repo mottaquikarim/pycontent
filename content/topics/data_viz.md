@@ -30,6 +30,26 @@ Let's start with where the different libraries fit in:
 * Pandas plotting capabilities are limited to the basics. Pandas provides a way to plot using your Series or DataFrame object as a base. (We'll explain that shortly). Any bells and whistles require you to incorporate Matplotlib.
 * Seaborn specializes in statistical visualizations. It simplifies the creation of a collection of statistical plots, but it lacks some of the customization options that Matplotlib provides.
 
+### Importing Plotting Libraries
+
+```python
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+%matplotlib inline # specific to Jupyter Notebooks & Colab*
+import seaborn as sns
+
+# Increase default figure and font sizes for easier viewing.
+plt.rcParams['figure.figsize'] = (8, 6)
+plt.rcParams['font.size'] = 14
+
+
+print('import successful')
+```
+
+*`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
+
 ## Anatomy of a Plot
 
 The underlying elements of a plot:
@@ -45,40 +65,37 @@ The underlying elements of a plot:
 * You should also include a **Title** and **Labels** for the x and y axes. 
 * A **Legend** (not pictured above) is used to define  different colors or shapes on a single graph as different categories or segments of data.
 
-### A Few Key Notes
+With matplotlib, many of the above objects must be created manually BEFORE plotting the data. With Pandas and Seaborn, the figure, axes, and often the labels are created implicitly when you plot the data. 
 
-1. Seaborn does not allow you to add multiple independent subplots on one figure. (It does have grids of plots, but those have specific statistical purposes.)
-2. With matplotlib, many of the above objects must be created manually BEFORE plotting the data. With Pandas and Seaborn, the figure, axes, and often the labels are created implicitly when you plot the data. 
-3. You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to add some customization. The main ones you'll use are:
+```python
+fig = plt.figure(figsize=(7,7))
+```
+
+
+```python
+fig, ax = plt.subplots() # default args are nrows=1, ncols=1
+```
+
+
+```python
+fig, ax = plt.subplots(nrows=2, ncols=2)
+```
+
+```python
+fig, ax = plt.subplots(figsize=(7, 7))
+```
+
+
+```python
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(9, 6))
+```
+
+You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to add some customization. The main ones you'll use are:
 
 * `plt.title()`
 * `plt.xlabel()`
 * `plt.ylabel()`
 * `plt.legend()`
-
-### Importing Plotting Libraries
-
-```python
-import numpy as np
-import pandas as pd
-
-import matplotlib.pyplot as plt
-%matplotlib inline # specific to Jupyter Notebooks & Colab*
-import seaborn as sns
-
-
-# change plotting colors per client request
-plt.style.use('ggplot')
-
-# Increase default figure and font sizes for easier viewing.
-plt.rcParams['figure.figsize'] = (8, 6)
-plt.rcParams['font.size'] = 14
-
-
-print('import successful')
-```
-
-*`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
 
 ## Setting Seaborn Figure Styles
 
@@ -160,9 +177,10 @@ sinplot()
 
 ## Graphs by Purpose
 
+* Histograms: Show the distribution of a numerical variable
+* Box-and-Whisker Plots: Show the distribution of a variable, highlighting the quartiles and outliers
 * Line plots: Show the trend of a numerical variable over time
 * Bar plots: Show a numerical comparison across different categories
-* Histograms: Show the distribution of a numerical variable
 
 Finally, let's load our movies data with `imdbID` as the index so that we can go through some coded examples.
 
@@ -170,6 +188,43 @@ Finally, let's load our movies data with `imdbID` as the index so that we can go
 omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
+```
+
+## Histograms
+
+
+```python
+
+```
+
+
+```python
+
+```
+
+## Box-and-Whiskers Plots
+
+<img src="https://miro.medium.com/max/1400/1*2c21SkzJMf3frPXPAR_gZA.png"/>
+
+```python
+
+```
+
+
+```python
+
+```
+
+## Bar Plots
+
+
+```python
+
+```
+
+
+```python
+
 ```
 
 ## Line Graphs
@@ -186,22 +241,4 @@ print('data loaded successfully')
 
 ```
 
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
+## Key Takeaways
