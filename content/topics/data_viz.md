@@ -249,13 +249,18 @@ sns.distplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
 
 ## Box-and-Whiskers Plots
 
-
+For a data sample, a box-and-whiskers plot ("box plot" for short) helps you visually quantify the amount of **variability** in your data sample. *<DEFINE VARIABILITY>* The box plot visualizes this by leveraging the values of the quartiles in your data sample.
 
 <img src="https://miro.medium.com/max/1400/1*2c21SkzJMf3frPXPAR_gZA.png"/>
 
+* The range: The lowest point to the highest point
+* The IQR is represented by height of the box  bottom to the top of the box
+* The longer the whiskers are, the more variability there is in your sample
+* The more narrow the box, the more tightly focused the data points are around the median
+
 ### Pandas
 
-The pandas version of the box-and-whiskers plot is very simple, but a bit hard to read.
+The Pandas version of the box plot is very simple, but a bit hard to read.
 
 `<series>.plot(kind='box')`
 
@@ -277,25 +282,44 @@ sns.boxplot(x='Runtime', data=movies)
 
 
 ```python
+lang_count = movies.groupby('Language')['Title'].count().sort_values(ascending=False)
+lang_count.head()
+```
 
+```python
+top_langs = list(lang_count.head().index.values)
+top_lang_subset = movies[movies['Language'].isin(top_langs)]
 ```
 
 
 ```python
-
+sns.boxplot(x='Runtime', y='Language', data=top_lang_subset)
+plt.title('Distribution of Runtime for Top Movie Languages')
 ```
 
 #### Grouped Box Plot w. Two Categorical Variables
 
 
 ```python
-
+genre_count = movies.groupby('Genre')['Title'].count().sort_values(
+    ascending=False)
+genre_count.head()
 ```
 
 
 ```python
+top_genres = list(genre_count.iloc[:2].index.values)
 
+# take only the top 3 languages for readability in this example
+genre_lang_subset = movies[(movies['Language'].isin(top_langs[:3])) & (movies['Genre'].isin(top_genres))]
 ```
+
+
+```python
+sns.boxplot(x='Runtime', y='Language', hue='Genre', data=genre_lang_subset)
+plt.title('Distribution of Runtime for Top Movie Languages and Genres')
+```
+
 
 ## Bar Plots
 
