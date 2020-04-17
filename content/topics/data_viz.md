@@ -37,19 +37,20 @@ import numpy as np
 import pandas as pd
 
 import matplotlib.pyplot as plt
-%matplotlib inline # specific to Jupyter Notebooks & Colab*
+%matplotlib inline
 import seaborn as sns
 
 print('import successful')
 ```
 
-*`%matplotlib inline` tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
+**`%matplotlib inline`** is specific to Jupyter Notebooks & Colab. It tells Python to draw the figure inline with the code as opposed to making it available only as a downloadable .png file.
 
 ## Anatomy of a Plot
 
 The underlying elements of a plot:
 
 <img src="https://files.realpython.com/media/fig_map.bc8c7cabd823.png" style="margin: 0 auto; float: right;"/>
+
 [image source](https://realpython.com/python-matplotlib-guide/#the-matplotlib-object-hierarchy)
 
 * The **Figure** encompasses the axes as well as all its accompanying parts, i.e. the title, the legend, axis labels, etc.
@@ -88,9 +89,11 @@ fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(9, 6))
 You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to add some customization. The main ones you'll use are:
 
 * `plt.title()`
+* `fig.suptitle()` -- adds a title to the overall figure if there's more than one subplot (i.e. supertitle)
 * `plt.xlabel()`
 * `plt.ylabel()`
 * `plt.legend()`
+* `plt.savefig('image_name.png', transparent=False)`
 
 ## Setting Seaborn Figure Styles
 
@@ -160,13 +163,13 @@ sinplot()
 ```
 
 ```python
-cpal = ['#3399FF', '#dbb409', '#b43df7', '#2ecc71', '#fa62b7', '#ff8e30', '#e63565']
-# sns.palplot(sns.color_palette(cpal))
+cpal = ['dodgerblue', '#2ecc71', '#bb64ed', '#ffd13b', 'xkcd:tangerine', '#fa62b7']
+sns.palplot(sns.color_palette(cpal))
 ```
 
 
 ```python
-sns.set(context='notebook', style='ticks', palette='BrBG', font_scale=1.2, rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
+sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
 sinplot()
 ```
 
@@ -187,20 +190,103 @@ print('data loaded successfully')
 
 ## Histograms
 
+Histograms provide numerous insights into a numerical distribution, chiefly the frequency of values. Although they look similar to bar charts, histograms have a distinct purpose. Histograms visualize the frequency of values in a sample of quantitative data, while bar charts compare the values comprising a categorical value. 
+
 <img src="content/images/plotly_histogram_fig4.gif"/>
+[image source](https://plotly.com/chart-studio-help/histogram/#normalizing-a-histogram)
+
+Histograms give you a sense of:
+
+* How much variation exists in the sample
+* Where most of the values lie (e.g. the mode)
+* Whether the distribution skews right or left (aka high or low)
+
+### Pandas
+
+`<series>.plot(kind='hist', bins=None)`
+
+`bins` is optional. The underlying matplotlib function will determine "the best" number of bins to visualize the distribution in question.
+
 
 ```python
-
+movies['Runtime'].plot(kind='hist')
 ```
 
 
 ```python
+movies['Runtime'].plot(kind='hist', bins=50)
 
+# set the title
+plt.title('Distribution of Runtime')
+
+# add a label to the x-axis
+plt.xlabel('Runtime')
 ```
+
+### Seaborn
+
+`sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+
+*Make sure to set `kde=False` because otherwise it gives the plot a different context. The y-axis gives it away... it's showing something called a probability density function, which Check out the y-axis to see the difference*
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
+
+sns.distplot(movies['imdbRating'], ax=ax1)
+sns.distplot(movies['imdbRating'], kde=False, ax=ax2)
+```
+
+Compare two distributions: critic vs audience
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
+fig.suptitle('Frequency Distributions for IMDb Rating and Rotten Tomatoes')
+
+sns.distplot(movies['imdbRating'], kde=False, ax=ax1)
+sns.distplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
+```
+
 
 ## Box-and-Whiskers Plots
 
+
+
 <img src="https://miro.medium.com/max/1400/1*2c21SkzJMf3frPXPAR_gZA.png"/>
+
+### Pandas
+
+The pandas version of the box-and-whiskers plot is very simple, but a bit hard to read.
+
+`<series>.plot(kind='box')`
+
+```python
+movies['Runtime'].plot(kind='box')
+```
+
+### Seaborn
+
+#### Single Box Plot
+
+`sns.boxplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, orient=None, color=None, ax=None)`
+
+```python
+sns.boxplot(x='Runtime', data=movies)
+```
+
+#### Grouped Box Plot w. One Categorical Variable
+
+
+```python
+
+```
+
+
+```python
+
+```
+
+#### Grouped Box Plot w. Two Categorical Variables
+
 
 ```python
 
@@ -212,6 +298,18 @@ print('data loaded successfully')
 ```
 
 ## Bar Plots
+
+### Pandas
+
+```python
+
+```
+
+### Seaborn
+
+```python
+
+```
 
 
 ```python
@@ -227,6 +325,7 @@ print('data loaded successfully')
 
 >>built-in datasets: https://github.com/mwaskom/seaborn-data
 
+### Pandas
 
 ```python
 
@@ -236,6 +335,19 @@ print('data loaded successfully')
 ```python
 
 ```
+
+### Seaborn
+
+```python
+
+```
+
+
+```python
+
+```
+
+
 
 ## Scatterplots
 
