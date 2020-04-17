@@ -270,7 +270,7 @@ movies['Runtime'].plot(kind='box')
 
 #### Single Box Plot
 
-`sns.boxplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, orient=None, color=None, ax=None)`
+`sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
 
 ```python
 sns.boxplot(x='Runtime', data=movies)
@@ -321,6 +321,9 @@ plt.title('Distribution of Runtime for Top Movie Languages and Genres')
 
 ## Bar Charts
 
+
+It's hard for people to discern the area of the wedges in a pie chart. 
+
 ### Pandas
 
 ```python
@@ -336,12 +339,22 @@ plt.ylabel('Number of Movies')
 
 ### Seaborn
 
-It's hard for people to discern the area of the wedges in a pie chart. 
-
-If you have a lot of categories, orienting your bar chart horizontally provides better readability.
+`sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, ax=None)`
 
 ```python
+genres = genre_count.copy()
+genres.rename('Movies', inplace=True)
+genres = genres.reset_index()
+genres.head()
+```
 
+>>orient='v' by default...If you have a lot of categories, orienting your bar chart horizontally provides better readability.
+
+```python
+# sns.barplot(x='Movies', y='Genre', data=genres) # orient='v' by default
+# better to do it this way because it's easier to read
+
+sns.barplot(x='Movies', y='Genre', data=genres, orient='h')
 ```
 
 
@@ -353,11 +366,19 @@ If you have a lot of categories, orienting your bar chart horizontally provides 
 ```python
 
 ```
+
+
+```python
+
+```
+
 
 ## Line Graphs
 
 ### Pandas
 
+`<series>.plot()`
+	
 ```python
 
 ```
@@ -368,6 +389,8 @@ If you have a lot of categories, orienting your bar chart horizontally provides 
 ```
 
 ### Seaborn
+
+`sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
 ```python
 
@@ -417,31 +440,33 @@ If you have a lot of categories, orienting your bar chart horizontally provides 
 
 * Purpose: Illustrate the frequency distribution of a numerical variable
 * Pandas: `<series>.plot(kind='hist', bins=None)`
-* Seaborn: ``
+* Seaborn: `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
 **Box-and-Whiskers Plot**
 
 * Purpose: Highlight the variability in a distribution
 * Pandas: `<series>.plot(kind='box')`
-* Seaborn: ``
+* Seaborn: `sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
 
 **Bar Chart**
 
 * Purpose: Show a numerical comparison across different categories
 * Pandas: `<series>.plot(kind='bar')`
-* Seaborn: ``
+* Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, ax=None)`
 
 **Line Graph**
 
 * Purpose: Show the trend of a numerical variable over time
 * Pandas: `<series>.plot()`
-* Seaborn: ``
+* Seaborn: `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
 **Scatterplot**
 
 * Purpose: Compare the relationship between two numerical variables
 * Pandas: `<series>.plot.scatter(x, y)`
-* Seaborn: ``
+* Seaborn: `sns.scatterplot(x, y, hue=None, data=None, estimator=None, ci=95, ax=None)`
+
+
 
 
 
