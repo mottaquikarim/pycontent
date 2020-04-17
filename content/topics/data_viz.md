@@ -187,6 +187,7 @@ print('data loaded successfully')
 
 ## Histograms
 
+<img src="content/images/plotly_histogram_fig4.gif"/>
 
 ```python
 
