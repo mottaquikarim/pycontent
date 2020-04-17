@@ -173,12 +173,7 @@ sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, rc={'li
 sinplot()
 ```
 
-## Graphs by Purpose
-
-* Histograms: Show the distribution of a numerical variable
-* Box-and-Whisker Plots: Show the distribution of a variable, highlighting the quartiles and outliers
-* Line plots: Show the trend of a numerical variable over time
-* Bar plots: Show a numerical comparison across different categories
+## Load OMDb Data
 
 Finally, let's load our movies data with `imdbID` as the index so that we can go through some coded examples.
 
@@ -321,15 +316,26 @@ plt.title('Distribution of Runtime for Top Movie Languages and Genres')
 ```
 
 
-## Bar Plots
+## Bar Charts
 
 ### Pandas
 
 ```python
+genre_count = movies.groupby('Genre')['Title'].count().sort_values(ascending=False)
+genre_count
+```
 
+```python
+genre_count.plot(kind='bar')
+plt.title('Number of Movies by Genre')
+plt.ylabel('Number of Movies')
 ```
 
 ### Seaborn
+
+It's hard for people to discern the area of the wedges in a pie chart. 
+
+If you have a lot of categories, orienting your bar chart horizontally provides better readability.
 
 ```python
 
@@ -346,8 +352,6 @@ plt.title('Distribution of Runtime for Top Movie Languages and Genres')
 ```
 
 ## Line Graphs
-
->>built-in datasets: https://github.com/mwaskom/seaborn-data
 
 ### Pandas
 
@@ -378,5 +382,38 @@ plt.title('Distribution of Runtime for Top Movie Languages and Genres')
 
 
 ## Key Takeaways
+
+*Note: Parameters with a default argument of None are optional*
+
+**Histogram**
+
+* Purpose: Illustrate the frequency distribution of a numerical variable
+* Pandas: `<series>.plot(kind='hist', bins=None)`
+* Seaborn: ``
+
+**Box-and-Whiskers Plot**
+
+* Purpose: Highlight the variability in a distribution
+* Pandas: `<series>.plot(kind='box')`
+* Seaborn: ``
+
+**Bar Chart**
+
+* Purpose: Show a numerical comparison across different categories
+* Pandas: `<series>.plot(kind='bar')`
+* Seaborn: ``
+
+**Line Graph**
+
+* Purpose: Show the trend of a numerical variable over time
+* Pandas: `<series>.plot()`
+* Seaborn: ``
+
+**Scatterplot**
+
+* Purpose: Compare the relationship between two numerical variables
+* Pandas: `<series>.plot.scatter(x, y)`
+* Seaborn: ``
+
 
 
