@@ -40,11 +40,6 @@ import matplotlib.pyplot as plt
 %matplotlib inline # specific to Jupyter Notebooks & Colab*
 import seaborn as sns
 
-# Increase default figure and font sizes for easier viewing.
-plt.rcParams['figure.figsize'] = (8, 6)
-plt.rcParams['font.size'] = 14
-
-
 print('import successful')
 ```
 
@@ -241,4 +236,10 @@ print('data loaded successfully')
 
 ```
 
+## Scatterplots
+
+
+
 ## Key Takeaways
+
+
