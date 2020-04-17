@@ -280,7 +280,8 @@ sns.boxplot(x='Runtime', data=movies)
 
 
 ```python
-lang_count = movies.groupby('Language')['Title'].count().sort_values(ascending=False)
+lang_count = movies['Language'].value_counts()
+# .groupby('Language')['Title'].count().sort_values(ascending=False)
 lang_count.head()
 ```
 
@@ -299,8 +300,7 @@ plt.title('Distribution of Runtime for Top Movie Languages')
 
 
 ```python
-genre_count = movies.groupby('Genre')['Title'].count().sort_values(
-    ascending=False)
+genre_count = movies['Genre'].value_counts()
 genre_count.head()
 ```
 
@@ -321,7 +321,6 @@ plt.title('Distribution of Runtime for Top Movie Languages and Genres')
 
 ## Bar Charts
 
-
 It's hard for people to discern the area of the wedges in a pie chart. 
 
 ### Pandas
@@ -339,7 +338,24 @@ plt.ylabel('Number of Movies')
 
 ### Seaborn
 
-`sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, ax=None)`
+
+#### Single Bar Chart
+
+`sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
+
+>>The default estimator statistic is np.mean, but can set to median or other function if desired...
+
+```python
+sns.barplot(x='imdbRating', y='Genre', data=movies, estimator=np.min, ci=None)
+plt.title('Lowest Movie Rating by Genre')
+plt.show()
+```
+
+
+**Construct Your Own**
+
+
+This particular example doesn't need an estimator because we've created an object with an exact structure. Seaborn merely needs to read it and doesn't have to do any calculations behind the scenes. Because of this lack of calculations, there are also no confidence interval markers on the bars.
 
 ```python
 genres = genre_count.copy()
@@ -348,37 +364,41 @@ genres = genres.reset_index()
 genres.head()
 ```
 
->>orient='v' by default...If you have a lot of categories, orienting your bar chart horizontally provides better readability.
+The `orient` parameter automatically sets itself to `'v'` or `'h'` based on which of the x and y variables is numeric or categorical. If you have a lot of categories though, orienting your bar chart horizontally provides better readability. Also, notice that the color palette has changed because the one we defined had fewer colors than this variable has categories (from the `ci` parameter).
 
 ```python
-# sns.barplot(x='Movies', y='Genre', data=genres) # orient='v' by default
-# better to do it this way because it's easier to read
-
-sns.barplot(x='Movies', y='Genre', data=genres, orient='h')
+sns.barplot(x='Movies', y='Genre', data=genres)
+plt.title('Number of Movies by Genre')
+plt.xlabel('')
+plt.show()
 ```
 
-
-```python
-
-```
+#### Grouped Bar Chart
 
 
-```python
-
-```
 
 
 ```python
 
 ```
 
+#### Stacked Bar Chart
+
+```python
+
+```
+
+
+```python
+
+```
 
 ## Line Graphs
 
 ### Pandas
 
 `<series>.plot()`
-	
+
 ```python
 
 ```
@@ -452,7 +472,7 @@ sns.barplot(x='Movies', y='Genre', data=genres, orient='h')
 
 * Purpose: Show a numerical comparison across different categories
 * Pandas: `<series>.plot(kind='bar')`
-* Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, ax=None)`
+* Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
 
 **Line Graph**
 
