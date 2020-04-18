@@ -359,8 +359,8 @@ This particular example doesn't need an estimator because we've created an objec
 
 ```python
 genres = genre_count.copy()
-genres.rename('Movies', inplace=True)
 genres = genres.reset_index()
+genres.rename(columns={'Genre': 'Movies', 'index': 'Genre'}, inplace=True)
 genres.head()
 ```
 
@@ -397,13 +397,30 @@ plt.show()
 
 #### Stacked Bar Chart
 
-```python
 
+```python
+usa = movies[movies['Country'] == 'USA']
+temp = usa['Genre'].value_counts()
+genres_usa = temp.reset_index()
+genres_usa.rename(columns={'Genre': 'US Movies', 'index': 'Genre'}, inplace=True)
+genres_usa.head()
 ```
 
 
 ```python
+genres = genres.merge(genres_usa, on='Genre')
+genres.head(10)
+```
 
+
+```python
+sns.barplot(x='Movies', y='Genre', data=genres.head(10), color='navy')
+sns.barplot(x='US Movies', y='Genre', data=genres.head(10), color='dodgerblue')
+
+plt.title('Proportion of Top 10 Movie Genres Made by US')
+ax.legend(ncol=2, loc="lower right", frameon=True)
+plt.xlabel('')
+plt.show()
 ```
 
 ## Line Graphs
