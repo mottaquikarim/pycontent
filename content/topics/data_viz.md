@@ -427,16 +427,39 @@ plt.show()
 
 ### Pandas
 
+>>prep the data
+
+```python
+critics = movies.groupby('Year')['Rotten Tomatoes'].mean()
+audience = movies.groupby('Year')['imdbRating'].mean()
+
+avg_yrly_ratings = pd.concat([critics, audience], axis=1)
+avg_yrly_ratings.round()
+```
+
+>>one line
+
 `<series>.plot()`
 
 ```python
-
+critics.plot()
+plt.title('Average Movie Critic Ratings Over Time')
+plt.xlabel('Year')
+plt.ylabel('Rating')
+plt.show()
 ```
 
+>>two lines
 
 ```python
-
+avg_yrly_ratings.plot()
+plt.title('Average Movie Ratings Over Time')
+plt.xlabel('Year')
+plt.ylabel('Rating')
+plt.legend(('Critics', 'Audience'))
+plt.show()
 ```
+
 
 ### Seaborn
 
