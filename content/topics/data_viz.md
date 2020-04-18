@@ -534,12 +534,9 @@ plt.show()
 ### Pandas
 
 ```python
-
-```
-
-
-```python
-
+movies.plot.scatter(x='Runtime', y='imdbRating', c=['dodgerblue'])
+# it forces you to put a color here
+plt.show()
 ```
 
 ### Seaborn
@@ -547,7 +544,18 @@ plt.show()
 `sns.scatterplot(x, y, hue=None,  data=None, estimator=None, ci=95, ax=None)`
 
 ```python
+movies_sample = movies.sample(frac=0.2)
 
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
+
+
+sns.scatterplot(x='imdbRating', y='Rotten Tomatoes', data=movies_sample, color='dodgerblue', ax=ax1)
+ax1.set_title('A')
+
+sns.scatterplot(x='Rotten Tomatoes', y='imdbRating', data=movies_sample, color='#2ecc71', ax=ax2)
+ax2.set_title('B')
+
+plt.show()
 ```
 
 
