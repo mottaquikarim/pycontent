@@ -495,6 +495,37 @@ plt.legend(('Critics', 'Audience'))
 plt.show()
 ```
 
+**Another Example**
+
+```python
+decade = movies[(movies['Year'].between(1980,1989))]
+decade.info()
+```
+
+
+```python
+top_genres = decade['Genre'].value_counts().head(3)
+top_genres
+```
+
+
+```python
+top_80s_genres = decade[decade['Genre'].isin(top_genres.index.values)]
+```
+
+
+```python
+sns.lineplot(x='Year', y='imdbRating', hue='Genre', ci=None, data=top_80s_genres)
+
+plt.title('Average Rating for Most Common Genres in the 1980s')
+plt.xlabel('Year')
+plt.ylabel('Rating')
+plt.show()
+
+# top_80s_genres[(top_80s_genres['Genre'] == 'Adventure') & (top_80s_genres['Year'] == 1986)]
+# That huge dip is real
+```
+
 
 ## Scatterplots
 
