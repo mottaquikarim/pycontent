@@ -16,3 +16,4 @@
 - wrangling1.md: Data Wrangling
 - data_cleaning.md: Data Cleaning
 - eda1.md: Exploratory Data Analysis (EDA)
+- data_viz.md: TESTING!!!
