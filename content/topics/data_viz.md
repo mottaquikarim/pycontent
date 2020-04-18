@@ -529,9 +529,9 @@ plt.show()
 
 ## Scatterplots
 
-`<series>.plot.scatter(x, y)`
-
 ### Pandas
+
+`<series>.plot.scatter(x, y)`
 
 ```python
 movies.plot.scatter(x='Runtime', y='imdbRating', c=['dodgerblue'])
