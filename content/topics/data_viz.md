@@ -463,17 +463,37 @@ plt.show()
 
 ### Seaborn
 
+>>prep the data
+
+```python
+avg_yrly_ratings = avg_yrly_ratings.reset_index()
+avg_yrly_ratings
+```
+
+>>one line
+
 `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
 ```python
+sns.lineplot(x='Year', y='imdbRating', data=avg_yrly_ratings)
 
+plt.title('Average Audience Movie Ratings Over Time')
+plt.xlabel('Year')
+plt.ylabel('Rating')
+plt.show()
 ```
 
+>>two lines
 
 ```python
+sns.lineplot(x='Year', y='imdbRating', data=avg_yrly_ratings)
+sns.lineplot(x='Year', y='Rotten Tomatoes', data=avg_yrly_ratings)
 
+plt.title('Average Yearly Ratings')
+plt.ylabel('Rating')
+plt.legend(('Critics', 'Audience'))
+plt.show()
 ```
-
 
 
 ## Scatterplots
