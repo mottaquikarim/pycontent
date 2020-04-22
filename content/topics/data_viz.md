@@ -147,41 +147,43 @@ sinplot()
 
 ### Axes Styles
 
-* `sns.set_style(style='ticks')` -- styles the axes
+* `sns.set_style(style='ticks')` -- apply a preset "style" to axes objects
 
-Options include `ticks` (default), `darkgrid`, `whitegrid`, `dark`, or `white`
+Options include `ticks` (default), `darkgrid`, `whitegrid`, `dark`, or `white`.
 
 ```python
 sns.set_style('whitegrid')
 sinplot()
 ```
 
-* `sns.set_context(context='notebook', font_scale=1, rc={'lines.linewidth'}: 1.5})`
+* `sns.set_context(context='notebook', font_scale=1)`
 
-4 preset contexts, in order of relative size, are 'paper', 'notebook', 'talk', and 'poster'
+In order of relative size, the four preset context styles are `paper`, `notebook` (default), `talk`, and `poster`. You can separately scale the font-size and line spacing using the `font_scale` parameter.
 
 ```python
-sns.set_context('talk', font_scale=1.5, rc={'lines.linewidth': 3})
+sns.set_context('talk', font_scale=1.5)
 sinplot()
 ```
 
 ### Combining Style Settings
 
-* `seaborn.set(context='notebook', style='darkgrid', palette='deep', font='sans-serif', font_scale=1, color_codes=True, rc=None)`
+You can customize all the styling settings at once using `sns.set()`. Calling this function with no parameters *resets* all the settings to their defaults:
 
 ```python
 sns.set()
 sinplot()
 ```
 
-```python
-cpal = ['dodgerblue', '#2ecc71', '#bb64ed', '#ffd13b', 'xkcd:tangerine', '#fa62b7']
-sns.palplot(sns.color_palette(cpal))
-```
+These are the default arguments for the most commonly used parameters in this function:
 
+* `sns.set(context='notebook', style='darkgrid', palette='deep', font='sans-serif', font_scale=1, color_codes=True, rc=None)`
+
+Below, we apply a mix of styles that will suit the visualizations in this lesson.
 
 ```python
-sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
+sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, 
+	rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
+
 sinplot()
 ```
 
