@@ -195,7 +195,7 @@ print('data loaded successfully')
 
 Histograms provide numerous insights into a numerical distribution, chiefly the frequency of values. Although they look similar to bar charts, histograms have a distinct purpose. Histograms visualize the frequency of values in a sample of quantitative data, while bar charts compare the values comprising a categorical value. 
 
-<img src="content/images/plotly_histogram_fig4.gif"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/plotly_histogram_fig4.gif"/>
 
 [image source](https://plotly.com/chart-studio-help/histogram/#normalizing-a-histogram)
 
