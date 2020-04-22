@@ -179,9 +179,11 @@ print(s_dict)
 
 ## Pandas DataFrame Objects
 
+A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
+
 <img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/df_components.png" style="margin: 0 auto; display: block;"/>
 
-A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
+[image source](https://medium.com/epfl-extension-school/selecting-data-from-a-pandas-dataframe-53917dc39953)
 
 The syntax for creating a dataframe manually is `df = pd.DataFrame(data, index, columns)`. This is syntactically similar to creating a series, with two notable differences. First, there is no `dtype` parameter for a dataframe, since each column could contain data of a different type. Second, a series is 1-D, so it only needs an index for axis 0. Since a dataframe is 2-D, it includes another parameter called `columns` for labeling axis 1.
 
