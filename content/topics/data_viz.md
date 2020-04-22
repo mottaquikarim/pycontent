@@ -134,6 +134,8 @@ print(type(BrBG))
 
 * `sns.palplot()` -- prints an image of whatever color palette is passed to it
 
+Depending on how many colors a certain plot needs, it will pull them in the order you see here. 
+
 ```python
 sns.palplot(cpal)
 ```
@@ -205,9 +207,9 @@ Histograms provide numerous insights into a numerical distribution, chiefly the 
 
 [image source](https://plotly.com/chart-studio-help/histogram/#normalizing-a-histogram)
 
-Histograms give you a sense of:
+Histograms give you a general sense of:
 
-* How much variation exists in the sample
+* How much variability exists in the sample
 * Where most of the values lie (e.g. the mode)
 * Whether the distribution skews right or left (aka high or low)
 
@@ -215,13 +217,13 @@ Histograms give you a sense of:
 
 `<series>.plot(kind='hist', bins=None)`
 
-`bins` is optional. The underlying matplotlib function will determine "the best" number of bins to visualize the distribution in question.
-
+Each "bar" in a histogram is called a "bin". The `bins` parameter is optional because the underlying matplotlib function will determine "the best" number of bins to visualize the distribution in question. The plot pulls its color from the color palette we set earlier.
 
 ```python
 movies['Runtime'].plot(kind='hist')
 ```
 
+You can change the number of bins to create a smoother shape. Let's also add some descriptive info to our histogram.
 
 ```python
 movies['Runtime'].plot(kind='hist', bins=50)
@@ -231,48 +233,67 @@ plt.title('Distribution of Runtime')
 
 # add a label to the x-axis
 plt.xlabel('Runtime')
+
+plt.show()
 ```
 
 ### Seaborn
 
-`sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+* `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
-*Make sure to set `kde=False` because otherwise it gives the plot a different context. The y-axis gives it away... it's showing something called a probability density function, which Check out the y-axis to see the difference*
+Histograms get a little more complicated with Seaborn. In general, you simply pass the series whose distribution you want to plot to the `a` parameters. Again, Seaborn will attempt to calculate the ideal number of bins. 
+
+**The key difference here is in the `kde=True`, or kernel density estimate, parameter.** Since this class does not require any background in statistics, it's best to make sure you always set `kde=False`. This is because the kernel density estimate plots a different kind of histogram over your regular histogram. Rather than the usual frequency distribution, it estimates and plots a probably density function for your distribution. (Learn more [here](https://realpython.com/python-histograms/#plotting-a-kernel-density-estimate-kde) if desired.)
+
+Using the `Runtime` variable, we'll plot side-by-side histograms with and without `kde` both visualizing the distribution of `Runtime` of the same distribution. Like many other Seaborn functions, `sns.distplot()` has an `ax` parameter. This allows you to pass a specific axes object where you want your plot to appear. To gain access to each individual axes object, we have to unpack them into their own variables.
 
 ```python
+# Create a 1x2 grid and unpack the axes
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
 
+# On ax1, plot both a frequency histogram AND a kde
 sns.distplot(movies['imdbRating'], ax=ax1)
+
+# On ax2, plot a regular frequency histogram WITHOUT a kde
 sns.distplot(movies['imdbRating'], kde=False, ax=ax2)
+
+plt.show()
 ```
 
-Compare two distributions: critic vs audience
+Let's walk through another example, where we compare the distributions of audience vs. critic ratings side-by-side. For the second histogram, we'll pass in a different color to differentiate the variables. Otherwise, each plot would independently pull from the color palette we set earlier.
 
 ```python
+# Create a 1x2 grid and unpack the axes
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
+
+# Add a figure-level title
 fig.suptitle('Frequency Distributions for IMDb Rating and Rotten Tomatoes')
 
+# On ax1, plot frequency distribution of audience ratings
 sns.distplot(movies['imdbRating'], kde=False, ax=ax1)
+
+# On ax2, plot frequency distribution of critic ratings in a different color.
 sns.distplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
+
+plt.show()
 ```
 
+Just from the shape of these two histograms, we can deduce that, in our sample, critics tend to give more extreme ratings than audiences do!
 
 ## Box-and-Whiskers Plots
 
-For a data sample, a box-and-whiskers plot ("box plot" for short) helps you visually quantify the amount of **variability** in your data sample. *<DEFINE VARIABILITY>* The box plot visualizes this by leveraging the values of the quartiles in your data sample.
+For a data sample, a box-and-whiskers plot ("box plot" for short) helps you visually quantify the amount of **variability** in your data sample. In other words, if you lined up each data point from a numerical variable in order, variability represents how spread out the points are. The box plot creates a visual summary of just that by leveraging the values of the quartiles in your data sample:
 
 <img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/iqr%3Aboxplot.png"/>
 
 [image source](https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51)
 
-* The range: The lowest point to the highest point
-* The IQR is represented by height of the box  bottom to the top of the box
 * The longer the whiskers are, the more variability there is in your sample
 * The more narrow the box, the more tightly focused the data points are around the median
 
 ### Pandas
 
-The Pandas version of the box plot is very simple, but a bit hard to read.
+The Pandas version of the box plot is simple, but not very pretty.
 
 `<series>.plot(kind='box')`
 
@@ -286,16 +307,34 @@ movies['Runtime'].plot(kind='box')
 
 `sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
 
+For many of Seaborn's plotting functions, you separately pass in a dataset to reference and column names from that dataset to use as the plotting variables. That is why `sns.boxplot()` has separate parameters for `x`, `y`, and `data`. 
+
+Let's build a basic box plot for `Runtime` and compare it to the histogram for `Runtime`.
+
 ```python
-sns.boxplot(x='Runtime', data=movies)
+# Create a 1x2 grid and unpack the axes
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
+
+# Add a figure-level title
+fig.suptitle('Distribution of Movie Runtimes')
+
+# On ax1, create a box plot for Runtime
+sns.boxplot(x='Runtime', data=movies, ax=ax1)
+
+# On ax2, create a histogram for Runtime
+sns.distplot(movies['Runtime'], kde=False, ax=ax2)
+
+plt.show()
 ```
 
 #### Grouped Box Plot w. One Categorical Variable
 
+What if we want to compare the distribution of different groups within a single variable? For example, how does the distribution of `Runtime` compare across languages? 
+
+There are a lot of languages, so first, let's create a subset of the dataframe, including only the top 5 languages.
 
 ```python
 lang_count = movies['Language'].value_counts()
-# .groupby('Language')['Title'].count().sort_values(ascending=False)
 lang_count.head()
 ```
 
@@ -304,34 +343,42 @@ top_langs = list(lang_count.head().index.values)
 top_lang_subset = movies[movies['Language'].isin(top_langs)]
 ```
 
+When we create the box plot, the `y` parameter takes the categorical variable - `Language`, in our case.
 
 ```python
+# Create boxplot of Runtime, grouped into Language segments
 sns.boxplot(x='Runtime', y='Language', data=top_lang_subset)
+
+# Add a title
 plt.title('Distribution of Runtime for Top Movie Languages')
+plt.show()
 ```
 
 #### Grouped Box Plot w. Two Categorical Variables
 
+You can take this one step further by passing a second categorical variable to the `hue` parameter. To illustrate this, we'll create another subset of the data, containing the top 3 languages and top 2 genres. 
 
 ```python
 genre_count = movies['Genre'].value_counts()
 genre_count.head()
 ```
 
-
 ```python
 top_genres = list(genre_count.iloc[:2].index.values)
 
 # take only the top 3 languages for readability in this example
-genre_lang_subset = movies[(movies['Language'].isin(top_langs[:3])) & (movies['Genre'].isin(top_genres))]
+genre_lang_subset = movies[(movies['Language'].isin(top_langs[:3])) &
+                           (movies['Genre'].isin(top_genres))]
 ```
-
 
 ```python
+# Create boxplot of Runtime, grouped into Language and Genre segments
 sns.boxplot(x='Runtime', y='Language', hue='Genre', data=genre_lang_subset)
-plt.title('Distribution of Runtime for Top Movie Languages and Genres')
-```
 
+# Add a title
+plt.title('Distribution of Runtime for Top Movie Languages and Genres')
+plt.show()
+```
 
 ## Bar Charts
 
