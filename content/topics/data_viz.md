@@ -284,7 +284,7 @@ Just from the shape of these two histograms, we can deduce that, in our sample, 
 
 For a data sample, a box-and-whiskers plot ("box plot" for short) helps you visually quantify the amount of **variability** in your data sample. In other words, if you lined up each data point from a numerical variable in order, variability represents how spread out the points are. The box plot creates a visual summary of just that by leveraging the values of the quartiles in your data sample:
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/iqr%3Aboxplot.png"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/iqr%3Aboxplot.png" width="750px"/>
 
 [image source](https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51)
 
@@ -399,10 +399,9 @@ plt.ylabel('Number of Movies')
 
 ### Seaborn
 
-
 #### Single Bar Chart
 
-`sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
+* `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
 
 >>The default estimator statistic is np.mean, but can set to median or other function if desired...
 
@@ -412,9 +411,7 @@ plt.title('Lowest Movie Rating by Genre')
 plt.show()
 ```
 
-
 **Construct Your Own**
-
 
 This particular example doesn't need an estimator because we've created an object with an exact structure. Seaborn merely needs to read it and doesn't have to do any calculations behind the scenes. Because of this lack of calculations, there are also no confidence interval markers on the bars.
 
@@ -630,31 +627,26 @@ plt.show()
 *Note: Parameters with a default argument of None are optional*
 
 **Histogram**
-
 * Purpose: Illustrate the frequency distribution of a numerical variable
 * Pandas: `<series>.plot(kind='hist', bins=None)`
 * Seaborn: `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
 **Box-and-Whiskers Plot**
-
 * Purpose: Highlight the variability in a distribution
 * Pandas: `<series>.plot(kind='box')`
 * Seaborn: `sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
 
 **Bar Chart**
-
 * Purpose: Show a numerical comparison across different categories
 * Pandas: `<series>.plot(kind='bar')`
 * Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
 
 **Line Graph**
-
 * Purpose: Show the trend of a numerical variable over time
 * Pandas: `<series>.plot()`
 * Seaborn: `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
 **Scatterplot**
-
 * Purpose: Compare the relationship between two numerical variables
 * Pandas: `<series>.plot.scatter(x, y)`
 * Seaborn: `sns.scatterplot(x, y, hue=None, data=None, estimator=None, ci=95, ax=None)`
