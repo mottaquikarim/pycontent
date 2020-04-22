@@ -382,51 +382,82 @@ plt.show()
 
 ## Bar Charts
 
-It's hard for people to discern the area of the wedges in a pie chart. 
+Just like pie charts, bar charts visualize a numerical comparison across different categories. Bar charts are always preferable to pie charts because it's harder for people to discern the differences in the areas of the wedges in a pie chart than to compare the height/length of bars. 
 
 ### Pandas
 
-```python
-genre_count = movies.groupby('Genre')['Title'].count().sort_values(ascending=False)
-genre_count
-```
+`<series>.plot(kind='bar')`
+
+Here's how we would create a bar chart showing the number of movies in each genre:
 
 ```python
-genre_count.plot(kind='bar')
+# Plot a count of movies per genre in a bar chart
+movies['Genre'].value_counts().plot(kind='bar')
+
+# Add title
 plt.title('Number of Movies by Genre')
+
+# Customize y-axis label
 plt.ylabel('Number of Movies')
 ```
 
 ### Seaborn
 
-#### Single Bar Chart
+#### Single Bar Chart Example 1
 
 * `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
 
->>The default estimator statistic is np.mean, but can set to median or other function if desired...
+With the Pandas example above, we had to create the bar chart based off a Series with a specific structure. Each element in the Series corresponded to a bar's label and numerical value. Seaborn's `sns.barplot()` function has some ability to compile the data for you. 
+
+Like other Seaborn functions, you specify the `x` and `y` variables separately. One should be a numeric variable, and the other should be categorical. The `orient` parameter automatically sets itself to `'v'` or `'h'` based on which of the `x` and `y` variables is numeric or categorical. In other words, if you pass the categorical variable to `x`, you get a vertical bar chart. If you pass the categorical variable to `y`, you get a horizontal bar chart. 
+
+Behind the scenes, this is what Seaborn does when you call `sns.barplot()`:
+
+1. Automatically groups the categorical data for you;
+2. Applies some calculation to each group based on what mathemtical function you pass to the `estimator` parameter (`np.mean` is the default argument);
+3. Plots the resultant values as bars.
+
+Let's say we want to plot the lowest `imdbRating` in each movie `Genre`. Seaborn automatically groups the genres for us. We'd pass `estimator=np.min` to instruct Seaborn to calculate and plot the lowest value in each group.
 
 ```python
-sns.barplot(x='imdbRating', y='Genre', data=movies, estimator=np.min, ci=None)
+# In a bar chart, plot the minimum imdbRating in each Genre group
+sns.barplot(x='imdbRating', y='Genre', data=movies, 
+            estimator=np.min, ci=None)
+
+# Add a title
 plt.title('Lowest Movie Rating by Genre')
 plt.show()
 ```
 
-**Construct Your Own**
+A few notes about the above bar chart:
 
-This particular example doesn't need an estimator because we've created an object with an exact structure. Seaborn merely needs to read it and doesn't have to do any calculations behind the scenes. Because of this lack of calculations, there are also no confidence interval markers on the bars.
+* If you have a lot of categories, orienting your bar chart horizontally provides better readability.
+* Because Seaborn is doing the calculations for you, it also calculates and plots **confidence intervals** in the form of tick marks atop each bar. That's another level of statistical precision that we don't need right now. As such, we pass `ci=None` to remove these.
+* Notice that the color palette has changed because the one we defined had fewer colors than this variable has categories (from the `ci` parameter).
+
+#### Single Bar Chart Example 2
+
+Seaborn doesn't always need to leverage the estimator though. If you want to use a calculation that can't be passed to `estimator`, you'll have to do the calculations yourself. Then you'll structure the results so that Seaborn merely needs to plot exactly what it reads out of the object. Because of this lack of calculations, there are also no confidence interval markers on the bars.
+
+Let's recreate the "Number of Movies by Genre" plot we made with Pandas, now using Seaborn. First, we'll prep the data.
 
 ```python
-genres = genre_count.copy()
-genres = genres.reset_index()
+genre_count = movies['Genre'].value_counts()
+genres = genre_count.reset_index()
 genres.rename(columns={'Genre': 'Movies', 'index': 'Genre'}, inplace=True)
 genres.head()
 ```
 
-The `orient` parameter automatically sets itself to `'v'` or `'h'` based on which of the x and y variables is numeric or categorical. If you have a lot of categories though, orienting your bar chart horizontally provides better readability. Also, notice that the color palette has changed because the one we defined had fewer colors than this variable has categories (from the `ci` parameter).
+We reset the index so that we can reference the genre names as a column in the dataframe.
 
 ```python
+# In a bar chart, plot a count of the movies in each Genre
 sns.barplot(x='Movies', y='Genre', data=genres)
+
+# Add a title
 plt.title('Number of Movies by Genre')
+
+# Remove the x-axis label
 plt.xlabel('')
 plt.show()
 ```
@@ -627,26 +658,31 @@ plt.show()
 *Note: Parameters with a default argument of None are optional*
 
 **Histogram**
+
 * Purpose: Illustrate the frequency distribution of a numerical variable
 * Pandas: `<series>.plot(kind='hist', bins=None)`
 * Seaborn: `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
 **Box-and-Whiskers Plot**
+
 * Purpose: Highlight the variability in a distribution
 * Pandas: `<series>.plot(kind='box')`
 * Seaborn: `sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
 
 **Bar Chart**
+
 * Purpose: Show a numerical comparison across different categories
 * Pandas: `<series>.plot(kind='bar')`
 * Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
 
 **Line Graph**
+
 * Purpose: Show the trend of a numerical variable over time
 * Pandas: `<series>.plot()`
 * Seaborn: `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
 **Scatterplot**
+
 * Purpose: Compare the relationship between two numerical variables
 * Pandas: `<series>.plot.scatter(x, y)`
 * Seaborn: `sns.scatterplot(x, y, hue=None, data=None, estimator=None, ci=95, ax=None)`
