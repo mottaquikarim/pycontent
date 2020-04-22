@@ -464,23 +464,33 @@ plt.show()
 
 #### Grouped Bar Chart
 
+Just like with boxplots, you can add a second categorical variable into the mix by passing it to the `hue` parameter. This ultimately outputs groups of bars, where each category is a group and the variable passed to `hue` is the sub-category within each group of bars.
+
+In the following example, we'll graph the median `imdbRating` of thriller and horror movies made in the top 3 movie-producing countries. This will ultimately output three groups of two bars each.
+
+First, we'll find the three countries that produce the most movies:
+
 ```python
 country_count = movies['Country'].value_counts()
 top_countries = country_count.head(3).index.values
 top_countries
 ```
 
->>filter top countries and horror/thriller genres
+Next, we'll create a subset of the data, containing only thriller and horror movies made in one of those countries:
 
 ```python
 scary = movies[((movies['Genre'] == 'Horror') | (movies['Genre'] == 'Thriller')) &
                (movies['Country'].isin(top_countries))]
 ```
 
+Now, we'll construct the bar chart. Notice how it automatically generates a legend based on how it compiled the the variable passed to `hue`.
 
 ```python
-sns.barplot(x='Country', y='imdbRating', hue='Genre', data=scary, ci=None)
-plt.title('Average Rating of Thriller vs. Horror Movies by Country')
+# In a bar chart, plot median imdbRating for each Genre group WITHIN each Country group
+sns.barplot(x='Country', y='imdbRating', hue='Genre', data=scary, estimator=np.median, ci=None)
+
+# Add a title
+plt.title('Median Rating of Thriller vs. Horror Movies by Country')
 plt.show()
 ```
 
