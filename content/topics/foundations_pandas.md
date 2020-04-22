@@ -32,9 +32,14 @@ The first thing you have to do start a new analysis is import whichever data sci
 import numpy as np 
 import pandas as pd
 ```
+
 ## NumPy ndarray Objects
 
 Pandas is built on top of NumPy, so new users should first understand one NumPy data object that often appears within Pandas objects - the **ndarray, or N-dimensional array**.
+
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/numpy_ndarrays.png"/>
+
+[image source](https://www.datacamp.com/community/tutorials/python-numpy-tutorial)
 
 `Ndarrays` are deceptively similar to the more general Python `list` type we've been working with. An `ndarray` type is a group of elements, which can be accessed and updated using a zero-based index. Sounds exactly like a `list`, right? 
 
@@ -169,7 +174,7 @@ print(s_dict)
 
 ## Pandas DataFrame Objects
 
-<img src="../images/df_components.png" style="margin: 0 auto; display: block;"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/df_components.png" style="margin: 0 auto; display: block;"/>
 
 A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. It's like a more dynamic spreadsheet. It accepts many different data types as values, including strings, arrays (lists), dicts, Series, and even other dataframes. Most of the time, you'll create a dataframe indirectly in one of two ways. First, you could import data from a file or database. Alternatively, you could manipulate an existing dataframe and store that new version in its own variable. 
 
