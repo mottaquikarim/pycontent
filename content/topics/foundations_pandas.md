@@ -127,6 +127,7 @@ print(array1 * 10) # [30 50 70]
 # print(list1 + 1) # TypeError
 print(array1 + 1) # [4 6 8]
 ```
+
 ## Pandas Series Objects
 
 A **Series** object from the Pandas library is a 1-D ndarray that has been streamlined for data processing.
@@ -135,6 +136,10 @@ A **Series** object from the Pandas library is a 1-D ndarray that has been strea
 * A Series is always 1-D.
 * Series support vectorized operations
 * By default, the `index` parameter assigns an zero-based index. Alternatively, you can assign custom index labels to a Series. On this front, you can think of a Series kind of like a dict.
+
+<img src="https://github.com/mottaquikarim/pycontent/blob/master/content/images/pd_series.png?raw=true"/>
+
+[image source](https://www.datacamp.com/community/blog/python-pandas-cheat-sheet)
 
 The general syntax for creating a Series is `s = pd.Series(data, index, dtype)`. Using this syntax, you can instantiate a Series from a single scalar or boolean value, a list, an ndarray, or a dict.
 
