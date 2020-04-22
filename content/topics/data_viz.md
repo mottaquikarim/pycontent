@@ -1,6 +1,6 @@
 # Data Visualization
 
-### Objectives
+## Objectives
 
 In this lesson, we'll discuss what plotting capabilities are available with Pandas, Matplotlib, and Seaborn. We'll combine a cherry-picking of features that will allow you to create common plots with elegance, but relative ease. Here is a summary of points we'll cover:
 
@@ -14,7 +14,7 @@ In this lesson, we'll discuss what plotting capabilities are available with Pand
 	* Line Graphs
 	* Scatterplots
 
-### Review 
+## Review 
 
 Below is a brief review of the key points about data visualization & storytelling from the "Data Science Foundations" section.
 
@@ -32,8 +32,6 @@ Let's start with where the different libraries fit in:
 * Matplotlib is the foundational data viz library in Python. Plotting functionality in other libraries is built on top of Matplotlib. Matplotlib is vastly flexible, but also quite complex. 
 * Pandas plotting capabilities are limited to the basics. Pandas provides a way to plot using your Series or DataFrame object as a base. (We'll explain that shortly). Any bells and whistles require you to incorporate Matplotlib.
 * Seaborn specializes in statistical visualizations. It simplifies the creation of a collection of statistical plots, but it lacks some of the customization options that Matplotlib provides.
-
-### Importing Plotting Libraries
 
 ```python
 import numpy as np
@@ -74,27 +72,31 @@ With Matplotlib, many of the above objects must be created manually BEFORE plott
 fig = plt.figure(figsize=(7,7))
 ```
 
-2. The below creates a figure object with a single axes object. (If you print `type(ax)` it will return `matplotlib.axes._subplots.AxesSubplot`)
+2. `plt.subplots()` creates a figure object with some number of subplot/axes objects. Its default args are `nrows=1, ncols=1`, so the below code creates only a single subplot/axes object. Using the tuple unpacking syntax below allows you to access the figure and axes objects individually. 
 
 ```python
 fig, ax = plt.subplots() # default args are nrows=1, ncols=1
 ```
 
+3. This creates a 2x2 grid of axes objects on a single figure:
 
 ```python
 fig, ax = plt.subplots(nrows=2, ncols=2)
 ```
 
+4. You can pass the `figsize` parameters to `plt.subplots()`...
+
 ```python
-fig, ax = plt.subplots(figsize=(7, 7))
+fig, ax = plt.subplots(figsize=(9, 6))
 ```
 
+5. ... Note that it changes the size of the whole figure, not each subplot. 
 
 ```python
 fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(9, 6))
 ```
 
-You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to add some customization. The main ones you'll use are:
+Various functions for plotting data can infer other descriptive plot elements like the title, labels, and the legend. When possible, they implicitly add those to the plot. However, they also have their own dedicated Matplotlib functions. You can combine these with Pandas and Seaborn plots to add some customization. The main ones you'll use are:
 
 * `plt.title()`
 * `fig.suptitle()` -- adds a title to the overall figure if there's more than one subplot (i.e. supertitle)
@@ -105,7 +107,7 @@ You CAN combine certain matplotlib functions to your Pandas and Seaborn plots to
 
 ## Setting Seaborn Figure Styles
 
-Write a function for a special sine wave graph. This is straight from the seaborn tutorial and just so that we can have a way to illustrate styles without loading a dataset.
+To help illustrate style examples without loading a dataset, we've copied a function that creates a sine wave graph from the [Seaborn Aesthetics Tutorial](https://seaborn.pydata.org/tutorial/aesthetics.html).
 
 ```python
 def sinplot(flip=1):
@@ -120,18 +122,20 @@ sinplot()
 
 * `sns.color_palette()` -- create a `_ColorPalette` object
 
->>This function can accept preset palettes or a list of HEX colors in string format e.g. '#3399FF'
-	>> find list of pre-existing seaborn options https://seaborn.pydata.org/tutorial/color_palettes.html
+This function can accept pre-existing Seaborn color palette, like any of the ones found [here](https://seaborn.pydata.org/tutorial/color_palettes.html), or a list of HEX colors in string format (e.g. '#3399FF').
 
 ```python
-BrBG = sns.color_palette('BrBG')
+BrBG = sns.color_palette('BrBG') # pre-existing palette
+
+cpal = ['dodgerblue', '#2ecc71', '#bb64ed', '#ffd13b', 'xkcd:tangerine', '#fa62b7']
+
 print(type(BrBG))
 ```
 
 * `sns.palplot()` -- prints an image of whatever color palette is passed to it
 
 ```python
-sns.palplot(BrBG)
+sns.palplot(cpal)
 ```
 
 * `sns.setpalette()` -- pass a `_ColorPalette` object to use it with all the plots you subsequently create
