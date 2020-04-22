@@ -255,7 +255,9 @@ sns.distplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
 
 For a data sample, a box-and-whiskers plot ("box plot" for short) helps you visually quantify the amount of **variability** in your data sample. *<DEFINE VARIABILITY>* The box plot visualizes this by leveraging the values of the quartiles in your data sample.
 
-<img src="https://miro.medium.com/max/1400/1*2c21SkzJMf3frPXPAR_gZA.png"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/iqr%3Aboxplot.png"/>
+
+[image source](https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51)
 
 * The range: The lowest point to the highest point
 * The IQR is represented by height of the box  bottom to the top of the box
