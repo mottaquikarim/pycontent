@@ -494,30 +494,58 @@ plt.title('Median Rating of Thriller vs. Horror Movies by Country')
 plt.show()
 ```
 
+The grouped bar chart allows you to compare the sub-categories as well as the main categories.
+
 #### Stacked Bar Chart
 
+In contrast, a stacked bar chart serves to illustrate the proportion of one or more sub-categories within a category. For example, how would we plot the proportion of movies in each of the top 10 genres produced in the U.S.?
+
+First, grab the top 10 most common genres overall:
 
 ```python
-usa = movies[movies['Country'] == 'USA']
-temp = usa['Genre'].value_counts()
-genres_usa = temp.reset_index()
-genres_usa.rename(columns={'Genre': 'US Movies', 'index': 'Genre'}, inplace=True)
-genres_usa.head()
+genre_count = movies['Genre'].value_counts()
+genres = genre_count.head(10).reset_index()
+genres.rename(columns={'Genre': 'Movies', 'index': 'Genre'}, inplace=True)
+genres
 ```
 
+Next, get a count of U.S.-produced movies in each of those genres:
 
 ```python
-genres = genres.merge(genres_usa, on='Genre')
-genres.head(10)
+usa = movies[(movies['Country'] == 'USA') &
+             (movies['Genre'].isin(genres['Genre']))]
+genres_usa = usa['Genre'].value_counts()
+genres_usa = genres_usa.reset_index()
+genres_usa.rename(columns={'Genre': 'U.S. Movies', 'index': 'Genre'}, inplace=True)
+genres_usa
 ```
 
+Consolidate these into a single dataframe:
 
 ```python
-sns.barplot(x='Movies', y='Genre', data=genres.head(10), color='navy')
-sns.barplot(x='US Movies', y='Genre', data=genres.head(10), color='dodgerblue')
+genres['U.S. Movies'] = genres_usa['U.S. Movies']
+genres
+```
 
+And finally, let's construct this plot. You actually have to layer two bar charts on one axes object. We'll pass a unique `label` to each one and `color`, which will be used to create the figure's legend in a separate command.
+
+```python
+# Create a figure with one axes object
+fig, ax = plt.subplots()
+
+# In a bar chart, plot the number of movies in each of the top 10 Genres
+sns.barplot(x='Movies', y='Genre', data=genres.head(10), label='Total', color='navy')
+
+# In a bar chart, plot the number of U.S.-produced movies in each of the top 10 Genres
+sns.barplot(x='US Movies', y='Genre', data=genres.head(10), label='Produced in U.S.', color='dodgerblue')
+
+# Add a title
 plt.title('Proportion of Top 10 Movie Genres Made by US')
+
+# Add a legend using the labels passed to each .barplot() function
 ax.legend(ncol=2, loc="lower right", frameon=True)
+
+# Remove the x-axis label
 plt.xlabel('')
 plt.show()
 ```
