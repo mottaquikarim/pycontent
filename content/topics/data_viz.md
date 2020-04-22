@@ -537,10 +537,10 @@ fig, ax = plt.subplots()
 sns.barplot(x='Movies', y='Genre', data=genres.head(10), label='Total', color='navy')
 
 # In a bar chart, plot the number of U.S.-produced movies in each of the top 10 Genres
-sns.barplot(x='US Movies', y='Genre', data=genres.head(10), label='Produced in U.S.', color='dodgerblue')
+sns.barplot(x='U.S. Movies', y='Genre', data=genres.head(10), label='Produced in U.S.', color='dodgerblue')
 
 # Add a title
-plt.title('Proportion of Top 10 Movie Genres Made by US')
+plt.title('Proportion of Top 10 Movie Genres Made by U.S.')
 
 # Add a legend using the labels passed to each .barplot() function
 ax.legend(ncol=2, loc="lower right", frameon=True)
@@ -656,40 +656,57 @@ plt.show()
 
 ## Scatterplots
 
+At its most basic, a scatterplot serves to compare the relationship between two numerical variables. Each point in a scatterplot corresponds to one observation in your sample (e.g. a movie). For each observation, you plot an an (x, y) coordinate using two numerical variables for x and y. 
+
+With scatterplots, you're looking for a general trend in how the values of the y variable change as the values of the x variable increase. However, be careful not to draw conclusions too quickly. Without further statistical analysis, it's hard to make very definitive claims. 
+
+*p.s. There's a LOT more insight scatterplots can offer, but we don't have time to go further into statistics as a class.*
+
 ### Pandas
 
-`<series>.plot.scatter(x, y)`
+`<series>.plot.scatter(x, y, c=<list of colors>)`
+
+Here's an example, using `imdbRating` for the x variable and `Metascore` for the y variable. (It gets angry if we don't pass a color explicitly to the `c` parameter, so we'll pass one below.) You can see that, generally, `imdbRating` and `Metascore` have some degree of a positive relationship.
 
 ```python
-movies.plot.scatter(x='Runtime', y='imdbRating', c=['dodgerblue'])
-# it forces you to put a color here
+movies.plot.scatter(x='imdbRating', y='Metascore', c=['#bb64ed'])
+plt.show()
+```
+
+In contrast, `Runtime` and `imdbVotes` appear to have little to no connection.
+
+```python
+movies.plot.scatter(x='Runtime', y='imdbVotes', c=['#fa62b7'])
+plt.ylabel('IMDb Votes in Millions')
 plt.show()
 ```
 
 ### Seaborn
 
-`sns.scatterplot(x, y, hue=None,  data=None, estimator=None, ci=95, ax=None)`
+`sns.scatterplot(x, y, data=None, ax=None)`
+
+Let's use Seaborn to build a 2x2 grid showing what happens when you flip the x and y variables. This time, we'll compare `imdbVotes` and `imdbRating`, and we'll use a random sample of 20% of the full movie data to make the plot less dense.
 
 ```python
+# Take a random sample, whose size is 20% of total rows
 movies_sample = movies.sample(frac=0.2)
 
+# Create a 1x2 grid of subplots with figure size 15x5
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
 
+# Add a figure-level title
+fig.suptitle('IMDb Votes (in Millions) & IMDb Ratings')
 
-sns.scatterplot(x='imdbRating', y='Rotten Tomatoes', data=movies_sample, color='dodgerblue', ax=ax1)
-ax1.set_title('A')
+# On ax1, create scatterplot of imdbRating x imdbVotes
+sns.scatterplot(x='imdbRating', y='imdbVotes', data=movies_sample, color='dodgerblue', ax=ax1)
 
-sns.scatterplot(x='Rotten Tomatoes', y='imdbRating', data=movies_sample, color='#2ecc71', ax=ax2)
-ax2.set_title('B')
+# On ax2, create scatterplot of imdbVotes x imdbRating
+sns.scatterplot(x='imdbVotes', y='imdbRating', data=movies_sample, color='#2ecc71', ax=ax2)
 
 plt.show()
 ```
 
-
-```python
-
-```
-
+Looking at this side-by-side, we can see that higher-rated movies tend to get more ratings overall. That *might* mean that people go to IMDb to rate movies they like more often than to give low ratings to movies they hate. This could be a useful starting point to a deeper analysis.
 
 ## Key Takeaways
 
