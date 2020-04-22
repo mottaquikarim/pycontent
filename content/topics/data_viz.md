@@ -64,12 +64,17 @@ The underlying elements of a plot:
 * You should also include a **Title** and **Labels** for the x and y axes. 
 * A **Legend** (not pictured above) is used to define  different colors or shapes on a single graph as different categories or segments of data.
 
-With matplotlib, many of the above objects must be created manually BEFORE plotting the data. With Pandas and Seaborn, the figure, axes, and often the labels are created implicitly when you plot the data. 
+With Matplotlib, many of the above objects must be created manually BEFORE plotting the data. With Pandas and Seaborn, often the figure, axes, and even the labels are created implicitly when you plot the data. 
+
+### Plot Anatomy Examples
+
+1. Here is how you would create a figure object with a custom size using Matplotlib. Notice how it does not print any sort of visual object. That's because it doesn't have any axes objects on it yet.
 
 ```python
 fig = plt.figure(figsize=(7,7))
 ```
 
+2. The below creates a figure object with a single axes object. (If you print `type(ax)` it will return `matplotlib.axes._subplots.AxesSubplot`)
 
 ```python
 fig, ax = plt.subplots() # default args are nrows=1, ncols=1
