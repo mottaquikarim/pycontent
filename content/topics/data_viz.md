@@ -554,39 +554,54 @@ plt.show()
 
 ### Pandas
 
->>prep the data
+Line graphs are one of the most common plots because they specifically visualize the trend of a numerical variable over time. In fact, line graphs are the default plot type in the Pandas `.plot()` function.
+
+`<series>.plot()`
+
+Let's prep our data to plot how the average movie ratings have changed YoY (i.e. year over year). To do this, each `Year` is effectively its own group. For each group, we can then find the mean for one or more ratings sources like `imdbRating` and `Rotten Tomatoes`.
 
 ```python
+# Average critic rating YoY
 critics = movies.groupby('Year')['Rotten Tomatoes'].mean()
+
+# Average audience rating YoY
 audience = movies.groupby('Year')['imdbRating'].mean()
 
+# Compile both into one dataframe
 avg_yrly_ratings = pd.concat([critics, audience], axis=1)
 avg_yrly_ratings.round()
 ```
 
->>one line
-
-`<series>.plot()`
+#### One Line
 
 ```python
 critics.plot()
-plt.title('Average Movie Critic Ratings Over Time')
+
+# Add a title
+plt.title('Average Movie Ratings from Critics Over Time')
+
+# Add x- and y-axis labels
 plt.xlabel('Year')
 plt.ylabel('Rating')
 plt.show()
 ```
 
->>two lines
+#### Multiple Lines
 
 ```python
 avg_yrly_ratings.plot()
-plt.title('Average Movie Ratings Over Time')
+
+# Add a title
+plt.title('Average Movie Ratings Over Time by Source')
+
+# Add x- and y-axis labels
 plt.xlabel('Year')
 plt.ylabel('Rating')
+
+# Add a legend
 plt.legend(('Critics', 'Audience'))
 plt.show()
 ```
-
 
 ### Seaborn
 
@@ -706,7 +721,7 @@ sns.scatterplot(x='imdbVotes', y='imdbRating', data=movies_sample, color='#2ecc7
 plt.show()
 ```
 
-Looking at this side-by-side, we can see that higher-rated movies tend to get more ratings overall. That *might* mean that people go to IMDb to rate movies they like more often than to give low ratings to movies they hate. This could be a useful starting point to a deeper analysis.
+Looking at this side-by-side, we can infer that higher-rated movies tend to get more ratings overall. That *might* mean that people go to IMDb to rate movies they like more often than to give low ratings to movies they hate. This could be a useful starting point to a deeper analysis.
 
 ## Key Takeaways
 
