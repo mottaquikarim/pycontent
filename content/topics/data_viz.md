@@ -203,7 +203,7 @@ print('data loaded successfully')
 
 Histograms provide numerous insights into a numerical distribution, chiefly the frequency of values. Although they look similar to bar charts, histograms have a distinct purpose. Histograms visualize the frequency of values in a sample of quantitative data, while bar charts compare the values comprising a categorical value. 
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/plotly_histogram_fig4.gif"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/plotly_histogram_fig4.gif" width="750px"/>
 
 [image source](https://plotly.com/chart-studio-help/histogram/#normalizing-a-histogram)
 
@@ -331,7 +331,7 @@ plt.show()
 
 What if we want to compare the distribution of different groups within a single variable? For example, how does the distribution of `Runtime` compare across languages? 
 
-There are a lot of languages, so first, let's create a subset of the dataframe, including only the top 5 languages.
+There are a lot of languages, so first, let's create a subset of the dataframe that includes only the 5 most common languages.
 
 ```python
 lang_count = movies['Language'].value_counts()
@@ -464,7 +464,7 @@ plt.show()
 
 #### Grouped Bar Chart
 
-Just like with boxplots, you can add a second categorical variable into the mix by passing it to the `hue` parameter. This ultimately outputs groups of bars, where each category is a group and the variable passed to `hue` is the sub-category within each group of bars.
+Just like with boxplots, you can add a second categorical variable into the mix by passing it to the `hue` parameter. In doing so, the grouped bar chart allows you to compare the sub-categories as well as the main categories. This is best explained visually.
 
 In the following example, we'll graph the median `imdbRating` of thriller and horror movies made in the top 3 movie-producing countries. This will ultimately output three groups of two bars each.
 
@@ -493,8 +493,6 @@ sns.barplot(x='Country', y='imdbRating', hue='Genre', data=scary, estimator=np.m
 plt.title('Median Rating of Thriller vs. Horror Movies by Country')
 plt.show()
 ```
-
-The grouped bar chart allows you to compare the sub-categories as well as the main categories.
 
 #### Stacked Bar Chart
 
