@@ -102,7 +102,7 @@ Various functions for plotting data can infer other descriptive plot elements li
 * `fig.suptitle()` -- adds a title to the overall figure if there's more than one subplot (i.e. supertitle)
 * `plt.xlabel()`
 * `plt.ylabel()`
-* `plt.legend()`
+* `plt.legend()` or `<axes>.legend()`
 * `plt.savefig('image_name.png', transparent=False)`
 
 ## Setting Seaborn Figure Styles
@@ -543,7 +543,7 @@ sns.barplot(x='U.S. Movies', y='Genre', data=genres.head(10), label='Produced in
 plt.title('Proportion of Top 10 Movie Genres Made by U.S.')
 
 # Add a legend using the labels passed to each .barplot() function
-ax.legend(ncol=2, loc="lower right", frameon=True)
+ax.legend(ncol=2, loc="lower right")
 
 # Remove the x-axis label
 plt.xlabel('')
@@ -599,75 +599,52 @@ plt.xlabel('Year')
 plt.ylabel('Rating')
 
 # Add a legend
-plt.legend(('Critics', 'Audience'))
+ax.legend(('Critics', 'Audience'))
 plt.show()
 ```
 
 ### Seaborn
 
->>prep the data
-
-```python
-avg_yrly_ratings = avg_yrly_ratings.reset_index()
-avg_yrly_ratings
-```
-
->>one line
-
 `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
 
-```python
-sns.lineplot(x='Year', y='imdbRating', data=avg_yrly_ratings)
+Let's repeat these examples using Seaborn. The `sns.lineplot()` function can infer groups and automatically calculate a statistic for each group the same way `sns.barplot()` does, so we don't need the `avg_yrly_ratings` dataframe. Likewise, the default `estimator` argument is also `np.mean`. Since we're going to make use of the `estimator` abstraction, we need to remember to set `ci=None` for the reasons mentioned earlier.
 
+#### One Line
+
+```python
+# Build a line graph of mean imdbRating YoY
+sns.lineplot(x='Year', y='imdbRating', data=movies, ci=None)
+
+# Add a title
 plt.title('Average Audience Movie Ratings Over Time')
-plt.xlabel('Year')
-plt.ylabel('Rating')
+
+# Customize y-axis label
+plt.ylabel('Audience Rating')
 plt.show()
 ```
 
->>two lines
+#### Multiple Lines
 
 ```python
-sns.lineplot(x='Year', y='imdbRating', data=avg_yrly_ratings)
-sns.lineplot(x='Year', y='Rotten Tomatoes', data=avg_yrly_ratings)
+# Create a figure with one axes object
+fig, ax = plt.subplots()
 
-plt.title('Average Yearly Ratings')
+# Plot mean imdbRating YoY
+sns.lineplot(x='Year', y='imdbRating', data=movies, ci=None, label='Audience')
+
+# Plot mean Rotten Tomatoes rating YoY
+sns.lineplot(x='Year', y='Rotten Tomatoes', data=movies, ci=None, label='Critics')
+
+# Add a title
+plt.title('Average Movie Ratings Over Time by Source')
+
+# Customize y-axis label
 plt.ylabel('Rating')
-plt.legend(('Critics', 'Audience'))
+
+# Add a legend using the labels passed to each sns.lineplot() above
+ax.legend()
 plt.show()
 ```
-
-**Another Example**
-
-```python
-decade = movies[(movies['Year'].between(1980,1989))]
-decade.info()
-```
-
-
-```python
-top_genres = decade['Genre'].value_counts().head(3)
-top_genres
-```
-
-
-```python
-top_80s_genres = decade[decade['Genre'].isin(top_genres.index.values)]
-```
-
-
-```python
-sns.lineplot(x='Year', y='imdbRating', hue='Genre', ci=None, data=top_80s_genres)
-
-plt.title('Average Rating for Most Common Genres in the 1980s')
-plt.xlabel('Year')
-plt.ylabel('Rating')
-plt.show()
-
-# top_80s_genres[(top_80s_genres['Genre'] == 'Adventure') & (top_80s_genres['Year'] == 1986)]
-# That huge dip is real
-```
-
 
 ## Scatterplots
 
