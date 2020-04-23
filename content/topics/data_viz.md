@@ -50,7 +50,7 @@ print('import successful')
 
 The underlying elements of a plot:
 
-<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/fig_map_realpython.png" style="margin: 0 auto; float: right;"/>
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/fig_map_realpython.png" width="400px"/>
 
 [image source](https://realpython.com/python-matplotlib-guide/#the-matplotlib-object-hierarchy)
 
@@ -569,7 +569,7 @@ audience = movies.groupby('Year')['imdbRating'].mean()
 
 # Compile both into one dataframe
 avg_yrly_ratings = pd.concat([critics, audience], axis=1)
-avg_yrly_ratings.round()
+avg_yrly_ratings.round().head()
 ```
 
 #### One Line
