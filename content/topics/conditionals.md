@@ -2,11 +2,19 @@
 
 In order for code to be useful, it is imperative to have the ability to make decisions. In most languages, we use the **conditional** statement to facilitate decision making. 
 
-Before we dig deeper into conditionals, let us first examine the `Boolean` datatype.
+## Objectives
+
+* Booleans
+* Comparison Operators
+* Logical Operators
+* Membership Operators
+* Conditional Statements
+* Try/Except Statements
+* BONUS: The Random Module
 
 ## Booleans & Their Operators
 
-In short, a boolean represents a "yes" or "no" value. In Python, booleans are written as:
+Before we dig deeper into conditionals, let us first examine the `Boolean` datatype. In short, a boolean represents a "yes" or "no" value. In Python, booleans are written as:
 
 ```python
 True # this is a boolean, for "yes"
@@ -296,6 +304,7 @@ In the example above, we print one of 4 possibilities - the elif allows us to go
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Complete the "Logic" PSET in your copy of `conditionals_psets.ipynb` in Google Drive.
+
 
 ### BONUS TOPIC: Random Numbers
 
