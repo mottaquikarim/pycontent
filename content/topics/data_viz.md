@@ -105,7 +105,7 @@ Various functions for plotting data can infer other descriptive plot elements li
 * `plt.legend()` or `<axes>.legend()`
 * `plt.savefig('image_name.png', transparent=False)`
 
-## Setting Seaborn Figure Styles
+## Setting Figure Styles with Seaborn
 
 To help illustrate style examples without loading a dataset, we've copied a function that creates a sine wave graph from the [Seaborn Aesthetics Tutorial](https://seaborn.pydata.org/tutorial/aesthetics.html).
 
