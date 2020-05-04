@@ -185,7 +185,7 @@ Sometimes, we have code that we expect might throw an error. For example, what h
 ```python
 temp = input('What temperature is it outside? ')
 
-if temp < 65:
+if int(temp) < 65:
     print('wear a jacket!')
 ```
 
@@ -202,6 +202,30 @@ else:
 ```
 
 However, this could get out of hand when there are a multitude of scenarios that could cause a potential error. A **Try/Except statement** is a more elegant method for handling common errors.
+
+This is the most general version of a try/except block. It will catch any error.
+
+```python
+temp = input('What temperature is it outside? ')
+
+try:
+    if int(temp) < 65:
+      print('wear a jacket!')
+except:
+    print(f"Something went wrong!")
+```
+
+However, it doesn't capture any details about the issue. That's why it's better to add `Exception as <some_variable>`.
+
+```python
+temp = input('What temperature is it outside? ')
+
+try:
+    if int(temp) < 65:
+      print('wear a jacket!')
+except Exception as e:
+    print(f'''{e.__class__.__name__}: {e}''')
+```
 
 *...more in progress...*
 
