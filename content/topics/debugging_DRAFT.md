@@ -4,9 +4,7 @@
 
 ## Lesson Objectives
 
-This lesson will introduce simple methods for investigating issues in your code. At this point, it's not so much about being able to analyze complex problems as about becoming aware of and familiar with common error messages and their meanings.
-
-*After this lesson, you will be able to...*
+This lesson will introduce simple methods for investigating issues in your code. At this point, it's not so much about being able to analyze complex problems as about becoming aware of and familiar with common error messages and their meanings. After this lesson, you will be able to...
 
 * Troubleshoot common types of errors.
 * Implement basic exception mitigation.
@@ -29,20 +27,20 @@ With that in mind, what's the problem with this code?
 This chart's for you to refer to later - don't memorize it now!
 
 | Error Type  | Most Common Cause |
-| --- | ---|
-| `AttributeError`  | Attempting to access a non-existent attribute |
+| ----------- | ------------------|
+| `AttributeError` | Attempting to access a non-existent attribute |
 | `KeyError` | Attempting to access a non-existent key in a dict |
-| `ImportError`  | A module you tried to import doesn't exist |
-| `IndexError`  | You attempted to access a list element that doesn't exist |
-| `IndentationError`  | Indenting code in an invalid way |
-| `IOError`  | Accessing a file that doesn't exist |
-| `NameError`  | Attempting to use a module you haven't imported/installed or a variable you haven't created |
-| `OverflowError`  | You made a number larger than the maximum size |
-| `RuntimeError`  | The error doesn't fit into any other category |
-| `SyntaxError`  | A typo, such as forgetting a colon |
-| `TypeError`  | Using two different types in an incompatible way |
-| `ValueError`  | When you are trying to convert bad keyboard input to a number |
-| `ZeroDivisionError`  | Dividing By Zero |
+| `ImportError` | A module you tried to import doesn't exist |
+| `IndexError` | Accessing a list element that doesn't exist |
+| `IndentationError` | Indenting code in an invalid way |
+| `IOError` | Accessing a file that doesn't exist |
+| `NameError` | Attempting to use a module you haven't imported/installed or a variable you haven't created |
+| `OverflowError` | You made a number larger than the maximum size |
+| `RuntimeError` | Python can't categorize the issue into any other error type. |
+| `SyntaxError` | A typo or mistake in adhering to the linguistic syntax of Python |
+| `TypeError` | Combining or comparing two different date types in an incompatiable manner |
+| `ValueError` | When you are trying to convert bad keyboard input to a number |
+| `ZeroDivisionError` | Dividing By Zero |
 
 ## Error Examples
 
@@ -107,16 +105,15 @@ print("My favorite restaurant is", my_favorites["Restaurant"])
 
 ### AttributeError
 
-* More general than `KeyError`, but the same idea.
-* Accessing an attribute (e.g., function or property) that doesn't exist
+**Cause**: Accessing an attribute that doesn't exist for some object class
 
 ```python
-    class Dog():
-  def __init__(self, name):
-    self.name = name
-
-  def bark(self):
-    print("Bark!")
+class Dog():
+    def __init__(self, name):
+        self.name = name
+    
+    def bark(self):
+        print("Bark!")
 
 # Declare a new dog instance
 my_dog = Dog("Fido")
@@ -130,17 +127,7 @@ my_dog.run() # AttributeError!
 
 ### SyntaxError
 
-Let's run the code together. What happens? How can we fix it?
-
-<aside class="notes">
-**Teaching Tips**:
-
-- See if they can pick up the answer.
-- Python is different (and better) than other languages in this regard, but it's important to emphasize that = and == are for different purposes!
-
-**Talking Points**:
-- "In any other language, (take JavaScript for example), if you accidentally use a single equals when you mean to use a double equals, the variable would be reassigned while inside that if statement and your 13 year old would be having a beer! Luckily the designers of Python knew this and made the choice to throw an error!"
-
+**Cause**: A typo or mistake in adhering to the linguistic syntax of Python
 
 ```python
 my_age = 13
@@ -153,30 +140,12 @@ else:
 
 ### TypeError
 
-`TypeError` and its message tell us:
+**Cause**: Combining or comparing two different date types in an incompatiable manner
 
 ```python
 my_num = 5 + "10"
 print(my_num)
-# TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
-
-What do we learn from this error message? Have you learned a way to fix this?
-
-**Fun Fact**: Some languages, like JavaScript, let this code run (breaking something!).
-
-
-<aside class="notes">
-
-**Talking Points**:
-
-* We're trying to combine different types in a way that doesn't make sense
-* The error was caused when using the `+` operator
-* The error was caused by two incompatible types: `string` and `integer`.
-
-**Teaching Tips**:
-
-- They learned how to do type conversion in the last lesson, so you could point out that they can cast 10 as an int and then this will work.
 
 ### IndentationError
 
@@ -207,25 +176,9 @@ my_num = int("10")
 my_num = int("Moose")
 ```
 
-### RuntimeError
+## Anticipating Errors with Try/Except
 
-The worst error to see!
-
-* When no other error type fits.
-* You need to rely on the error message content.
-* May be used for custom errors.
-
-**Example**: `RuntimeError` is like if I said to you:
-
-```
-Please eat the piano
-```
-
-You can understand what's being asked, but can't actually do that!
-
-## Anticipating Errors
-
-Sometimes, we might have code that we expect to throw an error.
+Sometimes, we have code that we expect might throw an error.
 
 ```python
 # The user might not give us a number!
