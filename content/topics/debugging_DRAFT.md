@@ -312,6 +312,7 @@ May be caused by:
 - "IndentationError comes up for any indentation errors, whether it's too little or just mismatching in some way"
 
 **Repl.it Note:** this replit has
+
 ```python
 my_age = 13
 
@@ -413,18 +414,6 @@ This chart's for you to refer to later - don't memorize it now!
 | `ValueError`  | When you are trying to convert bad keyboard input to a number |
 | `ZeroDivisionError`  | Dividing By Zero |
 
-
-<aside class="notes">
-Teaching Tip:
-
-- Note that students haven't learned all these yet - like modules or accessing files. Don't go down this list in detail - just stress they can refer back to it.
-- Pause and take questions before switching gears.
-
-**Talking Points**:
-
-- "Here is an alphabetically ordered list of the most common errors you may encounter when writing Python that you can refer back to."
-</aside>
-
 ---
 
 ## Discussion: Throwing Errors
@@ -464,16 +453,7 @@ A `Try`-`Except` block is the way we can catch errors in Python. We can catch:
 
 Always try to specify the error, if possible!
 
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-try-except?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-<aside class="notes">
 **Teaching Tips**:
-
-- Try / except is new; do this with them. Make this a teaching slide, not an exercise.
-- Demonstrate some example output - strings, ints, floats, etc.
-
-**Talking Points**:
 
 - Call out that we specifically say "ValueError", and `err` is just a random keyword. Change it to demo. Add other error catches; take out the ValueError specifically.
 - "A Try-Except block is the way we can catch errors in Python."
@@ -481,6 +461,7 @@ Always try to specify the error, if possible!
 - "You can catch every possible error by leaving the specified error blank, however, this is generally not a great practice because it says very little about how you were thinking."
 
 **Replit Note:** The repl.it has
+
 ```python
 my_num = None
 
@@ -493,7 +474,6 @@ while my_num is None:
 
 print("Thanks for typing the number", my_num)
 ```
-</aside>
 
 
 ---
