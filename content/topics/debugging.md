@@ -212,24 +212,36 @@ temp = input('What temperature is it outside? ')
 
 try:
     if int(temp) < 65:
-      print('wear a jacket!')
+        print('wear a jacket!')
 except:
     print(f"Something went wrong!")
 ```
 
-However, it doesn't capture any details about the issue. That's why it's better to add `Exception as <some_variable>`.
+However, it doesn't capture any details about the issue. That's why it's better to add `Exception as <some_variable>`. You can then access the value and attributes of that variable to get more information about the error. In the below, we call this variable `e`. Simply printing out `e` displays a brief error message. Use `e.__class__.__name__` to print the name of the error.
 
 ```python
 temp = input('What temperature is it outside? ')
 
 try:
     if int(temp) < 65:
-      print('wear a jacket!')
+        print('wear a jacket!')
 except Exception as e:
     print(f'''{e.__class__.__name__}: {e}''')
+    print('Please enter a valid number.')
 ```
 
-*...more in progress...*
+Again, the above is general in that it captures any type of error. If you know the type of error you're anticipating though, it's best to specify that in the code to let others know your thought process.
+
+```python
+temp = input('What temperature is it outside? ')
+
+try:
+    if int(temp) < 65:
+        print('wear a jacket!')
+except ValueError as ve:
+    print(f'''{ve.__class__.__name__}: {ve}''')
+    print('Please enter a valid number.')
+```
 
 ## Key Takeaways
 
@@ -239,10 +251,10 @@ except Exception as e:
 
 ## Additional Resources
 
-* [List of Built-In Errors](https://www.tutorialspoint.com/python/standard_exceptions.htm)
+* [Built-In Exception Docs](https://docs.python.org/3/library/exceptions.html)
 * [Error Flowchart PDF](https://www.dropbox.com/s/cqsxfws52gulkyx/drawing.pdf)
-* [Try-Except Documentation](http://www.pythonforbeginners.com/error-handling/python-try-and-except)
+* [Raising Exceptions](https://realpython.com/python-exceptions/)
 * [A deep dive into try/except clauses](https://jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/)
 * To get advanced, add [logging](https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/) to your code.
 * To get very advanced, include [unit tests](http://www.diveintopython.net/unit_testing/index.html)
-  * The [pytest module](http://pythontesting.net/framework/pytest/pytest-introduction/) is great.
+* The [pytest module](http://pythontesting.net/framework/pytest/pytest-introduction/) is great for unit testing.
