@@ -24,9 +24,33 @@ With that in mind, what's the problem with this code?
 
 <img src="https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/ZeroDivisionError.png" width="750px"/>
 
-## We Do: IndexError
+## List of Common Errors
 
-**Protip**: Index errors typically happen when you attempt to access a list index that doesn't exist.
+This chart's for you to refer to later - don't memorize it now!
+
+| Error Type  | Most Common Cause |
+| --- | ---|
+| `AttributeError`  | Attempting to access a non-existent attribute |
+| `KeyError` | Attempting to access a non-existent key in a dict |
+| `ImportError`  | A module you tried to import doesn't exist |
+| `IndexError`  | You attempted to access a list element that doesn't exist |
+| `IndentationError`  | Indenting code in an invalid way |
+| `IOError`  | Accessing a file that doesn't exist |
+| `NameError`  | Attempting to use a module you haven't imported/installed or a variable you haven't created |
+| `OverflowError`  | You made a number larger than the maximum size |
+| `RuntimeError`  | The error doesn't fit into any other category |
+| `SyntaxError`  | A typo, such as forgetting a colon |
+| `TypeError`  | Using two different types in an incompatible way |
+| `ValueError`  | When you are trying to convert bad keyboard input to a number |
+| `ZeroDivisionError`  | Dividing By Zero |
+
+## Error Examples
+
+Copy these example into [Repl.it](https://repl.it/) to run the code and see the error messages for yourself.
+
+### IndexError
+
+**Cause**: Index errors typically happen when you attempt to access a list index that doesn't exist.
 
 ```python
 race_runners = ["Yuna", "Bill", "Hyun"]
@@ -38,27 +62,9 @@ third_place = race_runners[3]
 print("The winners are:", first_place, second_place, third_place)
 ```
 
-## You Do: Fix a NameError
+### NameError
 
-Directions: Fix it!
-
-*Hints*:
-- Run the code to get the error.
-- What kind of error is it? What is the error message?
-
-<aside class="notes">
-
-**Teaching Tips**:
-
--  Give them just a minute  or two; then go over it. This is a  new error, but it's an easy one.
-
-**Talking Points**:
-- "Let's go back to an error we encountered earlier today!"
-- We most commonly get a `NameError` if we use a variable:
-    * Without defining it.
-    * *Before* defining it
-
-**Repl.it Note**: This replit has
+**Cause**: Attempting to use a module you haven't imported/installed or a variable you haven't created
 
 ```python
 # Get a number between 2 and 8.
@@ -67,35 +73,16 @@ my_nums = 5
 # Print the number
 print(my_num)
 ```
-</aside>
 
----
+### KeyError
 
-## KeyError
+**Cause**: Accessing a key in a dictionary that doesn't exist. The error message tells you exactly what key is missing!
 
-Accessing a key in a dictionary that doesn't exist.
+Reasons for this could include:
 
-Commonly caused by:
-- A misspelling.
-- Mixing uppercase and lowercase.
-
-The error message tells you exactly what key is missing!
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-error-key?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-
-<aside class="notes">
-Teaching tip:
-
-- The repl.it is for you to  demo this, not for an exercise.
-- Ask students what they think most commonly causes KeyErrors. Good answers might include case sensitivity in the key names, a typo in the key name, or simply not remembering what keys are available.
-
-**Talking Points**:
-
-- "KeyError happens when you try to use a key in a dictionary that doesn't exist"
-- "The error message tells you exactly what key threw the error"
-
-**Repl.it Note:** It's long; you might want to open it in a new tab. The replit has:
+* A misspelling.
+* Mixing uppercase and lowercase.
+* Forgetting what keys exist
 
 ```python
 my_favorites = {
@@ -117,27 +104,11 @@ print("My favorite color is", my_favorites["color"])
 # This is NOT okay! (Key doesn't exist)
 print("My favorite restaurant is", my_favorites["Restaurant"])
 ```
-</aside>
 
----
-
-## AttributeError
+### AttributeError
 
 * More general than `KeyError`, but the same idea.
 * Accessing an attribute (e.g., function or property) that doesn't exist
-
-<iframe height="400px" width="100%" data-src="https://repl.it/repls/SereneDarksalmonVariables?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-
-<aside class="notes">
-Teaching tip:
-
-- The repl.it is for you to  demo this, not for an exercise.
-
-**Talking Points**:
-- "AttributeError is more general than KeyError (which only applies to dict keys), but the same general idea."
-
-**Repl.it Note**:     The replit has:
 
 ```python
     class Dog():
@@ -156,12 +127,8 @@ my_dog.bark() # OK!
 # Call the run method
 my_dog.run() # AttributeError!
 ```
-</aside>
 
-
----
-
-## Discussion: SyntaxError
+### SyntaxError
 
 Let's run the code together. What happens? How can we fix it?
 
@@ -174,7 +141,7 @@ Let's run the code together. What happens? How can we fix it?
 **Talking Points**:
 - "In any other language, (take JavaScript for example), if you accidentally use a single equals when you mean to use a double equals, the variable would be reassigned while inside that if statement and your 13 year old would be having a beer! Luckily the designers of Python knew this and made the choice to throw an error!"
 
-**Repl.it Note**: The replit is
+
 ```python
 my_age = 13
 
@@ -183,11 +150,8 @@ if my_age = 18:
 else:
     print("I may not vote.")
 ```
-</aside>
 
----
-
-## Discussion: TypeError
+### TypeError
 
 `TypeError` and its message tell us:
 
@@ -214,31 +178,13 @@ What do we learn from this error message? Have you learned a way to fix this?
 
 - They learned how to do type conversion in the last lesson, so you could point out that they can cast 10 as an int and then this will work.
 
-</aside>
+### IndentationError
 
----
+**Causes**:
 
-## IndentationError
-
-May be caused by:
-
-    Notenoughindentation
-            Mismatched  indentation
-    Mixing tabs and   spaces!
-
-<aside class="notes">
-
-**Teaching Tips**:
-
-- This isn't  an exercise - just code to help you demo.
-- This is so common for Python beginners, so it is important to get practice recognizing this!
-- Have students come up with some examples of what might cause an error like this. Answers might include mixing tabs and spaces or indenting too much/too little.
-
-
-**Talking Points**:
-- "IndentationError comes up for any indentation errors, whether it's too little or just mismatching in some way"
-
-**Repl.it Note:** this replit has
+ * Missing indents
+ * Mismatched indentation
+ * Mixing tabs and spaces
 
 ```python
 my_age = 13
@@ -248,13 +194,10 @@ if my_age == 16:
 else:
 print("I may not drive.")
 ```
-</aside>
 
----
+### ValueError
 
-## ValueError
-
-Most commonly caused by trying to convert a bad string into a number.
+**Cause**: Most commonly caused by trying to convert a bad string into a number.
 
 ```python
 # This is okay!
@@ -264,15 +207,7 @@ my_num = int("10")
 my_num = int("Moose")
 ```
 
-<aside class="notes">
-**Teaching Tips**:
-
-- This is pretty  straightforward, but pull up a repl.it if you think  you need to.
-</aside>
-
----
-
-## RuntimeError
+### RuntimeError
 
 The worst error to see!
 
@@ -288,52 +223,7 @@ Please eat the piano
 
 You can understand what's being asked, but can't actually do that!
 
-
-<aside class="notes">
-**Talking Points**:
-
-- "Unfortunately this is an error that comes up when no other error type fits the situation. You will need to rely heavily on the content of the error message rather than getting much of a hint from the type alone"
-</aside>
-
-
----
-
-## Quick Review
-
-There are many types of errors in Python!
-
-Usually, the error has a name or description that says exactly what's wrong.
-
-Think about `IndentationError` or `IndexError` - what went wrong?
-
-Sometimes, you'll see `RuntimeError`. Python throws us this if something is broken but  it can't say specifically what - like `Please eat the piano`. Revisit your code and see what might  have happened.
-
-**Next Up:** A list of common errors, then ways to prevent errors.
-
-
-## List of Common Errors
-
-This chart's for you to refer to later - don't memorize it now!
-
-| Error Type  | Most Common Cause |
-| --- | ---|
-| `AttributeError`  | Attempting to access a non-existent attribute |
-| `KeyError` | Attempting to access a non-existent key in a dict |
-| `ImportError`  | A module you tried to import doesn't exist |
-| `IndexError`  | You attempted to access a list element that doesn't exist |
-| `IndentationError`  | Indenting code in an invalid way |
-| `IOError`  | Accessing a file that doesn't exist |
-| `NameError`  | Attempting to use a module you haven't imported/installed |
-| `OverflowError`  | You made a number larger than the maximum size |
-| `RuntimeError`  | The error doesn't fit into any other category |
-| `SyntaxError`  | A typo, such as forgetting a colon |
-| `TypeError`  | Using two different types in an incompatible way |
-| `ValueError`  | When you are trying to convert bad keyboard input to a number |
-| `ZeroDivisionError`  | Dividing By Zero |
-
----
-
-## Discussion: Throwing Errors
+## Anticipating Errors
 
 Sometimes, we might have code that we expect to throw an error.
 
