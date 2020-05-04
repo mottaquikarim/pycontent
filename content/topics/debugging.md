@@ -39,7 +39,7 @@ This chart's for you to refer to later - don't memorize it now!
 | `RuntimeError` | Python can't categorize the issue into any other error type. |
 | `SyntaxError` | A typo or mistake in adhering to the linguistic syntax of Python |
 | `TypeError` | Combining or comparing two different date types in an incompatiable manner |
-| `ValueError` | When you are trying to convert bad keyboard input to a number |
+| `ValueError` | When a function receives an argument of the correct type, but an invalid value |
 | `ZeroDivisionError` | Dividing By Zero |
 
 ## Error Examples
@@ -166,7 +166,9 @@ print("I may not drive.")
 
 ### ValueError
 
-**Cause**: Most commonly caused by trying to convert a bad string into a number.
+**Cause**: When a function receives an argument of the correct type, but an invalid value
+
+This is *most commonly* caused by trying to convert a string into a number.
 
 ```python
 # This is okay!
@@ -178,100 +180,36 @@ my_num = int("Moose")
 
 ## Anticipating Errors with Try/Except
 
-Sometimes, we have code that we expect might throw an error.
+Sometimes, we have code that we expect might throw an error. For example, what happens in the below code if a user types in "43F" to signify Fahrenheit?
 
 ```python
-# The user might not give us a number!
-my_num = int(input("Please give me a number:"))
+temp = input('What temperature is it outside? ')
+
+if temp < 65:
+    print('wear a jacket!')
 ```
 
-What if the user types a string like "Moose"?
-
-- This causes a `ValueError` - we'll be trying to make an int out of a string "Moose".
-- We can anticipate and prepare for it!
-
-<aside class="notes">
-
-**Teaching Tips**:
-
-- Start by making sure they understand what the code does. They've seen `input` a few  times, but won't officially learn it for three more lessons; they just learned type casting.
-
-**Talking Points**:
-
-- "Sometimes you may expect certain code to throw an error, and you may want to handle that situation with a smooth error message as opposed to having your whole program blow up with red text."
-</aside>
-
----
-
-## Try-Except
-
-A `Try`-`Except` block is the way we can catch errors in Python. We can catch:
-
-- One error (`except ValueError:`)
-- Multiple errors (`except (ValueError, KeyError):`)
-- Any/every error (`except:`)
-
-Always try to specify the error, if possible!
-
-**Teaching Tips**:
-
-- Call out that we specifically say "ValueError", and `err` is just a random keyword. Change it to demo. Add other error catches; take out the ValueError specifically.
-- "A Try-Except block is the way we can catch errors in Python."
-- "We can catch one error (as we see in the code), we can catch multiple errors, or we can just catch any/every error by leaving it blank."
-- "You can catch every possible error by leaving the specified error blank, however, this is generally not a great practice because it says very little about how you were thinking."
-
-**Replit Note:** The repl.it has
+That would cause a `ValueError` because it's trying to convert a string to an integer. Because we know this is a possibility, we COULD add some conditions to handle asking the user for valid input.
 
 ```python
-my_num = None
+temp = input('What temperature is it outside? ')
 
-while my_num is None:
-  try:
-      my_num = int(input("Please give me a number:"))
-  except ValueError as err:
-      print("That was not good input, please try again!")
-      print("Error was", err)
-
-print("Thanks for typing the number", my_num)
+if type(temp) == int or type(temp) == float:
+    if temp < 65:
+        print('wear a jacket!')
+else:
+    print('Please enter a numeric value for the temperature.')
 ```
 
+However, this could get out of hand when there are a multitude of scenarios that could cause a potential error. A **Try/Except statement** is a more elegant method for handling common errors.
 
-## You do: Try-Except
+*...more in progress...*
 
+## Key Takeaways
 
-Add a try-except statement to your guessing game which ensures the user inputs a valid number.
-
-## Python Debugger `pdb` - Python 3.7 or greater
-
-**Pro Tip**: You can drop in a `breakpoint()` to stop your code and see what is going on.
-
-* Use `breakpoint()` statements on each line to peek at the values.
-* It's like dropping in a `print` but better, as you stop your code in it's tracks
-* Remember to remove debugging statements once the problem is solved!
-
-```python
-x = 8
-y = 10
-get_average = x + y / 2
-breakpoint()
-
-testing_sum = x + y # To figure out why, break it down.
-print("testing_sum is", testing_sum) # Print out each step.
-testing_average = testing_average / 2
-breakpoint()
-
-print("testing_average is", testing_average) # The individual math test works
-# We know there must be a problem with the logic in "average"
-```
-
-When your programs become very complex, adding `print` statements will be a great help.
-
-## Summary and Q&A
-
-* Python has many common built-in errors.
+* Python has many built-in errors. Some of the **most** common are keep in mind are TypeErrors, ValueErrors, KeyErrors, IndexErrors, AttributeErrors, and SyntaxErrors.
 * Use `try`/`except` syntax to catch an expected error.
 * Logic issues don't throw errors, so be careful!
-* Use `print` and/or `breakpoint()` statements to walk through your code line-by-line.
 
 ## Additional Resources
 

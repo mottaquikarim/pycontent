@@ -17,4 +17,4 @@
 - data_cleaning.md: Data Cleaning
 - eda1.md: Exploratory Data Analysis (EDA)
 - data_viz.md: Data Visualization
-- debugging_DRAFT.md: TESTTESTTEST
+- debugging.md: TESTTESTTEST
