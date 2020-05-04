@@ -1,97 +1,33 @@
+<img src="https://s3.amazonaws.com/python-ga/images/GA_Cog_Medium_White_RGB.png"/>
 
-## ![](https://s3.amazonaws.com/python-ga/images/GA_Cog_Medium_White_RGB.png)  {.separator}
-
-<h1>Debugging Principles and Techniques</h1>
-
----
+# Debugging Principles and Techniques
 
 ## Lesson Objectives
+
+This lesson will introduce simple methods for investigating issues in your code. At this point, it's not so much about being able to analyze complex problems as about becoming aware of and familiar with common error messages and their meanings.
 
 *After this lesson, you will be able to...*
 
 * Troubleshoot common types of errors.
 * Implement basic exception mitigation.
-* Troubleshoot logic errors.
-
-<aside class="notes">
-
-**Talking Points**:
-
-- Reassure them that this won't be awful: it is not really about their problem solving skills so much at this point as it is about getting them to notice the error message and decode what it is saying.
-
-</aside>
-
----
-
-## Discussion: Error Messages
-
-
-Have you found a shiny red error message before? What do you think has happened here?
-
-![](https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/ZeroDivisionError.png)
-
-<aside class="notes">
-**Teaching Tips**:
-
-- Start a discussion here. What's going on here? What other errors have the students encountered?
-
-**Talking Points**:
-
-- "How many of you have run your code in a repl.it only to have a bunch of red text pop-up instead of your expected output?"
-- "What do you think is going on here in this image? How could it be fixed?"
-</aside>
-
----
 
 ## Making Errors Into Friends
 
-On the surface, errors are frustrating! However, we'll walk through some common ones. You'll see:
+On the surface, errors are frustrating! However, Python errors are usually very helpful and have clear messages. You'll see that:
 
-- Errors sometimes say exactly what's wrong.
-- Some errors have very common causes.
-- Errors may say exactly how to fix the issue.
-- Python errors are very helpful and have clear messages.
+* Errors sometimes say exactly what's wrong.
+* Errors often point out the line number where the error occurred.
+* Some errors have very common causes.
+* Errors may say exactly how to fix the issue.
 
-With that in mind -  what's the problem with this code?
+With that in mind, what's the problem with this code?
 
-![](https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/ZeroDivisionError.png)
-
-
-<aside class="notes">
-**Teaching Tips**:
-
-- We introduce ZeroDivisionError first to start discussion, as just about everyone knows that you can't divide by 0. Ask if the students think Python's error message did a good job of informing us of what the issue was.
-
-**Talking Points**:
-
-- "Python errors sometimes tell you exactly what to change about your code. For example, we see `ZeroDivisionError: divide by zero`, which is a really clear way to describe the issue."
-- "Compared to other programming languages, Python errors are really nice! Think of them as helpful hints to help you make the best code possible!"
-</aside>
-
-
----
+<img src="https://s3.amazonaws.com/ga-instruction/assets/python-fundamentals/ZeroDivisionError.png" width="750px"/>
 
 ## We Do: IndexError
 
-
-Let's debug this code together.
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-index-error?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
 **Protip**: Index errors typically happen when you attempt to access a list index that doesn't exist.
 
-<aside class="notes">
-
-**Teaching Tips**:
-
-- This is a demo, not an exercise!
-- Teach the students how to read the line number where the error occurred. Remind them that the error often happens on the line *above* the line that threw the error.
-- Make sure that students come up with the solution themselves, but ask leading questions. For example, "Obviously this code isn't working, but by looking at it, can you tell what my intention was? Which element do you think I was trying to access?"
-
-**Talking Points**:
-- "Remember that lists are indexed starting at zero!" (maybe show a reminder)
-
-**Repl.it Note**: This replit has
 ```python
 race_runners = ["Yuna", "Bill", "Hyun"]
 
@@ -102,10 +38,6 @@ third_place = race_runners[3]
 print("The winners are:", first_place, second_place, third_place)
 ```
 
-</aside>
-
----
-
 ## You Do: Fix a NameError
 
 Directions: Fix it!
@@ -113,9 +45,6 @@ Directions: Fix it!
 *Hints*:
 - Run the code to get the error.
 - What kind of error is it? What is the error message?
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-error-var-name?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
 
 <aside class="notes">
 
@@ -130,6 +59,7 @@ Directions: Fix it!
     * *Before* defining it
 
 **Repl.it Note**: This replit has
+
 ```python
 # Get a number between 2 and 8.
 my_nums = 5
@@ -166,6 +96,7 @@ Teaching tip:
 - "The error message tells you exactly what key threw the error"
 
 **Repl.it Note:** It's long; you might want to open it in a new tab. The replit has:
+
 ```python
 my_favorites = {
   "Food": "Lobster Rolls",
@@ -207,6 +138,7 @@ Teaching tip:
 - "AttributeError is more general than KeyError (which only applies to dict keys), but the same general idea."
 
 **Repl.it Note**:     The replit has:
+
 ```python
     class Dog():
   def __init__(self, name):
@@ -232,8 +164,6 @@ my_dog.run() # AttributeError!
 ## Discussion: SyntaxError
 
 Let's run the code together. What happens? How can we fix it?
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-error-syntax?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <aside class="notes">
 **Teaching Tips**:
@@ -295,9 +225,6 @@ May be caused by:
     Notenoughindentation
             Mismatched  indentation
     Mixing tabs and   spaces!
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-error-identation?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
 
 <aside class="notes">
 
@@ -383,16 +310,6 @@ Sometimes, you'll see `RuntimeError`. Python throws us this if something is brok
 
 **Next Up:** A list of common errors, then ways to prevent errors.
 
-<aside class="notes">
-**Teaching Tips**:
-
-- This is a quick check for understanding.
-- See if they can tell you what those two errors mean.
-
-
-</aside>
-
----
 
 ## List of Common Errors
 
@@ -476,126 +393,10 @@ print("Thanks for typing the number", my_num)
 ```
 
 
----
-
 ## You do: Try-Except
 
 
 Add a try-except statement to your guessing game which ensures the user inputs a valid number.
-
-
----
-
-
-## Discussion: Switching Gears
-
-Not every programming error is caught by an error message!
-
-* Can anyone say what is wrong with this code?
-* What might happen if you run it?
-
-**Do not try to run the below code**.
-
-```python
-my_num = 1
-
-while my_num < 10:
-    print(my_num)
-    my_num + 1
-```
-
-<aside class="notes">
-
-**Teaching Tips**:
-
-- See if anyone can tell you the problem (it's an infinite loop).
-- Emphasize that an itty-bitty typo - just one character in this case - caused an enormous problem!
-
-**Talking Points**:
-
-- "Errors and error messages are really helpful when we've got bad syntax or are trying to access something that doesn't exist. However, not every possible programming error is able to be caught by error messages like this."
-- "For example, consider the code here"
-- "Can you tell what the original intention of the code was? What went wrong? Why did the code go into an infinite loop? How can we fix this code?"
-- "There are many errors like this where there is nothing syntactically wrong with the code, but an error in the logic, or a typo that changes the meaning of the code as we saw with the infinite loop."
-</aside>
-
-
----
-
-## Discussion: Logic Error
-
-
-Here, we want to find the average of `8` and `10`. The answer should be `9`, because `8 + 10 == 18`, then `18 / 2 == 9`
-
-What happened and why?
-
-<iframe height="400px" width="100%" data-src="https://repl.it/@SuperTernary/python-programming-error-pemdas?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-
-<aside class="notes">
-
-**Teaching Tips**:
-
-- Again, this is a teaching slide, not an exercise. Can they find the error?
-- When they do, write PEMDAS on the board and discuss the order of operations:
-
-```
-Parentheses
-Exponents
-Multiplication
-Division
-Addition
-Subtraction
-```
-
-
-**Replit Note:** The code is:
-```python
-x = 8
-y = 10
-average = x + y / 2
-print(average)
-```
-</aside>
-
----
-
-## Print Statements for Sanity Checks
-
-**Pro Tip**: If something is wonky and you don't know why, starting `print`ing.
-
-* Use `print` statements on each line to peek at the values.
-* Remember to remove debugging statements once the problem is solved!
-
-```python
-x = 8
-y = 10
-get_average = x + y / 2
-print("get_average is", get_average) # Print out what this equals (it's wrong!)
-testing_sum = x + y # To figure out why, break it down.
-print("testing_sum is", testing_sum) # Print out each step.
-testing_average = testing_average / 2
-print("testing_average is", testing_average) # The individual math test works
-# We know there must be a problem with the logic in "average"
-```
-
-When your programs become very complex, adding `print` statements will be a great help.
-
-<aside class="notes">
-**Teaching Tips**:
-
-- Walk through the code and the print statements with the class.
-- Ask them to diagnose what happened
-
-**Talking Points**:
-
-- "Something went wrong in that last bit of code! You may have already figured out what it is in this example, but in a more complex example, you might not know!"
-- After: "Why do you think splitting up the statement solved the problem?"
-
-</aside>
-
-
----
 
 ## Python Debugger `pdb` - Python 3.7 or greater
 
