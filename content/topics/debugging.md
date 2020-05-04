@@ -201,9 +201,11 @@ else:
     print('Please enter a numeric value for the temperature.')
 ```
 
-However, this could get out of hand when there are a multitude of scenarios that could cause a potential error. A **Try/Except statement** is a more elegant method for handling common errors.
+However, this could get out of hand when there are a multitude of scenarios that could cause a potential error. A **Try/Except statement** is a more elegant method for handling common errors. It's syntactically similar to a conditional statement. It also has similar control flow. Just like the `else` in an if/else block, `except` only runs if Python encounters a problem in the `try` code block.
 
-This is the most general version of a try/except block. It will catch any error.
+<img src="https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/try_except.png" width="500px"/>
+
+Below is the most general version of a try/except block. It will catch any error.
 
 ```python
 temp = input('What temperature is it outside? ')
