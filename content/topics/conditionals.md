@@ -242,10 +242,10 @@ So for instance:
 
 ```python
 if True:
-	print("this will always run!")
+    print("this will always run!")
 
 if False:
-	print("this will NEVER run!")
+    print("this will NEVER run!")
 ```
 
 However, since we know booleans to be data types, *any* of the operators discussed above can *also* be used:
@@ -254,7 +254,7 @@ However, since we know booleans to be data types, *any* of the operators discuss
 temp = 43
 
 if temp < 65:
-	print("wear a jacket!")
+    print("wear a jacket!")
 ```
 
 The code above will only run if `temp` is less than 65.
@@ -266,7 +266,7 @@ temp = 43
 is_it_raining = True
 
 if is_it_raining and temp < 65:
-	print('wear a jacket and bring an umbrella!')
+    print('wear a jacket and bring an umbrella!')
 ```
 
 In the example above, we make use of comparison operators *and* logical operators in a compound statement.
@@ -279,9 +279,9 @@ If we have a condition that can only go two ways (i.e. it will only be true or f
 temp = 43
 
 if temp < 65:
-	print('wear a coat!')
+    print('Wear a jacket.')
 else:
-	print('you will not need a coat!')
+    print('You don\'t need a jacket.')
 ```
 
 But what if we wanted support for multiple possibilities? That's where the `elif` statement comes in:
@@ -290,16 +290,89 @@ But what if we wanted support for multiple possibilities? That's where the `elif
 temp = 43
 
 if temp < 30:
-	print('wear a heavy jacket')
+    print('wear a heavy jacket')
 elif temp < 50:
-	print('wear a light jacket')
+    print('wear a light jacket')
 elif temp < 60:
-	print('wear a sweater')
+    print('wear a sweater')
 else:
-	print('you do not need any layers!')
+    print('you do not need any layers!')
 ```
 
 In the example above, we print one of 4 possibilities - the elif allows us to go from 2 potential conditions to N potential conditions.
+
+### Basic Try/Except Statements
+
+What happens in the below code if a user types in "43F" to signify Fahrenheit? 
+
+```python
+temp = input("What's the current temperature? ")
+
+try:
+    temp = int(temp)
+    if temp < 65:
+        print('Wear a jacket.')
+    elif temp >= 65:
+        print('You don\'t need a jacket.')
+```
+
+It would cause a `ValueError` because it's trying to convert a string to an integer. Because we know this is a possibility, we COULD add some conditions to handle asking the user for valid input.
+
+```python
+temp = input('What temperature is it outside? ')
+
+if type(temp) == int or type(temp) == float:
+    if temp < 65:
+        print('wear a jacket!')
+else:
+    print('Please enter a numeric value for the temperature.')
+```
+
+However, this could get out of hand when there are a multitude of scenarios that could cause some kind of potential error. A **Try/Except statement** is a more elegant method for handling common errors.
+
+* It's syntactically similar to a conditional statement. 
+* It also has similar control flow. Just like the `else` in an if/else block, `except` only runs if Python encounters a problem in the `try` code block. It looks like this:
+
+```python
+try:
+    pass
+    # first, run this code
+except: 
+    pass
+    # if something goes wrong with the above, run this code instead
+```
+
+Here's the original code wrapped in the most basic version of a try/except statement:
+
+```python
+temp = input("What's the current temperature? ")
+
+try:
+    temp = int(temp)
+    if temp < 65:
+        print('Wear a jacket.')
+    elif temp >= 65:
+        print('You don\'t need a jacket.')
+except:
+    # print a message about the anticipated error
+    print("Invalid input: temperature must be a number")
+```
+
+If you want to get more specific, use `except Exception as e`. This will allow you to print the name of the exception and its message. Check this out below.
+
+```python
+temp = input("What's the current temperature? ")
+
+try:
+    temp = int(temp)
+    if temp < 65:
+        print('Wear a jacket.')
+    elif temp >= 65:
+        print('You don\'t need a jacket.')
+except Exception as e:
+    print(f"{e.__class__.__name__}: {e}")
+    print("Invalid input: temperature must be a number")
+```
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
@@ -339,11 +412,11 @@ flip = randint(0, 1)
 print(flip)
 
 if flip == 0:
-	print('Heads wins!')
+    print('Heads wins!')
 elif flip == 1:
-	print('Tails wins!')
+    print('Tails wins!')
 else:
-	print('I can\'t believe it landed on its edge!')
+    print('I can\'t believe it landed on its edge!')
 ```
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
