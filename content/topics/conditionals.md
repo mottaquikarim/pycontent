@@ -354,7 +354,6 @@ try:
     elif temp >= 65:
         print('You don\'t need a jacket.')
 except:
-    # print a message about the anticipated error
     print("Invalid input: temperature must be a number")
 ```
 
