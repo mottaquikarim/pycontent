@@ -302,15 +302,7 @@ Here's the difference:
 
 Statements after the loop *will always execute*. But if you place additional statements in an `else` clause, the program will only execute them if the loop terminates *by exhaustion*. In other words, it **only** executes if the loop fully completes each iteration until the controlling condition becomes false. If a `break` terminates the loop before that, for example, the `else` clause won't be executed.
 
-```python
-a = ['foo', 'bar', 'baz', 'qux', 'corge']
-while a:
-    print(a.pop())
-else:
-    print('Done.') # foo, bar, baz, qux, Done.
-```
-
-And again, here's are `for` loop examples where the `else` statement will and will NOT execute:
+Here are two `for` loop examples where the `else` statement will and will NOT execute:
 
 ```python
 # else DOES execute
@@ -328,7 +320,7 @@ else:
   print('Done.') # foo
 ```
 
-Here, `i == 'bar'` evaluates to `True` during the second iteration. Even though the third and fourth iterations could have printed when evaluated by the conditional, the `break` executed before the loop got there. Therefore, the loop did not exhaust all viable iterations and it does not trigger the `else` statement.
+In the second loop, `i == 'bar'` evaluates to `True` during the second iteration. Even though the third and fourth iterations could have printed when evaluated by the conditional, the `break` executed before the loop got there. Therefore, the loop did not exhaust all viable iterations and it does not trigger the `else` statement.
 
 ### Infinite Loop Example
 
