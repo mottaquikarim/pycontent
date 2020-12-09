@@ -344,7 +344,6 @@ If you specify a range of index positions, each item in the group gets added ind
 pies = ['strawberry', 'banana cream', 'key lime']
 pies[1:] = ['blueberry', 'cherry', 'blackberry']
 print(pies)
-# ['strawberry', 'blueberry', 'cherry', 'blackberry']
 ```
 
 * This replaces every element up to, but NOT including index position 2 with the three new elements passed. Notice how the *three* new elements replaced only *two* existing elements.
@@ -353,7 +352,6 @@ print(pies)
 pies = ['strawberry', 'blueberry', 'cherry', 'blackberry']
 pies[:2] = ['apple', 'pumpkin', 'pecan']
 print(pies)
-# ['apple', 'pumpkin', 'pecan', 'cherry', 'blackberry']
 ```
 
 * Even if you pass one new element, it must be in `list` format. Otherwise, Python will try to break it up into a list like the below...
