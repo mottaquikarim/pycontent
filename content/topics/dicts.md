@@ -37,7 +37,7 @@ The `values` in a dict can be any valid Python data type, but there are some res
 
 *1. Keys **CAN** be strings, integers, floats, booleans, and tuples.* 
 
-*2. Keys **CANNOT** be lists or dicts.*
+*2. Keys **CANNOT** be lists, sets, or dicts.*
 
 Do you see the pattern here so far? The data in a *dict key must be immutable.* Since lists and dicts are mutable, they cannot be used as keys in a dict. That said, they *CAN* serve as the values in a dict.
 
@@ -70,24 +70,7 @@ food_groups = {
 print(food_groups)
 ```
 
-### Method 2: Create an empty dict with the `dict()` method.
-
-Just like with the `list()` method, `dict()` only accepts one argument, meaning you have to pass in key/value pairs within the `{}`.
-
-```python
-food_groups = dict() # this creates a new, empty dict
-
-food_groups = dict({
-    'pomegranate': 'fruit',
-    'asparagus': 'vegetable',
-    'goat cheese': 'dairy',
-    'walnut': 'legume'
-})
-
-print(food_groups)
-```
-
-### Method 3: Convert a *list of tuples* into a dict using `dict()`
+### Method 2: Convert a *list of tuples* into a dict using `dict()`
 
 This is a good example of using typecasting on more complex data structures. 
 
@@ -99,7 +82,7 @@ wordFrequency = dict(listofTuples)
 print(wordFrequency) # {'this': 77, 'there': 45, 'hi': 10, 'at': 23, 'Hello': 7}
 ```
 
-### Method 4: Use `zip()` to convert two lists into dict keys and values
+### Method 3: Use `zip()` to convert two lists into dict keys and values
 
 The `zip()` method takes the names of each list as parameters - the first list will become the dict's keys, and the second list will become the dict's values.
 
@@ -195,6 +178,7 @@ pet_values = pets.values()
 ```
 
 You would think the `.keys()` and `.values()` functions return lists of the keys and values repsectively, right? Wrong. These functions return *list-LIKE* objects called `dict_keys()` and `dict_values()`. Run this cell to see the results summarized for you.
+
 ```python
 print(f'''
 Keys: 
@@ -212,18 +196,21 @@ Values:
 In contrast to lists, you CANNOT access the elements in either a `dict_keys` or a `dict_values` object by index. Here's what happens if you try to:
 
 ```python
-print(pet_keys[0])
-# TypeError: 'dict_keys' object is not subscriptable
+try:
+    print(pet_keys[0])
+except TypeError as t:
+    print(f'{t.__class__.__name__}: {t}')
+    # TypeError: 'dict_keys' object is not subscriptable
 ```
 
 The same error would occur if you tried that with a `dict_values` object. Because of this, it's often best to convert the objects to lists when you create them.
 
 ```python
 pets = {
-  'Taq': ['teacup pig','cat','cat'],
-  'Francesca': ['llama','horse','dog'],
-  'Walter': ['ferret','iguana'],
-  'Caleb': ['dog','rabbit','parakeet']
+    'Taq': ['teacup pig','cat','cat'],
+    'Francesca': ['llama','horse','dog'],
+    'Walter': ['ferret','iguana'],
+    'Caleb': ['dog','rabbit','parakeet']
 }
 
 pet_keys = list(pets.keys())
