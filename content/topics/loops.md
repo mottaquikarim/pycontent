@@ -30,22 +30,22 @@ visible_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"
 idx = 0
 
 print(visible_colors[idx]) # idx = 0
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 1
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 2
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 3
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 4 
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 5
-idx = idx + 1
+idx += 1
 
 print(visible_colors[idx]) # idx = 6
 ```
@@ -61,7 +61,7 @@ idx = 0
 
 while idx < len(visible_colors):
     print(visible_colors[idx])
-    idx = idx + 1
+    idx += 1
 ```
 
 The loop represents an abstraction of the code above, wherein we use a boolean expression to determine how many times to run the code in the loop's body. 
