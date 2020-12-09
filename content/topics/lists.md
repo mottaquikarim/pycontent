@@ -25,25 +25,36 @@ nested2 = list([['circus', 'clown'], ['trapeze', 'artist']])
 The `list()` method can be tricky. Here's what happens if you pass more than one item to it:
 
 ```python
-colors = list('red', 'yellow', 'green')
-### TypeError: list() takes at most 1 argument (3 given)
+try:
+	colors = list('red', 'yellow', 'green')
+except TypeError as t:
+	print(f'{t.__class__.__name__}: {t}')
+	# TypeError: list() takes at most 1 argument (3 given)
 ```
 Even if you do pass only *one* item, you still have to enclose it with `[]`. If you pass a single number or a single boolean without using brackets, you'll get a `TypeError`.
 
 ```python
-x = list(100) # or any float e.g. 100.0
-### TypeError: 'int' object is not iterable
+try:
+	colors = list('red', 'yellow', 'green')
+except TypeError as t:
+	print(f'{t.__class__.__name__}: {t}')
+	# TypeError: list() takes at most 1 argument (3 given)
 
-y = list(True) # booleans
-### TypeError: 'bool' object is not iterable
+try:
+	y = list(True)
+except TypeError as t:
+	print(f'{t.__class__.__name__}: {t}')
+	# TypeError: list() takes at most 1 argument (3 given)
 ```
-And if you pass a string without using brackets, you won't get quite what you want.
+
+If you pass a string without using brackets, you won't get quite what you want.
 
 ```python
 z = list('Layla')
 print(z)
 # ['L', 'a', 'y', 'l', 'a']
 ```
+
 And if you think it works for sentences by parsing a new list element at each space character...*nope!*
 
 ```python
@@ -103,7 +114,7 @@ cookies = ['snickerdoodles', 'shortbread', 'oatmeal raisin', 'gingersnaps', 'mac
 types_of_cookies = len(cookies)
 
 # (types_of_cookies - 1) is the index of the last element
-print(cookies[types_of_cookies - 1]) # Dasha
+print(cookies[types_of_cookies - 1]) # macarons
 ```
 
 That brings us to something called **negative indexing**. Because of the above rule, Python allows you to take this shortcut to access the last list element:
