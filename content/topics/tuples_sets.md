@@ -20,14 +20,21 @@ print(score1) # ('Taq', 100)
 score2 = ('Randy', 101) # ('Randy', 101)
 print(score2)
 ```
-There is also a third way to create a tuple... simply place a comma between two separate values.
+
+>>**GOTCHA!**
+>>If you need to create a tuple that contains only one item, you must define it using `tuple()`.
 
 ```python
-score3 = 'Eliza', 102
-print(score3) # ('Eliza', 102)
+# Wrong
+t = (True)
+print(type(t))
+
+# Right
+t = tuple([True])
+print(type(t))
 ```
 
-We read tuples just like we would read a list:
+Also, we read and index slice tuples just like we would a list:
 
 ```python
 dna = ('A', 'T'), ('G', 'C')
@@ -38,47 +45,62 @@ print(dna[0]) # ('A', 'T')
 print(dna[1][0]) # G
 ```
 
-You can do SOME operations as long as those operations would not attempt to change the tuple. Since the tuple is immutable, that will throw an error. 
+### Tuple Packing & Unpacking
+
+There is also a third way to create a tuple... simply place a comma between two separate values. This is called **packing**.
 
 ```python
-tuple1 = (1, 4, 3, 7, 5, 4, 2, 6)
+name = 'Eliza'
+score = 102
+eliza_score = 'Eliza', 102
+print(eliza_score) # ('Eliza', 102)
+```
 
+Similarly, you can **unpack** tuples, which means assigning each value in a tuple to its own variable. Remember that the number of variables on the left must be equal to the number of items in the tuple for this to work. Otherwise, it will throw an error!
+
+```python
+# Pack
+eliza_score = 'Eliza', 102
+print(eliza_score) # ('Eliza', 102)
+
+# Unpack
+name, score = eliza_score
+print(name, score) # Eliza 102
+```
+
+### Tuple Methods
+
+MOST list methods can be used on tuples, *so long as they do not attempt to change the tuple **in place**.* Since the tuple is immutable, that will throw an error.
+
+```python
+tuple1 = ('apple', 'orchard', 'banana', 'cat', 'dance', '8', '6', '6', '3')
+
+# This won't work
+try:
+    tuple1.extend(['toast', 'mountain', 'atom'])
+except Exception as e:
+    print(f'{e.__class__.__name__}: {e}')
+```
+
+Methods that create a copy of tuple before operating on it will work, BUT they will return a *new **list** object*. 
+
+```python
+tuple2 = ('apple', 'orchard', 'banana', 'cat', 'dance', '8', '6', '6', '3')
+
+# This works
 print(f'''
-Length: {len(tuple1)}
-Sum: {sum(tuple1)}
-Min: {min(tuple1)}
-Max: {max(tuple1)}
-Occurrences of "4": {tuple1.count(4)}
-Index of "2": {tuple1.index(2)}
+Sorted: {sorted(tuple2)}
+Joined: {', '.join(tuple2)}
+etc...
 ''')
 ```
-You can also sort, join, or split a tuple the same as a list, **BUT** because you can't edit a tuple:
-* You can't use `.sort()` because that edits the object *in place*.
-* Each of these will return a *new list object*
 
-#### Sort 
+### Reasons to Use Tuples Instead of Lists
 
-```python
-tuple2 = ('b', 'e', 'c', 'a', 'd')
-
-sort_asc = sorted(tuple2)
-print(sort_asc, type(sort_asc)) # ['a', 'b', 'c', 'd', 'e'] <class 'list'>
-
-sort_desc = sorted(tuple2, reverse = True)
-print(sort_desc, type(sort_desc)) # ['e', 'd', 'c', 'b', 'a'] <class 'list'>
-```
-#### Join
-
-```python
-joined = ', '.join(tuple2) # Joined: b, e, c, a, d <class 'str'>
-print('Joined:', joined, type(joined))
-```
-#### Split
-
-```python
-split_up = joined.split(',') # Split: ['b', ' e', ' c', ' a', ' d'] <class 'list'>
-print('Split:', split_up, type(split_up))
-```
+* If a group of values needs to remain constant, using a tuple safeguards against accidental edits.
+* As the amount of data increases, using tuples instead of lists optimizes program speed.
+* Tuples enable unpacking of individual items.
+* Python dictionary objects have a use for tuples (which we'll learn about soon)
 
 ## Sets
 
