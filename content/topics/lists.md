@@ -459,7 +459,11 @@ print(word.count('u')) # 2
 
 ```python
 num = 22384232348
-print(num.count(2))
+
+try:
+	print(num.count(2))
+except Exception as e:
+	print(e)
 ```
 
 #### Practice Together!
@@ -542,8 +546,7 @@ print(descending) # ['e', 'd', 'c', 'b', 'a']
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Take a shot at the "Sorting" PSET in your copy of `lists_psets.ipynb` in Google Drive.
-
+Take a shot at the "Sorting" and "List Manipulation" PSETs in your copy of `lists_psets.ipynb` in Google Drive.
 
 ## Key Takeaways
 
