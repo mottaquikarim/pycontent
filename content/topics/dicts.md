@@ -262,9 +262,9 @@ print(pet_kv_pairs[0])
 # ('Taq', ['teacup pig','cat','cat'])
 ```
 
-We'll learn *WHY* this is useful in the next section on loops!
+We'll learn *WHY* this is useful in the next section on iterating through dicts with loops!
 
-## Built-in Operators for Manipulating Dicts
+## Methods for Modifying Dicts
 
 Just like lists, you can edit, analyze, and format your dicts. Some work the same for dicts and lists such as `len()` -- that will give you the number of key/value pairs in the dict. However, adding, deleting, and updating data requires a little more detail for dicts than for lists.
 
@@ -359,14 +359,14 @@ state_capitals.clear()
 print(state_capitals) # {}
 ```
 
-#### `.pop(key, value)`:
+#### `.pop(key)`:
 
 This removes an item, which you must specify by key. There are two things to note here -
 
 1. **First**, you *cannot delete a dict item by specifying a value*. Since values do not have to be unique the way keys are, trying to delete items by referencing values could cause issues.
-2. **Second**, just like we saw earlier with `.get(key, value)`, `.pop(key, value)` will raise a `KeyError` if you try to remove a key that does not exist in the dict. We avoid this in the same way, by setting a default value - typically `[]` - for the program to return in case of a missing key.
+2. **Second**, just like we saw earlier with `.get(key)`, `.pop(key)` will raise a `KeyError` if you try to remove a key that does not exist in the dict. We avoid this in the same way, by setting a default value - typically `[]` - for the program to return in case of a missing key.
 
-Unfortunately, you *can't* use the same method as we did for `.update()` to delete larger portions of data. We'll learn a way to do that in the next section on loops as well.
+Unfortunately, you *can't* use the same method as we did for `.update()` to delete larger portions of data. You have to use a loop to do that.
 
 ```python
 state_capitals = {
@@ -387,6 +387,7 @@ state_capitals.pop('AZ', [])
 ```
 
 #### `popitem()`:
+
 This one just removes an arbitrary key value pair from dict and returns it as a tuple. For instance, you might do this if you're randomly sampling your data for QA purposes.
 
 ```python
@@ -413,6 +414,7 @@ print(seceded1) # ('GA': 'Atlanta') for example
 Iterating over dicts is slightly more complicated than other iterabless because each item consists of two elements, specifically mapped to each other. That said, you can do some really cool stuff with your dicts using loops! 
 
 #### Iterate Through Dict Items
+
 Let's start with a few simple examples. This first one iterates over the dict by each *item*, i.e. each key-value pair.
 
 ```python
