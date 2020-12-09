@@ -1,6 +1,6 @@
 # List Comprehensions
 
-At their core, **list comprehensions** are a short-cut for transforming lists into other lists. Essentially, you can iterate through my_list using a condensed for-loop syntax. Till now, we've been fine using for loops to transform lists, but as your code gets more complicated, you'll be thankful for any short-cut!
+At their core, **list comprehensions** are a short-cut for transforming lists into other lists. Essentially, you can iterate through my_list using a condensed for loop syntax. Till now, we've been fine using for loops to transform lists, but as your code gets more complicated, you'll be thankful for any short-cut!
 
 Here's a one-to-one comparison of the general syntax for creating a list with a `for loop` versus a `list comprehension`. We'll use pseudo-code here for better initial context. These are the key elements to note in the list comprehension:
 
@@ -20,6 +20,8 @@ for <item> in <iterable>:
 
 The examples below also achieve the same outcome, but with actual code...
 
+**Square Numbers**
+
 ```python
 # for loop
 squares = []
@@ -31,10 +33,6 @@ print(squares) # [0, 1, 4, 9, 16, 25, 36, 49]
 squares = [x*x for x in range(8)]
 print(squares) # [0, 1, 4, 9, 16, 25, 36, 49]
 ```
-
-## Incorporating Conditionals
-
-Just like iterating through list items with a for loop, you might want to access only items adhering to one or more specific conditions. Let's walk through these use cases.
 
 **Modify a List's Existing Items**
 
@@ -53,6 +51,10 @@ curved_grades2 = [(grade + 10) for grade in grades]
 
 print(curved_grades2) # [110, 43, 108, 86, 64, 108, 99, 59]
 ```
+
+## Incorporating Conditionals
+
+Just like iterating through list items with a for loop, you might want to access only items adhering to one or more specific conditions. Let's walk through these use cases.
 
 **Create a New List w. a Specific Subset of the Original List Items**
 
