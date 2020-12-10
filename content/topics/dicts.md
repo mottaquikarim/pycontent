@@ -413,90 +413,73 @@ print(seceded1) # ('GA': 'Atlanta') for example
 
 Iterating over dicts is slightly more complicated than other iterabless because each item consists of two elements, specifically mapped to each other. That said, you can do some really cool stuff with your dicts using loops! 
 
-#### Iterate Through Dict Items
+#### Example 1
 
-Let's start with a few simple examples. This first one iterates over the dict by each *item*, i.e. each key-value pair.
+Let's start with the most basic example. The loop below iterates over the dict by each *item*, i.e. each key-value pair.
 
 ```python
-transaction = {
-  "amount": 10.00,
-  "payee": "Joe Bloggs",
-  "account": 1234
+state_capitals = {
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 for key, value in transaction.items():
     print(f'{key}: {value}')
-
-"""Output:
-account: 1234
-payee: Joe Bloggs
-amount: 10.0"""
 ```
 
-#### Iterate Through Dict Keys
+#### Example 2
 
-If you only have a dict's keys, you can still iterate through the dict. Notice the loop below results in the same output as the one above iterating through items.
+The below loop illustrates how to update multiple items in a dict without over-writing the values for existing keys. It also keeps track of which keys didn't get updated.
 
 ```python
-transaction = {
-  "amount": 10.00,
-  "payee": "Joe Bloggs",
-  "account": 1234
+state_capitals = {
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
-for key in transaction.keys():
-    print(f'{key}: {transaction[key]}')
+updates = {
+    'CT': 'Hartford',
+    'MA': 'Boston',
+    'CA': 'Sacramento',
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin'
+}
 
-"""Output:
-account: 1234
-payee: Joe Bloggs
-amount: 10.0"""
+existing = set(state_capitals.keys())
+dups = []
+
+for key, value in updates.items():
+    if key not in existing:
+        state_capitals.update({key: value})
+    else:
+        dups.append(key)
+
+print(state_capitals)
+print(dups)
 ```
 
-### Sorting Dicts with Loops
+#### Example 3
 
-#### By Key
+Dicts are inherently unordered, so you can't sort them. However, you CAN use a loop to sort the keys and print out the records in the desired order.
 
 ```python
-transaction = {
-  "amount": 10.00,
-  "payee": "Joe Bloggs",
-  "account": 1234
+state_capitals = {
+    'WA': 'Olympia',
+    'OR': 'Salem',
+    'TX': 'Austin',
+    'AZ': 'Phoenix',
+    'GA': 'Atlanta'
 }
 
 for key in sorted(transaction.keys()):
     print(f'{key}: {transaction[key]}')
-
-
-"""Output:
-account: 1234
-amount: 10.0
-payee: Joe Bloggs"""
-```
-
-#### By the Values of Each Key
-
-Note that the dict itself will not be sorted by the first value in each item. Because the keys are the unique element of a dict, you can only sort dict values *within each key*.
-
-```python 
-dict1 ={ 
-  "L1":[87, 34, 56, 12], 
-  "L2":[23, 00, 30, 10], 
-  "L3":[1, 6, 2, 9], 
-  "L4":[40, 34, 21, 67] 
-}
-
-for k, v in dict1.items(): 
-  sorted_pair = {k: sorted(v)} # here is sorting!
-  dict1.update(sorted_pair)
-
-print(dict1)
-""" # prints out...
-{'L1': [12, 34, 56, 87],
-'L2': [0, 10, 23, 30],
-'L3': [1, 2, 6, 9],
-'L4': [21, 34, 40, 67]
-} """
 ```
 
 ## Key Takeaways
