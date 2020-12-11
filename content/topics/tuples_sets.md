@@ -192,16 +192,45 @@ print(sorted(s))
 
 Sets are of course also useful for **[set theory](https://en.wikipedia.org/wiki/Set_theory)** purposes. At its simplest, "set theory" is concerned with examining and comparing collections of items. 
 
-For this class, we'll only discuss set membership. Because sets are not indexed, you cannot access a specific element. The most you can do is check for Simple and common a value's existence in the set using a boolean membership operator.
+For this class, we'll only discuss the 3 most basic and common use cases of set theory with Python. set membership. 
+
+#### Membership: "Are these values in the data already?"
+
+Because sets are not indexed, you cannot access a specific element. The most you can do is check for Simple and common a value's existence in the set using a boolean membership operator.
 
 ```python
-set_1 = {1,2,3,4,5}
+set1 = {1,2,3,4,5}
 
-print(2 in set_1) # True
-print(8 in set_1) # False
-
-print(2 and 8 in set_1) # False
-print(2 and 3 in set_1) # True
+print(2 in set1) # True
+print(8 in set1) # False
 ```
+
+Unfortunately, you CANNOT use operators if you want to check the membership of multiple elements at the same time. For that you can use `.issubset()`. Note that it will only evaluate to `True` if ALL elements in the smaller set are contained in the larger set.
+
+```python
+set1 = {1,2,3,4,5}
+set2 = {2, 8}
+set3 = {2, 3}
+
+
+print(set2.issubset(set1)) # False
+print(set3.issubset(set1)) # True
+```
+
+#### Union: "I want to combine these two data collections without adding duplicates."
+
+
+```python
+
+```
+
+#### Intersection: "What elements exist in both collections of data?"
+
+```python
+
+```
+Because sets are not indexed, you cannot access a specific element. The most you can do is check for Simple and common a value's existence in the set using a boolean membership operator.
+
+#### More Set Theory with Python
 
 If you're interested in delving further into set theory, you can find a helpful list of set theory operators and methods **[here](https://snakify.org/en/lessons/sets/#section_4)**.
