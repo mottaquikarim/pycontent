@@ -205,7 +205,7 @@ print(2 in set1) # True
 print(8 in set1) # False
 ```
 
-Unfortunately, you CANNOT use operators if you want to check the membership of multiple elements at the same time. For that you can use `.issubset()`. Note that it will only evaluate to `True` if ALL elements in the smaller set are contained in the larger set.
+Unfortunately, you CANNOT use operators if you want to check the membership of multiple elements at the same time. For that you can use `smaller.issubset(larger)`. Note that it will only evaluate to `True` if ALL elements in the smaller set are contained in the larger set.
 
 ```python
 set1 = {1,2,3,4,5}
@@ -219,17 +219,27 @@ print(set3.issubset(set1)) # True
 
 #### Union: "I want to combine these two data collections without adding duplicates."
 
+A **union** combines all the elements of two sets, but excludes adding duplicate values. The syntax used is `a.union(b)`.
 
 ```python
+colors1 = {'yellow', 'violet', 'green', 'orange'}
+colors2 = {'yellow', 'violet', 'indigo', 'red'}
 
+rainbow = colors1.union(colors2)
+print(rainbow)
 ```
 
 #### Intersection: "What elements exist in both collections of data?"
 
-```python
+An **intersection** returns ONLY the elements that exist in both groups. The Python syntax used is `a.intersection(b)`.
 
+```python
+colors1 = {'yellow', 'violet', 'green', 'orange'}
+colors2 = {'yellow', 'violet', 'indigo', 'red'}
+
+rainbow = colors1.intersection(colors2)
+print(rainbow)
 ```
-Because sets are not indexed, you cannot access a specific element. The most you can do is check for Simple and common a value's existence in the set using a boolean membership operator.
 
 #### More Set Theory with Python
 
