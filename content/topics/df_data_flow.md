@@ -1,509 +1,150 @@
-# Dicts
+# How Data Flows through DataFrames
 
 ## Intro
 
-In addition to lists, another more comprehensive method for storing complex data are **dicts**, or dictionaries. In this lesson, you'll:
+The syntax for adding or updating a dataframe's data is as simple as declaring a variable: `df[col_name] = series_name`. What if the data in your Series doesn't have all of the same index values in the same order though? It's important to understand how to get data to flow into the right place in your dataframe in different scenarios. This lesson will present examples for some of the most common use cases such as:
 
-* Define the rules for the structure of dict objects
-* Create dicts using 4 different methods
-* Access dict data
-* Edit dict content
+* Add a placeholder column (empty or filled with a default value)
+* Insert columns at different locations on axis 1
+* Add columns with only partial data and/or with extra index values
+* Update a subset of existing dataframe rows, while also adding new ones
 
-## Dict Structure
-
-In the example below, we associate a `key` (e.g. 'taq') to a `value` (e.g. 'karim'). Instead of being enclosed in `[]`, dicts are enclosed in `{}`.
+### Import Data
 
 ```python
-my_dict = {
-    'key' : 'value'
-}
-```
-The keys and values of a single dict don't have to be homogenous. In other words, you can mix and match different key, value, and key/value pair data types within one dict as seen below.
+import pandas as pd
+import numpy as np
 
-```python
-dict1 = {
-    'taq': 'karim',
-    'apple': 35,
-    False: 87.96,
-    35: 'dog',
-    'tree': True
-    # etc.
-}
-
-print(dict1)
+print('import successful')
 ```
 
-The `values` in a dict can be any valid Python data type, but there are some restrictions on what you can use as `keys`:
-
-*1. Keys **CAN** be strings, integers, floats, booleans, and tuples.* 
-
-*2. Keys **CANNOT** be lists, sets, or dicts.*
-
-Do you see the pattern here so far? The data in a *dict key must be immutable.* Since lists and dicts are mutable, they cannot be used as keys in a dict. That said, they *CAN* serve as the values in a dict.
+For this exercise, we'll import a dataframe of the top 25 movies according to IMDb. Our goal is to mark which movies we have seen and add our personal rating for each of those. We'll call the dataframe `top25`.
 
 ```python
-dict2 = {
-    47: [12.1, 'blue', True], # list as a dict value
-    'julianna': {False: 'cat'} # dict as a dict value
-}
+omdb_top25 = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/top_25.csv')
+top25 = omdb_top25.copy()
+top25
 ```
 
-*3. Also, the keys in a dict _**must be unique**_.* You'll see why shortly... But remember -- be careful not to add a key to a dict a second time. If you do, the second item will _**override**_ the first item.
+## Adding Columns
 
-## Creating Dicts
-
-There are several ways you can create your `dict`, but we'll go through the most basic ones here.
-
-### Method 1: Pass in key value pairs directly using `{}`:
-
+Add an empty column called "My Rating" to the end of the dataframe as a placeholder.
 
 ```python
-food_groups = {} # this creates a new, empty dict
-
-food_groups = {
-    'pomegranate': 'fruit',
-    'asparagus': 'vegetable',
-    'goat cheese': 'dairy',
-    'walnut': 'legume'
-}
-
-print(food_groups)
+top25['My Rating'] = pd.Series()
+top25
 ```
 
-### Method 2: Convert a *list of tuples* into a dict using `dict()`
+Use `.insert(loc, column, value)` to add a column called "Seen" as the third column in the `top25` dataframe. It will have boolean values that represent whether or not we've seen the movie. For now, we want to add `False` as a default placeholder value for all rows. A few points to remember:
 
-This is a good example of using typecasting on more complex data structures. 
+* Because the index labels here ARE the integer index positions, we can pass `range(25)` as the `index` argument.
+* We're passing `False` as a default placeholder value. Because the index we're passing has 25 values, all 25 rows in this column will say `False`.
+* The `loc` parameter refers to the index position on axis 1, where we want to insert this column.
+* The `column` parameter will be the name (i.e. index label) for this new column.
 
 ```python
-# list of tuples   
-listofTuples = [("Hello" , 7), ("hi" , 10), ("there" , 45),("at" , 23),("this" , 77)]
-
-wordFrequency = dict(listofTuples)
-print(wordFrequency) # {'this': 77, 'there': 45, 'hi': 10, 'at': 23, 'Hello': 7}
+seen = pd.Series(data=False, index=range(25))
+top25.insert(loc=2, column='Seen', value=seen)
+top25
 ```
 
-### Method 3: Use `zip()` to convert two lists into dict keys and values
+## Update Columns
 
-The `zip()` method takes the names of each list as parameters - the first list will become the dict's keys, and the second list will become the dict's values.
+The `df.update()` function allows you to update a dataframe with values passed to it from another dataframe or from a Series. Let's update the "Seen" column to mark all the movies we've seen as `True`. Below is a pre-made list containing the index labels of movies to flip to `True`.
 
-**NOTE!** *This only works if you're sure the key/value pairs have the same index position in their original lists (so they will match in the dict).*
+**NOTE!** We set the `name` attribute of the `seen` Series specifically because `.update()` needs it to determine which column of the dataframe needs updating.
 
 ```python
-names = ['Taq', 'Valerie', 'Viktor', 'Zola']
-scores = [[98, 89, 92, 94], [86, 45, 98, 100], [100, 100, 100, 100], [76, 79, 80, 82]]
-
-grades = dict(zip(names, scores))
-print(grades) # {'Taq': [98, 89, 92, 94], 'Zola': [86, 45, 98, 100], 'Valerie': [76, 79, 80, 82]}
+seen_idx = [0, 1, 5, 6, 7, 10, 12, 13, 14, 16, 17, 19, 20, 22, 23]
+seen = pd.Series(data=True, index=seen_idx, name='Seen')
+seen
 ```
 
-## Accessing Dict Data
-
-Once you've stored data in your dict, you'll need to be able to get back in and access it! Take a look at this dict holding state capitals.
+Once you run the cell, you can see clearly that this Series contains only a subset of the movies in the top25 dataframe. In addition, it also contains a few index labels for movies that don't exist in the `top25` dataframe. Watch what happens when we use `.update()` to refresh values in `top25` with values from the `seen` Series:
 
 ```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
+top25.update(seen)
+top25
+```
+
+There are 3 takeaways here:
+
+* `.update()` maps the values from the `seen` Series to the corresponding values in the "Seen" column of `top25` by automatically matching up index labels.
+* Index labels in `top25`, but NOT the `seen` Series remain unchanged.
+* Index labels in the `seen` Series, but NOT in `top25` are skipped over instead of added to `top25` as new rows.
+
+```python
+my_ratings_dict = {
+    0: 6, 
+    1: 9.2,
+    5: 6.6, 
+    6: 8.7, 
+    7: 5, 
+    10: 6, 
+    12: 7.5, 
+    13: 10, 
+    14: 7.9, 
+    16: 6.3, 
+    17: 8.8, 
+    19: 8, 
+    20: 7.8, 
+    22: 8.5, 
+    23: 5.7
 }
 ```
 
-### Referencing Values by Keys
-
-You *CANNOT* access dict items with index positions like you do with lists! If you try, you'll get a `KeyError` because dict items do not have index positions. **Instead, the dict keys serve the same purpose as indeces in lists.** Accordingly, you can access each value in the list by referencing its key like so:
+Let's say that the dict above contains your personal rating for each of the movies we've seen. We can turn this into a Pandas Series...
 
 ```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
-}
-
-MAcap = state_capitals['MA']
-print(f'The capital of MA is {MAcap}.') # 'The capital of MA is Boston.'
+my_ratings_series = pd.Series(data=my_ratings_dict, name='My Rating', dtype='float64')
+my_ratings_series
 ```
 
-Attempting to find a key that does not exist leads to error.
+...and use it to update the "My Rating" column.
 
 ```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
-}
-
-print(state_capitals['PA']) # KeyError from missing key
-print(state_capitals[2]) # KeyError from index reference
+top25.update(my_ratings_series)
+top25
 ```
 
-Instead, it's better to look up a key in a dict using `.get(key)`. The `.get(key)` method takes the key argument just as above EXCEPT it allows you to enter some default value it should return if the key you enter does not exist. Usually, we use `[]` as that value so that it's `.get(key, [])`.
+## Conclusion
+
+Finally, we'll combine these concepts by adding a column called "Average Rating". To do this, we have to create a Series that is:
+
+* derived from multiple columns, but
+* only contains data for a subset of the original dataframe's rows
+
+Here's the step-by-step logic:
+
+1. First, we'll take the subset of index values we need from the dict of our personal ratings. 
+2. For each of the movie's we've seen, we want to find the average of the IMDb rating and our personal rating. Create an empty list to hold these values.
+3. Write a loop to iterate through the subset of movies we've seen and calculate the average rating.
 
 ```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
-}
+my_ratings_ids = list(my_ratings_dict.keys())
+avg_rating_list = []
 
-print(state_capitals.get('PA', []))
-# PA is not in our dict, so .get() returns []
+for i in my_ratings_ids:
+    a = top25.iloc[i, 3]
+    # or .loc here bc same in this instance
+    b = top25.iloc[i, 4]
+    avg = (a + b)/2
+    avg_rating_list.append(avg)
 ```
 
-### Retrieving All Keys, Values, & Key/Value Pairs
-
-Now, this dict has 4 keys, but what if it had *hundreds?* We can isolate pieces of the dict's data structure using these functions:
-
-* `.keys()` -- returns a collection of all the keys in a dict 
-* `.values()` -- returns a collection of all the values in a dict 
-* `.items()` -- returns a collection of all the key/value pairs in a dict 
-
-#### Isolating Keys & Values
-
-Let's separate the keys and values from the `pets` dict below.
+4. Create a Series by passing the list of average ratings to `data` and the list of movies we've seen to `index`. Remember to set `name` to the exact same label as the target column in the `top25` dataframe.
 
 ```python
-pets = {
-  'Taq': ['teacup pig','cat','cat'],
-  'Francesca': ['llama','horse','dog'],
-  'Walter': ['ferret','iguana'],
-  'Caleb': ['dog','rabbit','parakeet']
-}
-
-pet_keys = pets.keys()
-pet_values = pets.values()
+avg_rating_series = pd.Series(data= avg_rating_list, index= my_ratings_ids , dtype='float64', name='Average Rating')
+avg_rating_series
 ```
 
-You would think the `.keys()` and `.values()` functions return lists of the keys and values repsectively, right? Wrong. These functions return *list-LIKE* objects called `dict_keys()` and `dict_values()`. Run this cell to see the results summarized for you.
+5. Insert this Series to `top25` at index position 3 with `.insert()`. (Alternatively, you could use the simpler sytax if you wanted to add it to the end of the dataframe: `top25['Average Rating'] = avg_rating_series`.)
 
 ```python
-print(f'''
-Keys: 
-{pet_keys}
-{type(pet_keys)}
-''')
-
-print(f'''
-Values: 
-{pet_values}
-{type(pet_values)}
-''')
+top25.insert(loc=3, column='Average Rating', value=avg_rating_series)
+top25
 ```
 
-In contrast to lists, you CANNOT access the elements in either a `dict_keys` or a `dict_values` object by index. Here's what happens if you try to:
+As you can see, when we inserted the "Average Rating" column, all the movies not in the Series we built get set as `NaN`. Finally, if our `avg_rating_series` contained rows for movies not in `top25`, those rows would **NOT** be added to the dataframe via either column insertion method.
 
-```python
-try:
-    print(pet_keys[0])
-except TypeError as t:
-    print(f'{t.__class__.__name__}: {t}')
-    # TypeError: 'dict_keys' object is not subscriptable
-```
-
-The same error would occur if you tried that with a `dict_values` object. Because of this, it's often best to convert the objects to lists when you create them.
-
-```python
-pets = {
-    'Taq': ['teacup pig','cat','cat'],
-    'Francesca': ['llama','horse','dog'],
-    'Walter': ['ferret','iguana'],
-    'Caleb': ['dog','rabbit','parakeet']
-}
-
-pet_keys = list(pets.keys())
-pet_values = list(pets.values())
-```
-Then you can easily access each key or value by index: 
-
-```python
-print(f'First Key: {pet_keys[0]}') # 'Taq'
-print(f'First Value: {pet_values[0]}') # ['teacup pig','cat','cat']
-```
-
-#### Isolating Key/Value Pairs
-
-You can access the full group of key/value pairs with `.items()`. Accordingly, `.items()` one will return a `dict_items` object.
-
-```python
-pets = {
-  'Taq': ['teacup pig','cat','cat'],
-  'Francesca': ['llama','horse','dog'],
-  'Walter': ['ferret','iguana'],
-  'Caleb': ['dog','rabbit','parakeet']
-}
-
-pet_kv_pairs = pets.items()
-
-print(f'''
-Key/Value Pairs: 
-{pet_kv_pairs}
-{type(pet_kv_pairs)}
-''')
-```
-
-It looks like a list of tuples, right? Again, you'd think you could access each pair's tuple by index then, but you can't without first converting the `dict_items` object to a list like we did before.
-
-```python
-pets = {
-  'Taq': ['teacup pig','cat','cat'],
-  'Francesca': ['llama','horse','dog'],
-  'Walter': ['ferret','iguana'],
-  'Caleb': ['dog','rabbit','parakeet']
-}
-
-pet_kv_pairs = list(pets.items())
-print(f'Key/Value Pairs: \n{pet_kv_pairs}\n{type(pet_kv_pairs)}\n\n')
-# [('Taq', ['teacup pig','cat','cat']), ('Francesca', [['llama','horse','dog']), etc]
-
-print(pet_kv_pairs[0])
-# ('Taq', ['teacup pig','cat','cat'])
-```
-
-We'll learn *WHY* this is useful in the next section on iterating through dicts with loops!
-
-## Methods for Modifying Dicts
-
-Just like lists, you can edit, analyze, and format your dicts. Some work the same for dicts and lists such as `len()` -- that will give you the number of key/value pairs in the dict. However, adding, deleting, and updating data requires a little more detail for dicts than for lists.
-
-### Add or Edit Dict Items
-
-You can add a single item to dict in two ways. The first way is similar to updating a list...
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
-}
-
-state_capitals['CA'] = 'Sacramento'
-
-print(state_capitals) # {'NY': 'Albany', 'NJ': 'Trenton', 'CT': 'Hartford', 'MA': 'Boston', 'CA': 'Sacramento'}
-```
-
-...but more likely you'll want to use the `.update({key: value})` method.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston'
-}
-
-state_capitals.update({'CA': 'Sacramento'})
-
-print(state_capitals) # {'NY': 'Albany', 'NJ': 'Trenton', 'CT': 'Hartford', 'MA': 'Boston', 'CA': 'Sacramento'}
-```
-
-The `.update()` method also allows you to make bulk updates. In that case, you can simply pass it a variable containing another dict to add to the first one.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Trenton',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento'
-}
-more_states = {
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'NJ': 'Hoboken',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-state_capitals.update(more_states)
-
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Hoboken',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-```
-
-**Notice something?** It's easy to accidentally override items when you're merging datasets. *Oops, we just changed the capital of NJ to Hoboken!* Don't worry though - we'll learn an easy way to check for duplicate keys in the next section on loops.
-
-### Remove Items from a Dict
-
-#### `.clear()` simply empties the dict of all items.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Hoboken',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-state_capitals.clear()
-print(state_capitals) # {}
-```
-
-#### `.pop(key)`:
-
-This removes an item, which you must specify by key. There are two things to note here -
-
-1. **First**, you *cannot delete a dict item by specifying a value*. Since values do not have to be unique the way keys are, trying to delete items by referencing values could cause issues.
-2. **Second**, just like we saw earlier with `.get(key)`, `.pop(key)` will raise a `KeyError` if you try to remove a key that does not exist in the dict. We avoid this in the same way, by setting a default value - typically `[]` - for the program to return in case of a missing key.
-
-Unfortunately, you *can't* use the same method as we did for `.update()` to delete larger portions of data. You have to use a loop to do that.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Hoboken',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-state_capitals.pop('AZ', [])
-# removes 'AZ': 'Phoenix' from our dict
-```
-
-#### `popitem()`:
-
-This one just removes an arbitrary key value pair from dict and returns it as a tuple. For instance, you might do this if you're randomly sampling your data for QA purposes.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Hoboken',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-seceded1 = state_capitals.popitem()
-# ^ removes a random item and returns it as a tuple
-print(seceded1) # ('GA': 'Atlanta') for example
-```
-
-## Iterating Through Dicts
-
-Iterating over dicts is slightly more complicated than other iterabless because each item consists of two elements, specifically mapped to each other. That said, you can do some really cool stuff with your dicts using loops! 
-
-#### Example 1
-
-Let's start with the most basic example. The loop below iterates over the dict by each *item*, i.e. each key-value pair.
-
-```python
-state_capitals = {
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-for key, value in transaction.items():
-    print(f'{key}: {value}')
-```
-
-#### Example 2
-
-The below loop illustrates how to update multiple items in a dict without over-writing the values for existing keys. It also keeps track of which keys didn't get updated.
-
-```python
-state_capitals = {
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-updates = {
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin'
-}
-
-existing = set(state_capitals.keys())
-dups = []
-
-for key, value in updates.items():
-    if key not in existing:
-        state_capitals.update({key: value})
-    else:
-        dups.append(key)
-
-print(state_capitals)
-print(dups)
-```
-
-#### Example 3
-
-Dicts are inherently unordered, so you can't sort them. However, you CAN use a loop to sort the keys and print out the records in the desired order.
-
-```python
-state_capitals = {
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-for key in sorted(transaction.keys()):
-    print(f'{key}: {transaction[key]}')
-```
-
-## Key Takeaways
-
-* To create a dict:
-    * Pass comma-separated `key : value` pairs within `{}`
-    * Pass a list of tuples to `dict()`
-    * Pass two lists to `zip()`
-* Unlike a list, a dict is inherently unordered and thus has no index.
-* Access a value by referencing its key using `my_dict[key]` or `.get(key, [])`. The latter is preferable because it guards against `KeyErrors` from referencing missing keys.
-* `my_dict[key] = value` and `.update({key: value})` both add or update a specific key/value pair based on whether the key passed exists already in the dict or not
-    * You can also pass another dict into `.update()` in order to make bulk edits 
-* `.update({key: value})` adds or updates a key/value pair based on whether the key passed exists already in the dict or not
-* `.pop(key, value)` removes a key/value pair from the dict
-* The following methods return list-like objects that isolate certains of a dict:
-    * `.keys()` returns the keys
-    * `.values()` returns the values
-    * `.items()` returns the key/value pairs as tuples 
-* `len(my_dict.items())` will return the number of pairs in the dict
-* To iterate through a dict, use one of the following as the context requires:
-    * `for key in my_dict.keys():`
-    * `for value in my_dict.values():`
-    * `for key, value in my_dict.items():`
-
-### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
-
-Try out all the dict PSETs in your copy of `dict_psets.ipynb` in Google Drive.
