@@ -285,7 +285,7 @@ state_capitals['CA'] = 'Sacramento'
 print(state_capitals) # {'NY': 'Albany', 'NJ': 'Trenton', 'CT': 'Hartford', 'MA': 'Boston', 'CA': 'Sacramento'}
 ```
 
-...but more likely you'll want to use the `.update(key, value)` method.
+...but more likely you'll want to use the `.update({key: value})` method.
 
 ```python
 state_capitals = {
@@ -295,7 +295,7 @@ state_capitals = {
     'MA': 'Boston'
 }
 
-state_capitals.update('CA': 'Sacramento')
+state_capitals.update({'CA': 'Sacramento'})
 
 print(state_capitals) # {'NY': 'Albany', 'NJ': 'Trenton', 'CT': 'Hartford', 'MA': 'Boston', 'CA': 'Sacramento'}
 ```
@@ -490,9 +490,9 @@ for key in sorted(transaction.keys()):
     * Pass two lists to `zip()`
 * Unlike a list, a dict is inherently unordered and thus has no index.
 * Access a value by referencing its key using `my_dict[key]` or `.get(key, [])`. The latter is preferable because it guards against `KeyErrors` from referencing missing keys.
-* `my_dict[key] = value` and `.update(key, value)` both add or update a specific key/value pair based on whether the key passed exists already in the dict or not
+* `my_dict[key] = value` and `.update({key: value})` both add or update a specific key/value pair based on whether the key passed exists already in the dict or not
     * You can also pass another dict into `.update()` in order to make bulk edits 
-* `.update(key, value)` adds or updates a key/value pair based on whether the key passed exists already in the dict or not
+* `.update({key: value})` adds or updates a key/value pair based on whether the key passed exists already in the dict or not
 * `.pop(key, value)` removes a key/value pair from the dict
 * The following methods return list-like objects that isolate certains of a dict:
     * `.keys()` returns the keys
