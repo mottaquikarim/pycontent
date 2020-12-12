@@ -73,37 +73,16 @@ print(bad_array2) # [1 0]
 
 ### 2) An ndarray can have multiple dimensions.
 
-ndarrays have a parameter called `ndmin`, which allows you to specify the number of dimensions you want for your array when you create it. Each dimension prints on its own line, so the ndarray looks more like a *grid* than a single list. Having n-dimensions also means that when you reference ndarray values by index, you need to use multiple index positions.
-
-**2-D array: 3x3**
-
-```python
-dim1 = np.array([1, 2, 3]) 
-dim2 = np.array([4, 5, 6])
-dim3 = np.array([7, 8, 9])
-
-arrayC = np.array((dim1, dim2, dim3))
-print(arrayC) 
-"""
-[[1 2 3]
- [4 5 6]
- [7 8 9]]
-"""
-```
+ndarrays have a parameter called `ndmin`, which allows you to specify the number of dimensions you want for your array when you create it.
 
 ### 3) ndarrays are designed to handle `vectorized` operations
 
-In other words, if you apply a function to an ndarray object, the program will perform said function on *each* item in the array individually. Depending on the operand, if you apply a function to a list, either the function will be performed on the list object *as a whole* or you will get a TypeError. As a bonus, these vectorization capabilities also allow ndarrays take up less memory space and run faster.
+In other words, if you apply a function to an ndarray object, the program will perform said function on *each* item in the array individually. Regular Python lists don't support this.
 
 ```python
-list1 = [3, 5, 7]
-array1 = np.array([3, 5, 7])
-
-print(list1 * 10) # [3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3,5, 7, 3, 5, 7, 3, 5, 7]
-print(array1 * 10) # [30 50 70]
-
-# print(list1 + 1) # TypeError
-print(array1 + 1) # [4 6 8]
+a = np.array([3, 5, 7])
+print(a * 5) # [30 50 70]
+print(a + 1) # [4 6 8]
 ```
 
 ## Pandas Series Objects
