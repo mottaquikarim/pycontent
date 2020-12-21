@@ -1,4 +1,4 @@
-# Functions UPDATE
+# Functions
 
 In Python, `functions` are your best friends! Let's say you need to perform some action or calculation multiple times for multiple values. For example, you might want to convert temperatures in Celsius to Fahrenheit like you did in the last chapter's exercises. It would be inefficient and messy to copy that code every time you need it. Instead, you can define a `function` to contain that code. Every time you call that function, it runs the whole block of code inside and saves you lots of time. Sweet!
 
