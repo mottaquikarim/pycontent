@@ -44,8 +44,6 @@ Pandas is built on top of NumPy, so new users should first understand one NumPy 
 `Ndarrays` are deceptively similar to the more general Python `list` type we've been working with. An `ndarray` type is a group of elements, which can be accessed and updated using a zero-based index. Sounds exactly like a `list`, right? 
 
 ```python
-import numpy as np
-
 listA = [1, 2, 3]
 listB = ['a', 'b', 'c']
 
@@ -66,8 +64,6 @@ Wrong. You don't need to get caught up on the syntactical details of ndarrays fo
 All elements in an ndarray must be the same data type (e.g. integers, floats, strings, booleans, etc.). If you try to enter data that is not homogenous, the `.array()` function will force unity of data type.
 
 ```python
-import numpy as np
-
 bad_array1 = np.array([1, 'b', True])
 print(bad_array1) # ['1', 'b', 'True']
 
@@ -77,7 +73,7 @@ print(bad_array2) # [1 0]
 
 ### 2) An ndarray can have multiple dimensions.
 
-ndarrays have a parameter called `ndmin`, which allows you to specify the number of dimensions you want for your array when you create it. Each dimension prints on its own line, so the ndarray looks more like a *grid* than a single list. Having n-dimensions also means that when you reference ndarray values by index, you need to use multiple index positions.
+ndarrays have a parameter called `ndmin`, which allows you to specify the number of dimensions you want for your array when you create it.
 
 **2-D array: 3x3**
 
@@ -88,42 +84,18 @@ dim3 = np.array([7, 8, 9])
 
 arrayC = np.array((dim1, dim2, dim3))
 print(arrayC) 
-"""
-[[1 2 3]
- [4 5 6]
- [7 8 9]]
-"""
 ```
-
-<!-- **3-D array: 2x3x3**
-
-```python
-arrayD = np.array((([1, 2, 3], [4, 5, 6], [7, 8, 9]), ([1, 2, 3], [4, 5, 6], [7, 8, 9])), ndmin = 3)
-print(arrayD)
-"""
-[[[1 2 3]
-  [4 5 6]
-  [7 8 9]]
-
- [[1 2 3]
-  [4 5 6]
-  [7 8 9]]]
-"""
-``` -->
 
 ### 3) ndarrays are designed to handle `vectorized` operations
 
-In other words, if you apply a function to an ndarray object, the program will perform said function on *each* item in the array individually. Depending on the operand, if you apply a function to a list, either the function will be performed on the list object *as a whole* or you will get a TypeError. As a bonus, these vectorization capabilities also allow ndarrays take up less memory space and run faster.
+In other words, if you apply a function to an ndarray object, the program will perform said function on *each* item in the array individually. Regular Python lists don't support this. As a bonus, these vectorization capabilities also allow ndarrays take up less memory space and run faster.
 
 ```python
 list1 = [3, 5, 7]
 array1 = np.array([3, 5, 7])
 
-print(list1 * 10) # [3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3, 5, 7, 3,5, 7, 3, 5, 7, 3, 5, 7]
-print(array1 * 10) # [30 50 70]
-
-# print(list1 + 1) # TypeError
-print(array1 + 1) # [4 6 8]
+print(list1 * 10)
+print(array1 * 10)
 ```
 
 ## Pandas Series Objects
@@ -185,20 +157,7 @@ A **DataFrame** is a 2-D ndarray that has been streamlined for data processing. 
 
 The syntax for creating a dataframe manually is `df = pd.DataFrame(data, index, columns)`. This is syntactically similar to creating a series, with two notable differences. First, there is no `dtype` parameter for a dataframe, since each column could contain data of a different type. Second, a series is 1-D, so it only needs an index for axis 0. Since a dataframe is 2-D, it includes another parameter called `columns` for labeling axis 1.
 
-Constructing a DataFrame manually is a little more complex because you have to ensure the values for the rows and columns align correctly. The examples below illustrate multiple different ways to create the same dataframe. 
-
-<!-- 1) Specify column labels directly within the `data` parameter by passing in a **dict of lists and/or ndarrays**. 
-
-
-```python
-d1 = {
-'a': [4, 5, 6], 
-'b': np.array([7, 8, 9]), 
-'c': [10, 11, 12]}
-
-df1 = pd.DataFrame(data = d1, index = ['foo', 'bar', 'baz'])
-df1
-``` -->
+Constructing a DataFrame manually is a little more complex because you have to ensure the values for the rows and columns align correctly. The examples below illustrate multiple different ways to create the same dataframe.
 
 1) Specify both the index AND column labels directly within the `data` parameter by passing in a **dict of Series**. 
 
