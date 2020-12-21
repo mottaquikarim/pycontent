@@ -14,7 +14,7 @@
 - foundations_pandas.md: Foundational Pandas Objects
 - accessing_data.md: Accessing Data
 - df_data_flow.md: How Data Flows through DataFrames
-- wrangling1.md: Data Wrangling
-- data_cleaning.md: Data Cleaning
-- eda1.md: Exploratory Data Analysis (EDA)
+- wrangling1.md: Data Wrangling I
+- wrangling2.md: Data Wrangling II
+- eda.md: Exploratory Data Analysis (EDA)
 - data_viz.md: Data Visualization
