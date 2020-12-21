@@ -5,6 +5,15 @@
 >>https://git.generalassemb.ly/mashaelalzaid/Titanic_lab
 >>https://git.generalassemb.ly/A-bdullah/Pandas-Labs/blob/master/Titanic-Lab-solution2.ipynb
 
+* basic stats concepts
+*** datetime?**
+* explode cols
+* join/merge
+* join
+* groupby
+	* `.agg()`
+
+
 >>* basic stats concepts
 	>>* qualities of variables (randomness & independence)
 	>>* distributions
