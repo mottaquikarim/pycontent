@@ -1,4 +1,4 @@
-# Data Cleaning
+# Wrangling II
 
 <img src="https://i.chzbgr.com/full/1898496256/h42C0CC42/panda-cleaning-instructions" style="margin: 0 auto; float: right;"/>
 
