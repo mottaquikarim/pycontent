@@ -500,6 +500,3 @@ Functions featured include (in order of appearance):
 * `df.apply(func, axis=1)`
 * `s.fillna(value=None, inplace=False)`
 
-## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
-
-Practice using these methods in your copy of wrangling_pset2.ipynb in Google Drive.
