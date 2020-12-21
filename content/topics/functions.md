@@ -255,11 +255,44 @@ print(c) # [8, 'a', True, 'hi']
 
 **NOTE!** If you use `*args`, your function will be more flexible, *but only if you write it that way*. If you expect different types of arguments, you will have to write the function such that it can handle every use case you expect could occur.
 
+If interested, you can learn more about the intricacies of `*args` and its cousin `*kwargs` [here](https://realpython.com/courses/python-kwargs-and-args/).
+
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Try out all the function PSETs in your copy of `function_psets.ipynb` in Google Drive.
 
-
 ### Key Takeaways
 
-*TBD*
+* This is the most generic anatomy of a function:
+
+```python
+def function_name(required_parameters, keyword_args = 'default_argument'):
+    """docstring"""
+
+    # statement(s) with local variables
+
+    return None
+```
+
+* Local variables are those defined within a function and which can only be accessed inside that function.
+* Global variables are defined outside functions and can be accessed anywhere in the code.
+* The `return` statement:
+  * Defaults to returning `None`
+  * Can be passed multiple values, which will be output together as a tuple
+* **Required Paremeters**:
+  * Must be passed arguments in positional order
+  * Can optionally be referenced by name 
+* **Keyword Arguments**:
+  * Have a default argument assigned
+  * Can be passed arguments in *any* order
+  * Should be referenced by name
+  * If no argument is explicitly passed, Python automatically passes the default argument value.
+* The `*args` parameter is used when any number of arguments can be passed to a function.
+
+
+
+   
+
+
+
+

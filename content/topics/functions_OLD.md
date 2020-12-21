@@ -213,6 +213,7 @@ print(x) # NameError: name 'x' is not defined
 
 Even though we called the function `foo()`, we did not assign its return value to a variable outside the function. Therefore, trying to print `x` will output `NameError: name 'x' is not defined`. This is because `x` only exists within the function.
 
-## Additional Resources
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-* https://realpython.com/courses/python-kwargs-and-args/
+Try out all the function PSETs in your copy of `function_psets.ipynb` in Google Drive.
+
