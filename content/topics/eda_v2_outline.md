@@ -6,10 +6,9 @@
 >>https://git.generalassemb.ly/A-bdullah/Pandas-Labs/blob/master/Titanic-Lab-solution2.ipynb
 
 * basic stats concepts
-*** datetime?**
+**datetime?**
 * explode cols
 * join/merge
-* join
 * groupby
 	* `.agg()`
 
@@ -17,6 +16,7 @@
 >>* basic stats concepts
 	>>* qualities of variables (randomness & independence)
 	>>* distributions
+	>>* variability
 	>>* measures of central tendency
 	>>* ways to handle null values and why choosing the right one is important
 >>* groupby
