@@ -1,7 +1,3 @@
-<!---
-{"next":"Topics/data_science.md","title":"Classes"}
--->
-
 # Classes & Inheritance
 
 We already know that Python is based on the concept of **OOP, or Object-Oriented Programming**. Almost everything in Python is an object -- even functions are objects! **Classes**, and their facilitation of **inheritance**, are one of the most important and valuable Python objects. In this section, we'll cover:
@@ -91,20 +87,6 @@ class Toucan(Animal):
 ```
 
 If you wanted, the `Toucan` class could simply inherit the `category` class attribute from its parent class `Animal`. In this case, every instance of `Toucan` would  would have the same value for `category` -- `Animals`. However, it makes sense that you'd want to differentiate further for the child class `Toucan`. To do that, you'd simply override `category` when you define `Toucan` by setting its value to `Birds`.
-
-#### The __init__() Method & the self Keyword
-
-When you create a new instance of your Class, you might want to it to exist in some default state. For example, you might want to initially assign default values for its attributes. In Python terms - *when you **instantiate** a new instance object, you **initialize** it with pre-defined default values*.
-
-**The __init__() method** is where you give instructions for how you want each instance to exist in its initial state. Every time you instantiate a new instance object of your Class, you automatically invoke the `__init__()` method. That means when you create a new Class, the first thing you want to do is create its `__init__()` method. In general, the syntax looks like this:
-
-```python
-class Animal():
-    def __init__(self):
-        # ...
-```
-
-Notice we used the same notation as we did for defining functions. The `__init__()` method must have at least one argument, including the **self variable**. The `self` variable serves as a reference to the *current instance of the class*, and it must be the first parameter of *any* method in a class, including the `__init__()` method.
 
 ## Class vs. Instance Variables
 
