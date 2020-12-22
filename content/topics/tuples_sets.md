@@ -110,11 +110,9 @@ Sets are another special subtype of lists. Here are some of their notable qualit
 * Sets are **unordered**, meaning items do not have an index position.
 * Sets are mutable, BUT you use different methods to modify them than the methods used with lists.
 
-The most common use for sets is to remove duplicates from a collection of data. Let's define two separate sets. What what happens:
+The most common use for sets is to remove duplicates from a collection of data. Let's define two separate sets. Watch what happens:
 
 ```python
-l = 
-
 set1 = {1,2,3,4,5} # this is a set, notice the {}
 set2 = {1,1,1,2,2,3,4,5,5,5} # this is still a set
 
@@ -244,3 +242,30 @@ print(rainbow)
 #### More Set Theory with Python
 
 If you're interested in delving further into set theory, you can find a helpful list of set theory operators and methods **[here](https://snakify.org/en/lessons/sets/#section_4)**.
+
+## Key Takeaways
+
+* Tuples and sets are special subtypes of lists.
+* Tuples are...
+    * denoted with `()`
+    * ordered and accessible via index positions
+    * *immutable*
+* Tuples can be packed `t1 = 'a', 'b'` and unpacked `t2, t3 = ('a', 'b')` 
+* Sets are...
+    * denoted with {}
+    * unordered, meaning items do not have an index position
+    * mutable
+* Sets can only have unique elements
+* Sets use different methods to modify them than the methods used with lists 
+    * `.add()` instead of `.append()`
+    * `.update()` instead of `.extend()`
+    * `.discard()` instead of `.pop()`
+* Simple set theory methods work as follows:
+    * `in` and `not in` check the membership status of a single value
+    * `.issubset()` checks the membership status of a collection of values
+    * `.intersection()` returns the elements that exist in BOTH sets
+    * `.union()` combines both sets (of course eliminating duplicates)
+
+
+
+
