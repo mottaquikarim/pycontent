@@ -133,11 +133,15 @@ class Animal: # A.
         return None
 ```
 
-A. `Animal` is a *child class* of `object` as well as a potential *parent class*.
-B. Every time we instantiate a new class object, the `__init__()` method will automatically be called to initialize the instance's values.
-C. Each instance of the `Animal` class will store unique values for the **instance attributes** `species` and `diet`. By default these will be blank or Nonetypes, but each instance can have its own unique values for them.
-D. ALL instances of the Animal class will have the `kingdom` **class attribute** with the value `Animalia`.
-E. We can call **instance methods** `my_kingdom` and `feed_me` on ANY instance of the `Animal` class. **Note!** In `my_kingdom`, we access the class variable `kingdom`, but still reference it using `self`.
+**A.** `Animal` is a *child class* of `object` as well as a potential *parent class*.
+
+**B.** Every time we instantiate a new class object, the `__init__()` method will automatically be called to initialize the instance's values.
+
+**C.** Each instance of the `Animal` class will store unique values for the **instance attributes** `species` and `diet`. By default these will be blank or Nonetypes, but each instance can have its own unique values for them.
+
+**D.** ALL instances of the Animal class will have the `kingdom` **class attribute** with the value `Animalia`.
+
+**E.** We can call **instance methods** `my_kingdom` and `feed_me` on ANY instance of the `Animal` class. **Note!** In `my_kingdom`, we access the class variable `kingdom`, but still reference it using `self`.
 
 ## Class Definition Example 2 - Child Classes & Inheritance
 
@@ -167,11 +171,11 @@ class Elephant(Animal): # A.
         print(f'{k}: {v}')
 ```
 
-A. Declares `Elephant` as a *child class* of `Animal` by adding `Animal` into it as a definition parameter.
+**A.** Declares `Elephant` as a *child class* of `Animal` by adding `Animal` into it as a definition parameter.
 
-B. Notice that even though `taxonomy` is not a parameter for the `__init__()` method, we can still define it as an instance attribute upon every instantiation.
+**B.** Notice that even though `taxonomy` is not a parameter for the `__init__()` method, we can still define it as an instance attribute upon every instantiation.
 
-C. If you look closely, you'll see that the values for `taxonomy` all come from different places.
+**C.** If you look closely, you'll see that the values for `taxonomy` all come from different places.
 
 * Some of the taxonomy attributes are inherited from `Animal`; while
 * some are constant class attributes across all elephants; and 
@@ -179,12 +183,13 @@ C. If you look closely, you'll see that the values for `taxonomy` all come from 
 
 This is a great opportunity to dissect the syntax for referencing attributes from different sources.
 
-D. Here's a potential "gotcha". Remember that the `Animal` class also had an attribute called `diet`? `Elephant` does NOT inherit the `diet` attribute's value from `Animal`. Why? Two reasons:
+**D.** Here's a potential "gotcha". Remember that the `Animal` class also had an attribute called `diet`? `Elephant` does NOT inherit the `diet` attribute's value from `Animal`. Why? Two reasons:
 
 * First, `Elephant` defines `diet` as a class attribute for itself. This would supercede any variable called `diet` from the parent class.
 * Second, for `Animal`, `diet` is an instance attribute. Even if `Elephant` didn't define any type of attribute called `diet` for itself, a child class *never inherits the instance attributes* from their its parent.
 
-#### Class Instantiation & Modification
+### Class Instantiation & Modification
+
 Now we'll create the first instance of the `Elephant` class. To do so, you would pass arguments for the `__init__()` parameters defined above. This automatically invokes the `__init__()` method and assigns the values of the arguments you passed to your new instance attributes. Note that the `name` argument is required, but the rest are optional. Their values will default to empty strings if no argument for them is passed.
 
 ```python
@@ -217,24 +222,9 @@ Finally, here's what happens when we call the `summary()` instance method:
 
 ```python
 elephant1.summary()
-
-# Here's the output
-"""
-All about Felicia -
-Elephant, age 38
-Habitat: Asian forests
-Diet: Herbivore
-
-Taxonomy:
-Kingdom: Animalia
-Class: Mammalia
-Family: Elephantidae
-Genus: Elephas
-Species: Elephas maximus
-"""
 ```
 
-#### Checking Class Values
+### Checking Class Values
 
 In case someone who is not an expert zoologist like you needs to access the zoo's database of animals, that person could use the `isinstance()` function is used to determine if an instance is also an instance of a certain parent class. For this example, imagine you have already also defined another class called `Toucan` with the same input variables as our `Elephant` class.
 
@@ -247,6 +237,7 @@ print(isinstance(toucan1, Elephant)) # False
 ```
 
 ## Key Takeaways
+
 * A **class** outlines a set of **attributes** and **methods**, which will help categorize other objects.
 * To add objects to the class, you declare them as an **instance** of that class.
 * **Class variables** store values belonging to ALL instances of a class, whereas **instance variables** store values unique to each instance. 
