@@ -1,4 +1,4 @@
-# EDA (Exploratory Data Analysis): Part 1
+# EDA (Exploratory Data Analysis)
 
 ### Import Libraries & Load Data
 
