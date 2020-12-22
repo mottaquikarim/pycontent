@@ -243,6 +243,10 @@ print(rainbow)
 
 If you're interested in delving further into set theory, you can find a helpful list of set theory operators and methods **[here](https://snakify.org/en/lessons/sets/#section_4)**.
 
+## 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Start working with tuples and sets by completing your copy of `tuples_sets_psets.ipynb` in Google Drive.
+
 ## Key Takeaways
 
 * Tuples and sets are special subtypes of lists.
