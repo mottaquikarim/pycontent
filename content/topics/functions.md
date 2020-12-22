@@ -259,7 +259,7 @@ If interested, you can learn more about the intricacies of `*args` and its cousi
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
-Try out all the function PSETs in your copy of `function_psets.ipynb` in Google Drive.
+Flex your functions muscles in your copy of `function_psets.ipynb` in Google Drive.
 
 ### Key Takeaways
 
