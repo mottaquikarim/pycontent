@@ -266,7 +266,7 @@ Flex your functions muscles in your copy of `function_psets.ipynb` in Google Dri
 * This is the most generic anatomy of a function:
 
 ```python
-def function_name(required_parameters, keyword_args = 'default_argument'):
+def func_name(required_params, keyword_args = 'default_arg'):
     """docstring"""
 
     # statement(s) with local variables
