@@ -79,7 +79,11 @@ the coefficient of variation has its edge over standard deviation when it comes 
 ^^ can you specify to bin Year into decades (i.e. discrete intervals of 10 years)
 `titanic['Fare'].value_counts(bins=7)`
 
+## Join vs. Merge
 
+>>https://realpython.com/pandas-merge-join-and-concat/#pandas-join-combining-data-on-a-column-or-index
+>>https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html
+>>https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html#pandas.DataFrame.join
 
 ## Groupby
 
