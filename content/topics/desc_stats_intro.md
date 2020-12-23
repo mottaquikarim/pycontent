@@ -22,7 +22,7 @@ The heart of every quantitative analysis lies in the data's **descriptive statis
 
 A variable is some measure - either quantitative (numerical) or qualitative (categorical) - related to an entity. When analyzing movies, "imdbRating" is a numerical variable and "Genre" is a categorical variable. Sometimes, a variable's type might seem counterintuitive. For example, the "Year" a movie was released is a categorical variable despite the fact that it's a number.
 
-### Distributions & Histograms
+## Distributions
 
 In descriptive statistics, we often talk about a variable's **distribution**. It's easiest to explain distributions by looking at a histogram. Generally speaking, **histograms** represent "how frequently or infrequently certain values occur in a given set of data." In other words, a histogram *visualizes a variable's distribution*.
 
@@ -31,6 +31,24 @@ In descriptive statistics, we often talk about a variable's **distribution**. It
 
 Histograms often accompany discussion of distributions because they help provide visual context about a certain metric's relation to the dataset as a whole. 
 
-## Measures of Central Tendency
+### Symmetry
 
- represents the center point or typical value of a dataset. These measures indicate where most values in a distribution fall and are also referred to as the central location of a distribution. You can think of it as the tendency of data to cluster around a middle value.
+The shape of a skewed distribution depends on outliers, which are extreme observations, both negative and positive.
+
+Images in this section are from https://analystprep.com/
+
+### Measures of Central Tendency
+
+When you look at a histogram, the "central" point is the top of the mound.
+>>represents the center point or typical value of a dataset. These measures indicate where most values in a distribution fall and are also referred to as the central location of a distribution. You can think of it as the tendency of data to cluster around a middle value.
+
+show box & whiskers plot
+mean
+median
+mode
+iqr
+
+
+## More Resources
+
+* [Types of Variables](https://statistics.laerd.com/statistical-guides/types-of-variable.php)
