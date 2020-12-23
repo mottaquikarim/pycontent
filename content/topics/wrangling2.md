@@ -14,6 +14,8 @@ Data cleaning is arguably as important as any amount of insight you obtain from 
 * Series.apply()
 * Row- & Column-wise functions 
 * DataFrame.apply()
+* Compound Filtering
+* Exploding Columns
 
 ### Import
 
@@ -401,7 +403,7 @@ Now we need to write a compound filter to return all the movies that:
 * have a rating from Rotten Tomatoes *AND*
 * have a rating from Metacritic
 
-**NOTE!** When implementing compound filters, you have to use `&` and `|` instead of `and` and `or` respectively.
+**NOTE!** When implementing compound filters, you have to use `&`, `|`, and `~` instead of `and`, `or`, and `not` respectively.
 
 ```python
 full_ratings = movies[pd.notnull(movies['imdbRating']) & pd.notnull(movies['Rotten Tomatoes']) & pd.notnull(movies['Metascore'])]
@@ -488,15 +490,16 @@ movies['Production'].fillna('Indie', inplace=True)
 movies.info()
 ```
 
-## New Functions Featured
+## Key Takeaways
 
-Functions featured include (in order of appearance):
-* `pd.to_numeric(s)`
-* `s.astype()`
-* `s.map(arg, na_action=None)`
-* `s.apply(func)`
-* `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`
-* `.fillna(value=None, inplace=False)`
-* `df.apply(func, axis=1)`
-* `s.fillna(value=None, inplace=False)`
+### New Functions Featured
+
+* `pd.to_numeric(s)`: typecast the items in a Series to ints or floats; will infer which numeric type is best
+* `s.astype()`: typecast the items in a Series to some data type; accepts `'int64'`, `'float64'`, `'str'`, etc.
+* `s.map(arg, na_action=None)`: perform some custom function on all values in a series; often used with lambda functions
+* `s.apply(func)`: perform some custom function on all values in a series; used with more extensive custom functions
+* `df.apply(func, axis=1)`: perform some custom function on all values in one or more columns of a dataframe
+* `df.dropna(axis=0, how='any', subset=[col1], inplace=False)`: drop rows based on whether they have null values in one or more columns 
+* `s.fillna(value=None, inplace=False)`: fill the null values in a Series with some other value (e.g. the mean of the column, 'N/A', 0, etc.)
+* `df.explode(column, ignore_index=False)`: split list-like rows into individual values, replicating indices
 
