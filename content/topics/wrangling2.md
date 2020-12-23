@@ -490,6 +490,65 @@ movies['Production'].fillna('Indie', inplace=True)
 movies.info()
 ```
 
+## Exploding Columns
+
+Sometimes, data is delivered in a "nested" format to be more concise. This means that each row might have multiple distinct values embedded in a single column. 
+
+In our `movies` dataframe, each row represents an entity -- in this case, a movie. In the `Genres` column, we can see an example of nested data. Since movies can be tagged under more than one genre category, some rows can multiple genres listed.
+
+Let's say we wanted a list of all the unique genres represented. We can't do that unless we unnest, or "explode", this data. This is the precise purpose of the `df.explode()` function.
+
+### Explode Example: Genre
+
+**Step 1** Break out the genres column from the main dataframe. You'll see why in Step 3.
+
+```python
+movie_genres = movies['Genres'].copy().reset_index()
+movie_genres.head(10)
+```
+
+**Step 2** Convert the row values from a single string into a list. We do this because `.explode()` requires the columns values to be a list-like object.
+
+```python
+movie_genres['Genres'] = movie_genres['Genres'].str.split(', ')
+"""
+OR
+movie_genres['Genres'] = movie_genres['Genres'].map(lambda x: x.split(', '))
+"""
+
+movie_genres.head(10)
+```
+
+**Step 3** Explode the columns. Take a close look at the before and after, using the imdbID `tt0068646` as an example:
+
+* *Before*: `tt0068646` is represented on row 1 and has "Crime" and "Drama" listed as its genres
+* *After*: `tt0068646` is represented on row 1 with the genre "Crime" AND on row 2 with the genre "Drama"
+
+```python
+movie_genres = movie_genres.explode('Genres', ignore_index=True)
+movie_genres.head(10)
+```
+
+Now we can do things like finally see what all the unique genres are:
+
+```python
+movie_genres.unique('Genres')
+```
+
+### Practice
+
+Try this for yourself with the "Actors" column
+
+```python
+# movie_actors = 
+```
+
+Filter to show all the imdbIDs for movies with your favorite actor.
+
+```python
+
+```
+
 ## Key Takeaways
 
 * It is a best practice to scale numerical values and/or convert them into the same units for clearer comparison and analysis
