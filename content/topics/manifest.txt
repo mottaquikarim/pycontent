@@ -17,4 +17,5 @@
 - wrangling1.md: Data Wrangling I
 - wrangling2.md: Data Wrangling II
 - eda.md: Exploratory Data Analysis (EDA)
-- data_viz.md: Data Visualization
+- data_viz1.md: Data Visualization I
+- data_viz2.md: Data Visualization II
