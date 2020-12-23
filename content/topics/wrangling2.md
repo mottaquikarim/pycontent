@@ -1,7 +1,5 @@
 # Wrangling II
 
-<img src="https://i.chzbgr.com/full/1898496256/h42C0CC42/panda-cleaning-instructions" style="margin: 0 auto; float: right;"/>
-
 Data cleaning is arguably as important as any amount of insight you obtain from your dataset. The more data there is, especially data aggregated from multiple sources, the messier it is. You need to reformat and standardize it before you can successfully complete any real analysis. Otherwise...garbage in, garbage out...
 
 ## Objectives

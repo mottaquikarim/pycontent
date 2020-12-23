@@ -7,7 +7,6 @@
 
 * basic stats concepts
 **datetime?**
-* explode cols
 * join/merge
 * groupby
 	* `.agg()`
