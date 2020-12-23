@@ -492,6 +492,10 @@ movies.info()
 
 ## Key Takeaways
 
+* It is a best practice to scale numerical values and/or convert them into the same units for clearer comparison and analysis
+* Compound filtering uses `&`, `|`, and `~` instead of `and`, `or`, and `not` respectively. Oftentimes it is best to enclose each condition within its own `()` to avoid Python misinterpreting your intentions.
+* Exploding list-like columns is useful when each row has multiple distinct values embedded in a single column. It allows you to analyze those values individually across the full sample of data.
+
 ### New Functions Featured
 
 * `pd.to_numeric(s)`: typecast the items in a Series to ints or floats; will infer which numeric type is best
