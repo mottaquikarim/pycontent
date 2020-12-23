@@ -51,20 +51,6 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
 >>Measuring Frequency
 >> Simple test?
 
-## Summary & Descriptive Statistics
-
-We'll start by defining some basic stats terms. When speaking about data, a **population** encompasses the *entire* set of items you're interested in, while a **sample** consists of a subset of those items. This is analagous to the difference between all the movies ever made (population) and the movies in our OMDb dataset (sample). Obtaining data on complete populations usually isn't feasible, so most statistical analyses are based on samples.
-
-The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization. **Histograms** often accompany descriptive statistics to help provide visual context about the measure's relation to the dataset as a whole. 
-
-<!--<img src="https://plot.ly/static/img/literacy/fig5.gif" style="margin: 0 auto; width:60%"/>
-
-*Image from Plotly: https://help.plot.ly/histogram/#what-is-a-histogram*-->
-
-Generally speaking, histograms represent "how frequently or infrequently certain values occur in a given set of data." In other words, they visualize the **distribution** of the data.
-
-
-
 
 ### Variability
 
@@ -112,8 +98,6 @@ https://realpython.com/pandas-groupby/#how-pandas-groupby-works
 
 Grouby statements are particularly useful for a subsection-of-interest analysis. Specifically, zooming in on one condition, and determining relevant statstics.
 
-
-
 `df.groupby(by=None, axis=0, level=None, as_index=True, sort=True, group_keys: bool = True, squeeze: bool = False, observed: bool = False)`
 >>https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby
 by mapping, function, label, or list of labels
@@ -144,40 +128,7 @@ How methods of a Pandas GroupBy object can be placed into different categories b
 **Aggregation** calculate some summary statistics for each group
 **Meta** focuses on obtaining information about the resultant groups as opposed to the original dataframe
 
-
-
-
-
-## Grouping Data in Pandas
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
 ## Correlation
-
-
 
 
 >>> x.corr(y)                     # Pearson's r
