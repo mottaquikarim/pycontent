@@ -35,7 +35,12 @@ Histograms often accompany discussion of distributions because they help provide
 
 Everyone is familiar with the bell-curve shape of a symmetrical distribution. However, **skewness** indicates whether and how much the values in a sample fall toward one end of the range. 
 
-![positive skew](https://github.com/mottaquikarim/pycontent/blob/master/content/images/right_skew.jpg)
+
+![no skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/no_skew.jpg)
+
+![positive skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/right_skew.jpg)
+
+![negative skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/left_skew.jpg)
 
 The shape of a skewed distribution depends on outliers, which are extreme observations, both negative and positive.
 
