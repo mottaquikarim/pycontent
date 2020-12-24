@@ -139,7 +139,7 @@ If you want to iterate through only a section of a list, the `range()` and `enum
 
 With `while` loops, we saw one way to iterate while counting. Using `range()` with a for loop allows us to be more concise and more specific. 
 
-The  `range()` function uses this syntax: `range(<begin>, <end>, <stride>)`. It returns a `range` iterable that yields values starting with the <begin> index, *up to but **NOT** including the <end> index*. The <stride> argument isn't required, but if specified, it indicates an amount to skip between values. For example, `range(5, 20, 3)` would iterate through 5, 8, 11, 14, and 17. If <stride> is omitted, it defaults to incrementing by 1.
+The `range()` function uses this syntax: `range(<begin>, <end>, <stride>)`. It returns a `range` iterable that yields values starting with the <begin> index, *up to but **NOT** including the <end> index*. The <stride> argument isn't required, but if specified, it indicates an amount to skip between values. For example, `range(5, 20, 3)` would iterate through 5, 8, 11, 14, and 17. If <stride> is omitted, it defaults to incrementing by 1.
 
 Consider the differences in the loops below...
 
@@ -237,6 +237,7 @@ Let's walk through the logic of how we got that outcome:
 a = ['foo', 'bar', 'baz', 'qux', 'corge']
 while a:
 ```
+
 * ^^^ This tells us that as long as `a` is `True` - essentially, as long as it exists - go ahead with the next loop iteration.
 
 ```python
@@ -342,3 +343,15 @@ Your program will get stuck here, so you want to make sure you pay special atten
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
 Take a shot at the problems in your copy of `loop_psets.ipynb` in Google Drive.
+
+## Key Takeaways
+
+* The `while loop` iterates over a code block "while" some condition is True. Once it reaches a point where the condition is False, it stops.
+* The `for loop` considers each item in the iterable one at a time and takes some action on each one.
+* It is a best practice not to add or remove items from an iteratable while looping!
+* A `range()` object generates a list of numbers within a minimum and maximum value. Its syntax is: `range(<begin>, <end>, <stride>)`
+  * `range()` can be useful in while loop conditions as well as iterating through only a certain section of an iterable with a for loopx
+* The `break` keyword *escapes the loop*, while the `continue` keyword escapes *only the current iteration*. 
+  * A `break` escapes the loop entirely and goes on to execute the code immediately following the loop. 
+  * A `continue` tells the program to stop where it is within the within the current iteration and *skip to the the next iteration* of the loop.
+* If you place additional code in an `else` clause after a loop, the program will only execute that code if the loop terminates *by exhaustion*.
