@@ -22,7 +22,7 @@ The heart of every quantitative analysis lies in the data's **descriptive statis
 
 A variable is some measure - either quantitative (numerical) or qualitative (categorical) - related to an entity. When analyzing movies, "imdbRating" is a numerical variable and "Genre" is a categorical variable. Sometimes, a variable's type might seem counterintuitive. For example, the "Year" a movie was released is a categorical variable despite the fact that it's a number.
 
-## Distributions
+## Distributions & Histograms
 
 In descriptive statistics, we often talk about a variable's **distribution**. It's easiest to explain distributions by looking at a histogram. Generally speaking, **histograms** represent "how frequently or infrequently certain values occur in a given set of data." In other words, a histogram *visualizes a variable's distribution*.
 
@@ -31,16 +31,27 @@ In descriptive statistics, we often talk about a variable's **distribution**. It
 
 Histograms often accompany discussion of distributions because they help provide visual context about a certain metric's relation to the dataset as a whole. 
 
-### Symmetry
+### Symmetry & Skewness
+
+Everyone is familiar with the bell-curve shape of a symmetrical distribution. However, **skewness** indicates whether and how much the values in a sample fall toward one end of the range. 
+
+![positive skew](https://github.com/mottaquikarim/pycontent/blob/master/content/images/right_skew.jpg)
 
 The shape of a skewed distribution depends on outliers, which are extreme observations, both negative and positive.
 
 Images in this section are from https://analystprep.com/
 
+
 ### Measures of Central Tendency
 
-When you look at a histogram, the "central" point is the top of the mound.
+When you look at a histogram, the mound is the "central" region. It represents point where the average, or most typical, values lie in the distribution.
+
+Estimate where the "center" of the data is 
+
+provide info about the typical/average values in a data sample
+tendency for values to gather around the middle of the set
 >>represents the center point or typical value of a dataset. These measures indicate where most values in a distribution fall and are also referred to as the central location of a distribution. You can think of it as the tendency of data to cluster around a middle value.
+
 
 show box & whiskers plot
 mean
