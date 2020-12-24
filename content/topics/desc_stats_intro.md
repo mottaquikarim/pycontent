@@ -33,36 +33,47 @@ Histograms often accompany discussion of distributions because they help provide
 
 ### Symmetry & Skewness
 
-Everyone is familiar with the bell-curve shape of a symmetrical distribution. However, **skewness** indicates whether and how much the values in a sample fall toward one end of the range. 
+Everyone is familiar with the bell-curve shape of a symmetrical distribution. However, **skewness** indicates whether and how much the values in a sample fall toward one end of the range. Whether a distribution is skewed depends on the outliers within the sample. Skewness can be roughly evaluated visually by looking at a distribution's histogram. 
 
+As a baseline, this distribution has **no skew**:
 
 ![no skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/no_skew.jpg)
 
+A positively skewed distribution has outliers on the higher end of its range. The righthand "tail" on the histogram illustrates this.
+
+**Positive Skew** 
+
 ![positive skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/right_skew.jpg)
+
+Conversely, a negatively skewed distribution has outliers on the lower end of its range. The lefthand "tail" on the histogram illustrates this.
+
+**Negative Skew** 
 
 ![negative skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/left_skew.jpg)
 
-The shape of a skewed distribution depends on outliers, which are extreme observations, both negative and positive.
+The magnitude of a distribution's skewness can be calculated as a positive or negative number. The greater the absolute value of this metric is, the more positively or negatively skewed the distribution is.
 
-Images in this section are from https://analystprep.com/
-
+*Images in this section are from https://analystprep.com/*
 
 ### Measures of Central Tendency
 
-When you look at a histogram, the mound is the "central" region. It represents point where the average, or most typical, values lie in the distribution.
+When you look at a histogram, the mound is the "central" region. It represents where the average, or most typical, values in the distribution lie. The main measures for this are the mean, median, and mode.
 
-Estimate where the "center" of the data is 
+* **`s.mean()`** -- the simple average; 
+    * *Downside is that it's greatly affected by outliers in the data!*
+* **`s.median()`** -- in a lineup of ordinal data, the median is the middle number or category
+* **`s.mode()`** -- the number or category that occurs most often in the dataset
+    * Notice that even if this only returns one value, it returns a Series object
 
-provide info about the typical/average values in a data sample
-tendency for values to gather around the middle of the set
->>represents the center point or typical value of a dataset. These measures indicate where most values in a distribution fall and are also referred to as the central location of a distribution. You can think of it as the tendency of data to cluster around a middle value.
+**Positive Skew** 
 
+![positive skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/right_skew_central_tendency.jpg)
 
-show box & whiskers plot
-mean
-median
-mode
-iqr
+Conversely, a negatively skewed distribution has outliers on the lower end of its range. The lefthand "tail" on the histogram illustrates this.
+
+**Negative Skew** 
+
+![negative skew](https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/images/left_skew_central_tendency.jpg)
 
 
 ## More Resources
