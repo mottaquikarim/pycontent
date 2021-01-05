@@ -386,32 +386,9 @@ state_capitals.pop('AZ', [])
 # removes 'AZ': 'Phoenix' from our dict
 ```
 
-#### `popitem()`:
-
-This one just removes an arbitrary key value pair from dict and returns it as a tuple. For instance, you might do this if you're randomly sampling your data for QA purposes.
-
-```python
-state_capitals = {
-    'NY': 'Albany',
-    'NJ': 'Hoboken',
-    'CT': 'Hartford',
-    'MA': 'Boston',
-    'CA': 'Sacramento',
-    'WA': 'Olympia',
-    'OR': 'Salem',
-    'TX': 'Austin',
-    'AZ': 'Phoenix',
-    'GA': 'Atlanta'
-}
-
-seceded1 = state_capitals.popitem()
-# ^ removes a random item and returns it as a tuple
-print(seceded1) # ('GA': 'Atlanta') for example
-```
-
 ## Iterating Through Dicts
 
-Iterating over dicts is slightly more complicated than other iterabless because each item consists of two elements, specifically mapped to each other. That said, you can do some really cool stuff with your dicts using loops! 
+Iterating over dicts is slightly more complicated than other iterables because each item consists of two elements, specifically mapped to each other. That said, you can do some really cool stuff with your dicts using loops! 
 
 #### Example 1
 
