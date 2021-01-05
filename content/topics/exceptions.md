@@ -162,6 +162,91 @@ my_num = int("Moose")
 * Use `try`/`except` syntax to catch an expected error.
 * Logic issues don't throw errors, so be careful!
 
+### logging
+
+```python
+try:
+    x = int('foo')
+except Exception as e:
+    logging.exception('Caught an error')
+```
+
+### `raise`
+
+reraise an exception: means the caller of the function has to do own try/except
+
+when you reraise, you must put the function CALL into a try/except
+
+`raise Exception()` is most general if don't want to create custom exception
+
+```python
+class MyCustomException(Exception):
+    pass
+
+def squares(n):
+    try:
+        n = float(n)
+    except Exception as e:
+        # if you ALSO want to log the exception...
+        # logging.exception(f'{e.__class__.__name__}: {e}')
+        raise MyCustomException(f'{e.__class__.__name__}: {e}')
+
+    sq = n**2
+    sqrt = n**0.5
+
+    return sq, sqrt
+
+# error case 1: TypeError
+try:
+    x, y = squares([4.5])
+    print(f'square: {x}, square root: {y}')
+except Exception as e:
+    print(f'{e}') 
+```
+
+^^ `e` is everything in the raised exception here, not just the exception message. see below variation to prove this.
+
+```python
+def squares(n):
+    n = float(n)
+    sq = n**2
+    sqrt = n**0.5
+    return sq, sqrt
+
+# error case 1: TypeError
+try:
+    x, y = squares([4.5])
+    print(f'square: {x}, square root: {y}')
+except Exception as e:
+    print(f'{e}')
+```
+
+#### Multiple Excepts
+
+```python
+class MyCustomException(Exception):
+    pass
+
+
+def rand_list2(how_many, start, end):
+    try:
+        how_many = int(how_many)
+        start = int(start)
+        end = int(end)
+        return choices(range(start, end+1), k=how_many)
+    except Exception as e:
+        print(f'{e.__class__.__name__}: {e}') 
+        raise MyCustomException(f"Failed to generate random list: {e}")
+
+try:
+    y = rand_list2(10, 15, 12) 
+    print(y)
+except RandListFailedExc as e:
+    print(f"handle this error in user space {e}")
+```
+
+
+
 ## Additional Resources
 
 * [Built-In Exception Docs](https://docs.python.org/3/library/exceptions.html)
