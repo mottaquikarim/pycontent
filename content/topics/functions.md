@@ -144,53 +144,37 @@ If you want, you can give your parameter a **default argument**. Doing so means 
 
 **NOTE!** Technically speaking, these parameters are still required. If you don't pass them arguments when you call the function, Python still does it for you. Hence, we say they're "optional" because it's optional for us to pass them arguments.
 
-
 Let's take a look at another version of our `plus()` function with default arguments for `b` and `c`:
 
 ```python
 def plus(a, b = 12, c = -1):
-    return a + b
+    return a + b + c
 
 # Explicitly passing values for b & c
 sum1 = plus(8, b = 4, c = 3)
-print(sum1) # 15
+print(sum1)
 
 # Implicitly passing default values for b & c
 sum2 = plus(8)
-print(sum2) # 20
+print(sum2)
 ```
 
-Here's where things get a little sticky between how terms are colloquially used and how they actually work in Python...
-
-1. In practice, `b` and `c` are called **keyword arguments** because you often reference their keyword when you do want to pass them some explicit value.
+Here's where things get a little sticky between how terms are colloquially used and how they actually work in Python... In practice, `b` and `c` are called **keyword arguments** because you often reference their keyword when you do want to pass them some explicit value.
 
 ```python
 def plus(a, b = 12, c = -1):
-    return a + b
-
-# Explicitly passing values for b & c
-sum3 = plus(8, b = -2, c = 6)
-print(sum3) # 12
-
-# Implicitly passing default values for b & c
-sum4 = plus(8)
-print(sum4) # 20
-```
-
-That said, you CAN certainly reference the keyword for required arguments as well. It even makes sense to do so when you're using complex built-in functions. For example, some pandas functions have several required parameters AND more than a few optional ones.
-
-```python
-def plus(a, b = 12, c = -1):
-    return a + b
+    return a + b + c
 
 # ...vs. passing values for `a` and implicitly `b`
-y = plus(a = 4, c = -1)
-print(y) # 15
+sum3 = plus(a = 4, c = -1)
+print(sum3)
 
 # ...vs. passing values for `a` and explicitly `c`
-z = plus(8, c=12)
-print(z)
+sum4 = plus(8, c=12)
+print(sum4)
 ```
+
+That said, you *CAN certainly reference the keyword for required arguments as well*. It even makes sense to do so when you're using complex built-in functions. For example, some pandas functions have several required parameters AND more than a few optional ones.
 
 **IMPORTANT!**
 
@@ -226,7 +210,7 @@ Even if you're not sure how many arguments you will need to pass to your functio
 def plus(*args):
   return sum(args)
 
-c = plus(8,12,17)
+c = plus(8, 12, 17)
 print(c) # 37
 ```
 
@@ -237,7 +221,7 @@ def length(*args):
   list1 = [*args]
   return len(list1)
 
-c = length(8,'a',True)
+c = length(8, 'a', True)
 print(c) # 3
 ```
 
@@ -249,7 +233,7 @@ def print_all(*args):
   list1 = [*args]
   return list1
 
-c = print_all(8,'a',True,var1)
+c = print_all(8, 'a', True, var1)
 print(c) # [8, 'a', True, 'hi']
 ```
 
