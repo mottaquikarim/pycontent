@@ -165,13 +165,11 @@ Here's where things get a little sticky between how terms are colloquially used 
 def plus(a, b = 12, c = -1):
     return a + b + c
 
-# ...vs. passing values for `a` and implicitly `b`
-sum3 = plus(a = 4, c = -1)
-print(sum3)
+# sum3 and sum4 will be the same
+sum3 = plus(a = 4, c = -6)
+sum4 = plus(4, c= -6)
 
-# ...vs. passing values for `a` and explicitly `c`
-sum4 = plus(8, c=12)
-print(sum4)
+print(sum3, sum4)
 ```
 
 That said, you *CAN certainly reference the keyword for required arguments as well*. It even makes sense to do so when you're using complex built-in functions. For example, some pandas functions have several required parameters AND more than a few optional ones.
