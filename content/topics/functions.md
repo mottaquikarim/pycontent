@@ -125,7 +125,7 @@ You have a fair amount of flexibility when it comes to defining function paramet
 
 ### Required Parameters
 
-Below is how you'd define parameters for two *required* inputs with *no default values*.
+Below is how you'd define parameters for two *required* inputs with *no default values*. Whenever you call this function, you must pass values for each required argument *in the same positional order in which they were defined*.
 
 ```python
 def plus(a, b):
@@ -134,8 +134,6 @@ def plus(a, b):
 c = plus(8, 12)
 print(c) # 20
 ```
-
-Whenever you call this function, you must pass values for each required argument *in the same positional order in which they were defined*.
 
 ### "Optional" Parameters
 
