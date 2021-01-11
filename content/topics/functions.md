@@ -125,8 +125,7 @@ You have a fair amount of flexibility when it comes to defining function paramet
 
 ### Required Parameters
 
-Below is how you'd define parameters for two *required* inputs with *no default values*. The variables 
- For example...
+Below is how you'd define parameters for two *required* inputs with *no default values*.
 
 ```python
 def plus(a, b):
