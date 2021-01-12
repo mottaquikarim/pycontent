@@ -190,6 +190,11 @@ def squares(n):
         # if you ALSO want to log the exception...
         # logging.exception(f'{e.__class__.__name__}: {e}')
         raise MyCustomException(f'{e.__class__.__name__}: {e}')
+        """
+        don't need to return anything when you re-raise bc the function caller's 
+        except clause will handle what should happen if the function can't generate 
+        valid output
+        """
 
     sq = n**2
     sqrt = n**0.5
@@ -241,7 +246,7 @@ def rand_list2(how_many, start, end):
 try:
     y = rand_list2(10, 15, 12) 
     print(y)
-except RandListFailedExc as e:
+except MyCustomException as e:
     print(f"handle this error in user space {e}")
 ```
 
