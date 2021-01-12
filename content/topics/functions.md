@@ -257,8 +257,9 @@ def func_name(required_params, keyword_args = 'default_arg'):
 * Global variables are defined outside functions and can be accessed anywhere in the code.
 * The `return` statement:
   * Defaults to returning `None`
-  * Can be passed multiple values, which will be output together as a tuple
-* **Required Paremeters**:
+  * Can "return" multiple values, which will be output together as a tuple
+  * e.g. `return 1, 2, 3` outputs `(1, 2, 3)`
+* **Required Parameters**:
   * Must be passed arguments in positional order
   * Can optionally be referenced by name 
 * **Keyword Arguments**:
