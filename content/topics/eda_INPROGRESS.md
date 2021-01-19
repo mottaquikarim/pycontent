@@ -56,16 +56,26 @@ To do this with pandas, follow these **3 steps**:
 2. Each record in the genre column is a single string, in which multiple genres are separated by commas. Transform each record into a list.
 
 ```python
+# 1.
+movie_genres = movies['Genre'].copy().reset_index()
+# 2.
+movie_genres['Genre'] = movie_genres['Genre'].str.split(', ')
 
+movie_genres.head()
 ```
 
-
+3. Use the `.explode()` function, setting `ignore_index=True`.
 
 ```python
+# 3.
+movie_genres = movie_genres.explode('Genre', ignore_index=True)
 
+movie_genres.head()
 ```
 
+Take note of the movie IDs and see how their data got spread out after we applied `.explode()`. 
 
+Next, we'll repeat this for `Languages`, `Countries`, and `Actors`. Afterwards, we'll drop all the columns we exploded from the main dataframe to keep it uncluttered.
 
 ```python
 
