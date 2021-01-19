@@ -403,7 +403,7 @@ state_capitals = {
     'GA': 'Atlanta'
 }
 
-for key, value in transaction.items():
+for key, value in state_capitals.items():
     print(f'{key}: {value}')
 ```
 
