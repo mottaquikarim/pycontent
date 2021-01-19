@@ -11,7 +11,7 @@ print('import successful')
 Load the data with `imdbID` as the index and make a copy.
 
 ```python
-omdb_orig = pd.read_csv('omdb4500_clean_simple.csv', index_col='imdbID')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
