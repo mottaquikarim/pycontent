@@ -25,4 +25,72 @@ movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
+## Exploding Condensed Data
+
+You'll notice that some columns contain more than one value per row. For instance, a movie can be tagged as multiple genres. This limits us in that we cannot analyze movies in terms of unique genres. To fix this, we need to "explode" out the genre data so that a single record/row only equates one movie with one genre. In this format, if a movie is tagged as more than one genre, it will need to have a separate record/row for each of its genres. 
+
+Take a look at this sample "Before & After" data:
+
+*BEFORE EXPLODING*
+
+| movie_id | Genre |
+---------|-------|
+| m1 | Drama, Action |
+| m2 | Comedy |
+| m3 | Crime, Comedy |
+
+*AFTER EXPLODING*
+
+| movie_id | Genre |
+---------|-------|
+| m1 | Drama |
+| m1 | Action |
+| m2 | Comedy |
+| m3 | Crime |
+| m3 | Comedy |
+
+
+To do this with pandas, follow these **3 steps**: 
+
+1. Create a new df and *reset the index* so that `imdbID` is a regular column instead of the index.
+2. Each record in the genre column is a single string, in which multiple genres are separated by commas. Transform each record into a list.
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
