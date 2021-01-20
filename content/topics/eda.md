@@ -2,11 +2,12 @@
 
 ## Objectives
 
->>* Exploding
->>* Joining/Merging 
+* Exploding Condensed Data
+* Merging Pandas Data Objects
 * Basic Descriptive Statistics
 * Groupby Statements
 * Key Takeaways
+* Functions Featured
 
 ### Import Libraries & Load Data
 
@@ -89,13 +90,9 @@ movie_countries['Country'] = movie_countries['Country'].str.split(', ')
 movie_countries = movie_countries.explode('Country', ignore_index=True)
 
 # Actors
-movies.rename(mapper={'Actors': 'Actor'}, axis=1, inplace=True)
-movie_actors = movies['Actor'].copy().reset_index()
-movie_actors['Actor'] = movie_actors['Actor'].str.split(', ')
-movie_actors = movie_actors.explode('Actor', ignore_index=True)
-
-# Drop cols
-movies.drop(columns=['Genre', 'Language', 'Country', 'Actor'], inplace=True)
+movie_actors = movies['Actors'].copy().reset_index()
+movie_actors['Actors'] = movie_actors['Actors'].str.split(', ')
+movie_actors = movie_actors.explode('Actors', ignore_index=True)
 ```
 
 ## Merging Pandas Data Objects
