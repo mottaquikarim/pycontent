@@ -488,7 +488,7 @@ movies.info()
 
 Sometimes, data is delivered in a "nested" format to be more concise. This means that each row might have multiple distinct values embedded in a single column. 
 
-In our `movies` dataframe, each row represents an entity -- in this case, a movie. In the `Genres` column, we can see an example of nested data. Since movies can be tagged under more than one genre category, some rows can multiple genres listed.
+In our `movies` dataframe, each row represents an entity -- in this case, a movie. In the `Genres` column, we can see an example of nested data. Since movies can be tagged under more than one genre category, some rows can have multiple genres listed.
 
 Let's say we wanted a list of all the unique genres represented. We can't do that unless we unnest, or "explode", this data. This is the precise purpose of the `df.explode()` function.
 
