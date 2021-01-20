@@ -1,58 +1,22 @@
 # EDA (Exploratory Data Analysis)
 
-## Objectives
-
-* Merging Pandas Data Objects
-* Basic Descriptive Statistics
-* Groupby Statements
-* Key Takeaways
-* Functions Featured
-
-### Import Libraries & Data Prep
-
-Run these cells to prep the data for this lesson. 
+### Import Libraries & Load Data
 
 ```python
 import pandas as pd
 import numpy as np
-from scipy import stats
 print('import successful')
 ```
 
+Load the data with `imdbID` as the index and make a copy.
+
 ```python
-movies = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_eda.csv', index_col='imdbID')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
+movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
 
-```python
-# Genres
-movie_genres = movies['Genre'].copy().reset_index()
-movie_genres['Genre'] = movie_genres['Genre'].str.split(', ')
-movie_genres = movie_genres.explode('Genre', ignore_index=True)
-
-# Languages
-movie_languages = movies['Language'].copy().reset_index()
-movie_languages['Language'] = movie_languages['Language'].str.split(', ')
-movie_languages = movie_languages.explode('Language', ignore_index=True)
-
-# Countries
-movie_countries = movies['Country'].copy().reset_index()
-movie_countries['Country'] = movie_countries['Country'].str.split(', ')
-movie_countries = movie_countries.explode('Country', ignore_index=True)
-
-# Actors
-movie_actors = movies['Actors'].copy().reset_index()
-movie_actors['Actors'] = movie_actors['Actors'].str.split(', ')
-movie_actors = movie_actors.explode('Actors', ignore_index=True)
-```
-
-## Merging Pandas Data Objects
-
-**TBD**
-
-```python
-
-```
+**For simplicity's sake**, we edited the Genre, Language, and Country columns such that each movie only has one value for each. **This compromises the statistical integrity, but our analysis is only for learning the code. No one's making investment decisions off this info!**
 
 ## Summary & Descriptive Statistics
 
@@ -144,18 +108,15 @@ Take a look at the percentage of movies made by each of the top 10 directors
 movies['Director'].value_counts(normalize=True).nlargest(10)
 ```
 
+### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
+
+Discover other interesting descriptive statistics in the "Basic Stats" section in your copy of `eda1_psets.ipynb` in Google Drive.
+
 ## Grouping Data in Pandas
 
-In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. For example, if we want to know the **average movie runtime by country of production**, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, we'll break it down.
+In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, we'll break it down.
 
-Before the groupby statement, we have to create a new df that merges `movie_countries` with the `Runtime` column from our original `movies` df.
-
-```python
-avg_country_runtimes = movie_countries.merge(movies['Runtime'].reset_index(), on='imdbID')
-avg_country_runtimes.head(10)
-```
-
-### Breaking Down Groupby Statements
+### Breaking Down GroupBy Statements
 
 **1. Split**:
 
@@ -164,17 +125,17 @@ avg_country_runtimes.head(10)
 First, use `.groupby()` to separate our dataframe into groups by a specific attribute. The resultant GroupBy object can be thought of as a **collection of groups.** 
 
 ```python
-gb = avg_country_runtimes.groupby('Country')
+gb = movies.groupby('Country')
 gb
 ```
 
-Printing out `gb` above only shows the user the groupby object as an abstraction. To get a little more information, access the groupby object's `.groups` attribute. This will show you the name of each group and a corresponding subset of rows (referenced by their index labels) from the original dataframe. In our example, you'll see that each unique `Country` represents a subset of movies.
+Printing out `g` above only shows the user the GroupBy object as an abstraction. To get a little more information, access the GroupBy object's `.groups` attribute. This will show you the name of each group and a corresponding subset of rows (referenced by their index labels) from the original dataframe. In our example, you'll see that each unique `Country` represents a subset of movies.
 
 ```python
 gb.groups
 ```
 
-Notice the structure of the dict above. What if you wanted to return the movies in a certain group as their own independent dataframe? You'd access the dict key to obtain the group of index labels. You'd then use this group of index labels to filter out your desired rows from the original dataframe. That's what happens behind the scenes if you use the built-in `.get_group()` method.
+Notice the structure of the dict above. What if you wanted to return the movies in a certain group as their own independent dataframe? You'd access the dict key to obtain the group of index labels. You'd then use this group of index labels to filter out your desired rows from the original dataframe. That's what happens behind the scenes if you use the built-in `GroupBy.get_group()` method.
 
 ```python
 argentina = gb.get_group('Argentina')
@@ -187,10 +148,10 @@ The reason we broke the dataframe into groups was to apply some function or calc
 
 We just saw above how to manually get each group as its own dataframe. If we wanted, we could manually calculate the average Runtime for each Country's movies.
 
-Here's the average movie runtime for Argentina's movies:
+Here's the result for Argentina's movies:
 
 ```python
-gb.get_group('Argentina')['Runtime'].mean()
+avg_runtime_argentina = gb.get_group('Argentina')['Runtime'].mean()
 ```
 
 **3. Combine**: 
@@ -200,34 +161,32 @@ Finally, we would combine those results into a Series summarizing the Average Mo
 ```python
 results = {}
 
-for name, group in avg_country_runtimes.groupby('Country'):
+for name, group in movies.groupby('Country'):
     x = group['Runtime'].mean()
     results.update({name: x})
 
 
-proof = pd.Series(data=results, name='Average Movie Runtime')
-proof
+avg_runtime_by_country = pd.Series(data=results, name='Average Movie Runtime')
+avg_runtime_by_country
 ```
 
-Groupby objects eliminate the need to do this manually. If we put the whole groupby statement together, it will do all of these steps for us at once:
+GroupBy objects eliminate the need to do this manually. If we put the whole groupby statement together, it will do all of these steps for us at once:
 
 *Notice that, by default, the data is sorted on the group names.*
 
 ```python
-avg_country_runtimes = avg_country_runtimes.groupby('Country')['Runtime'].mean()
-avg_country_runtimes
+movies.groupby('Country')['Runtime'].mean()
 ```
 
+### Two More Groupby Examples
 
->>### Two More Groupby Examples
-
->>* For each year of the 1980s, what was the genre distribution of movies made (in percentages)?
+* For each year of the 1980s, what was the genre distribution of movies made (in percentages)?
 
 ```python
 movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
 ```
 
->>* Within a random sample of 100 movies, how many movies were made in each Country?
+* Within a random sample of 100 movies, how many movies were made in each Country?
 
 ```python
 sample100 = movies.sample(100)
@@ -237,7 +196,7 @@ sample100.groupby('Country')['Year'].value_counts()
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
 
->>EXERCISES TBD
+Test your comprehension in the "GroupBy" section in your copy of `eda1_psets.ipynb` in Google Drive.
 
 ## Functions Featured
 
@@ -256,9 +215,3 @@ sample100.groupby('Country')['Year'].value_counts()
 * **`df.groupby(by=None, sort=True)`** -- return a `Groupby object`
 * **`gb.groups`** -- from a GroupBy object, returns the group names and a collection of each group's elements 
 * **`gb.get_group(<group_name>)`** -- returns the elements of a specific group in a GroupBy object as a new dataframe object
-
-
-
-
-
-
