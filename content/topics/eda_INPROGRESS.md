@@ -98,20 +98,95 @@ movie_actors = movie_actors.explode('Actor', ignore_index=True)
 movies.drop(columns=['Genre', 'Language', 'Country', 'Actor'], inplace=True)
 ```
 
-## Join/Merge
+## Summary & Descriptive Statistics
+
+We'll start by defining some basic stats terms. When speaking about data, a **population** encompasses the *entire* set of items you're interested in, while a **sample** consists of a subset of those items. This is analagous to the difference between all the movies ever made (population) and the movies in our OMDb dataset (sample). Obtaining data on complete populations usually isn't feasible, so most statistical analyses are based on samples.
+
+The heart of every quantitative analysis lies in the data's **descriptive statistics.** Descriptive statistics briefly summarize the data to help understand its makeup and organization.
+
+## Describing Data in Pandas
+
+In a Pandas dataframe, each row represents an item in your sample space, and each column is a variable representing some numerical or categorical characteristic of the items. Thus, each column will have its own set of descriptive statistics. Below is a quick overview of Pandas Series methods that return basic descriptive statistics for each column, or variable...
+
+* **`.describe(include=np.object)`** -- returns count, mean, standard deviation, min, max, & IQR (interquartile range)
+    * *only includes numerical columns by default*
+
+^^ We'll define most of these individually below in the context of some of the OMDb variables!
+
+### Averages
+
+* **`s.mean()`** -- the simple average; 
+    * *Downside is that it's greatly affected by outliers in the data!*
+* **`s.median()`** -- in a lineup of ordinal data, the median is the middle number or category
+* **`s.mode()`** -- the number or category that occurs most often in the dataset
+    * Notice that even if this only returns one value, it returns a Series object
 
 ```python
+imdb_ratings = movies['imdbRating']
 
+mean_imdb = imdb_ratings.mean()
+median_imdb = imdb_ratings.median()
+mode_imdb = imdb_ratings.mode()
+
+print(f'''
+MEAN: {mean_imdb}, 
+type = {type(mean_imdb)}
+
+MEDIAN: {median_imdb}, 
+type = {type(median_imdb)}''')
+
+print(f'''
+MODE: {mode_imdb}, 
+type = {type(mode_imdb)}''')
 ```
 
+### Ranges
 
+* **`s.min()`** -- minimum; smallest value in the variable's data
+* **`s.max()`** -- maximum; largest value in the variable's data
+* *range* -- max value minus the min value
+* **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1
+
+Most often, people speak of "quartiles" which divide the data into 4 equal parts, each containing 25% of the data. As you can see below, the 2nd quartile is always the median.
+
+<img src="https://github.com/mottaquikarim/pycontent/blob/master/content/images/quartiles.png?raw=true" style="margin: 0 auto;"/>
+
+People use the **IQR (Interquartile Range)** to describe the middle two quartiles of data. You calculate by taking the difference between the 3rd quartile and the 1st quartile. It's more useful than the regular range *because it excludes outliers*, which can skew your analysis.
+
+Examine how quartiles overlap with other key statistical measures within the context of the `imdbRating` variable:
 
 ```python
-
+imdbRating_quantiles = movies['imdbRating'].quantile(q=[0, 0.25, 0.5, 0.75, 1])
+imdbRating_quantiles
 ```
 
+Here we construct a dataframe to label these values contextually:
 
+```python
+imdb_quartiles = pd.DataFrame(index=['Min', '1st Quartile', '2nd Quartile (aka Median)', '3rd Quartile', 'Max'])
+imdb_quartiles['Quantile'] = imdbRating_quantiles.index.values
+imdb_quartiles['Value per imdbRating'] = imdbRating_quantiles.values
+imdb_quartiles
+```
 
+Finally, we calculate the IQR:
+
+```python
+imdb_iqr = imdb_ratings.quantile(0.75) - imdb_ratings.quantile(0.25)
+print(f'imdbRating IQR = {imdb_iqr}')
+```
+
+### Relative Frequency
+
+We already know about using `s.value_counts()` to obtain a count of each unique value within a Series object, but did you know that we can also get percentages from it? This method has a parameter called `normalize`, which is set to `False` by default. However, when you set it to `True`...
+
+**`s.value_counts(normalize=True)`** -- returns percentages that represent each unique value's relative frequency within the data
+
+Take a look at the percentage of movies made by each of the top 10 directors
+
+```python
+movies['Director'].value_counts(normalize=True).nlargest(10)
+```
 
 
 
