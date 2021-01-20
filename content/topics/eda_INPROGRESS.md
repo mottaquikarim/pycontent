@@ -64,7 +64,7 @@ movie_genres['Genre'] = movie_genres['Genre'].str.split(', ')
 movie_genres.head()
 ```
 
-3. Use the `.explode()` function, setting `ignore_index=True`.
+3. Pass 'Genre' to the `.explode()` function, and set `ignore_index=True` so that the index gets reset.
 
 ```python
 # 3.
@@ -78,10 +78,27 @@ Take note of the movie IDs and see how their data got spread out after we applie
 Next, we'll repeat this for `Languages`, `Countries`, and `Actors`. Afterwards, we'll drop all the columns we exploded from the main dataframe to keep it uncluttered.
 
 ```python
+# Languages
+movie_languages = movies['Language'].copy().reset_index()
+movie_languages['Language'] = movie_languages['Language'].str.split(', ')
+movie_languages = movie_languages.explode('Language', ignore_index=True)
 
+# Countries
+movie_countries = movies['Country'].copy().reset_index()
+movie_countries['Country'] = movie_countries['Country'].str.split(', ')
+movie_countries = movie_countries.explode('Country', ignore_index=True)
+
+# Actors
+movies.rename(mapper={'Actors': 'Actor'}, axis=1, inplace=True)
+movie_actors = movies['Actor'].copy().reset_index()
+movie_actors['Actor'] = movie_actors['Actor'].str.split(', ')
+movie_actors = movie_actors.explode('Actor', ignore_index=True)
+
+# Drop cols
+movies.drop(columns=['Genre', 'Language', 'Country', 'Actor'], inplace=True)
 ```
 
-
+## Join/Merge
 
 ```python
 
