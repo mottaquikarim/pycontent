@@ -11,12 +11,10 @@ print('import successful')
 Load the data with `imdbID` as the index and make a copy.
 
 ```python
-omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_eda.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
-
-**For simplicity's sake**, we edited the Genre, Language, and Country columns such that each movie only has one value for each. **This compromises the statistical integrity, but our analysis is only for learning the code. No one's making investment decisions off this info!**
 
 ## Summary & Descriptive Statistics
 
@@ -116,6 +114,16 @@ Discover other interesting descriptive statistics in the "Basic Stats" section i
 
 In Pandas, groupby statements are similar to pivot tables in that they allow us to segment our population to a specific subset. For example, if we want to know the average movie length by country of production, a groupby statement would make this task much more straightforward. To understand how a groupby statement works, we'll break it down.
 
+First, we have to explode the `Country` column and select the specific data we want:
+
+```python
+avg_country_runtime = movies[['Country', 'Runtime', 'Title']].copy().reset_index()
+avg_country_runtime['Country'] = avg_country_runtime['Country'].str.split(', ').explode('Country')
+avg_country_runtime = avg_country_runtime.explode('Country')
+
+avg_country_runtime
+```
+
 ### Breaking Down GroupBy Statements
 
 **1. Split**:
@@ -125,7 +133,7 @@ In Pandas, groupby statements are similar to pivot tables in that they allow us 
 First, use `.groupby()` to separate our dataframe into groups by a specific attribute. The resultant GroupBy object can be thought of as a **collection of groups.** 
 
 ```python
-gb = movies.groupby('Country')
+gb = avg_country_runtime.groupby('Country')
 gb
 ```
 
@@ -161,7 +169,7 @@ Finally, we would combine those results into a Series summarizing the Average Mo
 ```python
 results = {}
 
-for name, group in movies.groupby('Country'):
+for name, group in avg_country_runtime.groupby('Country'):
     x = group['Runtime'].mean()
     results.update({name: x})
 
@@ -175,23 +183,7 @@ GroupBy objects eliminate the need to do this manually. If we put the whole grou
 *Notice that, by default, the data is sorted on the group names.*
 
 ```python
-movies.groupby('Country')['Runtime'].mean()
-```
-
-### Two More Groupby Examples
-
-* For each year of the 1980s, what was the genre distribution of movies made (in percentages)?
-
-```python
-movies[movies['Year'].between(1980, 1989)].groupby('Year')['Genre'].value_counts(normalize=True)
-```
-
-* Within a random sample of 100 movies, how many movies were made in each Country?
-
-```python
-sample100 = movies.sample(100)
-
-sample100.groupby('Country')['Year'].value_counts()
+avg_country_runtime.groupby('Country')['Runtime'].mean()
 ```
 
 ### 🏋️‍♀️ **EXERCISES** 🏋️‍♀️ 
