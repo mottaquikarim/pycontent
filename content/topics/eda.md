@@ -203,7 +203,7 @@ Test your comprehension in the "GroupBy" section in your copy of `eda1_psets.ipy
 * *range* -- max value minus the min value
 * **`s.quantile(q=0.5)`** -- return value at the given quantile q, where 0 <= q <= 1
 * *IQR (Interquartile Range)* -- (3rd quartile minus 1st quartile)
-* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
+* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if `normalize=True`, relative frequencies -- of unique values
 * **`df.groupby(by=None, sort=True)`** -- return a `Groupby object`
 * **`gb.groups`** -- from a GroupBy object, returns the group names and a collection of each group's elements 
 * **`gb.get_group(<group_name>)`** -- returns the elements of a specific group in a GroupBy object as a new dataframe object
