@@ -1,4 +1,4 @@
-# Pandas Cheat Sheet - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
+# Pandas Cheat Sheet
 
 <img src="https://news.nationalgeographic.com/content/dam/news/2015/12/15/pandas/01pandainsemination.ngsversion.1450209600474.adapt.1900.1.jpg" style="margin: 0 auto; width: 50%; float: right;"/>
 
@@ -125,10 +125,19 @@
     * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
     * `**kwds` : any keyword args to pass to `func`
 
+## Transforming Data
+
+* **`df.groupby(by=None, sort=True)`** -- return a `Groupby object`
+* **`gb.groups`** -- from a GroupBy object, returns the group names and a collection of each group's elements 
+* **`gb.get_group(<group_name>)`** -- returns the elements of a specific group in a GroupBy object as a new dataframe object
+* **`df.explode(column, ignore_index=False)`**: split list-like rows into individual values, replicating indices
+
 ## Statistics
 
 * **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); *only includes numerical columns by default*
-* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if normalize=True, relative frequencies -- of unique values
+* **`df.sample(frac = 0.5)`** - randomly select a fraction of rows of a DataFrame
+* **`df.sample(n=10)`** - randomly select n rows of a DataFrame
+* **`s.value_counts(normalize=False, sort=True, ascending=False, dropna=True)`** -- return a Series containing counts -- or, if `normalize=True`, relative frequencies -- of unique values
 * **`s.mean()`** -- mean
 * **`s.median()`** -- median
 * **`s.min()`** -- minimum
@@ -144,8 +153,6 @@
 * **`s.cov()`** -- covariance
 * **`s.corr()`** -- Pearson Correlation coefficent
 * **`s.autocorr()`** -- autocorelation
-* **`df.sample(frac = 0.5)`** - randomly select a fraction of rows of a DataFrame
-* **`df.sample(n=10)`** - randomly select n rows of a DataFrame
 * **`s.cumsum()`** -- cummulative sum
 * **`s.comprod()`** -- cumulative product
 * **`s.cummin()`** -- cumulative minimum
