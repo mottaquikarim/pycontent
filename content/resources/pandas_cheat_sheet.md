@@ -1,6 +1,6 @@
 # Pandas Cheat Sheet - 👷‍♀️🚧 UNDER CONSTRUCTION 🚧👷‍♀️
 
-<img src="https://news.nationalgeographic.com/content/dam/news/2015/12/15/pandas/01pandainsemination.ngsversion.1450209600474.adapt.1900.1.jpg" style="margin: 0 auto; width: 50%; display: block;"/>
+<img src="https://news.nationalgeographic.com/content/dam/news/2015/12/15/pandas/01pandainsemination.ngsversion.1450209600474.adapt.1900.1.jpg" style="margin: 0 auto; width: 50%; float: right;"/>
 
 ## Reading & Writing Data
 
@@ -73,8 +73,8 @@
 * **`s.isunique`** -- returns boolean for whether Series values are unique
 * **`.count()`**
 * **`.sum()`**
-* **`.unique()`**
-* **`.nunique()`**
+* **`.unique()`** -- returns all unique values
+* **`.nunique()`** -- returns a count of the unique values
 
 ### Typecasting
 
@@ -125,7 +125,6 @@
     * `args` : tuple of *positional* args to pass to `func` *in addition to the array/series*
     * `**kwds` : any keyword args to pass to `func`
 
-
 ## Statistics
 
 * **`.describe(include=np.object)`** -- return count, mean, standard deviation, min, max, & interquartile range (IQR); *only includes numerical columns by default*
@@ -151,4 +150,35 @@
 * **`s.comprod()`** -- cumulative product
 * **`s.cummin()`** -- cumulative minimum
 
+## Data Viz
+
+**Histogram**
+
+* Purpose: Illustrate the frequency distribution of a numerical variable
+* Pandas: `<series>.plot(kind='hist', bins=None)`
+* Seaborn: `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+
+**Box-and-Whiskers Plot**
+
+* Purpose: Highlight the variability in a distribution
+* Pandas: `<series>.plot(kind='box')`
+* Seaborn: `sns.boxplot(x, y, hue=None, data=None, orient=None, color=None, ax=None)`
+
+**Bar Chart**
+
+* Purpose: Show a numerical comparison across different categories
+* Pandas: `<series>.plot(kind='bar')`
+* Seaborn: `sns.barplot(x, y, hue=None, data=None, estimator=np.mean, ci=95, orient=None, color=None, palette=None, ax=None)`
+
+**Line Graph**
+
+* Purpose: Show the trend of a numerical variable over time
+* Pandas: `<series>.plot()`
+* Seaborn: `sns.lineplot(x, y, hue=None, data=None, palette=None, markers=None, estimator=np.mean, ci=95, ax=None)`
+
+**Scatterplot**
+
+* Purpose: Compare the relationship between two numerical variables
+* Pandas: `<series>.plot.scatter(x, y)`
+* Seaborn: `sns.scatterplot(x, y, hue=None, data=None, estimator=None, ci=95, ax=None)`
 
