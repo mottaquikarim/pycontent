@@ -174,7 +174,7 @@ These are the default arguments for the most commonly used parameters in this fu
 
 * `sns.set(context='notebook', style='darkgrid', palette='deep', font='sans-serif', font_scale=1, color_codes=True, rc=None)`
 
-Below, we apply a mix of styles that will suit the visualizations in this lesson.
+Below, we apply and preview a mix of styles that will suit the visualizations in the **next** lesson.
 
 ```python
 sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, 

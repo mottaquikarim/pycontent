@@ -10,14 +10,38 @@ In this lesson, we'll review example code for common plots using Pandas, Seaborn
 * Line Graphs
 * Scatterplots
 
-## Load OMDb Data
+## Environment Preparation
 
-Finally, let's load our movies data with `imdbID` as the index so that we can go through some coded examples.
+Import libraries...
+
+```python
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+print('import successful')
+```
+
+Load the data...
 
 ```python
 omdb_orig = pd.read_csv('', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
+```
+
+Customize styles...
+
+Below, we apply a mix of styles that will suit the visualizations in this lesson.
+
+```python
+sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, 
+	rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
+
+sinplot()
 ```
 
 ## Histograms
