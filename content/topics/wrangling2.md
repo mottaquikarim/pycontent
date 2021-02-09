@@ -526,7 +526,7 @@ movie_genres.head(10)
 Now we can do things like finally see what all the unique genres are:
 
 ```python
-movie_genres.unique('Genres')
+movie_genres['Genres'].unique()
 ```
 
 ### Practice
