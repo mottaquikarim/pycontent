@@ -309,7 +309,7 @@ You can also implement `.apply()` as dataframe method. In this context, `.apply(
 
 Of course, the `axis` parameter is what determines whether your function is row-wise or column-wise. However, it's a little counter-intuitive. We know that `axis 0` refers to rows and `axis 1` refers to columns, but in the context of `df.apply()`:
 
-* If `axis=0`, the objects passed to `func` will be *a Series containing the dataframe's COLUMNS*. The changes will be made to each value (i.e. column) in the set of columns.
+* If `axis=0`, the objects passed to `func` will be *a Series containing the dataframe's COLUMNS*. The changes will be made to each value (i.e. row) in the set of columns.
 * If `axis=1`, the objects passed to `func` will be *a Series containing the dataframe's ROWS*. The changes will be made to each value (i.e. column) in the set of rows.
 
 ### Languages
