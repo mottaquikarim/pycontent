@@ -38,7 +38,10 @@ Customize styles...
 Below, we apply a mix of styles that will suit the visualizations in this lesson.
 
 ```python
-sns.set(context='notebook', style='ticks', palette=cpal, font_scale=1.2, 
+color_pal = ['dodgerblue', '#2ecc71', '#bb64ed', '#ffd13b', 'xkcd:tangerine', '#fa62b7']
+
+
+sns.set(context='notebook', style='ticks', palette=color_pal, font_scale=1.2, 
 	rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
 
 sinplot()
