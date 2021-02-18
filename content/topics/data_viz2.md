@@ -85,23 +85,23 @@ plt.show()
 
 ### Seaborn
 
-* `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+* `sns.histplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
 Histograms get a little more complicated with Seaborn. In general, you simply pass the series whose distribution you want to plot to the `a` parameters. Again, Seaborn will attempt to calculate the ideal number of bins. 
 
 **The key difference here is in the `kde=True`, or kernel density estimate, parameter.** Since this class does not require any background in statistics, it's best to make sure you always set `kde=False`. This is because the kernel density estimate plots a different kind of histogram over your regular histogram. Rather than the usual frequency distribution, it estimates and plots a probably density function for your distribution. (Learn more [here](https://realpython.com/python-histograms/#plotting-a-kernel-density-estimate-kde) if desired.)
 
-Using the `Runtime` variable, we'll plot side-by-side histograms with and without `kde` both visualizing the distribution of `Runtime` of the same distribution. Like many other Seaborn functions, `sns.distplot()` has an `ax` parameter. This allows you to pass a specific axes object where you want your plot to appear. To gain access to each individual axes object, we have to unpack them into their own variables.
+Using the `Runtime` variable, we'll plot side-by-side histograms with and without `kde` both visualizing the distribution of `Runtime` of the same distribution. Like many other Seaborn functions, `sns.histplot()` has an `ax` parameter. This allows you to pass a specific axes object where you want your plot to appear. To gain access to each individual axes object, we have to unpack them into their own variables.
 
 ```python
 # Create a 1x2 grid and unpack the axes
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
 
 # On ax1, plot both a frequency histogram AND a kde
-sns.distplot(movies['imdbRating'], ax=ax1)
+sns.histplot(movies['imdbRating'], ax=ax1)
 
 # On ax2, plot a regular frequency histogram WITHOUT a kde
-sns.distplot(movies['imdbRating'], kde=False, ax=ax2)
+sns.histplot(movies['imdbRating'], kde=False, ax=ax2)
 
 plt.show()
 ```
@@ -116,10 +116,10 @@ fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
 fig.suptitle('Frequency Distributions for IMDb Rating and Rotten Tomatoes')
 
 # On ax1, plot frequency distribution of audience ratings
-sns.distplot(movies['imdbRating'], kde=False, ax=ax1)
+sns.histplot(movies['imdbRating'], kde=False, ax=ax1)
 
 # On ax2, plot frequency distribution of critic ratings in a different color.
-sns.distplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
+sns.histplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
 
 plt.show()
 ```
@@ -168,7 +168,7 @@ fig.suptitle('Distribution of Movie Runtimes')
 sns.boxplot(x='Runtime', data=movies, ax=ax1)
 
 # On ax2, create a histogram for Runtime
-sns.distplot(movies['Runtime'], kde=False, ax=ax2)
+sns.histplot(movies['Runtime'], kde=False, ax=ax2)
 
 plt.show()
 ```
@@ -552,7 +552,7 @@ Looking at this side-by-side, we can infer that higher-rated movies tend to get 
 
 * Purpose: Illustrate the frequency distribution of a numerical variable
 * Pandas: `<series>.plot(kind='hist', bins=None)`
-* Seaborn: `sns.distplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+* Seaborn: `sns.histplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
 
 **Box-and-Whiskers Plot**
 
