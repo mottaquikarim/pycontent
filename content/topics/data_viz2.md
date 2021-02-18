@@ -28,7 +28,7 @@ print('import successful')
 Load the data...
 
 ```python
-omdb_orig = pd.read_csv('', index_col='imdbID')
+omdb_orig = pd.read_csv('https://raw.githubusercontent.com/mottaquikarim/pycontent/master/content/raw_data/omdb4500_clean_simple.csv', index_col='imdbID')
 movies = omdb_orig.copy()
 print('data loaded successfully')
 ```
@@ -43,8 +43,6 @@ color_pal = ['dodgerblue', '#2ecc71', '#bb64ed', '#ffd13b', 'xkcd:tangerine', '#
 
 sns.set(context='notebook', style='ticks', palette=color_pal, font_scale=1.2, 
 	rc={'lines.linewidth': 1.75, 'figure.figsize': (9, 6)})
-
-sinplot()
 ```
 
 ## Histograms
