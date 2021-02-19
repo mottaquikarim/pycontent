@@ -85,28 +85,16 @@ plt.show()
 
 ### Seaborn
 
-* `sns.histplot(a, bins=None, hist=True, kde=True, color=None, ax=None)`
+Basic histograms are just as easy with Seaborn's `sns.histplot()`, although there's room to get a little fancier with them. In this course, we won't discuss other types of distributions. For those with more statistical background, you can explore further [here](https://seaborn.pydata.org/tutorial/distributions.html#tutorial-hist).
 
-Histograms get a little more complicated with Seaborn. In general, you simply pass the series whose distribution you want to plot to the `a` parameters. Again, Seaborn will attempt to calculate the ideal number of bins. 
+* `sns.histplot(data, bins='auto', color=None, ax=None)`
 
-**The key difference here is in the `kde=True`, or kernel density estimate, parameter.** Since this class does not require any background in statistics, it's best to make sure you always set `kde=False`. This is because the kernel density estimate plots a different kind of histogram over your regular histogram. Rather than the usual frequency distribution, it estimates and plots a probably density function for your distribution. (Learn more [here](https://realpython.com/python-histograms/#plotting-a-kernel-density-estimate-kde) if desired.)
+For our purposes, simply pass a Series object to the `data` parameter in order to visualize the distribution of a variable. Seaborn will attempt to calculate the ideal number of bins, though you can pass a specific number to the `bins` parameter if you want.
 
-Using the `Runtime` variable, we'll plot side-by-side histograms with and without `kde` both visualizing the distribution of `Runtime` of the same distribution. Like many other Seaborn functions, `sns.histplot()` has an `ax` parameter. This allows you to pass a specific axes object where you want your plot to appear. To gain access to each individual axes object, we have to unpack them into their own variables.
+Let's plot the distributions of `imdbRating` and `Rotten Tomatoes` score side by side...
 
-```python
-# Create a 1x2 grid and unpack the axes
-fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
-
-# On ax1, plot both a frequency histogram AND a kde
-sns.histplot(movies['imdbRating'], ax=ax1)
-
-# On ax2, plot a regular frequency histogram WITHOUT a kde
-sns.histplot(movies['imdbRating'], kde=False, ax=ax2)
-
-plt.show()
-```
-
-Let's walk through another example, where we compare the distributions of audience vs. critic ratings side-by-side. For the second histogram, we'll pass in a different color to differentiate the variables. Otherwise, each plot would independently pull from the color palette we set earlier.
+* Like many other Seaborn functions, `sns.histplot()` has an `ax` parameter. This allows you to pass a specific axes object where you want your plot to appear. To gain access to each individual axes object, we have to unpack them into their own variables.
+* For the second histogram, we'll pass in a different color to differentiate the variables. Otherwise, each plot would independently pull from the color palette we set earlier.
 
 ```python
 # Create a 1x2 grid and unpack the axes
@@ -116,10 +104,10 @@ fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15, 5))
 fig.suptitle('Frequency Distributions for IMDb Rating and Rotten Tomatoes')
 
 # On ax1, plot frequency distribution of audience ratings
-sns.histplot(movies['imdbRating'], kde=False, ax=ax1)
+sns.histplot(movies['imdbRating'], ax=ax1)
 
 # On ax2, plot frequency distribution of critic ratings in a different color.
-sns.histplot(movies['Rotten Tomatoes'], color='#2ecc71', kde=False, ax=ax2)
+sns.histplot(movies['Rotten Tomatoes'], color='#2ecc71', ax=ax2)
 
 plt.show()
 ```
@@ -168,7 +156,7 @@ fig.suptitle('Distribution of Movie Runtimes')
 sns.boxplot(x='Runtime', data=movies, ax=ax1)
 
 # On ax2, create a histogram for Runtime
-sns.histplot(movies['Runtime'], kde=False, ax=ax2)
+sns.histplot(movies['Runtime'], ax=ax2)
 
 plt.show()
 ```
