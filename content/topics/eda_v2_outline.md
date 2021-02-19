@@ -11,6 +11,13 @@
 * groupby
 	* `.agg()`
 
+>>* kde + Seaborn histograms
+	>>* https://realpython.com/python-histograms/#plotting-a-kernel-density-estimate-kde
+	>>* https://seaborn.pydata.org/generated/seaborn.histplot.html
+
+`sns.histplot(data, x=None, y=None, bins='auto', stat...................... , color=None, ax=None)`
+
+the **kernel density estimate** plots a different kind of histogram over your regular histogram. Rather than the usual frequency distribution, it estimates and plots a probably density function for your distribution. (Learn more [here](https://realpython.com/python-histograms/#plotting-a-kernel-density-estimate-kde) if desired.)
 
 >>* basic stats concepts
 	>>* qualities of variables (randomness & independence)
